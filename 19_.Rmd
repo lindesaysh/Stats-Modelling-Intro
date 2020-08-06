@@ -1,0 +1,245 @@
+# The Next Steps {#nextsteps}
+
+```{r, echo=F, eval=T, warning=F, message=F, suppress.message=T}
+  #load libraries and data
+  library (car);library (stats)
+  library(ggplot2, quietly=T)
+  library(tidyr, quietly=T)
+  library(dplyr, quietly=T)
+  library (gridExtra, quietly=T)
+  EIAData<- read.csv("data/EIA_dataset_for_lectures_V1.0.csv", header=T)
+  
+  # filter out near-shore data for our current purposes
+  workingData<- EIAData%>%filter(DistCoast>100)
+meddata<- read.csv("data/medical_dataset_for_R_lectures_v1.0.csv")
+  options(digits=7)
+  
+```
+
+```{r echo=F, warning=F, suppress=T}
+library(ggExtra)
+library(ggplot2)
+
+wfdata <- read.csv("data/EIA_dataset_for_lectures_V1.0.csv", header=T)
+```
+
+
+```{r echo=FALSE, eval=T}
+# NOT SHOWN TO STUDENTS
+meddata<- meddata[which(is.na(meddata$vitdresul)==FALSE),]
+meddata<- meddata[which(meddata$folate<200),]
+# removing the irritating whitespaces in the character columns;
+meddata$vitdc<-as.factor(gsub(" ", "", meddata$vitdc, fixed = TRUE))
+meddata$vitbc<-as.factor(gsub(" ", "", meddata$vitbc, fixed = TRUE))
+meddata$teonpres<-ifelse(test = meddata$TEON=='Yes', 1, 0)
+agecat<-ifelse(meddata$age<median(meddata$age), 'Young', 'Old')
+meddata$ageTEON<-as.factor(paste(meddata$TEON, agecat, sep=''))
+```
+
+## Introduction {#INTnext}
+
+It cannot be stressed enough that if the assumptions of a statistical model, or indeed a statistical test, are not met, then any conclusions drawn from that model/test may be erroneous. This is the case for both the simple and more complex models presented in this module. If the assumptions are not met there may be adjustments, alternative tests or more advanced statistical methods that can be implemented. Here; we explore some simple ways to overcome such problems with distributional assumptions as well as introduce some advanced methods that may be available. 
+
+## Solving the assumptional problems
+
+Previous chapters have described model diagnostics to check the model assumptions, and so, armed with this information, we can revisit,  our conclusions about what influences density in the EIA data set for example, and evaluate the model in terms of the assumptions. However, what happens if assumptions (for any linear model) are not met? While this is a cause for concern, there are various approaches that can be adopted in these circumstances. 
+
+### Example: The EIA data
+
+At this point it appears from previous chapters there are no differences in the average density across the three development phases but some evidence for differences in the easting (X-coordinate) relationship across phases. 
+
+While this may be indicative of the true situation, in practise we need to do more to be able to answer our research questions. Although our model appears to fit the data adequately ($R^2$-wise), our model returns impossible predictions (negative density estimates) and the assumptions appear to be violated. More specifically the problems are:
+
+* The model for signal is likely a little simple:
+  + The variables `X` and `Y` are spatial co-ordinates and using simple lines to describe them may not be adequate to capture all the pattern in density.
+  
+* The model for noise is wrong:
+     + The residuals are not normal in shape (with the implied constant variance).
+* The estimated errors don't appear independent (not surprisingly because density was measured at locations along lines and density at locations which are close together may be similar).
+
+Therefore, the conclusions from the model are unsafe and cannot be relied upon. This is a very common situation in practise. 
+
+What can be done? 
+  
+### Oddly distributed residuals
+
+One important assumption of the linear models discussed so far is that the residuals are normally distributed with the same variance i.e. $\epsilon_i \sim N(0, \sigma^2)$; this assumption is not always met in practise. If the residuals are not normally distributed, then various options are available to account for this:
+* the dependent data (response) can be transformed (e.g. by taking the logarithm or square root) to address the distributional shape problems. This is effective but the consequence is that:
+    + the geometric mean is modelled rather than the arithmetic mean if for example a log transformation is used, 
+    + interactions found in the untransformed data may disappear (this may not be a problem, a multiplicative relationship has just become a additive one).
+    
+*  _Generalised_ linear models (GLMs) allow different shaped distributions for noise. These models are covered in another course.
+
+* Generalised Least Squares (GLS) methods can help with non-constant variance. These methods are also covered in another module.
+
+* A bootstrap can be used to obtain approximate measures of uncertainty that do not rely on the distributional assumptions (see below).  
+
+### Non-independence
+
+We have four options if the data are not independent. We can:
+
++ ignore the correlation in the residuals (easy but unwise).
++ investigate other key variables that can account for the dependence.
++ try to remove the correlation in model residuals by sub-setting the data (for example, re-run analysis using every 20th observation; this reduces the sample size and wastes information)
++  account for the correlation using, for example, a Generalized Least Squares (GLS)  or Generalized Estimating Equation (GEE) model - this is another course.
+
+
+
+### Non-linearity
+
+If a straight line is not appropriate then we can use:
+
+* more complex linear models (i.e. more variables), 
+* non-linear (in the everyday sense) functions (i.e. Generalised Additive Models GAMs) or 
+* many other predictive modelling tools, if you only care about prediction (rather than explanation/description) of the response. 
+
+### Bootstrapping
+
+The bootstrap has been described previously. You can think of it as simulating more samples, but using our data as a basis for determining uncertainty. In general, the bootstrap procedure consists of:
+
++ generating a new data set of the same dimensions, by sampling the rows of our original data _with replacement_ (a non-parametric bootstrap),
+* we do this many times and fit models each time, storing the estimates of the statistic of interest.
+* This shows roughly how much things might change if we were to have another sample.
+* The collective set of estimates provides a distribution of estimates, from which we infer/generate confidence intervals for the parameters.
+
+Here we implement an example of bootstrapping a simple linear regression model to obtain an approximate confidence interval for the regression coefficients (i.e. the intercept and slope). Suppose that we have fitted a simple linear regression model and we are reasonably happy that a simple linear model is appropriate (i.e. the model for the signal is suitable) and the independence assumption is valid. However, diagnostic plots indicate that the residuals are not normally distributed. We would like to interpret the parameter estimates - in particular with consideration to the uncertainty (e.g. confidence intervals) and the conventional CI may be incorrect if the distributional assumptions are violated. 
+
+As indicated, the general bootstrap procedure is:
+
+1. Sample the data, with replacement, to give an equivalently dimensioned data set
+2. Fit the linear model to this new 'bootstrap' sample - store the parameter estimates
+3. Repeat this process many times (e.g. at least 1000 times) 
+4. Take, say, the central 95\% of these estimates as an approximate 95\% confidence interval\footnote{This is the quantile/percentile method}
+
+The advantage of a bootstrap is that if the residual distribution is very skewed, then you'll naturally get skewed 95\% CIs which are more appropriate.
+
+__Example__ In the code below a simple linear regression model is fitted to the EIA data with `depth` as the response and `DistCoast` as the explanatory variable. A bootstrap procedure is then implemented to obtain CI for the regression coefficients. For ease of producing the plots, the process was repeated only a 100 times, but properly it should be at least 1000.
+
+\small
+```{r, echo=T, eval=T, fig.cap='Bootstrap replicate best fit curves'}
+library(dplyr)
+
+# Create an object to store results
+bootCoefs<- array(dim = c(100, 2))
+
+# Select only necessary columns
+workingDataorig <- wfdata %>% select(DistCoast, depth) %>%
+  filter(DistCoast>300)
+
+# Fit model to original data
+model1 <- lm (depth ~ DistCoast, data=workingDataorig)
+
+# Start bootstrap loop
+for (i in 1:100) {
+  # Select a random subset (to make computations tractable for example)
+  workingData <- workingDataorig[sample(1:nrow(workingDataorig), 200),]
+  # Generate bootstrap sample of row numbers
+  bootIndex <- sample(1:nrow(workingData), nrow(workingData), replace=T)
+  # Select data based on sample of row numbers
+  bootData <- workingData[bootIndex, ]  
+  # Fit linear model
+  bootLM <- lm(depth ~ DistCoast, data=bootData)
+  # Store coefficients
+  bootCoefs[i,] <- coefficients(bootLM)
+}
+# Obtain 95% quantiles for the coefficients
+bootCI <- apply(bootCoefs, 2, quantile, probs = c(0.025, 0.975))
+# Add column names
+colnames(bootCI) <- c('Intercept', 'Slope')
+
+# Use these to define a colour with some transparancy (alpha)
+myCol <- rgb(160, 32, 240, alpha = 30, max=255)
+
+# Plot data and all bootstrap regression lines
+plot(workingData$DistCoast, workingData$depth, cex=1.5, xlab='Distance from coast', ylab = "depth", 
+       bg = 'orange', pch = 21,
+       main = '', sub = '')
+# Original regression line
+abline (model1, lwd=2)
+# add bootstrap regression lines
+apply(bootCoefs, 1, abline, col = myCol, lwd=1.5)
+```
+
+\normalsize
+
+From the bootstrap we can get approximate 95\% CIs from the central 95\% of parameter estimates.Not that the CIs obtained here are for the parameters NOT for the predictions (see Chapter \@ref{prediction} for that). 
+
+```{r}
+bootCI
+```
+
+The conventional 95\% CI (i.e. based on the distributional assumptions of the linear model) are:
+
+```{r, echo=T}
+# Fit a simple linear model
+model1 <- lm(depth ~ DistCoast, data=workingData)
+confint(model1)
+```
+
+Note that these are estimates of the parameters for the whole dataset.  
+
+__Example__ The bootstrap procedure is applied to the medical data set where vitamin D level is the response and folate is used as an explanatory variable in a simple linear regression model.
+
+```{r}
+# Fit simple linear regression model to all the data
+modelfolate <- lm(vitdresul ~ folate, data=meddata) 
+
+# Create object to store results
+bootCoefs <- array(dim = c(100, 2))
+
+# Bootstrap loop
+for (i in 1:100) {
+  # Generate sample of rows
+  bootIndex <- sample(1:nrow(meddata), nrow(meddata), replace=T)
+  # Select data based on sample
+  bootData <- meddata[bootIndex, ] 
+  # Fit linear model
+  bootLM<- lm(vitdresul ~ folate, data=bootData)
+  # Save regression coefficients
+  bootCoefs[i,] <- coefficients(bootLM)
+}
+# Obtain 95% quantiles
+bootCI<- apply(bootCoefs, 2, quantile, probs = c(0.025, 0.975))
+# Add names
+colnames(bootCI) <- c('Intercept', 'Slope')
+# Print results
+bootCI
+
+```
+
+The bootstrapped regression lines are shown in Figure \@ref(fig:meddataboot). 
+
+```{r meddataboot, echo=F, fig.cap='Bootstrap confidence intervals for an analysis of the medical data set', dev='png' }
+
+plot(meddata$folate, meddata$vitdresul, cex=1.5, xlab='Folate', ylab = "Vit D", bg = 'orange', pch = 21, main = '', sub = '')
+apply(bootCoefs, 1, abline, col=2 , lwd=1.5, lty=2) 
+bootCI<- apply(bootCoefs, 2, quantile, probs = c(0.025, 0.975))
+```
+
+There is much that could be said about the bootstrap, but this goes beyond this course. Suffice it to say it can be _incredibly_ useful see Davison & Hinckley [ -@Davison1997].
+
+## Summary
+
+Diagnostic plots indicate whether the assumptions of the linear model are valid. If not, there are several solutions to violated linear model assumptions.
+
+* Non-normality can be tackled by bootstrapping, transformations, or alternative models beyond the level of this course
+  
+* Non-independence is a real problem - need alternative methods beyond this course.
+
+* More complex or better models for the signal - alternative models beyond this course.
+
+### Beyond the linear model
+
+As already hinted, linear models are part of a far wider class of models that can handle complex data in a regression framework. 
+
+As well as the model assumptions to check, there are other considerations to take account of. For example are your samples representative of the population under consideration i.e. does the result have *external validity*? Is the (experimental) design of data collection such that no biases could occur. This is far more difficult to ensure than might be thought. Aspects such as how statistical data should be presented in order to provide useful summaries? What is best practise? All this and more is considered in the module *Statistical Thinking*.
+
+### Learning outcomes
+
+At this end of this chapter you should be able to:
+
+1. use some methods to overcome assumption violations of the linear model, and
+2. recognise when methods beyond this course may be appropriate. 
+
+
+<!-- # Bibliography -->

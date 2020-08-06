@@ -1,0 +1,105 @@
+# Notation {-} {#notation}
+
+Throughout the course the following standard notation is used in order to express the ideas and concepts in a precise and concise mathematical representation. This section describes the notation which can be used as a reference as you work through the module. 
+
+## Summation 
+
+$$\sum_{i=1} ^{n} x_i = x_1 + x_2 + ... + x_n$$
+
+__Example__
+
+Suppose we have collected the ages of five primary school children and the ages are 5, 6, 7, 9 and 10. Let $x$ represent age, then the total age will be 
+
+$$ \sum_{i=1}^{n=5}x_i = 5 + 6 + 7 + 9 + 10 = 37$$
+__Usage__ 
+
+Occurs frequently in statistical expressions, such as the sample mean. 
+
+## Factorial
+
+$$n! = 1 \times 2 \times 3 \times ... \times n$$ 
+
+__Example__
+
+Suppose, we have a sample of five so that $n = 5$, thus 
+
+$$5! = 1 \times 2 \times 3 \times 4 \times 5 = 120 $$
+
+__Usage__
+
+This notation is used in the formula for calculating combinations of samples (see below).
+
+## Combinations
+
+$$\left(
+\begin{array}{c}
+n\\
+r
+\end{array}
+\right) - \frac{n!}{r!(n-r)!} $$
+
+__Usage__
+
+This notation is used when calculating the possible numbers of combinations and permutations of samples.
+
+## Integration
+
+$$\int_a^b f(x) dx $$
+
+This notation means integrate the function specified by $f(x)$ between the limits $a$ to $b$. 
+
+__Usage__
+
+Used to calculate the area under curves, for example in hypothesis testing to calculate $p$-values. 
+
+## Absolute values
+
+An absolute value, or modulus, is the non-negative value of a number $x$ without regard to its sign. It is denoted by $|x|$. For example $|5| = 5$ and $|-5| = 5$. 
+
+## $\pi$
+
+$\pi$ is a mathematical constant - the ratio of a circle's circumference to its diameter. It's value is `r format(pi, digits=6)`.
+
+## Exponential function, $e$
+
+$e = 2.718$ is the natural exponential function, often used $e^x$. 
+
+__Usage__
+
+Used to describe a quantity that increases, or decreases, at a rate that is proportional to its value, for example, the probability mass function to describe a Poisson random variable. 
+
+__Scientific notation__
+
+Scientific notation is a way of expressing numbers that are too large or too small to conveniently write in decimal form. In R, a number is expressed as a decimal and an exponent, separated by `e`. Some examples are given below. 
+
+\begin{center}
+\begin{tabular}{l|l|l}
+Decimal & Scientific notation & R notation\\
+\hline
+1234.0 & $1.234 \times 10^3$ & 1.234e3\\
+0.01234 & $1.234 \times 10^{-2}$ & \textrm{1.234e-2}\\
+\end{tabular}
+\end{center}
+
+## Intervals
+
+Parentheses $(.)$ and square brackets $[.]$ are used to indicate an interval. The notation $[a, b]$ is used to indicate a set of numbers from $a$ to $b$ and including $a$ and $b$. The notation $(a, b)$ indicates the set of numbers from $a$ to $b$ but excluding $a$ and $b$. Thus, [3, 8) will be the set of numbers from, and including 3, to 8 but not including 8. 
+
+## Axes on plots
+
+$x$-axis - the horizontal axis generally used for the explanatory variable.
+
+$y$-axis - the vertical axis generally used the response variable.
+
+## Probability
+
+Notation is used when expressing probability and probability rules. A few symbols are provided here. 
+
+$\mathcal{S}$ or $\Omega$ - sample space
+
+$\emptyset$ - empty set
+
+$\cap$ - 'and'. For example, If $A$ and $B$ are two events, then $A \cap B$ is interpreted as $A$ and $B$.
+
+$\cup$ - 'or'. For example, $A \cup B$ is interpreted as $A$ or $B$.
+
