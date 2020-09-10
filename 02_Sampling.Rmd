@@ -535,12 +535,12 @@ To summarise, there are two main types of observational study, __cohort__ and __
 Observation studies have advantages in that they:
 
  + can often be cheaper, the results are collected from observation rather than requiring active intervention. 
- + effects can be investigated that would be unethical to manipulate e.g. the active of living near nuclear waste depositories on the risk of cancer. One could not force people live near nuclear power stations. 
+ + effects can be investigated that would be unethical to manipulate e.g. the action of living near nuclear waste depositories on the risk of cancer. One could not force people live near nuclear power stations. 
  
 Experiments have advantages in that they:
 
  + allow the investigation of variables that might not occur in naturally
- + causation can be easier infer if there has been a direct manipulation.
+ + causation can be easier to infer if there has been a direct manipulation.
 
 ***
 

@@ -74,37 +74,37 @@ Nonetheless a good $R^2$ is reassuring, but what is a good $R^2$?
 
 __What is the $R^2$ for models fitted to EIA data?__
 
-Let's fit a couple of models to the EIA data - one without interactions (`model_1`), the other with interactions (`model_2`) and look at the summaries, in particular the `Multiple R-squared` value:
+Let's fit a couple of models to the EIA data - one without interactions (`model1`), the other with interactions (`model2`) and look at the summaries, in particular the `Multiple R-squared` value:
 
 ```{r, echo=T, eval=T}
 # Specify month as a factor
 wfdata$month <- as.factor(wfdata$month)
 
 # Model without interactions  
-model_1 <- lm(density ~ X + Y + DistCoast + depth + month + phase,
+model1 <- lm(density ~ X + Y + DistCoast + depth + month + phase,
               data=EIAData)
 # Model with interactions
-model_2 <- lm(density ~ X + Y + DistCoast + depth + month + phase 
+model2 <- lm(density ~ X + Y + DistCoast + depth + month + phase 
               + X:phase + Y:phase, data=EIAData)
 ```
 
 \normalsize
 ```{r, echo=T, eval=T}
 # Summary
-summary(model_1)
+summary(model1)
 ```
 
 \normalsize
 
 ```{r, echo=T, eval=T}
 # Summary
-summary(model_2)
+summary(model2)
 ```
 
 \normalsize
 
-* We see the `model_1` and `model_2` describe 19.7\% and 20.6\% of the sample variance, respectively.
-* The more complicated model (`model_2`) describes more variability in the data, as we might expect (the simpler model is just the more complex one with some terms removed).
+* We see the `model1` and `model2` describe 19.7\% and 20.6\% of the sample variance, respectively.
+* The more complicated model (`model2`) describes more variability in the data, as we might expect (the simpler model is just the more complex one with some terms removed).
 * 20.6\% may not sound a lot - but things in the natural world are complex - there is likely to always be a lot of stuff we can't explain. (We think $\sim 20\%$ is pretty good!)
 * A _good_ $R^2$ is context specific - it need not be large for the model to be good/useful.
 
@@ -214,10 +214,10 @@ There are two main approaches to assessing whether data are normally distributed
     
 **Histogram of residuals**
 
-If we look at the residuals from `model_1` (Figure \@ref(fig:normdraws2)), the residuals appear to be right skewed compared with what we would expect from a normal distribution. 
+If we look at the residuals from `model1` (Figure \@ref(fig:normdraws2)), the residuals appear to be right skewed compared with what we would expect from a normal distribution. 
 
 ```{r normdraws2, echo=F,fig.cap='EIA model residuals compared to a normal distribution', dev='png'}
-hist (residuals (model_1), main="")
+hist (residuals (model1), main="")
 lines (seq(-100,100,0.01), dnorm (seq(-100,100,0.01),0,5.825)*170000,col=2)
 ```
 
@@ -231,11 +231,11 @@ QQ (Quantile-Quantile)-Norm plots:
 * If your data is roughly normally distributed, the QQ-Norm plot should be a straight(-ish) line.
 * Note: small samples can be a bit wiggly, even if normally distributed.
 
-For our `model_1` the residuals are plotted in Figure \@ref(fig:model1qq) in comparison to actual normal residuals (right). 
+For our `model1` the residuals are plotted in Figure \@ref(fig:model1qq) in comparison to actual normal residuals (right). 
 
-```{r model1qq, echo=F, eval=T, fig.cap='Left. QQ-norm plot of the residuals from `model_1`., Right. QQ-norm plot of normally distributed residuals'}
+```{r model1qq, echo=F, eval=T, fig.cap='Left. QQ-norm plot of the residuals from `model1`., Right. QQ-norm plot of normally distributed residuals'}
 par (mfrow =c(1,2))
-qqnorm(residuals(model_1))
+qqnorm(residuals(model1))
 qqnorm(rnorm(2000))
 ```
 
@@ -248,7 +248,7 @@ The quantiles from a normal distribution can be obtained by `qnorm` in R. The co
 
 ```{r handmade, echo=T, eval=T,fig.cap='"Handmade" QQ-norm plot of the EIA model residuals'}
 # Sort residuals - smallest to largest
-sortedresiduals <- sort(residuals(model_1))
+sortedresiduals <- sort(residuals(model1))
 # Number of residuals
 print(length(sortedresiduals))
 # Obtain points 
@@ -269,14 +269,14 @@ The null hypothesis is $H_0$: the data are normally distributed.
 
 * If the _p_-value is large (e.g. $>0.05$) then we fail to reject $H_0$, i.e. the data is plausibly normally distributed.
 
-The S-W test for `model_1` is:
+The S-W test for `model1` is:
 
 ```{r echo=T}
-shapiro.test(sample(residuals(model_1), size=3000, replace=FALSE))
+shapiro.test(sample(residuals(model1), size=3000, replace=FALSE))
 ```
 N.B. R allows only a maximum of 3000 points entered into the Shapiro-Wilks tests hence the use of the `sample` command to select a random sample of points. 
 
-From the plots and output, we conclude that for `model_1`:
+From the plots and output, we conclude that for `model1`:
 
 * The data are not normally distributed
 
@@ -303,7 +303,7 @@ We assume the _errors_ (our model for the noise) are well described by a normal 
 * We should see a pattern-less horizontal band if constant error variance is reasonable (e.g. see code below).
 * We can also check this more formally using a __Breusch-Pagan test__ ($H_0$: constant error variance) and non-constant error variance is evidenced by a large test statistic and small $p$-value.\footnote{This test is based on how well the squared residuals are described by the model covariates (using another regression), and if the spread of the residuals is well described by model covariates, then we have compelling evidence for non-constant error variance.}
 
-We compare these tests for residuals that are normally distributed and the residuals from `model_1`. First, the 'perfect' data (Figure \@ref(fig:perfect2)). 
+We compare these tests for residuals that are normally distributed and the residuals from `model1`. First, the 'perfect' data (Figure \@ref(fig:perfect2)). 
 
 ```{r perfect2, echo=T, eval=T, fig.cap='Plot of fitted values against residuals - there is no pattern in the residuals.'}
 # Generate perfect data
@@ -321,13 +321,13 @@ ncvTest(modelperfect)
 
 The $p$-value associated with the test statistic for normally distributed data is 0.42 which suggests unsurprisingly, no problem. 
 
-Compare this to the residuals from `model_1` which show a very distinct pattern (Figure \@ref(fig:model1fitsresr)):  
+Compare this to the residuals from `model1` which show a very distinct pattern (Figure \@ref(fig:model1fitsresr)):  
 
-```{r model1fitsresr, echo=T, eval=T, fig.cap='Plot of fitted values against residuals from the EIA model_1 showing a distinct pattern.'}
+```{r model1fitsresr, echo=T, eval=T, fig.cap='Plot of fitted values against residuals from the EIA model1 showing a distinct pattern.'}
 # Plot fitted values against residuals
-plot (fitted (model_1), residuals (model_1))
+plot (fitted (model1), residuals (model1))
 # Formal test
-ncvTest(model_1)
+ncvTest(model1)
 ```
 
 The residuals in Figure \@ref(fig:model1fitsresr) appear to violate the constant error variance assumption;
@@ -366,12 +366,12 @@ A crucial model assumption is that the errors are independent and are not correl
 
 * Violation of this assumption means the standard errors and $p$-values are systematically too small (or large) and we risk drawing the wrong conclusion about model covariates.
 
-We can visually check for correlation in the residuals by plotting the residuals in observation order (if observation order is relevant) and, if we have independence, there should be no systematic patterns (e.g. Figure \@ref{fig:SimIndep}).
+We can visually check for correlation in the residuals by plotting the residuals in observation order (if observation order is relevant) and, if we have independence, there should be no systematic patterns (e.g. Figure \@ref(fig:SimIndep)).
 
 The null hypothesis of uncorrelated errors can also be formally tested using a __Durbin-Watson test__: 
 
 + This test is based on the idea that if consecutive residuals are correlated then consecutive residuals will be related,
-+ The null hypothesis is that the residuals are uncorrelated, i.e. $H_0: \rho=0$ (e.g. Figure \@ref(fig:simindep)), versus the alternative hypothesis that  $H_1: \rho \neq 0$,
++ The null hypothesis is that the residuals are uncorrelated, i.e. $H_0: \rho=0$ (e.g. Figure \@ref(fig:SimIndep)), versus the alternative hypothesis that  $H_1: \rho \neq 0$,
 + a test statistic is generated based on sequential differences in the residuals. 
 + The test statistic is then compared against a critical value and this determines the associated $p$-value.
 * As with other hypothesis tests, a small $p$-value provides evidence against $H_0$ and would suggest correlated errors.
@@ -380,18 +380,18 @@ The null hypothesis of uncorrelated errors can also be formally tested using a _
 knitr::include_graphics("figures/simindep.png")
 ```
 
-The residuals of `model_1` appear to be correlated when plotted in observation order (Figure \@ref(fig:mod1res)) and the Durbin  Watson test (below) confirms this positive correlation:
+The residuals of `model1` appear to be correlated when plotted in observation order (Figure \@ref(fig:mod1res)) and the Durbin  Watson test (below) confirms this positive correlation:
 
 + the correlation coefficient is $0.88$ and the $p$-value is extremely small).
 
-```{r mod1res, echo=T, eval=T, fig.cap='The first 100 residuals in model_1'}
+```{r mod1res, echo=T, eval=T, fig.cap='The first 100 residuals in model1'}
 library(car)
 # Plot first 100 points 
-plot (seq(1,100), residuals(model_1)[1:100], type="l", xlab="Sequence")
-points(seq(1,100), residuals(model_1)[1:100])
+plot (seq(1,100), residuals(model1)[1:100], type="l", xlab="Sequence")
+points(seq(1,100), residuals(model1)[1:100])
 abline (h=0,lty=2)
 # Formal test
-durbinWatsonTest(model_1)
+durbinWatsonTest(model1)
 ```
 In this case, we could be falsely concluding that one, or more variables, are related to the response because the standard errors are underestimated because of the positive correlation.
 
@@ -616,13 +616,13 @@ As usual, a shortcut for making partial residuals in R is available. In the `car
 # Partial residual plots
 crPlots(modelboth)
 ```
-Returning to the EIA data, the partial plots for `model_1` are shown in Figure \@ref(fig:y).  
+Returning to the EIA data, the partial plots for `model1` are shown in Figure \@ref(fig:y).  
 
 ```{r y, echo=T, eval=T, fig.cap='Partial residual plots in the EIA model'}
-model_1 <- lm(density ~ X + Y + DistCoast + depth + 
+model1 <- lm(density ~ X + Y + DistCoast + depth + 
                 month + phase, data=wfdata)
 # Partial residual plots
-crPlots(model_1)
+crPlots(model1)
 ```
 
 From these plots:
@@ -645,14 +645,14 @@ Simple partial residual plots don't work with interactions, so we need to do som
 require(effects)
 require(ggExtra)
 # Fit model with interactions
-model_2 <- lm(density ~ X + Y + DistCoast + depth + 
+model2 <- lm(density ~ X + Y + DistCoast + depth + 
                 month + phase + X:phase + Y:phase, data=EIAData)
 # Plot partial residuals
-plot(effect("X:phase", model_2, ylab="X", rug=TRUE, partial.residuals=T))
+plot(effect("X:phase", model2, ylab="X", rug=TRUE, partial.residuals=T))
 ```
 
 ```{r, interactionpres2, echo=T, fig.cap='Partial residual plots for interactions'}
-plot(effect("Y:phase", model_2, ylab="X", rug=TRUE, partial.residuals=T))
+plot(effect("Y:phase", model2, ylab="X", rug=TRUE, partial.residuals=T))
 
 ```
 Clearly there is something odd going on here, but the shear density of data makes it difficult to interpret; in each case there is a peak at middling values worthy of further investigation.  

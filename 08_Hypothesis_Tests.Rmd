@@ -144,7 +144,7 @@ If $H_0$ is false, the test statistic should be large (positive or negative) bec
 
 To decide if a test statistic is 'large' under the null hypothesis, we compare the test statistic to a reference distribution and, not surprisingly for a $t$ test, we use the $t$ distribution. The shape of the $t$ distribution depends on the degrees of freedom and for a one sample $t$ test the degrees of freedom ($df$) are given by $df = n - 1$. Using this reference distribution we can determine what values might typically arise. 
 
-Having found the test statistic for the one sample test of baby weights, we obtain the associated reference $t$ distribution. The sample size is 1236, and so $df = 1236 - 1 = 1235$, hence, the reference distribution is a $t_{df=1235}$ distribution (Figure \@ref(fig:onesampt)). This figure shows that values close to zero are likely to occur and values smaller than -2, or greater than 2, are unlikely. Where the test statistic lies on the reference distribution indicates how typical it is given the null hypothesis. 
+Having found the test statistic for the one sample test of baby weights, we obtain the associated reference $t$ distribution. The sample size is 1236, and so $df = 1236 - 1 = 1235$, hence, the reference distribution is a $t_{df=1235}$ distribution (Figure \@ref(fig:tdist1235)). This figure shows that values close to zero are likely to occur and values smaller than -2, or greater than 2, are unlikely. Where the test statistic lies on the reference distribution indicates how typical it is given the null hypothesis. 
 
 The reference distribution can be used in two ways to determine the strength of evidence for the null hypothesis: by obtaining an exact $p$-value for the test statistic or using a pre-determined significance level.
 
@@ -189,18 +189,18 @@ mtext("-0.815", side=1, at=tstat)
 
 The blue shaded area on Figure \@ref(fig:tdist1235) is a substantial proportion of the total area and is, in fact, 0.415 (= 0.2076 + 0.2076) of the area, hence the $p$-value is 0.415. What does this $p$-value indicate about how likely a test statistic of -0.815 is? 
 
-The $p$-value measures the strength of evidence against the null hypothesis and, typically, $H_0$ is only rejected when the $p$-value is really small. What is classed as small? Common threshold values are 0.1, 0.05 or 0.01 and they can be translated as follows \footnote{Wild and Seber (p379)[\@wildgaf]}:
+The $p$-value measures the strength of evidence against the null hypothesis and, typically, $H_0$ is only rejected when the $p$-value is really small. What is classed as small? Common threshold values are 0.1, 0.05 or 0.01 and they can be translated as follows [@wildgaf]:
 
 Approximate  $p$-value | Translation
 --- | --- 
->0.12| **No** evidence against $H_0$
+>0.10| **No** evidence against $H_0$
 0.05 | **Weak** evidence against $H_0$
 0.01 | **Strong** evidence against $H_0$
 $\le$ 0.001 | **Very strong** evidence against $H_0$
 
 A $p$-value of 0.415 is pretty large, much larger than any of the values which provide evidence against $H_0$ (shown in the table above). Hence, we conclude that the test statistic is consistent with $H_0$; we are pretty likely to observe a test statistic of -0.815, or one more extreme. These data do not provide evidence to reject the null  hypothesis and the sample of baby weights could come from an underlying population with a mean of 120 ounces. 
 
-__Example__ The average age of the mothers in the sample (of size $n=1236$) from the US was 27.255 years with a standard deviation of 5.7814 years. The average age of first time mothers in the UK 2017 was 28.8\footnote{https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthcharacteristicsinenglandandwales/2017}. Is there evidence to suggest that the age of mothers differ between the US and UK? We assume that the age of mothers in the UK was obtained from a census (and so there is no uncertainty).  
+__Example__ The average age of the mothers in the sample (of size $n=1236$) from the US was 27.255 years with a standard deviation of 5.7814 years. The average age of first time mothers in the UK 2017 was 28.8 (The original data are [here](https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthcharacteristicsinenglandandwales/2017.html)). Is there evidence to suggest that the age of mothers differ between the US and UK? We assume that the age of mothers in the UK was obtained from a census (and so there is no uncertainty).  
 
 The null hypothesis is:
 
@@ -253,7 +253,7 @@ mtext("-1.96", side=1, at=tcrit)
 mtext("1.96", side=1, at=abs(tcrit))
 ```
 
-This method of obtaining a critical value based on a fixed significance level and comparing it to teh test statistic was used when making a decision regarding the null hypothesis was limited to looking up critical values in statistical tables. It is still frequently practised - it is commonplace to see the phrase 'testing at a significance level of ...' in statistical reports. In more recent times, when access to computing power and statistical packages is commonplace, it is now easy to perform a test and obtain an exact $p$-value and indeed many computer packages routinely provide exact $p$-values in output. 
+This method of obtaining a critical value based on a fixed significance level and comparing it to the test statistic was used when making a decision regarding the null hypothesis was limited to looking up critical values in statistical tables. It is still frequently practised - it is commonplace to see the phrase 'testing at a significance level of ...' in statistical reports. In more recent times, when access to computing power and statistical packages is commonplace, it is now easy to perform a test and obtain an exact $p$-value and indeed many computer packages routinely provide exact $p$-values in output. 
 
 #### Doing this in R
 
@@ -467,7 +467,7 @@ where $s_d$ is the sample standard deviation of the differences.
 
 Under the null hypothesis, the test statistic follows a $t_{df=n-1}$ distribution and this can be used to obtain a $p$-value. 
 
-__Example__ A study tested whether cholesterol level was reduced after using a certain brand of margarine as part of a low cholesterol diet. Eighteen participants incorporated the margarine into their daily diet and their cholesterol levels were measured at the start and after 4 and 8 weeks. Here we compare the cholesterol levels after 4 and 8 weeks\footnote{https://www.sheffield.ac.uk/mash/statistics/datasets}. We do not make an assumption about whether cholesterol levels should be higher or lower after 8 weeks and hence use a two-tailed test. 
+__Example__ A study tested whether cholesterol level was reduced after using a certain brand of margarine as part of a low cholesterol diet. Eighteen participants incorporated the margarine into their daily diet and their cholesterol levels were measured at the start and after 4 and 8 weeks. Here we compare the cholesterol levels after 4 and 8 weeks (data can be found [here](https://www.sheffield.ac.uk/mash/statistics/datasets)). We do not make an assumption about whether cholesterol levels should be higher or lower after 8 weeks and hence use a two-tailed test. 
 
 The mean and standard deviation of the differences are $\bar d = 0.0628$ and $s_d = 0.0704$. The test statistic is then:
 
@@ -512,7 +512,7 @@ The similarity between this approach and using a one sample test of the differen
 
 ```{r, echo=TRUE}
 # Calculate the difference
-diff <- chol$Before - chol$After8weeks
+diff <- chol$After8weeks - chol$After4weeks 
 
 # One sample t test of differences
 t.test(x=diff, mu=0)
@@ -574,7 +574,7 @@ $$W_N = R_N - \frac{n_N(n_N + 1)}{2} = 36 - \frac{6 \times 7}{2} = 15$$
 
 $$W_S = R_S - \frac{n_S(n_S + 1)}{2} = 42 - \frac{6 \times 7}{2} = 21$$
 
-4. Either of these values are used as the test statistic - the smaller value is generally used when consulting statistical tables to determine a critical value \footnote{https://onlinepubs.trb.org/onlinepubs/nchrp/cd-22/manual/v2appendixc.pdf} and then the test statistic would be compared to the critical value as described previously. Here, we use R and R uses the test statistic for the first group specified in the command (see below). 
+4. Either of these values are used as the test statistic - the smaller value is generally used when consulting statistical tables to determine a critical value (There are some statistical tables [here](https://onlinepubs.trb.org/onlinepubs/nchrp/cd-22/manual/v2appendixc.pdf)) and then the test statistic would be compared to the critical value as described previously. Here, we use R and R uses the test statistic for the first group specified in the command (see below). 
 
 There are also one sample and paired sample variants of the Mann-Whitney-Wilcoxon test and these are illustrated below. 
 

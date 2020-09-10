@@ -325,7 +325,7 @@ abline(v=4.82, lty=3, lwd=2)
 
 + From here we can evaluate the chance of getting  a value at least as extreme as `r round((mean(dat$pres[dat$phase=="A"])- mean(dat$pres[dat$phase=="C"]))/sqrt(mean(dat$pres[dat$phase=="A"])*(1-mean(dat$pres[dat$phase=="A"]))/length(which(dat$phase=="A")) + mean(dat$pres[dat$phase=="C"])*(1-mean(dat$pres[dat$phase=="C"]))/length(which(dat$phase=="C"))), 3)` when $H_0$ is true and there was **no difference** in proportions across phases.
 
-+ We do this using the normal distribution as a reference distribution because it turns out that when there are no differences across phases, the test statistic has a normal distribution with $\mu=0$ and $\sigma=1$. This distribution is known as the __standard normal distribution__ or __$z$ distribution__ ([#hypothtests]).
++ We do this using the normal distribution as a reference distribution because it turns out that when there are no differences across phases, the test statistic has a normal distribution with $\mu=0$ and $\sigma=1$. This distribution is known as the __standard normal distribution__ or __$z$ distribution__ (Chapter \@ref(hypothtests)).
 
 + We use this reference distribution as a comparison with our observed test statistic.
 

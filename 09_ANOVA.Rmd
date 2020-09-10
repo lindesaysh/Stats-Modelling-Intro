@@ -1,4 +1,5 @@
 <!-- LB update - 04/08/2020 -->
+
 # Analysis of Variance {#anova}
 
 <span style="background-color: white"> *The analysis of variance is not a mathematical theorem, but rather a convenient method of arranging the arithmetic.*  <br/> R. A. Fisher. </span>
@@ -184,7 +185,7 @@ The $F$ distribution (named in honour of R. A. Fisher) is a continuous distribut
 + $df_1 = k - 1$
 + $df_2 = n_{tot} - k$.
 
-The $F$ distribution can take on a variety of shapes but cannot have negative values (Figure \@ref(fig:fdist)).
+The $F$ distribution can take on a variety of shapes but cannot have negative values. Figure \@ref(fig:fdist) shows some examples of shapes and you can also explore the shape changes yourself in Figure \@ref(fig:fshiny).
 
 ```{r fdist, echo=F,fig.height=4,fig.width=6, fig.cap="The probability density function of $F_{df1,df2}$ distribution for different values of the parameters $df1$ and $df2$."}
 # F distribution
@@ -201,6 +202,15 @@ for (i in 2:length(df1)) {
 }
 legend(2.3,3.2,legend=c("df1=1,df2=10","df1=2,df2=10","df1=5,df2=20","df1=10,df2=20","df1=10,df2=200"),lty=1,col=1:5,lwd=2)
 ```
+
+
+(ref:fshiny) Visualising the F-distribution. You can see a live version by clicking [here](https://moniquemackenzie.shinyapps.io/IntroStats_Fdistribution/)
+
+```{r fshiny, echo=FALSE, fig.cap='(ref:fshiny)', screenshot.opts=list(delay=5), dev='png', cache=TRUE}
+knitr::include_app("https://moniquemackenzie.shinyapps.io/IntroStats_Fdistribution/", height='600px')
+```
+
+
 
 In our example, $df_1=2$ and $df_2=43$ and this distribution is shown in Figure \@ref(fig:fdist2and4). We can see that the density (on the $y$-axis) at a value of about 6 on the $x$-axis is pretty much zero. Our test statistic is 28.31, hence the probability of obtaining a value as large and larger than this (i.e. $Pr(f \ge 28.31)$ where $f \sim F_{2,43}$) is going to be small; in fact the $p$-value is $<0.0001$. This indicates that it is very unlikely to obtain a value as large, or larger, than 28.31 when the group means are the same. We reject $H_0$ and have strong evidence that at least one of the group means is different to one of the other means. 
 
@@ -254,6 +264,7 @@ petrol.sum <- data.frame(Location=c("City","Motorway","Rural","Town","Total"), n
 pander::pander(petrol.sum)
 
 ```
+
 __a.__ Describe the null and alternative hypotheses to be testes. 
 
 __b.__ Complete the ANOVA table to calculate the $F$ test statistic. 
@@ -281,13 +292,14 @@ __Checking constant spread__
 Table 9.4 indicates that the standard deviations are similar in each group based on the rule of thumb - the smallest is 1.318 and the largest is 1.622. Levene's test provides a formal test. The null hypothesis is that the population variances for each group are equal (called homogeneity of variances, or homoscedasticity); for example
 
 $$H_0: \sigma_B^2 = \sigma_N^2 = \sigma_P^2 $$
-The test statistic is compared to an $F_{df_1,df_2}$ distribution (i.e. the same reference distribution as for ANOVA) and we use R to illustrate this. The `car` \footnote{Fox J and Weisberg S (2019) An R Companion to Applied Regression, Third Edition. Thousand Oaks CA: Sage. URL:
-  https://socialsciences.mcmaster.ca/jfox/Books/Companion/} library is required for Levene's test. 
+The test statistic is compared to an $F_{df_1,df_2}$ distribution (i.e. the same reference distribution as for ANOVA) and we use R to illustrate this. The `car` [@Fox2019] library is required for Levene's test. 
 
 ```{r, echo=T, eval=T, suppress.messages=TRUE, warning=FALSE}
 library(car)
 leveneTest(Ti ~ Group, data=plant)
 ```
+
+The $p$-value is interpreted in the same way as for other hypothesis test - in this example, the $p$-value is large and so we cannot reject the null hypothesis and conclude that the variances are the same.
 
 __Checking normality__
 
@@ -450,14 +462,14 @@ The Kruskal_Wallis test is performed with the `kruskal.test` function:
 kruskal.test(Ti ~ Group, data=plant)
 ```
 
-The $p$-value is interpreted in the same way; here it is very small, providing evidence to reject the null hypothesis. There is also a function which provides multiple comparisons after the Kruskal-Wallis test  ([@Siegel&Castellan1988]); this requires the `pgirmess` library \footnote{Giraudoux P (2018) pgirmess: Spatial Analysis and Data Mining for Field Ecologists. R package version 1.6.9. https://CRAN.R-project.org/package=pgirmess}. It identifies differences between groups depending on the specified significance level (0.05 by default).
+The $p$-value is interpreted in the same way; here it is very small, providing evidence to reject the null hypothesis. There is also a function which provides multiple comparisons after the Kruskal-Wallis test  [@Siegel&Castellan1988]; this requires the `pgirmess` library [@R-pgirmess]. It identifies differences between groups depending on the specified significance level (0.05 by default).
   
 ```{r, echo=T, eval=T}
 library(pgirmess)
 kruskalmc(Ti ~ Group, data=plant)
 ```
 
-Welch's ANOVA is performed using `welch.test` which is in the `onewaytests` library \footnote{Dag O, Dolgun A, Konar N.M. (2018) onewaytests: An R Package for One-Way Tests in Independent Groups Designs. The R Journal, 10:1, 175-199} (this is not part of the base libraries and so will need to be installed). Again it gives helpful output. 
+Welch's ANOVA is performed using `welch.test` which is in the `onewaytests` library [@R-onewaytests] (this is not part of the base libraries and so will need to be installed). Again it gives helpful output. 
 
 ```{r, echo=T, eval=T, suppress.messages=TRUE}
 library(onewaytests)

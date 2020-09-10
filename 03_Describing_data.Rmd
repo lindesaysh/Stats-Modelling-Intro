@@ -311,8 +311,6 @@ title("Right skewed data")
 
 For highly skewed data the median is often a more appropriate measure of the centre than the mean, for example, salary or house prices. 
 
-SHINY - Adjusting the centre and spread in a histogram. 
-
 A histogram is useful because it shows the sampled frequency of different ranges of values. If there is no discernible peak (or peaks) and all values are similarly likely, the distribution is described as uniform (Figure \@ref(fig:hist3)). 
 
 ```{r hist3, echo=F, fig.height=4, fig.cap="A histogram showing 500 values selected at random from the set [0, 1]."}
@@ -652,7 +650,7 @@ __Q3.4__ __b.__ There are various measures that indicate differences between the
 
 + The minimum and maximum values are different. 
 
-+ The 25th and 75th percentiles from the five number summary are  `r t1[2]` and `r t1[4]` and from the box plot are`r tx[2]` and `r tx[4]`. PERHAPS NEED TO CHANGE THIS.
++ The 25th and 75th percentiles from the five number summary are  `r t1[2]` and `r t1[4]` and from the box plot are`r tx[2]` and `r tx[4]`. 
 
 __Q3.5__ A histogram is used to display quantitative data and has a range of numeric values on the $x$-axis, whereas a bar chart is used to display qualitative data (or discrete data with a few possible values) and has distinct categories on the $x$-axis.
 

@@ -73,7 +73,14 @@ A few things to remember about probabilities:
 
 ## Sample spaces and events 
 
-There are a lot of terms (explained below) related to the possible outcomes of a random process: sample space, elementary events, compound events, mutually exclusive events, independent events.
+There are a lot of terms (explained below) related to the possible outcomes of a random process: 
+
++ sample space, 
++ elementary events, 
++ compound events, 
++ mutually exclusive events, 
++ independent events.
+
 <br> 1. The collection of all possible outcomes of an experiment is the __sample space__, and is denoted $\mathcal{S}$ (or as in Figure \@ref(fig:Vennunion). $\Omega$). Examples of sample spaces:
 
 + Toss Coin: $\mathcal{S}$ = {H,T} (Note the use of curly brackets to indicate a set.). We will assume from here on, that the chance of a coin falling on its side is so negligible that it can be ignored.
@@ -337,7 +344,7 @@ of random processes is to draw a tree diagram.
 <br /> (paraphrasing  Lipshutz [-@Lipshutz2011]).
 
 This approach can be used as a simple way of considering problems that might involve complex probabilities.<br/>  
-*Example* The probability a woman age 40 has breast cancer is about 1 % (say) . If she has breast cancer the probability she tests positive on a screening mammogram is 99 %. If she does not have breast cancer the probability that she nonetheless tests positive is 9%. 
+*Example* The probability a woman age 40 has breast cancer is about 1 % (say). If she has breast cancer the probability she tests positive on a screening mammogram is 99 %. If she does not have breast cancer the probability that she nonetheless tests positive is 9%. 
 What are the chances that a woman who tests positive actually has breast cancer?
 
 Considered as a conditional probability problem it is complex.
@@ -368,7 +375,7 @@ knitr::include_graphics('figures/treediagram.png')
 Of 100 women, 1 has cancer and tests positive, 99 do not have cancer of whom 
 9/100 x 99  = 8.9 will test postie. 
 
-It now becomes easy to see that the $Pr(Cancer|+ve)$ = (1+8.9)/100 = 9.9%
+It now becomes easy to see that the $Pr(Cancer|+ve)$ = 1/(1+8.9) = 10.1%
 
 See Gigerenzer [ -@Gigerenzer2003] for more on this. 
 

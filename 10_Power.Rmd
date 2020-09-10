@@ -75,7 +75,7 @@ Armed with this information, we can advise on sample size, $n$, to meet these sp
 
 (Example modified from Larsen & Marx [ -@Larsen&Marx2006])
 
-Imagine there is a new fuel additive that is expected to increase the fuel efficiency for vehicles. The underlying fuel efficiency with the standard fuel is assumed to be 25 mpg. It is thought an improvement of at least 3\% in fuel efficiency would be substantial enough for the additive to be taken to market. A trial is planned with the intention of detecting whether fuel efficiency with the additive has increased from 25 to 6 mpg (i.e. a 3\% increase) or even more. 
+Imagine there is a new fuel additive that is expected to increase the fuel efficiency for vehicles. The underlying fuel efficiency with the standard fuel is assumed to be 25 mpg. It is thought an improvement of at least 3\% in fuel efficiency would be substantial enough for the additive to be taken to market. A trial is planned with the intention of detecting whether fuel efficiency with the additive has increased from 25 to 26 mpg (i.e. an approximate 3\% increase) or even more.
 
 We need to first identify our assumptions:
 
@@ -112,14 +112,14 @@ $$25 + 1.644854 \times \frac{2.4}{\sqrt{30}} = 25.72$$
 Figure \@ref(fig:fuelplot) shows the probability density function under the null hypothesis i.e. $N(\mu=25, \sigma=2.4)$. The red shaded area indicates critical value that would lead us to rejecting the null hypothesis under $\alpha = 0.05$. 
 
 ```{r fuelplot, echo=F, eval=T, fig.cap="Probability density function of the reference distribution showing the Type I error region (red)."}
-x <- seq (17,32,0.01)
+x <- seq (21,30,0.01)
 
- plot (x, dnorm (x,25,2.4), col=1, xlab="mpg", type="l", ylab="Density")  
+ plot (x, dnorm (x,25,2.4/sqrt(30)), col=1, xlab="mpg", type="l", ylab="Density")  
  abline (h=0)
  abline (v=25, lty=2)
-  lines (c(25.72,25.72), c(0,  dnorm (25.72, 25, 2.4)), col=2)
+  lines (c(25.72,25.72), c(0,  dnorm (25.72, 25, 2.4/sqrt(30))), col=2)
  
-polygon (c(25.72, 35, seq(35,25.72,-0.01),25.72), c(0,0,dnorm (seq(35,25.72,-0.01), 25, 2.4)   ,0), density=3, col=2)
+polygon (c(25.72, 35, seq(35,25.72,-0.01),25.72), c(0,0,dnorm (seq(35,25.72,-0.01), 25, 2.4/sqrt(30))   ,0), density=3, col=2)
  
 text (28, 0.1, "Type I error region", col=2)
 ```
@@ -127,19 +127,19 @@ text (28, 0.1, "Type I error region", col=2)
 Hence, if our sample had a mean greater than 25.72 mpg we would reject $H_0$. In rejecting the Null hypothesis we are at risk of making a Type I error. The Type II error, needs to be considered as well (Figure \@ref(fig:fuelplot2)), relative to the alternative hypothesis. If $H_1$ were true with its greater mean, and had the same standard deviation, we would produce false negatives (Type II) errors by falling left of this decision boundary.
 
 ```{r fuelplot2, echo=F, eval=T,fig.cap = "Probability density function of reference distribution showing the Type I error region (red) and the Type II error region (purple)."}
-x <- seq (17,32,0.01)
+x <- seq (21,30,0.01)
 
- plot (x, dnorm (x,25,2.4), col=1, xlab="mpg", type="l", ylab="Density")  
+ plot (x, dnorm (x,25,2.4/sqrt(30)), col=1, xlab="mpg", type="l", ylab="Density")  
  abline (h=0)
  abline (v=25, lty=2)
-  lines (c(25.72,25.72), c(0,  dnorm (25.72, 25, 2.4)), col=2)
- polygon (c(25.72, 35, seq(35,25.72,-0.01),25.72), c(0,0,dnorm (seq(35,25.72,-0.01), 25, 2.4)   ,0), density=3, col=2)
+  lines (c(25.72,25.72), c(0,  dnorm (25.72, 25, 2.4/sqrt(30))), col=2)
+ polygon (c(25.72, 35, seq(35,25.72,-0.01),25.72), c(0,0,dnorm (seq(35,25.72,-0.01), 25, 2.4/sqrt(30))   ,0), density=3, col=2)
 text (28, 0.1, "Type I error region", col=2)
- lines (x, dnorm (x,26,2.4), col=5, type="l")  
+ lines (x, dnorm (x,26,2.4/sqrt(30)), col=5, type="l")  
  abline (v=26, lty=2, col=5)
   lines (c(25.72,25.72), c(0,  dnorm (25.72, 26, 2.4)), col=5)
- polygon (c(25.72, -15, seq(-15,25.72,0.01),25.72), c(0,0,dnorm (seq(-15,25.72,0.01), 26, 2.4)   ,0), density=4, col='purple')
-text (23, 0.01, "Type II error region", col='purple')
+ polygon (c(25.72, -15, seq(-15,25.72,0.01),25.72), c(0,0,dnorm (seq(-15,25.72,0.01), 26, 2.4/sqrt(30))   ,0), density=4, col='purple')
+text (23, 0.06, "Type II error region", col='purple')
 ```
 To calculate the purple false negative area if $\mu = 26$ in R:
 
@@ -274,6 +274,16 @@ power <- sum(value)/1000
 power
 
 ```
+
+
+An interactive example of simulation based power analysis with varying sample size is in Figure \@ref(fig:powshiny).  There is also a live version [here](https://moniquemackenzie.shinyapps.io/IntroStats_PowerDemo/)
+
+(ref:powshiny) An example of simulation based power analysis. You can see a live version by clicking [here](https://moniquemackenzie.shinyapps.io/IntroStats_PowerDemo/)
+
+```{r powshiny, echo=FALSE, fig.cap='(ref:powshiny)', screenshot.opts=list(delay=5), dev='png', cache=TRUE}
+knitr::include_app("https://moniquemackenzie.shinyapps.io/IntroStats_PowerDemo/", height='600px')
+```
+
 
 
 

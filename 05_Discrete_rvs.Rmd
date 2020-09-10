@@ -306,7 +306,15 @@ plot(x, dbinom(x, size=10, prob=0.5), type="h", lwd=2, main="p=0.5",xlab="Number
 plot(x, dbinom(x, size=10, prob=0.9), type="h", lwd=2, main="p=0.9",xlab="Number of successes", ylab="Probability of success")
 ```
 
-You can explore some other combinations [here](https://tullimonstrum.shinyapps.io/binomialaCGMP/)
+You can explore some other combinations of $p$ and $n$ in Figure \@ref(fig:binshiny).  There is also a live version [here](https://moniquemackenzie.shinyapps.io/IntroStats_Binomial/)
+
+(ref:binshiny) Visualising the Binomial distribution. You can see a live version by clicking [here](https://moniquemackenzie.shinyapps.io/IntroStats_Binomial/)
+
+```{r binshiny, echo=FALSE, fig.cap='(ref:binshiny)', screenshot.opts=list(delay=5), dev='png', cache=TRUE}
+knitr::include_app("https://moniquemackenzie.shinyapps.io/IntroStats_Binomial/", height='600px')
+```
+
+
 
 #### Expectation and variance
 
@@ -409,7 +417,7 @@ distributed with mean rate 4.5. What is the probability that at least 3 people b
 
 ### Comparison of binomial and Poisson distributions?
 
-The binomial and Poisson distributions are similar, in that they both measure the number of events. However, the binomial is based on discrete events - it provides the probability of a certain number of events out of a fixed number of trials and the probability of success in each trial is the same. The Poisson distribution provides the probability of a certain number of events occurring in a continuous domain, such that there are very many trials each with only one event. It turns out, that if $n$ is large (i.e. $n \rightarrow \infty$ and $p$ is small ($p \rightarrow 0$), the binomial distribution is very like the Poisson distribution.
+The binomial and Poisson distributions are similar, in that they both measure the number of events. However, the binomial is based on discrete events - it provides the probability of a certain number of events out of a fixed number of trials and the probability of success in each trial is the same. The Poisson distribution provides the probability of a certain number of events occurring in a continuous domain, such that there are very many trials each with only one event. It turns out, that if $n$ is large (i.e. $n \rightarrow \infty$) and $p$ is small ($p \rightarrow 0$), the binomial distribution is very like the Poisson distribution.
 
 Let's return to the example in section \@ref(poisdist); the Poisson PMF was used to calculate the probability of 5 people with a rare disease being selected from a population of 1,000,000 - the probability was 0.156. This probability could also be calculated with a binomial PMF, where the probability of success is 1 in 250,000; to make calculations easy, we do this in R.
 

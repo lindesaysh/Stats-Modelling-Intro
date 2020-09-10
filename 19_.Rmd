@@ -162,7 +162,7 @@ apply(bootCoefs, 1, abline, col = myCol, lwd=1.5)
 
 \normalsize
 
-From the bootstrap we can get approximate 95\% CIs from the central 95\% of parameter estimates.Not that the CIs obtained here are for the parameters NOT for the predictions (see Chapter \@ref{prediction} for that). 
+From the bootstrap we can get approximate 95\% CIs from the central 95\% of parameter estimates.Not that the CIs obtained here are for the parameters NOT for the predictions (see Chapter \@ref(prediction) for that). 
 
 ```{r}
 bootCI
@@ -228,7 +228,7 @@ Diagnostic plots indicate whether the assumptions of the linear model are valid.
 
 * More complex or better models for the signal - alternative models beyond this course.
 
-### Beyond the linear model
+**Beyond the linear model**
 
 As already hinted, linear models are part of a far wider class of models that can handle complex data in a regression framework. 
 

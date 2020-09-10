@@ -1,3 +1,4 @@
+<!-- LB update - 03/09/2020 -->
 <!-- LB update - 31/07/2020 -->
 <!-- Equation numbering needs sorting -->
 
@@ -41,7 +42,7 @@ What do these conditions mean? Condition 1 states that all values of $f(x)$ must
 
 Note that the value of the function for a particular value of $x$ is not a probability (see below).
 
-As seen in Equation 1, calculating probabilities for a continuous random variables involves integration. In this course, R will be used for integration and the example given below is to illustrate of the method.  
+As seen in Equation 1, calculating probabilities for a continuous random variables involves integration. In this course, R will be used for integration and the example given below is to illustrate the use of the method.  
 
 __Example__ Consider a chemical process that has a certain reaction. The temperature ($X$) caused by the reaction has a particular distribution on the interval [-5, 5]. The values that $X$ can take are plotted on the $x$-axis and the density $f(x)$ on the $y$-axis (Figure \@ref(fig:pdfex1)). From this figure, we can see that the $f(x)=0.1$ on the interval [-5, 5] and is zero elsewhere. This is described as a uniform distribution and can be written $X \sim \textrm{Uniform} (-5, 5)$.  
 

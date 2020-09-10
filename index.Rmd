@@ -26,32 +26,64 @@ opts_chunk$set(cache = F, tidy.opts = list(width.cutoff = 55), tidy = F,
 ```{r, child = "_setup.Rmd", include = F, purl = F, cache = F}
 ```
 
-Welcome to an introduction to statistics.
+Welcome to an Introduction to Statistics.
 
-This is an introductory course on statistical using the statistical programming environment `R`. The focus will be on how to undertake an exploratory data analysis in `R`. The target audience is anyone who wants to understand basic statistical concepts to summarise and visualise data and undertake simple analysis. The progression will be via further courses in semester 2.
+This is an introductory course on statistical methods. The focus will be on how to undertake an exploratory data analysis in `R`. The target audience is anyone who wants to understand basic statistical concepts to summarise and visualise data and undertake simple analysis. Progression to more complex methods will be via further courses in semester 2.
+
+This course is spread over 10 weeks and divided into four main parts: 
+
++ I	  All about data
++ II	Probability and statistical distributions 
++ III	Hypothesis tests
++ IV	Regression and linear models.
+
+One or more, or all, of the parts can be taken. The timetable for the course is provided in a separate document. 
 
 ## Prerequisites {-}
 
-* anything here?
+There are no pre-requisites if taking the whole course or taking Part I only. Some prior knowledge of R/RStudio will be helpful although this will be introduced in Part I.
 
-## Working through the module {-}
+If taking parts II, III or IV, familiarity with the material covered in previous parts will be assumed and all material is provided for your use.  Some familiarity with R and RStudio will be assumed - such as reading in a data file and using basic functions to summarise the data.
 
-This module consists of a series of linked chapters. Most chapter consists of
+## Working through the course {-}
 
-1. Core material.
-2. A computer practical to practice implementing in the program `R`, the methods learnt in the core text (except Chapter 1), and
-3. A series of questions which contribute to the overall assessment for this module.
+This course consists of a series of linked chapters with one, two or three chapters covered each week. Most chapters consist of:
 
-It is a good idea to complete all three sections before moving to the next chapter because the ideas and code build upon the previous chapter. (**they will need to complete all the assessment questions to complete the module. can make it such that they have to have tried the computer practical (get some kind of check mark against it?)**)
++ core material,
++ a computer practical to practice implementing, in the program `R`, the methods learnt in the core text, and
++ a series of questions which contribute to the overall assessment for this module.
+
+It is a good idea to complete all three sections before moving to the next chapter because the ideas and code build upon the previous chapter. 
 
 The core material consists of:
 
 + explanatory material containing the core factual content of the module,
-+ exercise/reflective questions (**in bold**) with answers provided at the end of the chapter (**when in print. when in the online version will it be there and then?**),
-+ additional explanations of specific ideas or concepts accessed by hovering/clicking on the link (**TBD. these may be videos or shinys**),
++ exercise/reflective questions (**in bold**) with answers provided at the end of the chapter,
 + sections of `R` code to illustrate how to implement the ideas developed in each chapter - the code appears in `courier` font in a shaded box.
 
-Common notation can be found in xxx (**an appendix?**) 
+Throughout the course, standard statistical and mathematical notation is used to express the concepts precisely. Common notation can be found in the appendix. 
+
+## Computer practicals {-}
+
+The statistical programming enviroment R and user-friendly interface RStudio will be used. It would be helpful if R and RStudio are installed on your laptop before the course starts. Both programs are freely available and there are versions for both Windows and Mac. Here are some short videos to help you with the software installation and an optional link to an opinionated tour of RStudio for new users and a step-by-step guide to installing and using R packages.
+
+1)	How to install R: https://vimeo.com/203516510
+2)	How to install RStudio: https://vimeo.com/203516968
+3)	Optional - Basic Basics lesson unit from  from R-Ladies Sydney https://rladiessydney.org/courses/ryouwithme/01-basicbasics-0/
+
+A basic guide to R terminology, notation and key functions is provided in the appendix to the core material.
+
+Several data sets are used as part of the computer practicals - a brief description of each is available in the appendix. The data files will be available to be downloaded from Moodle.
+
+<!-- All data files can be downloaded as a ZIP file from somewhere.... -->
+
+## Weekly help session {-}
+
+During each week when the course is scheduled, there will be an optional help session with a course tutor.  
+
+In the session, you will be able to discuss the course material, work through the computer practical(s) scheduled for that week (if you haven't already done so) and get help with R and RStudio. 
+
+These session may be held online via MS Teams depending on University guidelines. 
 
 ## Recommended reading {-}
 
@@ -62,9 +94,6 @@ Common notation can be found in xxx (**an appendix?**)
 <!-- * [Linear models with R](https://www.crcpress.com/Linear-Models-with-R/Faraway/p/book/9781439887332) -->
 
 
-## Data files {-}
-
-<!-- All data files can be downloaded as a ZIP file from somewhere.... -->
 
 ## Acknowledgements {-}
 

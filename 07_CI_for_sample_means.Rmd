@@ -177,7 +177,7 @@ The most frequently quoted CI are 95\% confidence intervals (i.e. we want to be 
 
 To illustrate how to find the multiplier, let's return to the height sample data. Figure \@ref(fig:tdist.ca) shows that a $Pr(X \le 2.78) = 0.975$ and because the $t$ distribution is symmetric round zero, we know that $Pr(X \le -2.78) = 0.025$, hence 95\% of the area (the red shaded area) will lie between -2.78 and 2.78 where $df=4$. 
 
-(#ref:tdist.cs) Probability density distribution for $t_{df=4}$. The red shaded area is 95\% of the area with 2.5\% in each tail.
+(ref:tdist.ca) Probability density distribution for $t_{df=4}$. The red shaded area is 95\% of the area with 2.5\% in each tail.
 
 ```{r tdist.ca, echo=F, fig.cap="(ref:tdist.ca)", fig.pos='!htb'}
 xval <- seq(-5.5, 5.5, by=0.01)
@@ -215,7 +215,7 @@ If we wanted to increase the chance of catching the true mean, the interval coul
 
 #### Doing this in R
 
-To start with, we illustrate how to calculate a confidence interval by obtaining all the individual components. The $t$-multiplier is found from the cumulative distribution function for the $t$ distribution `qt` - this is similar to the `qnorm` function introduced in Chapter \@ref(#contrv). 
+To start with, we illustrate how to calculate a confidence interval by obtaining all the individual components. The $t$-multiplier is found from the cumulative distribution function for the $t$ distribution `qt` - this is similar to the `qnorm` function introduced in Chapter \@ref(contrv). 
 
 ```{r, echo=T}
 # 95% CI for the sample mean assuming underlying population is normal
@@ -465,7 +465,7 @@ However,
 + this approach can be computationally intensive,
 + and because of the random nature it may not always provide the desired coverage (e.g. the intervals may be too small or too large and may not capture the parameter of interest with the desired confidence).
 
-To illustrate this approach we will use it to find a confidence interval for the mean weights of babies described in Q7.1. To discover more about the bootstrap then see [\@ref(Davison1997)]. 
+To illustrate this approach we will use it to find a confidence interval for the mean weights of babies described in Q7.1. To discover more about the bootstrap then see [@Davison1997]. 
 
 #### Doing this in R
 

@@ -423,7 +423,13 @@ abline (a=20, b=1,lty=2, col=2)
 
 ```
 
-This [shiny app](https://tullimonstrum.shinyapps.io/shinyapps/ ) allows you to choose a best fit line yourself. Can you find the best fit that minimises the sum of the square of the residuals? The red arrows indicate the residual lengths.
+Figure \@ref(fig:sumsqshiny) allows you to choose a best fit line yourself. Can you find the best fit that minimises the sum of the square of the residuals? The red arrows indicate the residual lengths.
+
+(ref:sumsqshiny) Exploring the line of best fit using residual sums of squares. You can see a live version by clicking [here](https://moniquemackenzie.shinyapps.io/IntroStats_SumsSq/)
+
+```{r sumsqshiny, echo=FALSE, fig.cap='(ref:sumsqshiny)', screenshot.opts=list(delay=5), dev='png', cache=TRUE}
+knitr::include_app("https://moniquemackenzie.shinyapps.io/IntroStats_SumsSq/", height='600px')
+```
 
 
 ### Fitting the model: the details
