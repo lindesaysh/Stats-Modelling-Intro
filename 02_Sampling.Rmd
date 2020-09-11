@@ -62,7 +62,7 @@ In sampling, we take a sample from a target population and generate a statistic 
 
 In general, a sample statistic will be some combination of the population parameter being estimated plus any bias and some random variability.
 
-```{r targetplot, fig.cap='The centre of the target indicates the true value of the parameter and the dots are sample statistics.', echo=FALSE}
+```{r targetplot, fig.cap='The centre of the target indicates the true value of the parameter and the dots are sample statistics.', echo=FALSE, out.width="95%"}
 knitr::include_graphics('figures/precision_accuracy_target.png')
 ```
 
