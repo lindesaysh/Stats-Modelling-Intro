@@ -462,7 +462,7 @@ To illustrate how to create a scatter plot in R, we first need to create some da
 num <- 50
 xdata <- runif(n=num, min=10, max=50)
 # Generate 50 random values from a normal distribution (mean=x and sd=5)
-ydata <- rnorm(n=num, mean=x, sd=3)
+ydata <- rnorm(n=num, mean=xdata, sd=3)
 
 # Scatter plot
 plot(x=xdata, y=ydata)
