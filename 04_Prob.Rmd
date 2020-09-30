@@ -383,7 +383,7 @@ __Example__ (adapted from Lipshutz & Lipson 2011): "Dragos and Christopher play 
 We can tackle something simple like this by complete enumeration of outcomes. The following concepts are needed: independence (winning a game does not alter the chance of a future win of a game) and mutual exclusivity (only one player can win a match). 
 
 
-```{r tree2, fig.cap='Tree for match outcomes.', echo=FALSE}
+```{r tree2, fig.cap='Tree for match outcomes.', echo=FALSE, out.width='95%'}
 knitr::include_graphics('figures/treediagramdrago.png')
 ```
 

@@ -396,7 +396,7 @@ Table \@ref(tab:dietdatatab) is an example of a cross-tabulation which summarise
 
 ```{r dietdatatab, echo=F}
 # Read in diet data
-diet <- read.csv("../data//diet_data.csv", header=T)
+diet <- read.csv("data/diet_data.csv", header=T)
 diet$Gender <- "Unknown"
 diet$Gender[diet$gender==0] <- "Female"
 diet$Gender[diet$gender==1] <- "Male"
