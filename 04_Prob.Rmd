@@ -347,8 +347,8 @@ What are the chances that a woman who tests positive actually has breast cancer?
 
 Considered as a conditional probability problem it is complex.
 We know: 
-<br/>  $Pr(Cancer)$ = 0.01 
-<br/>   $Pr(positive|Cancer)$ = 0.99 
+<br/> $Pr(Cancer)$ = 0.01 
+<br/> $Pr(positive|Cancer)$ = 0.99 
 <br/> $Pr(positive|Not cancer)$ = 0.09   
 
 So the question is what is Pr(Cancer|positive)?
@@ -361,8 +361,6 @@ This can be calculated as
 
 But it is not immediately obvious what $\Pr(Cancer \cap positive)$ and $\Pr(positive)$ actually are. 
 
-
-
 Considering this as a tree diagram things (Figure \@ref(fig:tree1)) become a little more obvious. 
 
 
@@ -371,7 +369,7 @@ knitr::include_graphics('figures/treediagram.png')
 ```
 
 Of 100 women, 1 has cancer and tests positive, 99 do not have cancer of whom 
-9/100 x 99  = 8.9 will test postie. 
+9/100 x 99  = 8.9 will test positive. 
 
 It now becomes easy to see that the $Pr(Cancer|positive)$ = 1/(1+8.9) = 10.1%
 
