@@ -6,7 +6,7 @@
 ```{r echo=F, warning=F, suppress=T, quietly=T}
 library(ggplot2, quietly=T); library(tidyr, quietly=T); library(dplyr, quietly=T);library (car, quietly=T);library (stats, quietly=T)
 
-wfdata<- read.csv("data/EIA_dataset_for_lectures_V1.0.csv", header=T)
+wfdata<- read.csv("data/NystedFarmsAnalysis.csv", header=T)
 ```
 
 One use of a regression model is prediction. That is, the model is used to predict, or estimate, values of the response $y$ given values of the explanatory variables $x$. This could involve __interpolation__ (e.g. estimating $y$ within the known range of $x$) or __extrapolation__ (e.g. estimating $y$ outwith the known range of $x$, or combination of $x$'s in multiple regression). As well as estimating a particular value (point estimate), we also need to provide a measure of uncertainty of the estimate and this will depend on the aim of the prediction. 
@@ -215,8 +215,10 @@ __Example__ An interesting application of regression, using a slightly more comp
 ```{r LRLtoML, echo=FALSE, fig.cap="Regression of mantle length of lower rostral length in squid. The black line is the best fit line", out.width = '100%'}
 knitr::include_graphics("./figures/squid.png")
 ```
+
 <!--[Regression of mantle length of lower rostral length in squid. The black line is the best fit line.](figures/squid.png)
 -->
+
 ## Prediction in multiple regression
 
 Prediction in multiple regression is carried out in the same way as in the simple regression case (although the calculation of the standard error is more complicated). 
@@ -225,25 +227,24 @@ In R, a data frame with **all** the relevant covariates (i.e. those used in the 
 
 ```{r, echo=T, eval=T}
 # Fit a linear model
-linearAll <- lm(density ~ X + Y + DistCoast + depth + as.factor(month) + phase,
+linearAll <- lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) + Phase,
                 data=wfdata)
 # Specify values for prediction
-X <- mean (wfdata$X)
-Y <- mean (wfdata$Y)
-DistCoast <- 5
-depth <- 10
-month <- 4
-phase <- "C"
 # Create dataframe
-df.wf <- data.frame (X, Y, DistCoast, depth, month, phase)
+df.wf <- data.frame (XPos = mean (wfdata$XPos), 
+                     YPos = mean (wfdata$YPos), 
+                     DistCoast = 5, 
+                     Depth = 10,
+                     Month = 4, 
+                     Phase = "C")
 # Prediction
 predict(linearAll, newdata=df.wf, se.fit=TRUE, interval="confidence",
         level=0.95)
 ```
 
-Hence, for the mean values of `X` and `Y`, a `DistCoast` of 5km and `depth` of 10m in `phase` C in April, the predicted density of birds is 4.69 (95\ 4.38-5.00) birds per km$^2$. 
+Hence, for the mean values of `XPos` and `YPos`, a `DistCoast` of 5km and `Depth` of 10m in `Phase` C in April, the predicted density of birds is 3.57 (95\% 2.67-4.47) birds per km$^2$. 
 
-It is possible to predict for any combinations of covariates even those that did not occur in the data. For example, the `depth` and `DistCoast` values used in the above prediction may not actually occur together for any record in the observed data. This is, of course, a form of extrapolation and is **dangerous** (and potentially even pointless - why extrapolate from combinations of variables that do not occur in nature?). 
+It is possible to predict for any combinations of covariates even those that did not occur in the data. For example, the `Depth` and `DistCoast` values used in the above prediction may not actually occur together for any record in the observed data. This is a form of extrapolation and is **dangerous** (and potentially even pointless - why extrapolate from combinations of variables that do not occur in nature?). 
 
 
 **Q17.1** For the following scenarios decide whether confidence intervals or prediction intervals would be more appropriate. 

@@ -8,7 +8,7 @@ Linear models (simple linear regression and multiple regression models) come wit
 library(ggExtra)
 library(ggplot2)
 
-wfdata <- read.csv("data/EIA_dataset_for_lectures_V1.0.csv", header=T)
+wfdata <- read.csv("data/NystedFarmsAnalysis.csv", header=T)
 ```
 
 ```{r, echo=F, eval=T}
@@ -27,21 +27,21 @@ meddata$teonpres<-ifelse(test = meddata$TEON=='Yes', 1, 0)
 ```
 
 
-```{r, echo=F, eval=T, warning=F, message=F, suppress.message=T}
-  #load libraries and data
-  library (car);library (stats)
-  library(ggplot2, quietly=T)
-  library(tidyr, quietly=T)
-  library(dplyr, quietly=T)
-  library (gridExtra, quietly=T)
-  EIAData<- read.csv("data/EIA_dataset_for_lectures_V1.0.csv", header=T)
-  
-  # filter out near-shore data for our current purposes
-  workingData<- EIAData%>%filter(DistCoast>100)
+<!-- ```{r, echo=F, eval=T, warning=F, message=F, suppress.message=T} -->
+<!--   #load libraries and data -->
+<!--   library (car);library (stats) -->
+<!--   library(ggplot2, quietly=T) -->
+<!--   library(tidyr, quietly=T) -->
+<!--   library(dplyr, quietly=T) -->
+<!--   library (gridExtra, quietly=T) -->
+<!--   EIAData<- read.csv("data/EIA_dataset_for_lectures_V1.0.csv", header=T) -->
 
-  options(digits=7)
-  
-```
+<!--   # filter out near-shore data for our current purposes -->
+<!--   workingData<- EIAData%>%filter(DistCoast>100) -->
+
+<!--   options(digits=7) -->
+
+<!-- ``` -->
 
 Fitting linear models is no problem - given a numeric response and some covariates,we can estimate parameters most of the time. Lots of different models may be possible and we want to select between them, or perhaps we have just one theoretical model we want to fit. 
 
@@ -78,14 +78,14 @@ Let's fit a couple of models to the EIA data - one without interactions (`model1
 
 ```{r, echo=T, eval=T}
 # Specify month as a factor
-wfdata$month <- as.factor(wfdata$month)
+#wfdata$month <- as.factor(wfdata$month)
 
 # Model without interactions  
-model1 <- lm(density ~ X + Y + DistCoast + depth + month + phase,
-              data=EIAData)
-# Model with interactions
-model2 <- lm(density ~ X + Y + DistCoast + depth + month + phase 
-              + X:phase + Y:phase, data=EIAData)
+model1 <- lm(Density ~ XPos + YPos + DistCoast + Depth + Month + Phase,
+              data=wfdata)
+# Model with XPos:Phase interaction
+model2 <- lm(Density ~ XPos + YPos + DistCoast + Depth + Month + Phase +
+               XPos:Phase, data=wfdata)
 ```
 
 \normalsize
@@ -103,9 +103,9 @@ summary(model2)
 
 \normalsize
 
-* We see the `model1` and `model2` describe 19.7\% and 20.6\% of the sample variance, respectively.
+* We see the `model1` and `model2` describe 12.7\% and 13.0\% of the sample variance, respectively.
 * The more complicated model (`model2`) describes more variability in the data, as we might expect (the simpler model is just the more complex one with some terms removed).
-* 20.6\% may not sound a lot - but things in the natural world are complex - there is likely to always be a lot of stuff we can't explain. (We think $\sim 20\%$ is pretty good!)
+* 13% may not sound a lot - but things in the natural world are complex - there is likely to always be a lot of stuff we can't explain. (We would think $\sim 20\%$ is pretty good!)
 * A _good_ $R^2$ is context specific - it need not be large for the model to be good/useful.
 
 ### Signal versus noise
@@ -214,7 +214,7 @@ There are two main approaches to assessing whether data are normally distributed
     
 **Histogram of residuals**
 
-If we look at the residuals from `model1` (Figure \@ref(fig:normdraws2)), the residuals appear to be right skewed compared with what we would expect from a normal distribution. 
+If we look at the residuals from `model1` fitted to the EIA data (Figure \@ref(fig:normdraws2)), the residuals appear to be right skewed compared with what we would expect from a normal distribution. 
 
 ```{r normdraws2, echo=F,fig.cap='EIA model residuals compared to a normal distribution', dev='png'}
 hist (residuals (model1), main="")
@@ -343,7 +343,15 @@ Figure \@ref(fig:model1fitsresr) has many points and is therefore very difficult
 
 
 ```{r unclutteredvarplot, echo=FALSE, fig.cap="The fitted values against the variance of the residuals (simplified) for a model similar to the interaction based model. The variance assumed under the model is represented by the solid horizontal line.", out.width = '60%'}
-knitr::include_graphics("./figures/unclutteredvarplot.png")
+cut.fit<- cut(fitted(model1), 
+              breaks=quantile(fitted(model1), 
+                              probs=c(seq(0,1,length=20))))
+means1<- tapply(fitted(model1),cut.fit,mean)
+vars1<- tapply(residuals(model1),cut.fit,var)
+plot(means1,vars1, xlab="Fitted Values",
+     ylab="Variance of the residuals",main="Raw response",
+     pch=16)
+abline(h=summary(model1)$sigma**2,lwd=2)
 ```
 
 It can clearly be seen that the variance does increase with an increase in fitted values. 
@@ -382,7 +390,7 @@ knitr::include_graphics("figures/simindep.png")
 
 The residuals of `model1` appear to be correlated when plotted in observation order (Figure \@ref(fig:mod1res)) and the Durbin  Watson test (below) confirms this positive correlation:
 
-+ the correlation coefficient is $0.88$ and the $p$-value is extremely small).
++ the correlation coefficient is $0.15$ and the $p$-value is extremely small).
 
 ```{r mod1res, echo=T, eval=T, fig.cap='The first 100 residuals in model1'}
 library(car)
@@ -610,17 +618,18 @@ Partial residuals have several useful diagnostic properties:
 
 ### Doing this in R
 
-As usual, a shortcut for making partial residuals in R is available. In the `car` library, the function `crPlots` provides a convenient function with a fit of the function as modelled and a 'smooth' function through the residuals to highlight any pattern (Figure \@ref(fig:crplots)). 'cr' is shorthand for "component residual" which is another name for partial plots. 
+As usual, a shortcut for making partial residuals in R is available. In the `car` library, the function `crPlots` provides a convenient function with a fit of the function as modelled and a 'smooth' function through the residuals to highlight any pattern (Figure \@ref(fig:crplots)).  'cr' is shorthand for "component residual" which is another name for partial plots. 
 
 ```{r crplots, echo=T, eval=T, fig.cap='Partial residual plots from the car library'}
 # Partial residual plots
 crPlots(modelboth)
 ```
+
 Returning to the EIA data, the partial plots for `model1` are shown in Figure \@ref(fig:y).  
 
 ```{r y, echo=T, eval=T, fig.cap='Partial residual plots in the EIA model'}
-model1 <- lm(density ~ X + Y + DistCoast + depth + 
-                month + phase, data=wfdata)
+model1 <- lm(Density ~ XPos + YPos + DistCoast + Depth + 
+                Month + Phase, data=wfdata)
 # Partial residual plots
 crPlots(model1)
 ```
@@ -645,20 +654,13 @@ Simple partial residual plots don't work with interactions, so we need to do som
 require(effects)
 require(ggExtra)
 # Fit model with interactions
-model2 <- lm(density ~ X + Y + DistCoast + depth + 
-                month + phase + X:phase + Y:phase, data=EIAData)
+model2 <- lm(Density ~ XPos + YPos + DistCoast + Depth + 
+                Month + Phase + XPos:Phase, data=wfdata)
 # Plot partial residuals
-plot(effect("X:phase", model2, ylab="X", rug=TRUE, partial.residuals=T))
+plot(effect("XPos:Phase", model2, ylab="XPos", rug=TRUE, partial.residuals=T))
 ```
 
-```{r, interactionpres2, echo=T, fig.cap='Partial residual plots for interactions'}
-plot(effect("Y:phase", model2, ylab="X", rug=TRUE, partial.residuals=T))
-
-```
-Clearly there is something odd going on here, but the shear density of data makes it difficult to interpret; in each case there is a peak at middling values worthy of further investigation.  
-
-* The plot for the interaction effect tells us that the relationship appears to be steeper in Phase B compared with Phase A, but the relationships are more similar in Phase A and Phase C.
-* This is also confirmed by the summary output, where the coefficients for the `X` relationship in phase A and B are markedly different, but less so between phases A and C.
+There may be something odd going on here, but the shear density of data makes it difficult to interpret; in each case there is are some peaks worthy of further investigation.  
 
 
 ***

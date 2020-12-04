@@ -347,11 +347,13 @@ We'll return to the EIA dataset seen previously. To analyse these data properly 
   library(tidyr, quietly=T)
   library(dplyr, quietly=T)
   library (gridExtra, quietly=T)
-  EIAData<- read.csv("data/EIA_dataset_for_lectures_V1.0.csv", header=T)
+  EIAData<- read.csv("data/NystedFarmsAnalysis.csv", header=T)
+  #read.csv("data/EIA_dataset_for_lectures_V1.0.csv", header=T)
   wfdata <- EIAData
   
   # filter out near-shore data for our current purposes
-  workingData<- EIAData%>%filter(DistCoast>100)
+  workingData<- EIAData
+    #EIAData%>%filter(DistCoast>100)
 
   options(digits=7)
 ```
@@ -379,17 +381,17 @@ Scatterplots can be a good way to explore relationships between variables, but o
 ```{r realscatterplots14a, fig.cap="Scatterplots for potential model covariates and estimated densities.", fig.height=3, fig.width=7, echo=T, dev='png'}
 require(ggplot2)
 require(gridExtra)
-a<-qplot(depth, density, data=workingData, xlab="Depth",
+a<-qplot(Depth, Density, data=workingData, xlab="Depth (m)",
 ylab="Density", geom = c("point"), alpha = I(1 / 5))
-b<-qplot(X, density, data=workingData,xlab="X co-ordinate",
+b<-qplot(XPos, Density, data=workingData,xlab="X co-ordinate",
 ylab="Density", geom = c("point"), alpha = I(1 / 5))
 grid.arrange(a, b, nrow=1)
 ```
 
 ```{r realscatterplots14b, fig.cap='Scatterplots for potential model covariates and estimated densities.', fig.height=3, fig.width=7, echo=FALSE, dev='png'}
-a<-qplot(Y, density, data=workingData, xlab="Y co-ordinate",
+a<-qplot(YPos, Density, data=workingData, xlab="Y co-ordinate",
 ylab="Density", geom = c("point"), alpha = I(1 / 5))
-b<-qplot(DistCoast, density,data=workingData, xlab="Distance from coast",
+b<-qplot(DistCoast, Density,data=workingData, xlab="Distance from coast (Km)",
 ylab="Density", geom = c("point"), alpha = I(1 / 5))
 grid.arrange(a, b, nrow=1)
 ```
@@ -431,9 +433,12 @@ Since we are also interested in potential changes across phases, we also include
 It is worth looking at the relationships between pairs of explanatory variables to see if there are any correlations between them (Figure  \@ref(fig:exploratory)). 
 
 ```{r exploratory, echo=F, eval=T, fig.cap='Scatterplots showing the relationships between explanatory variables. The plots are symmetrical above and below the diagonal.'}
-plot (workingData[,c(5:8,19,10)])
+plot (workingData[,c(1, 5, 7, 10, 11, 13)])
+                  #c(5:8,19,10)])
+
 
 ```
+
 
 #### The model for the signal
 
@@ -469,7 +474,7 @@ There can be two types of variable in a linear model. Variables that are continu
 
 #### Continuous covariates
 
-If we fit a model with `X`, `Y`, `DistCoast`, `depth` and `month` all as continuous covariates, we have the following model:
+If we fit a model with `XPos`, `YPos`, `DistCoast`, `Depth` and `Month` all as continuous covariates, we have the following model:
 
 $$
 y_{i} =  \beta_0 + \beta_1x_{1i} + \beta_2x_{2i} +\beta_3x_{3i} +\beta_4x_{4i}+\beta_5x_{5i}+\epsilon_{i}
@@ -478,19 +483,19 @@ $$
 
 where 
 
-+ $y_{i}$ represents `density` at point $i$, 
-+ $x_{1i}$ represents `X`, 
-+ $x_{2i}$ represents `Y`, 
++ $y_{i}$ represents `Density` at point $i$, 
++ $x_{1i}$ represents `XPos`, 
++ $x_{2i}$ represents `YPos`, 
 + $x_{3i}$ represents `DistCoast`, 
-+ $x_{4i}$ represents `depth` and 
-+ $x_{5i}$ represents `month`.
++ $x_{4i}$ represents `Depth` and 
++ $x_{5i}$ represents `Month`.
 
 + Each slope coefficient ($\beta_1,...,\beta_5$) relates to the expected change in density for a one-unit increase in the covariate. 
-+ The intercept coefficient ($\beta_0$) relates to the expected density when all covariates are equal to zero (which doesn't make sense in this context) as for example `depth` cannot be zero. 
++ The intercept coefficient ($\beta_0$) relates to the expected density when all covariates are equal to zero (which doesn't make sense in this context) as for example `Depth` cannot be zero. 
 
 #### Factor covariates
 
-In this example, month can either be considered as a continuous covariate, since it is coded as values 2 to 4, or a categorical (factor) covariate since it contains many repeated values.
+In this example, month can either be considered as a continuous covariate, since it is coded as values 1 to 4, or a categorical (factor) covariate since it contains many repeated values.
 
 + As it turns out, fitting variables as factors permits the response to vary with the covariate in a nonlinear way so that, in this example, the fitted relationship between density and month can vary by month.  
 + As a consequence, this requires more parameters to be estimated because we are no longer estimating just one regression coefficient.The number of parameters is related to the number of factor levels. 
@@ -519,15 +524,15 @@ y_{i} =  \beta_0 +
 
 where: 
 
-+ $x_{1i}$ represents `X`, 
-+ $x_{2i}$ represents `Y`,   
++ $x_{1i}$ represents `XPos`, 
++ $x_{2i}$ represents `YPos`,   
 + $x_{3i}$ represents `DistCoast`,
-+ $x_{4i}$ represents `depth`,  
-+ $x_{5i}=1$ when month=2 and $x_{5i}=0$ otherwise (i.e. for any other month),
-+ $x_{6i}=1$ when month=3 and $x_{6i}=0$ otherwise 
-+ $x_{7i}=1$ when month=4 and $x_{7i}=0$ otherwise.
++ $x_{4i}$ represents `Depth`,  
++ $x_{5i}=1$ when Month=2 and $x_{5i}=0$ otherwise (i.e. for any other month),
++ $x_{6i}=1$ when Month=3 and $x_{6i}=0$ otherwise 
++ $x_{7i}=1$ when Month=4 and $x_{7i}=0$ otherwise.
 
-+ the intercept coefficient ($\beta_0$) represents average density in `month=1` when `X`, `Y`, `DistCoast` and `depth` are equal to zero. 
++ the intercept coefficient ($\beta_0$) represents average density in `Month=1` when `XPos`, `YPos`, `DistCoast` and `Depth` are equal to zero. 
 
 The fitted model for January is:
 
@@ -577,7 +582,7 @@ options(width=100)
 
 
 ```{r, echo=TRUE}
-linearStart<- lm(density ~ X + Y + DistCoast + depth + month, data=wfdata)
+linearStart<- lm(Density ~ XPos + YPos + DistCoast + Depth + Month, data=wfdata)
 summary(linearStart)
 ```
 
@@ -586,15 +591,15 @@ summary(linearStart)
 Thus, the fitted equation is:
 
 \begin{align}
-\widehat{\textrm{density}} = & 2531 + 0.0001010\textrm{X}\\
-& -0.000428\textrm{Y} - 0.00000018\textrm{DistCoast} \\
-& - 0.5003 \textrm{depth} + 0.351 \textrm{month}\\
+\widehat{\textrm{Density}} = & 3272 + 0.119\textrm{XPos}\\
+& - 0.553\textrm{YPos} - 0.3198\textrm{DistCoast} \\
+& - 0.452 \textrm{Depth} + 0.253 \textrm{Month}\\
 \end{align}
 
 
-#### Continous and factor-level covariates
+#### Continuous and factor-level covariates
 
-When month is fitted as __factor__ variable (Equation \@ref(eq:linregdata2) instead of a continuous variable, we find month now has three coefficients (i.e. the number of levels minus the baseline). By default, R will treat a variable containing numbers as a continuous variable and so we need to explicitly state that `month` is a factor if the levels are designated by numbers. Note but if  `month` was coded as Feb, Mar etc then the default fit would be as a factor. 
+When month is fitted as __factor__ variable (Equation \@ref(eq:linregdata2) instead of a continuous variable, we find month now has three coefficients (i.e. the number of levels minus the baseline). By default, R will treat a variable containing numbers as a continuous variable and so we need to explicitly state that `Month` is a factor if the levels are designated by numbers. Note but if  `Month` was coded as Feb, Mar etc then the default fit would be as a factor. 
 
 \scriptsize
 ```{r, echo=F}
@@ -602,7 +607,7 @@ options(width=100)
 ```
 
 ```{r, echo=TRUE}
-linearFactor<- lm(density ~ X + Y + DistCoast + depth + as.factor(month), data=wfdata)
+linearFactor<- lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month), data=wfdata)
 summary(linearFactor)
 
 ```
@@ -615,8 +620,8 @@ The fitted equation for January (baseline) is:
 
 
 \begin{align}
-\widehat{\textrm{density}} = & 2550 + 0.0001004\textrm{X} -0.0004316\textrm{Y} \\
-& - 0.00000019\textrm{DistCoast} - 0.5011 \textrm{depth}\\
+\widehat{\textrm{Density}} = & 3288 + 0.119\textrm{XPos} -0.555\textrm{YPos} \\
+& - 0.321\textrm{DistCoast} - 0.453 \textrm{Depth}\\
 \end{align}
 
 
@@ -624,33 +629,33 @@ The other months are relative to the baseline and so we add on additional terms 
 
 
 \begin{align}
-\widehat{\textrm{density}} = & 2550 + 0.0001004\textrm{X}\\
-& -0.0004316\textrm{Y} - 0.00000019\textrm{DistCoast} \\
-&- 0.5011 \textrm{depth} + 0.5737\\
+\widehat{\textrm{Density}} = & 3288 + 0.119\textrm{XPos} \\
+& -0.555\textrm{YPos} - 0.321\textrm{DistCoast} \\
+& - 0.453 \textrm{Depth} + 0.240\\
 \end{align}
 
 The fitted equation for March is:
 
 
 \begin{align}
-\widehat{\textrm{density}} = & 2550 + 0.0001004\textrm{X} \\
-& -0.0004316\textrm{Y} - 0.00000019\textrm{DistCoast} \\
-& - 0.5011 \textrm{depth} + 3.126\\
+\widehat{\textrm{Density}} = & 3288 + 0.119\textrm{XPos} \\
+& -0.555\textrm{YPos} - 0.321\textrm{DistCoast} \\
+& - 0.453 \textrm{Depth} + 2.791\\
 \end{align}
 
 and lastly, for April is
 
 
 \begin{align}
-\widehat{\textrm{density}} =  & 2553.125 + 0.0001004\textrm{X} \\
-& -0.0004316\textrm{Y} - 0.00000019\textrm{DistCoast} \\
-& - 0.5011 \textrm{depth} + 0.6774\\
+\widehat{\textrm{Density}} = & 3288 + 0.119\textrm{XPos} \\
+& -0.555\textrm{YPos} - 0.321\textrm{DistCoast} \\
+& - 0.453 \textrm{Depth} + 0.308\\
 \end{align}
 
 
 ### Parameter Interpretation
 
-In our example, we are interested in the potential changes across phases and so we add `phase` to the model. This adds two coefficients (because there are two phases). The variable `phase` is coded as A, B or C and so R interprets this as a factor by default . 
+In our example, we are interested in the potential changes across phases and so we add `Phase` to the model. This adds two coefficients (because there are two phases). The variable `Phase` is coded as A, B or C and so R interprets this as a factor by default . 
 
 \scriptsize
 
@@ -660,7 +665,7 @@ options(width= 100)
 
 ```{r, echo=TRUE}
 
-linearAll<- lm(density ~ X + Y + DistCoast + depth + as.factor(month) + phase, data=wfdata)
+linearAll<- lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) + Phase, data=wfdata)
 summary(linearAll)
 
 ```
@@ -670,18 +675,18 @@ Typically we wouldn't proceed with interpreting model output until we were happy
 
 The model coefficients ($\hat{\boldsymbol{\beta}}$) for the `linearAll` model can be interpreted as follows:
 
-+  `X` increases by one metre, we expect density to increase by 0.0001024 units
-  +  `Y` increases by one metre, we expect density to decrease by 0.0004714 units
-+  `DistCoast` increases by one metre, we expect density to decrease by $-2.39 \times 10^{-7}$
-+  `depth` increases by 1 metre (i.e. becomes 1m deeper) then `density` is expected to decrease by 0.4986 units
-+   `month` is February, rather than January, then  `density` is expected to  increase
-by 0.5175 units
-+   `month` is March, rather than January, then  `density` is expected to  increase by 3.117 units
-+   `month` is April, rather than January, then `density` is expected to  increase by 0.6526 units
-+   `phase` is Phase B, rather than Phase A, then `density` is expected to  decrease by 0.1456 units
-+   `phase` is Phase C, rather than Phase A, then `density` is expected to  increase by 0.4161 units
++  `XPos` increases by one kilometre, we expect density to increase by 0.117 animals per km$^2$
++  `YPos` increases by one kilometre, we expect density to decrease by 0.555 animals per km$^2$
++  `DistCoast` increases by one kilometre, we expect density to decrease by 0.315 animals per km$^2$
++  `Depth` increases by 1 metre (i.e. becomes 1m deeper) then density is expected to decrease by 0.454 animals per km$^2$
++   `Month` is February, rather than January, then density is expected to  increase
+by 0.547 animals per km$^2$
++   `Month` is March, rather than January, then density is expected to  increase by 3.159 animals per km$^2$
++   `Month` is April, rather than January, then density is expected to  increase by 0.658 animals per km$^2$
++   `Phase` is Phase B, rather than Phase A, then density is expected to  decrease by 0.185 animals per km$^2$
++   `Phase` is Phase C, rather than Phase A, then density is expected to  decrease by 1.536 animals per km$^2$
 
-+ The intercept in this case includes two baseline levels - the baseline month and the baseline phase and so reflects the expected density for `X=0`, `Y=0`, `DistCoast=0`, `depth=0` in January and Phase A.
++ The intercept in this case includes two baseline levels - the baseline month and the baseline phase and so reflects the expected density for `XPos=0`, `YPos=0`, `DistCoast=0`, `Depth=0` in January and Phase A.
 
 A nice film about interpreting regression coefficients can found [here](http://www.youtube.com/watch?v=JwGaos2Y9bM).
 
@@ -704,12 +709,12 @@ $$
 $$
 
 + For example, the 95\% confidence interval ($\alpha=0.05$) for the coefficient associated with `phaseB` is 
-$$ -0.146 \pm t_{(0.025, 31492)}\times 0.076$$
+$$ -0.185 \pm t_{(0.025, 31492)}\times 0.361$$
 The $t$ multiplier is -1.96 (the $t$ distribution is going to be like the normal distribution because of the high degrees of freedom):
 
-$$ -0.146 \pm 1.96\times 0.076$$
+$$ -0.185 \pm 1.96\times 0.361$$
 
-(`r -1.456e-1  - abs(qt(0.025,31502))* 7.602e-02`, `r -1.456e-1  + abs(qt(0.025,31502))* 7.602e-02`)
+(`r round(confint(linearAll)[9,1],4)`, `r round(confint(linearAll)[9,2],4)`)
 
 + Note this interval contains zero and so even though the estimate is positive, we cannot say whether average density in phase B is higher, lower, or the same as in phase A (all other things being equal.)
 
@@ -727,7 +732,7 @@ $$
 
 __Example__ We can test the hypothesis that the coefficient for phase B is equal to 0. Therefore, the test statistic for `phaseB` coefficient is:
 $$
-\textrm{test statistic} = \frac{-1.456-0}{0.076}=-1.916
+\textrm{test statistic} = \frac{-0.18549-0}{0.36145}=-0.513
 $$ 
 
 + We can quantify the evidence for the null hypothesis by obtaining an exact $p$-value for the test statistic:
@@ -745,17 +750,17 @@ Similar hypothesis tests can be done for all regression coefficients and that is
 #### The importance of considering multiple covariates
 
 Based on the `linearAll` model, we have no evidence that average density is different in phase B (or phase C) compared with phase A, but this result depends on the other covariates included in the model.
-For example, if we consider `phase` alone in the model (see below) we find average density appears to be significantly higher in phase B compared with phase A, whereas phase C is significantly lower than phase A.
 
+In this case, if we consider `Phase` alone in the model (see below), the average density is still not significantly higher in phase B comparet with phase A.  
 
 \small
 ```{r}
-summary(lm(density ~ phase, data=EIAData))
+summary(lm(Density ~ Phase, data=EIAData))
 ```
 
 \normalsize
 
-Hence, the importance of covariates can depend on other covariates included in the model. An extreme case of this is illustrated in the following example. 
+To show the importance of covariates can depend on other covariates included in the model the following example shows an extreme case of this. 
 
 Imagine we are interested in understanding the contribution of leg length to human height. We measure left leg length (LLL) and right leg length (RLL) and total height in a sample of men.
 
@@ -886,12 +891,10 @@ multiReg_lm <- lm(vitdresul ~ TEON + folate, data=meddata)
 We request a summary, as for other `lm` objects:
 
 ```{r, eval = F}
-
 summary(multiReg_lm)
 ```
 
 ```{r, echo = F}
-
 summary(multiReg_lm)
 ```
 

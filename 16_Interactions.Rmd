@@ -279,39 +279,43 @@ In this section, we return to two data sets that we have introduced in previous 
 ### EIA data
 
 ```{r, eval=T, echo=F}
-wfdata<- read.csv("data/EIA_dataset_for_lectures_V1.0.csv", header=T)
+wfdata<- read.csv("data/NystedFarmsAnalysis.csv", header=T)
 ```
 We can implement an interaction(s) in our model to explain density by including `phase:X` and `phase:Y` terms:
 
 \scriptsize
 
 ```{r, eval=F, echo=TRUE}
+Call:
+lm(formula = Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) + 
+    Phase + XPos:Phase + YPos:Phase, data = wfdata)
 
-lm(formula = Density ~ X + Y + DistCoast + depth + as.factor(month) +  phase 
-   + X:phase + Y:phase, data=wfdata)
+Residuals:
+    Min      1Q  Median      3Q     Max 
+ -12.27   -5.28   -2.96   -0.16 1715.13 
 
 Coefficients:
                     Estimate Std. Error t value Pr(>|t|)    
-(Intercept)        2.547e+03  3.097e+02   8.224  < 2e-16 ***
-X                  6.906e-05  1.925e-05   3.588 0.000333 ***
-Y                 -4.275e-04  5.080e-05  -8.416  < 2e-16 ***
-DistCoast         -4.513e-07  1.343e-07  -3.360 0.000781 ***
-depth             -5.288e-01  3.496e-02 -15.125  < 2e-16 ***
-as.factor(month)2  4.771e-01  5.363e-01   0.890 0.373617    
-as.factor(month)3  3.116e+00  4.624e-01   6.737 1.64e-11 ***
-as.factor(month)4  6.198e-01  4.587e-01   1.351 0.176611    
-phaseB             1.068e+02  3.254e+02   0.328 0.742716    
-phaseC             1.431e+03  6.516e+02   2.196 0.028084 *  
-X:phaseB           7.012e-05  2.572e-05   2.726 0.006407 ** 
-X:phaseC           2.532e-05  3.183e-05   0.796 0.426314    
-Y:phaseB          -2.559e-05  5.329e-05  -0.480 0.631115    
-Y:phaseC          -2.392e-04  1.078e-04  -2.218 0.026566 *  
+(Intercept)       3279.23859  330.78931   9.913  < 2e-16 ***
+XPos                 0.08446    0.01958   4.314 1.61e-05 ***
+YPos                -0.55007    0.05445 -10.102  < 2e-16 ***
+DistCoast           -0.31486    0.06937  -4.539 5.68e-06 ***
+Depth               -0.45478    0.04077 -11.154  < 2e-16 ***
+as.factor(Month)2    0.52526    0.53628   0.979  0.32737    
+as.factor(Month)3    3.15320    0.46242   6.819 9.34e-12 ***
+as.factor(Month)4    0.65421    0.45868   1.426  0.15379    
+PhaseB             104.08871  325.32389   0.320  0.74901    
+PhaseC            -223.71597  404.53413  -0.553  0.58025    
+XPos:PhaseB          0.07107    0.02572   2.764  0.00572 ** 
+XPos:PhaseC          0.00631    0.03135   0.201  0.84048    
+YPos:PhaseB         -0.02525    0.05329  -0.474  0.63564    
+YPos:PhaseC          0.03603    0.06646   0.542  0.58770    
 ---
-Signif. codes:  0 *** 0.001 ** 0.01 * 0.05 . 0.1   1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 27.85 on 31488 degrees of freedom
-Multiple R-squared:  0.01483,	Adjusted R-squared:  0.01442 
-F-statistic: 36.46 on 13 and 31488 DF,  p-value: < 2.2e-16
+Residual standard error: 27.84 on 31488 degrees of freedom
+Multiple R-squared:  0.01512,	Adjusted R-squared:  0.01472 
+F-statistic: 37.19 on 13 and 31488 DF,  p-value: < 2.2e-16
 
 ```
 
@@ -319,7 +323,7 @@ F-statistic: 36.46 on 13 and 31488 DF,  p-value: < 2.2e-16
 
 There are rules for including interaction terms in a model:
 
-+ (Unless you are an advanced user) if you have an interaction term you should also include the main effects terms associated with the interaction. In the example above, the model includes `phase`, `X` and `Y` as main effects. 
++ (Unless you are an advanced user) if you have an interaction term you should also include the main effects terms associated with the interaction. In the example above, the model includes `Phase`, `XPos` and `YPos` as main effects. 
 
 + If the interaction is significant, the $p$-values associated with the main effects are irrelevant and so the main effects are retained. 
 
@@ -335,41 +339,41 @@ In our new interaction-based model (above) we have:
 y_{it}=\beta_{0}+\beta_1x_{1i}+\beta_2x_{2i}+\beta_3x_{3i}+...+\beta_{13}x_{13i}
 \end{equation}
 
-where $\beta_{1}-\beta_9$ and $x_{1i}-x_{9i}$ are as described before and relate to `X`,
-`Y`, `DistCoast`, `depth`,  `month` and `phase`. The new aspects of the output are as follows:
+where $\beta_{1}-\beta_9$ and $x_{1i}-x_{9i}$ are as described before and relate to `XPos`, `YPos`, `DistCoast`, `Depth`,  `Month` and `Phase`. The new aspects of the output are as follows:
 
-+  `X:phaseB`: $\beta_{10}$ is the expected change in the slope coefficient for the X relationship in phase B compared with the X relationship in phase A
-+  `X:phaseC`: $\beta_{11}$ is the expected change in the slope coefficient for the X relationship in phase C compared with the X relationship in phase A
-+  `Y:phaseB`: $\beta_{12}$ is the expected change in the slope coefficient for the Y relationship in phase B compared with the Y relationship in phase A
-+  `Y:phaseC`: $\beta_{13}$ is the expected change in the slope coefficient for the Y relationship in phase C compared with the Y relationship in  phase A
++  `XPos:phaseB`: $\beta_{10}$ is the expected change in the slope coefficient for the XPos relationship in phase B compared with the XPos relationship in phase A
++  `XPos:phaseC`: $\beta_{11}$ is the expected change in the slope coefficient for the XPos relationship in phase C compared with the XPos relationship in phase A
++  `YPos:phaseB`: $\beta_{12}$ is the expected change in the slope coefficient for the YPos relationship in phase B compared with the YPos relationship in phase A
++  `YPos:phaseC`: $\beta_{13}$ is the expected change in the slope coefficient for the YPos relationship in phase C compared with the YPos relationship in  phase A
 
 The uncertainty associated with the interaction-based estimates result in:
 
-+ no statistically significant difference between the `X`-slope coefficient for phase A compared with phase C (`X:phaseC`; $p$-value=0.426)  
-+  no significant difference between the `Y`-slope coefficient for phase B compared with phase A (`Y:phaseB`; $p$-value=0.631). 
++ no statistically significant difference between the `XPos`-slope coefficient for phase A compared with phase C (`XPos:phaseC`; $p$-value=0.840)  
++  no statistically significant difference between the `YPos`-slope coefficient for phase B compared with phase A (`YPos:phaseB`; $p$-value=0.636).
++  no statistically significant difference between the `YPos`-slope coefficient for phase C compared with phase A (`YPos:phaseC`; $p$-value=0.588).
 
-Looking at the ANOVA table below, (overall) there is evidence for a `X`-`phase` interaction ($p$-value=0.0216) but no evidence for a `Y`-`phase` interaction term ($p$-value=0.0848).
+Looking at the ANOVA table below, (overall) there is evidence for a `XPos`-`phase` interaction ($p$-value=0.011) but no evidence for a `YPos`-`phase` interaction term ($p$-value=0.630).
 
 ```{r, eval=F}
 Anova Table (Type II tests)
 
 Response: Density
                    Sum Sq    Df  F value    Pr(>F)    
-X                   65350     1  84.2826 < 2.2e-16 ***
-Y                  111907     1 144.3281 < 2.2e-16 ***
-DistCoast            8753     1  11.2886 0.0007808 ***
-depth              177386     1 228.7771 < 2.2e-16 ***
-as.factor(month)    49242     3  21.1693 1.079e-13 ***
-phase                 374     2   0.2410 0.7858532    
-X:phase              5946     2   3.8342 0.0216287 *  
-Y:phase              3827     2   2.4681 0.0847604 .  
-Residuals        24414670 31488                       
-
+XPos                74064     1  95.5494 < 2.2e-16 ***
+YPos               120982     1 156.0783 < 2.2e-16 ***
+DistCoast           15969     1  20.6017 5.675e-06 ***
+Depth               96433     1 124.4073 < 2.2e-16 ***
+as.factor(Month)    49766     3  21.4011 7.666e-14 ***
+Phase                9425     2   6.0797  0.002291 ** 
+XPos:Phase           7029     2   4.5340  0.010745 *  
+YPos:Phase            717     2   0.4624  0.629763    
+Residuals        24407454 31488                       
 ```
 
-+ If we remove the `Y`-`phase` interaction from the model then all terms are now significant in the model.
-+ Note, while the `phase` term considered alone is not significant in the model, it forms part of the interaction term and so is typically retained in the model regardless.
++ If we remove the `YPos`-`Phase` interaction from the model then all terms are now significant in the model.
++ Note, while the `Phase` term considered alone is not significant in the model, it forms part of the interaction term and so is typically retained in the model regardless.
 + There are not grounds to reduce this model further, if backwards selection was being undertaken. 
+
 
 ### Medical data
 
@@ -422,13 +426,9 @@ If forwards selection is being undertaken, main effects should be added first an
 
 Backwards selection is illustrated using different selection criterion for the following model. 
 
-```{r, eval=T, echo=F}
-wfdata$Density <- wfdata$response/wfdata$area
-```
-
 ```{r}
-modelcomplex <- lm(Density ~ X + Y + DistCoast + depth + as.factor(month) +  
-                     phase + X:phase + Y:phase, data=wfdata)
+modelcomplex <- lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +  
+                     Phase + XPos:Phase + YPos:Phase, data=wfdata)
 ```
 
 #### Using $p$-values
@@ -439,47 +439,55 @@ Using `Anova` (Type II sum of squares) we can simultaneously consider both inter
 Anova(modelcomplex)
 ```
 
-If we are using a significance level ($\alpha$) of 0.05, `Y:phase` has the highest $p$-value and it is >0.05 so we reject the `Y:phase` term and refit. 
+If we are using a significance level ($\alpha$) of 0.05, `YPos:Phase` has the highest $p$-value and it is >0.05 so we reject the `YPos:Phase` term and refit. 
 
 ```{r}
-modelcomplex2 <- lm(Density ~ X + Y + DistCoast + depth + as.factor(month)  
-                    + phase + X:phase, data=wfdata)
+modelcomplex2 <- lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +  
+                     Phase + XPos:Phase, data=wfdata)
 Anova(modelcomplex2)
 ```
 
-All other terms are significant except for `phase` but that is covered by the interaction term so is retained, so we stop there. Hence, the best fit model using p values is:
+All other terms are significant except for `Phase` but that is covered by the interaction term so is retained, so we stop there. Hence, the best fit model using p-values is:
 
-`Density ~ X + Y + DistCoast + depth + as.factor(month) +  phase + X:phase`.
+`Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +  Phase + XPos:Phase`.
 
 #### Using AIC
 
-In this case, we have to consider the AIC of the original model above and the AICs of the model without the `X:phase` term and then the starting model without the `Y:phase` term.
+In this case, we have to consider the AIC of the original model above and the AICs of the model without the `XPos:Phase` term and then the starting model without the `YPos:Phase` term.
 
 \small
 ```{r, eval=T, echo=T}
-AIC(lm(Density ~ X + Y + DistCoast + depth + as.factor(month) +  phase + X:phase + Y:phase, 
-       data=wfdata))
-AIC(lm(Density ~ X + Y + DistCoast + depth + as.factor(month) +  phase + X:phase, data=wfdata))
-AIC(lm(Density ~ X + Y + DistCoast + depth + as.factor(month) +  phase + Y:phase, data=wfdata))
+AIC(lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +  
+                     Phase + XPos:Phase + YPos:Phase, data=wfdata))
+AIC(lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +  
+                     Phase + XPos:Phase, data=wfdata))
+AIC(lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +  
+                     Phase + YPos:Phase, data=wfdata))
 
 ```
 \normalsize
 
-The AICs are 299008.1,  299009 and  299011.8, respectively. 
+The AICs are 298998.8,  298995.7 and  299003.9, respectively. 
 
-OK, we should now consider the AICs of the main effects (except `X`, `Y` and `phase`) and see if any of these are less than 299008.1. 
+OK, we should now consider the AICs of the main effects (except `XPos`, `YPos` and `Phase`) and see if any of these are less than 298995.7 
 
 \small
 ```{r, eval=T, echo=T}
-AIC (lm(Density ~ X + Y + depth + as.factor(month) + X:phase + Y:phase, data=wfdata))
-AIC (lm(Density ~ X + Y + DistCoast + as.factor(month) + phase + X:phase + Y:phase, data=wfdata))
-AIC (lm(Density ~ X + Y + DistCoast + depth + phase + X:phase+Y:phase, data=wfdata))
+# remove DistCoast
+AIC (lm(Density ~ XPos + YPos + Depth + as.factor(Month) + 
+          XPos:Phase + YPos:Phase, data=wfdata))
+# remove Depth
+AIC (lm(Density ~ XPos + YPos + DistCoast + as.factor(Month) + 
+          XPos:Phase + YPos:Phase, data=wfdata))
+# remove Month
+AIC (lm(Density ~ XPos + YPos + DistCoast + Depth + 
+          XPos:Phase + YPos:Phase, data=wfdata))
 ```
 \normalsize
 
-The AICs are 299014.4, 299234.1 and  299065.6, so we have no grounds to reduce the model further. So our best model using AIC is:
+The AICs are 299014.4, 299117.4 and  299053.6, so we have no grounds to reduce the model further. So our best model using AIC is:
 
-`Density ~ X + Y + DistCoast + depth + as.factor(month) +  phase + X:phase+Y:phase`. 
+`Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) + Phase + XPos:Phase`. 
 
 One thing to note from this analysis:
 
@@ -492,6 +500,7 @@ Let's see what happens with the medical data set.
 #### Using $p$-values
 
 In this case, the model called `multiReg_lm` indicated the `folate:gend` term was associated with a $p$-value>0.05, so we remove this term and then consider the $p$-values associated with all of the main effects. Again, the quickest way to do this is to use `Anova` rather than consider lots of sequential models using `anova`. 
+
 ```{r, echo = T, eval=T}
 multiReg_lm <- lm(vitdresul ~ TEON + folate + gend, data=meddata)
 Anova(multiReg_lm)

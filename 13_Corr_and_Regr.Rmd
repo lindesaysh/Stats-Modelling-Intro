@@ -239,13 +239,13 @@ Does this support a causal link between healthy breakfast cereals and weight los
 
 ## Regression
 
-Correlation asks the question "Is there a (linear) relationship?" A more interesting question might be "Is there a (linear) relationship and what is it?" i.e. what is our best estimate of the equation relating the two variables; __linear regression__ allows us to do this. Here we will explore this using the environmental impact assessment (EIA) data and other datasets we have already encountered, for example, we might use variables in the EIA data to predict depth (`depth`) at a particular location.
+Correlation asks the question "Is there a (linear) relationship?" A more interesting question might be "Is there a (linear) relationship and what is it?" i.e. what is our best estimate of the equation relating the two variables; __linear regression__ allows us to do this. Here we will explore this using the environmental impact assessment (EIA) data and other datasets we have already encountered, for example, we might use variables in the EIA data to predict depth (`Depth`) at a particular location.
 
 Regression is a way to study relationships between variables. There are three main reasons why we may want to do this:
 
 + __Description__: It can be useful to describe relationships (without necessarily really explaining them. For example a spatial map of an animal species for example. 
 + __Explanation:__ Genuine interest in the nature of the relationship between variables e.g. How is depth and penguin density related?
-+  __Prediction:__ Using variables to predict others (e.g. using  `DistCoast` to predict `depth`)
++  __Prediction:__ Using variables to predict others (e.g. using  `DistCoast` to predict `Depth`)
 
 Linear regression models: 
 
@@ -264,11 +264,9 @@ To analyse the EIA data properly would require some more advanced methods, but w
  # library(tidyr, quietly=T)
   library(dplyr, quietly=T)
   library (gridExtra, quietly=T)
-  EIAData<- read.csv("data/EIA_dataset_for_lectures_V1.0.csv", header=T)
-  
-  # filter out near-shore data for our current purposes
-  workingData<- EIAData%>%filter(DistCoast>100)
-
+  EIAData<- read.csv("data/NystedFarmsAnalysis.csv", header=T)
+  # # filter out near-shore data for our current purposes
+  # workingData<- EIAData%>%filter(DistCoast>100)
   options(digits=7)
 ```
 
@@ -279,9 +277,9 @@ First, we consider a potential relationship between the distance from the coast 
 + By convention, we put distance from coast on the $x$-axis because this is the explanatory variable (and the function we are after is $y=f(x)$).
 
 ```{r, echo=FALSE, eval=TRUE,fig.cap='Relationship of distance to coast and depth.'}
-p<- ggplot(x=DistCoast, y=depth, data=workingData) +
-  geom_point(aes(DistCoast, depth), color='blue', alpha=0.3)+
-  xlab('Distance from coast (m)')+
+p<- ggplot(x=DistCoast, y=Depth, data=EIAData) +
+  geom_point(aes(DistCoast, Depth), color='blue', alpha=0.3)+
+  xlab('Distance from coast (km)')+
   ylab('Depth (m)')
 
 ```
@@ -294,7 +292,7 @@ The scatterplot (Figure \@ref(fig:depthdistscatter)) tells us:
 
 +  waters nearer the shore are shallower
 +  there is a  positive relationship is apparent (i.e. as distance to coast increases so does the depth)
-+ (there are also striations, which is interesting)
++ (there are also stripes, which is interesting)
 
 How can we formalise this relationship?
 
@@ -630,34 +628,35 @@ fitted(smallLM)
 
 ### Regression in practise
 
-We can now return to the EIA example and use `DistCoast` to explain/predict `depth`:
+We can now return to the EIA example and use `DistCoast` to explain/predict `Depth`:
 
 +  `DistCoast` is the explanatory variable ($x_i$=`DistCoast`)
-+  `depth` is the response variable ($y_i$=`depth`)
-+  We have 5884 observations ($i=1,...,5884$) (observations right on the coast line have been removed)
-+  However, we have `depth` values when `Distcoast` ($x$) is close to zero, but this is not guaranteed in many other situations; __it is ill-advised__ to assume a linear relationship holds outside the range of the observed data.
++  `Depth` is the response variable ($y_i$=`Depth`)
++  We have 31502 observations ($i=1,...,31502$) (observations right on the coast line have been removed)
++  However, we have `Depth` values when `Distcoast` ($x$) is close to zero, but this is not guaranteed in many other situations; __it is ill-advised__ to assume a linear relationship holds outside the range of the observed data.
 
-In this example, the slope is the change in `depth` (in m) for a 1 m increase in distance from the shore:
+In this example, the slope is the change in `Depth` (in m) for a 1 km increase in distance from the shore:
 
 +  A slope $>0$ indicates a positive/increasing relationship
 +  A slope$=0$ indicates no relationship (horizontal line)
 +  A slope$<0$ indicates a negative/decreasing relationship
-+  `depth` is measured on a continuous scale
++  `Depth` is measured on a continuous scale
 
 We can start by modelling the differences between the data and the model using a normal distribution.
 
 *N.B.*
+
 + There is not really a linear response in this example.
 + The relationship looks quite complex so maybe something else is going on. 
 + As we shall see, assuming a simple linear model (i.e. a straight line relationship) in this example might be inappropriate.  
 
 #### Doing this in R
 
-The filtered data have been stored in an object called `workingData`. The function used to fit a linear model is `lm`. 
+The data have been stored in an object called `EIAData`. The function used to fit a linear model is `lm`. 
 
 ```{r, echo=T, eval=T}
 # Fit a regression using lm (linear model)
-depthModel <- lm(depth ~ DistCoast,  data=workingData)
+depthModel <- lm(Depth ~ DistCoast,  data=EIAData)
 ```
 
 Note that when we write the regression equation we want to fit, we just need to specify $\textrm{response} \sim \textrm{explanatory variable}$. The intercept and gradient terms get included automatically.
@@ -670,29 +669,29 @@ summary(depthModel)
 
 From the output we can obtain the regression coefficients:
 
-+  the intercept: $\hat{\beta_0}=2.298$ 
-+  the slope of the line: $\hat{\beta_1}= 1.244e^{-06}$ 
-+  the estimated standard deviation of the errors: $s = \hat{\sigma}=4.32$ 
++  the intercept: $\hat{\beta_0}=2.150$ 
++  the slope of the line: $\hat{\beta_1}= 1.268$ 
++  the estimated standard deviation of the errors: $s = \hat{\sigma}=4.18$ 
 
 Thus, the fitted line (shown in Figure \@ref(fig:fitteddepth)) is:
 
-$$\hat{\textrm{Depth}} = 2.298 + 1.244e^{-06}\textrm{DistCoast}$$
+$$\hat{\textrm{Depth}} = 2.150 + 1.268\textrm{DistCoast}$$
 
 
 ```{r fitteddepth, echo=FALSE, eval=TRUE, fig.cap='A scatterplot of depth and distance from coast with the least squares best fit line'}
-p<- ggplot(x=DistCoast, y=depth, data=workingData) +
-  geom_point(aes(DistCoast, depth), color='blue', alpha=0.3)+
-  xlab('Distance from coast (m)')+
-  ylab('Depth (m)')+ geom_abline(intercept=2.298,slope=1.244*10^-6)
+p<- ggplot(x=DistCoast, y=Depth, data=EIAData) +
+  geom_point(aes(DistCoast, Depth), color='blue', alpha=0.3)+
+  xlab('Distance from coast (km)')+
+  ylab('Depth (m)')+ geom_abline(intercept=2.150,slope=1.268)
 p
 
 ```
 
-It is worth looking at the summary output again, as well as an anova table output (equivalent to a one-way analysis of variance table). Using these functions in R tell you different information about the fitted model.
+It is worth looking at the summary output again, as well as an anova table output (equivalent to a one-way analysis of variance table). Using these functions in `R` tell you different information about the fitted model.
 
 ```{r, echo=F, eval=T}
 # Fit a regression using lm (linear model)
-depthModel <- lm(depth ~ DistCoast,  data=workingData)
+depthModel <- lm(Depth ~ DistCoast,  data=EIAData)
 ```
 
 The output from the `summary` function tells you what the regression coefficients are and whether they are significantly different from zero. 

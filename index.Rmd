@@ -11,9 +11,6 @@ link-citations: yes
 colorlinks: yes
 ---
 
-
-# Welcome {-}
-
 ```{r setup, echo=FALSE, warning=FALSE}
 library(knitr)
 ## set knitr options
@@ -25,6 +22,8 @@ opts_chunk$set(cache = F, tidy.opts = list(width.cutoff = 55), tidy = F,
 
 ```{r, child = "_setup.Rmd", include = F, purl = F, cache = F}
 ```
+
+# Welcome {-}
 
 Welcome to an Introduction to Statistics.
 
