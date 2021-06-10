@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Analysis of Variance | An Introduction to Statistics</title>
+  <meta name="description" content="Chapter 9 Analysis of Variance | An Introduction to Statistics" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Analysis of Variance | An Introduction to Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Analysis of Variance | An Introduction to Statistics" />
+  
+  
+  
+
+<meta name="author" content="Drs C. Paxton, L. Burt, C. Donovan and L. Scott-Hayward" />
+
+
+<meta name="date" content="2021-06-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="hypothtests.html"/>
+<link rel="next" href="power.html"/>
+<script src="book_assets/header-attrs-2.7/header-attrs.js"></script>
+<script src="book_assets/jquery-2.2.3/jquery.min.js"></script>
+<link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script language="javascript">
+    function toggle(id) {
+        var ele = document.getElementById("toggleText" + id);
+        var text = document.getElementById("displayText" + id);
+        var buttonText = text.innerHTML.replace("Show ", "");
+        buttonText = buttonText.replace("Hide ", "");
+        if(ele.style.display == "block") {
+            ele.style.display = "none";
+            text.innerHTML = "Show " + buttonText;
+        } else {
+            ele.style.display = "block";
+            text.innerHTML = "Hide " + buttonText;
+        }
+    }
+</script>
+
+<script language="javascript">
+    function openCode(evt, codeName, id) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent" + id);
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks" + id);
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(codeName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+<script language="javascript">
+    function hide(id){
+        document.getElementById(id).style.display = "none";
+    }
+</script>
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<a href="https://www.st-andrews.ac.uk/mathematics-statistics/"><img src="standard-vertical-black.png" width="180"></a>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#computer-practicals"><i class="fa fa-check"></i>Computer practicals</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introchapt.html"><a href="introchapt.html"><i class="fa fa-check"></i><b>1</b> Thinking About Numbers</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introchapt.html"><a href="introchapt.html#INTintro"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="introchapt.html"><a href="introchapt.html#why-use-statistics"><i class="fa fa-check"></i><b>1.2</b> Why use statistics?</a></li>
+<li class="chapter" data-level="1.3" data-path="introchapt.html"><a href="introchapt.html#why-model"><i class="fa fa-check"></i><b>1.3</b> Why model?</a></li>
+<li class="chapter" data-level="1.4" data-path="introchapt.html"><a href="introchapt.html#examples-of-statistical-claims"><i class="fa fa-check"></i><b>1.4</b> Examples of statistical claims</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="introchapt.html"><a href="introchapt.html#coffee-may-reverse-alzheimers"><i class="fa fa-check"></i><b>1.4.1</b> Coffee ‘may reverse Alzheimer’s’</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introchapt.html"><a href="introchapt.html#abundance-of-prized-sturgeon"><i class="fa fa-check"></i><b>1.4.2</b> Abundance of prized sturgeon</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introchapt.html"><a href="introchapt.html#extrapolating-sprinting-speed"><i class="fa fa-check"></i><b>1.4.3</b> Extrapolating sprinting speed</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introchapt.html"><a href="introchapt.html#mmr-innoculation-and-autism"><i class="fa fa-check"></i><b>1.4.4</b> MMR innoculation and autism</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introchapt.html"><a href="introchapt.html#two-sid-deaths-in-same-family"><i class="fa fa-check"></i><b>1.4.5</b> Two SID deaths in same family</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introchapt.html"><a href="introchapt.html#SUMintro"><i class="fa fa-check"></i><b>1.5</b> Summary</a></li>
+<li class="chapter" data-level="1.6" data-path="introchapt.html"><a href="introchapt.html#ANSintro"><i class="fa fa-check"></i><b>1.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>I Data Collection and Visualisation</b></span></li>
+<li class="chapter" data-level="2" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>2</b> Data collection and Sampling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="sampling.html"><a href="sampling.html#INTsamp"><i class="fa fa-check"></i><b>2.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="sampling.html"><a href="sampling.html#terminology"><i class="fa fa-check"></i><b>2.1.1</b> Terminology</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="sampling.html"><a href="sampling.html#what-is-sampling-and-why-do-it"><i class="fa fa-check"></i><b>2.2</b> What is sampling and why do it?</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="sampling.html"><a href="sampling.html#precision-accuracy-and-bias"><i class="fa fa-check"></i><b>2.2.1</b> Precision, accuracy and bias</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="sampling.html"><a href="sampling.html#three-types-of-data-collection"><i class="fa fa-check"></i><b>2.3</b> Three types of data collection</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="sampling.html"><a href="sampling.html#common-but-unwise-data-collection-strategies"><i class="fa fa-check"></i><b>2.3.1</b> Common, but unwise, data collection strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="sampling.html"><a href="sampling.html#simple-sampling-approaches"><i class="fa fa-check"></i><b>2.4</b> Simple sampling approaches</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="sampling.html"><a href="sampling.html#simple-random-sample"><i class="fa fa-check"></i><b>2.4.1</b> Simple random sample</a></li>
+<li class="chapter" data-level="2.4.2" data-path="sampling.html"><a href="sampling.html#systematic-samples"><i class="fa fa-check"></i><b>2.4.2</b> Systematic samples</a></li>
+<li class="chapter" data-level="2.4.3" data-path="sampling.html"><a href="sampling.html#stratified-random-samples"><i class="fa fa-check"></i><b>2.4.3</b> Stratified random samples</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="sampling.html"><a href="sampling.html#sampling-biases"><i class="fa fa-check"></i><b>2.5</b> Sampling biases</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="sampling.html"><a href="sampling.html#non-sampling-error"><i class="fa fa-check"></i><b>2.5.1</b> Non-sampling error</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="sampling.html"><a href="sampling.html#experiments"><i class="fa fa-check"></i><b>2.6</b> Experiments</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="sampling.html"><a href="sampling.html#randomised-experiments"><i class="fa fa-check"></i><b>2.6.1</b> Randomised experiments</a></li>
+<li class="chapter" data-level="2.6.2" data-path="sampling.html"><a href="sampling.html#components-of-an-experimental-design"><i class="fa fa-check"></i><b>2.6.2</b> Components of an experimental design</a></li>
+<li class="chapter" data-level="2.6.3" data-path="sampling.html"><a href="sampling.html#controls"><i class="fa fa-check"></i><b>2.6.3</b> Controls</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="sampling.html"><a href="sampling.html#observational-studies"><i class="fa fa-check"></i><b>2.7</b> Observational Studies</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="sampling.html"><a href="sampling.html#types-of-observational-study"><i class="fa fa-check"></i><b>2.7.1</b> Types of observational study</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="sampling.html"><a href="sampling.html#observational-studies-vs-experiments"><i class="fa fa-check"></i><b>2.8</b> Observational studies vs experiments</a></li>
+<li class="chapter" data-level="2.9" data-path="sampling.html"><a href="sampling.html#SUMsamp"><i class="fa fa-check"></i><b>2.9</b> Summary</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="sampling.html"><a href="sampling.html#learning-objectives"><i class="fa fa-check"></i><b>2.9.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="sampling.html"><a href="sampling.html#ANSsamp"><i class="fa fa-check"></i><b>2.10</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="describedata.html"><a href="describedata.html"><i class="fa fa-check"></i><b>3</b> Describing data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="describedata.html"><a href="describedata.html#INTdata"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="describedata.html"><a href="describedata.html#types-of-data"><i class="fa fa-check"></i><b>3.2</b> Types of data</a></li>
+<li class="chapter" data-level="3.3" data-path="describedata.html"><a href="describedata.html#frequency-distributions"><i class="fa fa-check"></i><b>3.3</b> Frequency distributions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="describedata.html"><a href="describedata.html#doing-this-in-r-2"><i class="fa fa-check"></i><b>3.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="describedata.html"><a href="describedata.html#numerical-summaries"><i class="fa fa-check"></i><b>3.4</b> Numerical summaries</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="describedata.html"><a href="describedata.html#population-mean"><i class="fa fa-check"></i><b>3.4.1</b> Population mean</a></li>
+<li class="chapter" data-level="3.4.2" data-path="describedata.html"><a href="describedata.html#sample-mean"><i class="fa fa-check"></i><b>3.4.2</b> Sample mean</a></li>
+<li class="chapter" data-level="3.4.3" data-path="describedata.html"><a href="describedata.html#sample-median"><i class="fa fa-check"></i><b>3.4.3</b> Sample median</a></li>
+<li class="chapter" data-level="3.4.4" data-path="describedata.html"><a href="describedata.html#range"><i class="fa fa-check"></i><b>3.4.4</b> Range</a></li>
+<li class="chapter" data-level="3.4.5" data-path="describedata.html"><a href="describedata.html#percentiles"><i class="fa fa-check"></i><b>3.4.5</b> Percentiles</a></li>
+<li class="chapter" data-level="3.4.6" data-path="describedata.html"><a href="describedata.html#population-variance"><i class="fa fa-check"></i><b>3.4.6</b> Population variance</a></li>
+<li class="chapter" data-level="3.4.7" data-path="describedata.html"><a href="describedata.html#sample-variance-and-standard-deviation"><i class="fa fa-check"></i><b>3.4.7</b> Sample variance and standard deviation</a></li>
+<li class="chapter" data-level="3.4.8" data-path="describedata.html"><a href="describedata.html#numerical-summaries-in-r"><i class="fa fa-check"></i><b>3.4.8</b> Numerical summaries in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="describedata.html"><a href="describedata.html#visual-summaries"><i class="fa fa-check"></i><b>3.5</b> Visual summaries</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="describedata.html"><a href="describedata.html#bar-charts"><i class="fa fa-check"></i><b>3.5.1</b> Bar charts</a></li>
+<li class="chapter" data-level="3.5.2" data-path="describedata.html"><a href="describedata.html#pie-charts"><i class="fa fa-check"></i><b>3.5.2</b> Pie charts</a></li>
+<li class="chapter" data-level="3.5.3" data-path="describedata.html"><a href="describedata.html#histograms"><i class="fa fa-check"></i><b>3.5.3</b> Histograms</a></li>
+<li class="chapter" data-level="3.5.4" data-path="describedata.html"><a href="describedata.html#boxplots"><i class="fa fa-check"></i><b>3.5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="3.5.5" data-path="describedata.html"><a href="describedata.html#basic-plots-in-r"><i class="fa fa-check"></i><b>3.5.5</b> Basic plots in R</a></li>
+<li class="chapter" data-level="3.5.6" data-path="describedata.html"><a href="describedata.html#other-plots"><i class="fa fa-check"></i><b>3.5.6</b> Other plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="describedata.html"><a href="describedata.html#summarising-the-relationship-between-two-variables"><i class="fa fa-check"></i><b>3.6</b> Summarising the relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="describedata.html"><a href="describedata.html#cross-tabulation"><i class="fa fa-check"></i><b>3.6.1</b> Cross-tabulation</a></li>
+<li class="chapter" data-level="3.6.2" data-path="describedata.html"><a href="describedata.html#side-by-side-boxplots"><i class="fa fa-check"></i><b>3.6.2</b> Side-by-side boxplots</a></li>
+<li class="chapter" data-level="3.6.3" data-path="describedata.html"><a href="describedata.html#scatter-plot"><i class="fa fa-check"></i><b>3.6.3</b> Scatter plot</a></li>
+<li class="chapter" data-level="3.6.4" data-path="describedata.html"><a href="describedata.html#quilt-plots"><i class="fa fa-check"></i><b>3.6.4</b> Quilt plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="describedata.html"><a href="describedata.html#handy-hints-when-including-tables-and-plots-into-reports"><i class="fa fa-check"></i><b>3.7</b> Handy hints when including tables and plots into reports</a></li>
+<li class="chapter" data-level="3.8" data-path="describedata.html"><a href="describedata.html#SUMdata"><i class="fa fa-check"></i><b>3.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="describedata.html"><a href="describedata.html#learning-outcomes"><i class="fa fa-check"></i><b>3.8.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="describedata.html"><a href="describedata.html#ANSdata"><i class="fa fa-check"></i><b>3.9</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>II Probability and Distributions</b></span></li>
+<li class="chapter" data-level="4" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>4</b> Probability</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="probability.html"><a href="probability.html#INTprob"><i class="fa fa-check"></i><b>4.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="probability.html"><a href="probability.html#random-phenomena-and-uncertain-outcomes"><i class="fa fa-check"></i><b>4.1.1</b> Random phenomena and uncertain outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="probability.html"><a href="probability.html#sample-spaces-and-events"><i class="fa fa-check"></i><b>4.2</b> Sample spaces and events</a></li>
+<li class="chapter" data-level="4.3" data-path="probability.html"><a href="probability.html#definition-of-probability-and-3-axioms"><i class="fa fa-check"></i><b>4.3</b> Definition of Probability and 3 Axioms</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="probability.html"><a href="probability.html#probability-1"><i class="fa fa-check"></i><b>4.3.1</b> Probability</a></li>
+<li class="chapter" data-level="4.3.2" data-path="probability.html"><a href="probability.html#three-axioms"><i class="fa fa-check"></i><b>4.3.2</b> Three Axioms</a></li>
+<li class="chapter" data-level="4.3.3" data-path="probability.html"><a href="probability.html#three-results-of-the-axioms"><i class="fa fa-check"></i><b>4.3.3</b> Three results of the Axioms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="probability.html"><a href="probability.html#independence-and-the-multiplication-rule"><i class="fa fa-check"></i><b>4.4</b> Independence and the Multiplication Rule</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="probability.html"><a href="probability.html#testing-for-independence"><i class="fa fa-check"></i><b>4.4.1</b> Testing for Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="probability.html"><a href="probability.html#conditional-probabilities"><i class="fa fa-check"></i><b>4.5</b> Conditional probabilities</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="probability.html"><a href="probability.html#independence-revisited"><i class="fa fa-check"></i><b>4.5.1</b> Independence revisited</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="probability.html"><a href="probability.html#tree-diagrams"><i class="fa fa-check"></i><b>4.6</b> Tree Diagrams</a></li>
+<li class="chapter" data-level="4.7" data-path="probability.html"><a href="probability.html#marginal-and-joint-probabilities"><i class="fa fa-check"></i><b>4.7</b> Marginal and joint probabilities</a></li>
+<li class="chapter" data-level="4.8" data-path="probability.html"><a href="probability.html#SUMprob"><i class="fa fa-check"></i><b>4.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="probability.html"><a href="probability.html#learning-objectives-1"><i class="fa fa-check"></i><b>4.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="probability.html"><a href="probability.html#ANSprob"><i class="fa fa-check"></i><b>4.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="discreterv.html"><a href="discreterv.html"><i class="fa fa-check"></i><b>5</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="discreterv.html"><a href="discreterv.html#INTdiscrv"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="discreterv.html"><a href="discreterv.html#discrete-random-variables"><i class="fa fa-check"></i><b>5.2</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="discreterv.html"><a href="discreterv.html#probability-mass-function"><i class="fa fa-check"></i><b>5.2.1</b> Probability mass function</a></li>
+<li class="chapter" data-level="5.2.2" data-path="discreterv.html"><a href="discreterv.html#cumulative-distribution-function"><i class="fa fa-check"></i><b>5.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="5.2.3" data-path="discreterv.html"><a href="discreterv.html#expectation"><i class="fa fa-check"></i><b>5.2.3</b> Expectation</a></li>
+<li class="chapter" data-level="5.2.4" data-path="discreterv.html"><a href="discreterv.html#variance"><i class="fa fa-check"></i><b>5.2.4</b> Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="discreterv.html"><a href="discreterv.html#special-discrete-distributions"><i class="fa fa-check"></i><b>5.3</b> Special discrete distributions</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="discreterv.html"><a href="discreterv.html#bernoulli-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="5.3.2" data-path="discreterv.html"><a href="discreterv.html#binomial-distribution"><i class="fa fa-check"></i><b>5.3.2</b> Binomial distribution</a></li>
+<li class="chapter" data-level="5.3.3" data-path="discreterv.html"><a href="discreterv.html#poisdist"><i class="fa fa-check"></i><b>5.3.3</b> Poisson distribution</a></li>
+<li class="chapter" data-level="5.3.4" data-path="discreterv.html"><a href="discreterv.html#comparison-of-binomial-and-poisson-distributions"><i class="fa fa-check"></i><b>5.3.4</b> Comparison of binomial and Poisson distributions?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="discreterv.html"><a href="discreterv.html#SUMdiscrv"><i class="fa fa-check"></i><b>5.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="discreterv.html"><a href="discreterv.html#learning-outcomes-1"><i class="fa fa-check"></i><b>5.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="discreterv.html"><a href="discreterv.html#ANSdiscrv"><i class="fa fa-check"></i><b>5.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="contrv.html"><a href="contrv.html"><i class="fa fa-check"></i><b>6</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="contrv.html"><a href="contrv.html#INTcontrv"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="contrv.html"><a href="contrv.html#continuous-random-variables"><i class="fa fa-check"></i><b>6.2</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="contrv.html"><a href="contrv.html#probability-density-function"><i class="fa fa-check"></i><b>6.2.1</b> Probability density function</a></li>
+<li class="chapter" data-level="6.2.2" data-path="contrv.html"><a href="contrv.html#cumulative-distribution-function-1"><i class="fa fa-check"></i><b>6.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="6.2.3" data-path="contrv.html"><a href="contrv.html#expectation-and-variance-1"><i class="fa fa-check"></i><b>6.2.3</b> Expectation and variance</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="contrv.html"><a href="contrv.html#special-continuous-distributions"><i class="fa fa-check"></i><b>6.3</b> Special continuous distributions</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="contrv.html"><a href="contrv.html#normal-distribution"><i class="fa fa-check"></i><b>6.3.1</b> normal distribution</a></li>
+<li class="chapter" data-level="6.3.2" data-path="contrv.html"><a href="contrv.html#standard-normal-distribution"><i class="fa fa-check"></i><b>6.3.2</b> Standard normal distribution</a></li>
+<li class="chapter" data-level="6.3.3" data-path="contrv.html"><a href="contrv.html#simple-transformations-of-random-variables"><i class="fa fa-check"></i><b>6.3.3</b> Simple transformations of random variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="contrv.html"><a href="contrv.html#SUMcontrv"><i class="fa fa-check"></i><b>6.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="contrv.html"><a href="contrv.html#learning-outcomes-2"><i class="fa fa-check"></i><b>6.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="contrv.html"><a href="contrv.html#ANScontrv"><i class="fa fa-check"></i><b>6.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="CIformean.html"><a href="CIformean.html"><i class="fa fa-check"></i><b>7</b> Confidence intervals for sample means</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="CIformean.html"><a href="CIformean.html#INTci"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="CIformean.html"><a href="CIformean.html#uncertainty-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2</b> Uncertainty of the sample mean</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="CIformean.html"><a href="CIformean.html#precision-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2.1</b> Precision of the sample mean</a></li>
+<li class="chapter" data-level="7.2.2" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-known-sigma"><i class="fa fa-check"></i><b>7.2.2</b> Confidence interval with known <span class="math inline">\(\sigma\)</span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-unknown-sigma"><i class="fa fa-check"></i><b>7.2.3</b> Confidence interval with unknown <span class="math inline">\(\sigma\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="CIformean.html"><a href="CIformean.html#difference-between-two-group-means"><i class="fa fa-check"></i><b>7.3</b> Difference between two group means</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="CIformean.html"><a href="CIformean.html#assuming-equal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.1</b> Assuming equal standard deviations of the two groups</a></li>
+<li class="chapter" data-level="7.3.2" data-path="CIformean.html"><a href="CIformean.html#assuming-unequal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.2</b> Assuming unequal standard deviations of the two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="CIformean.html"><a href="CIformean.html#empirical-bootstrap-based-confidence-intervals"><i class="fa fa-check"></i><b>7.4</b> Empirical (bootstrap-based) confidence intervals</a></li>
+<li class="chapter" data-level="7.5" data-path="CIformean.html"><a href="CIformean.html#confidence-intervals-for-other-sample-statistics"><i class="fa fa-check"></i><b>7.5</b> Confidence intervals for other sample statistics</a></li>
+<li class="chapter" data-level="7.6" data-path="CIformean.html"><a href="CIformean.html#SUMci"><i class="fa fa-check"></i><b>7.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="CIformean.html"><a href="CIformean.html#learning-outcomes-3"><i class="fa fa-check"></i><b>7.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="CIformean.html"><a href="CIformean.html#ANSci"><i class="fa fa-check"></i><b>7.7</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>III Hypothesis Testing</b></span></li>
+<li class="chapter" data-level="8" data-path="hypothtests.html"><a href="hypothtests.html"><i class="fa fa-check"></i><b>8</b> Hypothesis Tests</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="hypothtests.html"><a href="hypothtests.html#INThyp"><i class="fa fa-check"></i><b>8.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="hypothtests.html"><a href="hypothtests.html#types-of-hypotheses"><i class="fa fa-check"></i><b>8.1.1</b> Types of hypotheses</a></li>
+<li class="chapter" data-level="8.1.2" data-path="hypothtests.html"><a href="hypothtests.html#how-do-hypothesis-tests-work"><i class="fa fa-check"></i><b>8.1.2</b> How do hypothesis tests work?</a></li>
+<li class="chapter" data-level="8.1.3" data-path="hypothtests.html"><a href="hypothtests.html#one-sample-t-test"><i class="fa fa-check"></i><b>8.1.3</b> One sample <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="hypothtests.html"><a href="hypothtests.html#two-sample-t-test"><i class="fa fa-check"></i><b>8.2</b> Two sample <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-13"><i class="fa fa-check"></i><b>8.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="hypothtests.html"><a href="hypothtests.html#paired-t-test"><i class="fa fa-check"></i><b>8.3</b> Paired <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-14"><i class="fa fa-check"></i><b>8.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="hypothtests.html"><a href="hypothtests.html#t-test-assumptions"><i class="fa fa-check"></i><b>8.4</b> <span class="math inline">\(t\)</span> test assumptions</a></li>
+<li class="chapter" data-level="8.5" data-path="hypothtests.html"><a href="hypothtests.html#non-parametric-alternative-to-t-tests"><i class="fa fa-check"></i><b>8.5</b> Non-parametric alternative to <span class="math inline">\(t\)</span> tests</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="hypothtests.html"><a href="hypothtests.html#mann-whitney-wilcoxon-test"><i class="fa fa-check"></i><b>8.5.1</b> Mann-Whitney-Wilcoxon test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="hypothtests.html"><a href="hypothtests.html#practical-significance-versus-statistical-significance"><i class="fa fa-check"></i><b>8.6</b> Practical significance versus statistical significance</a></li>
+<li class="chapter" data-level="8.7" data-path="hypothtests.html"><a href="hypothtests.html#SUMhyp"><i class="fa fa-check"></i><b>8.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="hypothtests.html"><a href="hypothtests.html#learning-outcomes-4"><i class="fa fa-check"></i><b>8.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="hypothtests.html"><a href="hypothtests.html#ANShyp"><i class="fa fa-check"></i><b>8.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>9</b> Analysis of Variance</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="anova.html"><a href="anova.html#INTanova"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="anova.html"><a href="anova.html#multiple-comparisons"><i class="fa fa-check"></i><b>9.2</b> Multiple comparisons</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="anova.html"><a href="anova.html#type-i-and-type-ii-error"><i class="fa fa-check"></i><b>9.2.1</b> Type I and Type II error</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="anova.html"><a href="anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.3</b> ANalysis Of VAriance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="anova.html"><a href="anova.html#f-test-statistic-for-anova"><i class="fa fa-check"></i><b>9.3.1</b> <span class="math inline">\(F\)</span> test statistic for ANOVA</a></li>
+<li class="chapter" data-level="9.3.2" data-path="anova.html"><a href="anova.html#calculating-an-anova-table"><i class="fa fa-check"></i><b>9.3.2</b> Calculating an ANOVA table</a></li>
+<li class="chapter" data-level="9.3.3" data-path="anova.html"><a href="anova.html#f-distribution"><i class="fa fa-check"></i><b>9.3.3</b> <span class="math inline">\(F\)</span> distribution</a></li>
+<li class="chapter" data-level="9.3.4" data-path="anova.html"><a href="anova.html#doing-this-in-r-16"><i class="fa fa-check"></i><b>9.3.4</b> Doing this in R</a></li>
+<li class="chapter" data-level="9.3.5" data-path="anova.html"><a href="anova.html#assumptions"><i class="fa fa-check"></i><b>9.3.5</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="anova.html"><a href="anova.html#identifying-differences-and-more-on-multiple-comparisons"><i class="fa fa-check"></i><b>9.4</b> Identifying differences (and more on multiple comparisons)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="anova.html"><a href="anova.html#bonferroni-correction"><i class="fa fa-check"></i><b>9.4.1</b> Bonferroni correction</a></li>
+<li class="chapter" data-level="9.4.2" data-path="anova.html"><a href="anova.html#sidak-adjustment"><i class="fa fa-check"></i><b>9.4.2</b> Sidak adjustment</a></li>
+<li class="chapter" data-level="9.4.3" data-path="anova.html"><a href="anova.html#tukeys-honest-significant-difference-hsd"><i class="fa fa-check"></i><b>9.4.3</b> Tukey’s Honest Significant Difference (HSD)</a></li>
+<li class="chapter" data-level="9.4.4" data-path="anova.html"><a href="anova.html#multiple-comparison-controversy"><i class="fa fa-check"></i><b>9.4.4</b> Multiple comparison controversy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="anova.html"><a href="anova.html#alternative-tests-to-anova"><i class="fa fa-check"></i><b>9.5</b> Alternative tests to ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="anova.html"><a href="anova.html#doing-this-in-r-18"><i class="fa fa-check"></i><b>9.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="anova.html"><a href="anova.html#SUManova"><i class="fa fa-check"></i><b>9.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="anova.html"><a href="anova.html#learning-outcomes-5"><i class="fa fa-check"></i><b>9.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="anova.html"><a href="anova.html#ANSanova"><i class="fa fa-check"></i><b>9.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="power.html"><a href="power.html"><i class="fa fa-check"></i><b>10</b> Statistical Power</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="power.html"><a href="power.html#INTpower"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="power.html"><a href="power.html#a-motivating-example---environmental-impact-assessment"><i class="fa fa-check"></i><b>10.2</b> A motivating example - Environmental impact assessment</a></li>
+<li class="chapter" data-level="10.3" data-path="power.html"><a href="power.html#calculating-power"><i class="fa fa-check"></i><b>10.3</b> Calculating power</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="power.html"><a href="power.html#increasing-the-power"><i class="fa fa-check"></i><b>10.3.1</b> Increasing the power</a></li>
+<li class="chapter" data-level="10.3.2" data-path="power.html"><a href="power.html#power-by-simulation"><i class="fa fa-check"></i><b>10.3.2</b> Power by simulation</a></li>
+<li class="chapter" data-level="10.3.3" data-path="power.html"><a href="power.html#multiple-comparisons-1"><i class="fa fa-check"></i><b>10.3.3</b> Multiple comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="power.html"><a href="power.html#SUMpower"><i class="fa fa-check"></i><b>10.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="power.html"><a href="power.html#learning-objectives-2"><i class="fa fa-check"></i><b>10.4.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="power.html"><a href="power.html#ANSpower"><i class="fa fa-check"></i><b>10.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="proportions.html"><a href="proportions.html"><i class="fa fa-check"></i><b>11</b> Proportions</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="proportions.html"><a href="proportions.html#INTprop"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals"><i class="fa fa-check"></i><b>11.2</b> Confidence intervals</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="proportions.html"><a href="proportions.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>11.2.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="11.2.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals-large-sample-sizes"><i class="fa fa-check"></i><b>11.2.2</b> Confidence intervals: large sample sizes</a></li>
+<li class="chapter" data-level="11.2.3" data-path="proportions.html"><a href="proportions.html#confidence-intervals-small-sample-sizes"><i class="fa fa-check"></i><b>11.2.3</b> Confidence intervals: small sample sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="proportions.html"><a href="proportions.html#comparing-two-proportions-the-z-test"><i class="fa fa-check"></i><b>11.3</b> Comparing two proportions: the <span class="math inline">\(z\)</span> test</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="proportions.html"><a href="proportions.html#testing-for-no-difference-between-groups"><i class="fa fa-check"></i><b>11.3.1</b> Testing for ‘no difference’ between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="proportions.html"><a href="proportions.html#ci-for-the-difference-between-population-proportions-p_1-p_2"><i class="fa fa-check"></i><b>11.4</b> CI for the difference between population proportions, (<span class="math inline">\(p_1-p_2\)</span>)</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="proportions.html"><a href="proportions.html#choosing-the-appropriate-standard-error-when-comparing-proportions"><i class="fa fa-check"></i><b>11.4.1</b> Choosing the appropriate standard error when comparing proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="proportions.html"><a href="proportions.html#odds-ratios"><i class="fa fa-check"></i><b>11.5</b> Odds ratios</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success"><i class="fa fa-check"></i><b>11.5.1</b> Calculating the odds of success</a></li>
+<li class="chapter" data-level="11.5.2" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success-for-2-x-2-tables"><i class="fa fa-check"></i><b>11.5.2</b> Calculating the odds of success for 2 x 2 tables</a></li>
+<li class="chapter" data-level="11.5.3" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-ratio"><i class="fa fa-check"></i><b>11.5.3</b> Calculating the odds ratio</a></li>
+<li class="chapter" data-level="11.5.4" data-path="proportions.html"><a href="proportions.html#confidence-intervals-for-odds-ratios"><i class="fa fa-check"></i><b>11.5.4</b> Confidence intervals for odds ratios</a></li>
+<li class="chapter" data-level="11.5.5" data-path="proportions.html"><a href="proportions.html#final-note-on-odds-ratios"><i class="fa fa-check"></i><b>11.5.5</b> Final note on odds ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="proportions.html"><a href="proportions.html#SUMprop"><i class="fa fa-check"></i><b>11.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="11.6.1" data-path="proportions.html"><a href="proportions.html#learning-outcomes-6"><i class="fa fa-check"></i><b>11.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="proportions.html"><a href="proportions.html#ANSprop"><i class="fa fa-check"></i><b>11.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="tableofcounts.html"><a href="tableofcounts.html"><i class="fa fa-check"></i><b>12</b> Tables of counts</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="tableofcounts.html"><a href="tableofcounts.html#introduction"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-goodness-of-fit-test"><i class="fa fa-check"></i><b>12.2</b> <span class="math inline">\(\chi^2\)</span> goodness-of-fit test</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-22"><i class="fa fa-check"></i><b>12.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-test-of-independence"><i class="fa fa-check"></i><b>12.3</b> <span class="math inline">\(\chi^2\)</span> test of independence</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-23"><i class="fa fa-check"></i><b>12.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="tableofcounts.html"><a href="tableofcounts.html#test-assumptions"><i class="fa fa-check"></i><b>12.4</b> Test assumptions</a></li>
+<li class="chapter" data-level="12.5" data-path="tableofcounts.html"><a href="tableofcounts.html#summary"><i class="fa fa-check"></i><b>12.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="tableofcounts.html"><a href="tableofcounts.html#learning-outcomes-7"><i class="fa fa-check"></i><b>12.5.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="tableofcounts.html"><a href="tableofcounts.html#answers"><i class="fa fa-check"></i><b>12.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>IV Regression and Linear Models</b></span></li>
+<li class="chapter" data-level="13" data-path="correg.html"><a href="correg.html"><i class="fa fa-check"></i><b>13</b> Correlation and Regression</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="correg.html"><a href="correg.html#introcorreg"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.2" data-path="correg.html"><a href="correg.html#correlation"><i class="fa fa-check"></i><b>13.2</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="correg.html"><a href="correg.html#significance-of-r"><i class="fa fa-check"></i><b>13.2.1</b> Significance of <span class="math inline">\(r\)</span></a></li>
+<li class="chapter" data-level="13.2.2" data-path="correg.html"><a href="correg.html#correlation-and-causation"><i class="fa fa-check"></i><b>13.2.2</b> Correlation and causation</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="correg.html"><a href="correg.html#regression"><i class="fa fa-check"></i><b>13.3</b> Regression</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="correg.html"><a href="correg.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>13.3.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="13.3.2" data-path="correg.html"><a href="correg.html#model-specification"><i class="fa fa-check"></i><b>13.3.2</b> Model specification</a></li>
+<li class="chapter" data-level="13.3.3" data-path="correg.html"><a href="correg.html#which-straight-line-to-choose"><i class="fa fa-check"></i><b>13.3.3</b> Which straight line to choose?</a></li>
+<li class="chapter" data-level="13.3.4" data-path="correg.html"><a href="correg.html#fitting-the-model-the-details"><i class="fa fa-check"></i><b>13.3.4</b> Fitting the model: the details</a></li>
+<li class="chapter" data-level="13.3.5" data-path="correg.html"><a href="correg.html#predictions"><i class="fa fa-check"></i><b>13.3.5</b> Predictions</a></li>
+<li class="chapter" data-level="13.3.6" data-path="correg.html"><a href="correg.html#the-variance-estimate"><i class="fa fa-check"></i><b>13.3.6</b> The variance estimate</a></li>
+<li class="chapter" data-level="13.3.7" data-path="correg.html"><a href="correg.html#introduction-to-the-matrix-form"><i class="fa fa-check"></i><b>13.3.7</b> Introduction to the matrix form</a></li>
+<li class="chapter" data-level="13.3.8" data-path="correg.html"><a href="correg.html#regression-in-practise"><i class="fa fa-check"></i><b>13.3.8</b> Regression in practise</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="correg.html"><a href="correg.html#SUMcorreg"><i class="fa fa-check"></i><b>13.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="correg.html"><a href="correg.html#learning-outcomes-8"><i class="fa fa-check"></i><b>13.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="correg.html"><a href="correg.html#ANScorreg"><i class="fa fa-check"></i><b>13.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="introlm.html"><a href="introlm.html"><i class="fa fa-check"></i><b>14</b> Introduction to the linear model</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="introlm.html"><a href="introlm.html#INTlm"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-a-t-test"><i class="fa fa-check"></i><b>14.2</b> The linear model as a <span class="math inline">\(t\)</span> test</a></li>
+<li class="chapter" data-level="14.3" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-analysis-of-variance"><i class="fa fa-check"></i><b>14.3</b> The linear model as analysis of variance</a></li>
+<li class="chapter" data-level="14.4" data-path="introlm.html"><a href="introlm.html#simple-linear-regression-again"><i class="fa fa-check"></i><b>14.4</b> Simple linear regression (again)</a></li>
+<li class="chapter" data-level="14.5" data-path="introlm.html"><a href="introlm.html#model-performance"><i class="fa fa-check"></i><b>14.5</b> Model performance</a></li>
+<li class="chapter" data-level="14.6" data-path="introlm.html"><a href="introlm.html#multiple-regression"><i class="fa fa-check"></i><b>14.6</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="introlm.html"><a href="introlm.html#the-eia-data-again"><i class="fa fa-check"></i><b>14.6.1</b> The EIA data again</a></li>
+<li class="chapter" data-level="14.6.2" data-path="introlm.html"><a href="introlm.html#model-specification-1"><i class="fa fa-check"></i><b>14.6.2</b> Model specification</a></li>
+<li class="chapter" data-level="14.6.3" data-path="introlm.html"><a href="introlm.html#types-of-covariates"><i class="fa fa-check"></i><b>14.6.3</b> Types of covariates</a></li>
+<li class="chapter" data-level="14.6.4" data-path="introlm.html"><a href="introlm.html#model-fitting"><i class="fa fa-check"></i><b>14.6.4</b> Model fitting</a></li>
+<li class="chapter" data-level="14.6.5" data-path="introlm.html"><a href="introlm.html#parameter-interpretation"><i class="fa fa-check"></i><b>14.6.5</b> Parameter Interpretation</a></li>
+<li class="chapter" data-level="14.6.6" data-path="introlm.html"><a href="introlm.html#parameter-uncertainty"><i class="fa fa-check"></i><b>14.6.6</b> Parameter uncertainty</a></li>
+<li class="chapter" data-level="14.6.7" data-path="introlm.html"><a href="introlm.html#confidence-intervals-cis-on-parameters"><i class="fa fa-check"></i><b>14.6.7</b> Confidence intervals (CIs) on parameters</a></li>
+<li class="chapter" data-level="14.6.8" data-path="introlm.html"><a href="introlm.html#hypothesis-testing"><i class="fa fa-check"></i><b>14.6.8</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="14.6.9" data-path="introlm.html"><a href="introlm.html#model-performance-1"><i class="fa fa-check"></i><b>14.6.9</b> Model performance</a></li>
+<li class="chapter" data-level="14.6.10" data-path="introlm.html"><a href="introlm.html#more-covariates-of-mixed-types"><i class="fa fa-check"></i><b>14.6.10</b> More covariates of mixed types</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="introlm.html"><a href="introlm.html#the-matrix-interpretation-of-a-linear-model"><i class="fa fa-check"></i><b>14.7</b> The matrix interpretation of a linear model</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="introlm.html"><a href="introlm.html#dummy-variables"><i class="fa fa-check"></i><b>14.7.1</b> Dummy variables</a></li>
+<li class="chapter" data-level="14.7.2" data-path="introlm.html"><a href="introlm.html#combining-factors-and-continuous-variables"><i class="fa fa-check"></i><b>14.7.2</b> Combining factors and continuous variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.8" data-path="introlm.html"><a href="introlm.html#SUMlm"><i class="fa fa-check"></i><b>14.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="14.8.1" data-path="introlm.html"><a href="introlm.html#learning-objectives-3"><i class="fa fa-check"></i><b>14.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="14.9" data-path="introlm.html"><a href="introlm.html#ANSlm"><i class="fa fa-check"></i><b>14.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="modelselection.html"><a href="modelselection.html"><i class="fa fa-check"></i><b>15</b> Model selection</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="modelselection.html"><a href="modelselection.html#INTmodsel"><i class="fa fa-check"></i><b>15.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="modelselection.html"><a href="modelselection.html#criteria-for-model-selection"><i class="fa fa-check"></i><b>15.1.1</b> Criteria for model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="modelselection.html"><a href="modelselection.html#collinearity"><i class="fa fa-check"></i><b>15.2</b> Collinearity</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="modelselection.html"><a href="modelselection.html#variance-inflation-factors"><i class="fa fa-check"></i><b>15.2.1</b> Variance inflation factors</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="modelselection.html"><a href="modelselection.html#p-value-based-model-selection-the-f-test"><i class="fa fa-check"></i><b>15.3</b> <span class="math inline">\(p\)</span>-value based model selection: the <span class="math inline">\(F\)</span>-test</a></li>
+<li class="chapter" data-level="15.4" data-path="modelselection.html"><a href="modelselection.html#relative-model-fit"><i class="fa fa-check"></i><b>15.4</b> Relative model fit</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="modelselection.html"><a href="modelselection.html#akaikes-information-criterion-aic"><i class="fa fa-check"></i><b>15.4.1</b> Akaike’s Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="modelselection.html"><a href="modelselection.html#other-methods-of-model-selection"><i class="fa fa-check"></i><b>15.5</b> Other methods of model selection</a></li>
+<li class="chapter" data-level="15.6" data-path="modelselection.html"><a href="modelselection.html#automated-variable-selection"><i class="fa fa-check"></i><b>15.6</b> Automated variable selection</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="modelselection.html"><a href="modelselection.html#stepwise-selection"><i class="fa fa-check"></i><b>15.6.1</b> Stepwise selection</a></li>
+<li class="chapter" data-level="15.6.2" data-path="modelselection.html"><a href="modelselection.html#all-possible-subsets-selection"><i class="fa fa-check"></i><b>15.6.2</b> All possible subsets selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="modelselection.html"><a href="modelselection.html#example-model-selection-with-the-medical-data"><i class="fa fa-check"></i><b>15.7</b> Example: model selection with the medical data</a>
+<ul>
+<li class="chapter" data-level="15.7.1" data-path="modelselection.html"><a href="modelselection.html#model-specification-3"><i class="fa fa-check"></i><b>15.7.1</b> Model specification</a></li>
+<li class="chapter" data-level="15.7.2" data-path="modelselection.html"><a href="modelselection.html#interpreting-the-parameter-estimates"><i class="fa fa-check"></i><b>15.7.2</b> Interpreting the parameter estimates</a></li>
+<li class="chapter" data-level="15.7.3" data-path="modelselection.html"><a href="modelselection.html#what-should-be-in-the-model"><i class="fa fa-check"></i><b>15.7.3</b> What ‘should’ be in the model?</a></li>
+<li class="chapter" data-level="15.7.4" data-path="modelselection.html"><a href="modelselection.html#what-terms-are-significant"><i class="fa fa-check"></i><b>15.7.4</b> What terms are significant?</a></li>
+<li class="chapter" data-level="15.7.5" data-path="modelselection.html"><a href="modelselection.html#more-automated-methods"><i class="fa fa-check"></i><b>15.7.5</b> More automated methods</a></li>
+</ul></li>
+<li class="chapter" data-level="15.8" data-path="modelselection.html"><a href="modelselection.html#SUMmodsel"><i class="fa fa-check"></i><b>15.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="15.8.1" data-path="modelselection.html"><a href="modelselection.html#learning-objectives-4"><i class="fa fa-check"></i><b>15.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="15.9" data-path="modelselection.html"><a href="modelselection.html#ANSmodsel"><i class="fa fa-check"></i><b>15.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="interac.html"><a href="interac.html"><i class="fa fa-check"></i><b>16</b> Interactions and the Linear Model</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="interac.html"><a href="interac.html#INTinterac"><i class="fa fa-check"></i><b>16.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="interac.html"><a href="interac.html#fitting-different-models"><i class="fa fa-check"></i><b>16.1.1</b> Fitting different models</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="interac.html"><a href="interac.html#fitting-interaction-terms"><i class="fa fa-check"></i><b>16.2</b> Fitting interaction terms</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="interac.html"><a href="interac.html#specifying-interactions-in-model-formulae"><i class="fa fa-check"></i><b>16.2.1</b> Specifying interactions in model formulae</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="interac.html"><a href="interac.html#interactions-in-practise"><i class="fa fa-check"></i><b>16.3</b> Interactions in practise</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="interac.html"><a href="interac.html#eia-data"><i class="fa fa-check"></i><b>16.3.1</b> EIA data</a></li>
+<li class="chapter" data-level="16.3.2" data-path="interac.html"><a href="interac.html#medical-data"><i class="fa fa-check"></i><b>16.3.2</b> Medical data</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="interac.html"><a href="interac.html#model-selection-and-interactions"><i class="fa fa-check"></i><b>16.4</b> Model selection and interactions</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-eia-data-set"><i class="fa fa-check"></i><b>16.4.1</b> Backwards selection in the EIA data set</a></li>
+<li class="chapter" data-level="16.4.2" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-medical-data-set"><i class="fa fa-check"></i><b>16.4.2</b> Backwards selection in the medical data set</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="interac.html"><a href="interac.html#SUMinterac"><i class="fa fa-check"></i><b>16.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="interac.html"><a href="interac.html#learning-objectives-5"><i class="fa fa-check"></i><b>16.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="interac.html"><a href="interac.html#ANSinterac"><i class="fa fa-check"></i><b>16.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>17</b> Prediction from the linear model</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="prediction.html"><a href="prediction.html#INTpred"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="prediction.html"><a href="prediction.html#prediction-1"><i class="fa fa-check"></i><b>17.2</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-27"><i class="fa fa-check"></i><b>17.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="prediction.html"><a href="prediction.html#uncertainty-in-the-prediction"><i class="fa fa-check"></i><b>17.3</b> Uncertainty in the prediction</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-28"><i class="fa fa-check"></i><b>17.3.1</b> Doing this in R</a></li>
+<li class="chapter" data-level="17.3.2" data-path="prediction.html"><a href="prediction.html#confidence-intervals-for-the-line"><i class="fa fa-check"></i><b>17.3.2</b> Confidence intervals for the line</a></li>
+<li class="chapter" data-level="17.3.3" data-path="prediction.html"><a href="prediction.html#prediction-intervals"><i class="fa fa-check"></i><b>17.3.3</b> Prediction intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="prediction.html"><a href="prediction.html#prediction-in-multiple-regression"><i class="fa fa-check"></i><b>17.4</b> Prediction in multiple regression</a></li>
+<li class="chapter" data-level="17.5" data-path="prediction.html"><a href="prediction.html#SUMpred"><i class="fa fa-check"></i><b>17.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="prediction.html"><a href="prediction.html#learning-objectives-6"><i class="fa fa-check"></i><b>17.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="prediction.html"><a href="prediction.html#ANSpred"><i class="fa fa-check"></i><b>17.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>18</b> Linear model diagnostics</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="diagnostics.html"><a href="diagnostics.html#INTdiag"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="diagnostics.html"><a href="diagnostics.html#predictive-power"><i class="fa fa-check"></i><b>18.2</b> Predictive power</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="diagnostics.html"><a href="diagnostics.html#signal-versus-noise"><i class="fa fa-check"></i><b>18.2.1</b> Signal versus noise</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="diagnostics.html"><a href="diagnostics.html#model-assumptions"><i class="fa fa-check"></i><b>18.3</b> Model assumptions</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="diagnostics.html"><a href="diagnostics.html#normality-assumption"><i class="fa fa-check"></i><b>18.3.1</b> Normality assumption</a></li>
+<li class="chapter" data-level="18.3.2" data-path="diagnostics.html"><a href="diagnostics.html#assessing-constant-error-variance"><i class="fa fa-check"></i><b>18.3.2</b> Assessing constant error variance</a></li>
+<li class="chapter" data-level="18.3.3" data-path="diagnostics.html"><a href="diagnostics.html#assessing-independence"><i class="fa fa-check"></i><b>18.3.3</b> Assessing independence</a></li>
+<li class="chapter" data-level="18.3.4" data-path="diagnostics.html"><a href="diagnostics.html#pseudoreplication"><i class="fa fa-check"></i><b>18.3.4</b> Pseudoreplication</a></li>
+<li class="chapter" data-level="18.3.5" data-path="diagnostics.html"><a href="diagnostics.html#linearity-in-the-model-for-the-signal"><i class="fa fa-check"></i><b>18.3.5</b> Linearity in the model for the signal</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="diagnostics.html"><a href="diagnostics.html#example-diagnostics-with-the-medical-data"><i class="fa fa-check"></i><b>18.4</b> Example: Diagnostics with the medical data</a></li>
+<li class="chapter" data-level="18.5" data-path="diagnostics.html"><a href="diagnostics.html#partial-residual-plots"><i class="fa fa-check"></i><b>18.5</b> Partial residual plots</a>
+<ul>
+<li class="chapter" data-level="18.5.1" data-path="diagnostics.html"><a href="diagnostics.html#doing-this-in-r-30"><i class="fa fa-check"></i><b>18.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="18.6" data-path="diagnostics.html"><a href="diagnostics.html#interaction-terms"><i class="fa fa-check"></i><b>18.6</b> Interaction Terms</a></li>
+<li class="chapter" data-level="18.7" data-path="diagnostics.html"><a href="diagnostics.html#SUMdiag"><i class="fa fa-check"></i><b>18.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="18.7.1" data-path="diagnostics.html"><a href="diagnostics.html#learning-outcomes-9"><i class="fa fa-check"></i><b>18.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="18.8" data-path="diagnostics.html"><a href="diagnostics.html#ANSdiag"><i class="fa fa-check"></i><b>18.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="nextsteps.html"><a href="nextsteps.html"><i class="fa fa-check"></i><b>19</b> The Next Steps</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="nextsteps.html"><a href="nextsteps.html#INTnext"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="nextsteps.html"><a href="nextsteps.html#solving-the-assumptional-problems"><i class="fa fa-check"></i><b>19.2</b> Solving the assumptional problems</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="nextsteps.html"><a href="nextsteps.html#example-the-eia-data"><i class="fa fa-check"></i><b>19.2.1</b> Example: The EIA data</a></li>
+<li class="chapter" data-level="19.2.2" data-path="nextsteps.html"><a href="nextsteps.html#oddly-distributed-residuals"><i class="fa fa-check"></i><b>19.2.2</b> Oddly distributed residuals</a></li>
+<li class="chapter" data-level="19.2.3" data-path="nextsteps.html"><a href="nextsteps.html#non-independence"><i class="fa fa-check"></i><b>19.2.3</b> Non-independence</a></li>
+<li class="chapter" data-level="19.2.4" data-path="nextsteps.html"><a href="nextsteps.html#non-linearity"><i class="fa fa-check"></i><b>19.2.4</b> Non-linearity</a></li>
+<li class="chapter" data-level="19.2.5" data-path="nextsteps.html"><a href="nextsteps.html#bootstrapping"><i class="fa fa-check"></i><b>19.2.5</b> Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="nextsteps.html"><a href="nextsteps.html#summary-1"><i class="fa fa-check"></i><b>19.3</b> Summary</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="nextsteps.html"><a href="nextsteps.html#learning-outcomes-10"><i class="fa fa-check"></i><b>19.3.1</b> Learning outcomes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="notation.html"><a href="notation.html"><i class="fa fa-check"></i><b>20</b> Notation {-}</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="notation.html"><a href="notation.html#summation"><i class="fa fa-check"></i><b>20.1</b> Summation</a></li>
+<li class="chapter" data-level="20.2" data-path="notation.html"><a href="notation.html#factorial"><i class="fa fa-check"></i><b>20.2</b> Factorial</a></li>
+<li class="chapter" data-level="20.3" data-path="notation.html"><a href="notation.html#combinations"><i class="fa fa-check"></i><b>20.3</b> Combinations</a></li>
+<li class="chapter" data-level="20.4" data-path="notation.html"><a href="notation.html#multiplication"><i class="fa fa-check"></i><b>20.4</b> Multiplication</a></li>
+<li class="chapter" data-level="20.5" data-path="notation.html"><a href="notation.html#integration"><i class="fa fa-check"></i><b>20.5</b> Integration</a></li>
+<li class="chapter" data-level="20.6" data-path="notation.html"><a href="notation.html#matrix-multiplication"><i class="fa fa-check"></i><b>20.6</b> Matrix multiplication</a></li>
+<li class="chapter" data-level="20.7" data-path="notation.html"><a href="notation.html#absolute-values"><i class="fa fa-check"></i><b>20.7</b> Absolute values</a></li>
+<li class="chapter" data-level="20.8" data-path="notation.html"><a href="notation.html#pi"><i class="fa fa-check"></i><b>20.8</b> <span class="math inline">\(\pi\)</span></a></li>
+<li class="chapter" data-level="20.9" data-path="notation.html"><a href="notation.html#exponential-function-e"><i class="fa fa-check"></i><b>20.9</b> Exponential function, <span class="math inline">\(e\)</span></a></li>
+<li class="chapter" data-level="20.10" data-path="notation.html"><a href="notation.html#intervals"><i class="fa fa-check"></i><b>20.10</b> Intervals</a></li>
+<li class="chapter" data-level="20.11" data-path="notation.html"><a href="notation.html#axes-on-plots"><i class="fa fa-check"></i><b>20.11</b> Axes on plots</a></li>
+<li class="chapter" data-level="20.12" data-path="notation.html"><a href="notation.html#probability-2"><i class="fa fa-check"></i><b>20.12</b> Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="anova" class="section level1" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Analysis of Variance</h1>
+<p><span style="background-color: white"> <em>The analysis of variance is not a mathematical theorem, but rather a convenient method of arranging the arithmetic.</em> <br/> R. A. Fisher. </span></p>
+<div id="INTanova" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Introduction</h2>
+<p>Previously we have considered the comparison of two groups. In this chapter, we consider the comparison of more than two group means using a procedure called analysis of variance (generally called ANOVA). ANOVA indicates whether at least one group is different from at least one other group mean. To identify where those differences lie, we need to then consider each of the pairwise comparisons but taking into account that we are making several comparisons.</p>
+<p>In this chapter we will consider</p>
+<ul>
+<li>the number of comparisons when there are more than two groups,</li>
+<li>determining if there is a difference in the group means and where any differences might lie,</li>
+<li>checking test assumptions and</li>
+<li>alternative methods if the assumptions are not valid.</li>
+</ul>
+</div>
+<div id="multiple-comparisons" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> Multiple comparisons</h2>
+<p>We start with a motivating example; a sample of plants have been grown in three different growing mediums and the amounts of various chemical elements in a leaf from each plant have been obtained. It was felt that the chemical composition of the plants was specific to growing medium and, if so, this may help identify where plants were grown. The growing mediums, or groups, were classified as B, N and P and here, we are interested in whether the mean titanium levels differ between the three groups (Figure <a href="anova.html#fig:plantbox">9.1</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:plantbox"></span>
+<img src="IntroStats_files/figure-html/plantbox-1.png" alt="Distributions of titanium levels in three groups." width="480" />
+<p class="caption">
+Figure 9.1: Distributions of titanium levels in three groups.
+</p>
+</div>
+<p>There is a substantial overlap in the values between the three groups and so we will require formal methods to determine if the underlying groups means are the same or there is a real difference (beyond sampling variability). We could conduct a series of two sample <span class="math inline">\(t\)</span> tests and compare B with N, B with P and N and P. However, when making a series of comparisons, we run the risk of drawing a false conclusion.</p>
+<div id="type-i-and-type-ii-error" class="section level3" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> Type I and Type II error</h3>
+<p>When using a fixed significance level to draw a conclusion, the significance level, <span class="math inline">\(\alpha\)</span> is the associated error rate - the probability of rejecting the null hypothesis when it is, in fact, true. For example, a significance level of 5% (<span class="math inline">\(\alpha=0.05\)</span>) means that there is a 5% chance of rejecting the null hypothesis when it should not be rejected (e.g. there is no difference between means). This is known as a Type I error. The converse error also exists, called a Type II error.</p>
+<ul>
+<li><p><strong>Type I error</strong> - rejecting the null hypothesis when it is true (false positive)</p></li>
+<li><p><strong>Type II error</strong> - not rejecting the null hypothesis when it is false (false negative)</p></li>
+</ul>
+<p>Table <a href="anova.html#tab:type12">9.1</a> should help with understanding.</p>
+<table>
+<caption><span id="tab:type12">Table 9.1: </span> Possibilities for <span class="math inline">\(H_0\)</span> and the decision based on test results.</caption>
+<thead>
+<tr class="header">
+<th> Outcome of test</th>
+<th><span class="math inline">\(H_0\)</span> True</th>
+<th><span class="math inline">\(H_0\)</span> False</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Reject <span class="math inline">\(H_0\)</span></td>
+<td>Type I Error</td>
+<td>Correct decision</td>
+</tr>
+<tr class="even">
+<td>Fail to reject <span class="math inline">\(H_0\)</span></td>
+<td>Correct decision</td>
+<td>Type II Error</td>
+</tr>
+</tbody>
+</table>
+<p>In comparing each pair of groups, there is a Type I error associated with each test and the Type I error compounds every time we do an additional test. The error rate over all possible pairwise comparisons is then no longer 5% and increases the chance of drawing false conclusions. We come back to this later in the chapter but essentially what we need is one test that compares all group means simultaneously; we do this using one-way Analysis of Variance.</p>
+</div>
+</div>
+<div id="analysis-of-variance-anova" class="section level2" number="9.3">
+<h2><span class="header-section-number">9.3</span> ANalysis Of VAriance (ANOVA)</h2>
+<p>We want to test for differences in means between three or more groups. The null hypothesis will be that the group means are the same and the alternative hypothesis will be that at least one mean is difference from at least one other mean.</p>
+<p><strong>Example</strong> The null hypotheses to compare the mean titanium levels in three groups, B, N and P is:</p>
+<p><span class="math display">\[ H_0: \mu_{\textrm{B}} = \mu_{\textrm{N}} = \mu_{\textrm{P}} \]</span>
+The alternative hypothesis is usually specified as</p>
+<p><span class="math display">\[H_1: \textrm{at least one mean is different from one of the other means}\]</span>
+because specifying all the options is rather long-winded, i.e. <span class="math inline">\(\mu_{\textrm{B}} = \mu_{\textrm{N}} \ne \mu_{\textrm{P}}\)</span> or
+<span class="math inline">\(\mu_{\textrm{B}} \ne \mu_{\textrm{N}} = \mu_{\textrm{P}}\)</span> or
+<span class="math inline">\(\mu_{\textrm{B}} \ne \mu_{\textrm{P}} = \mu_{\textrm{N}}\)</span> or
+<span class="math inline">\(\mu_{\textrm{B}} \ne \mu_{\textrm{N}} \ne \mu_{\textrm{P}}\)</span>.</p>
+<p>If <span class="math inline">\(H_0\)</span> is true, we would expect the group means to be similar and any observed differences between the sample means is due to sampling variation only. However, detecting differences between group means depends on the variability associated with each group. If there are no differences between means (i.e. the null hypothesis is true) then any differences between the group means are likely to be small compared with the within group variability (Figure <a href="anova.html#fig:groupbox2">9.2</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:groupbox2"></span>
+<img src="IntroStats_files/figure-html/groupbox2-1.png" alt="Illustration of between and within group variability: the mean for groups 1 and 2 is 30 and the mean for group 3 is 20. The standard deviation is 2.5 on the left and 8 on the right." width="480" />
+<p class="caption">
+Figure 9.2: Illustration of between and within group variability: the mean for groups 1 and 2 is 30 and the mean for group 3 is 20. The standard deviation is 2.5 on the left and 8 on the right.
+</p>
+</div>
+<p>The ANOVA procedure explicitly compares the ‘between’ and ‘within’ group variability to test <span class="math inline">\(H_0\)</span>. This is done using an <span class="math inline">\(F\)</span> test statistic.</p>
+<div id="f-test-statistic-for-anova" class="section level3" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> <span class="math inline">\(F\)</span> test statistic for ANOVA</h3>
+<p>The <span class="math inline">\(F\)</span> test statistic for ANOVA is the ratio of the variability between groups (<span class="math inline">\(s_B^2\)</span>) and the variability within groups (<span class="math inline">\(s_W^2\)</span>):</p>
+<p><span class="math display">\[f_0=\frac{s^2_B}{s^2_W}\]</span></p>
+<p>The numerator, <span class="math inline">\(s^2_B\)</span>, represents the difference between each group mean and the overall mean (combined across groups). It will be large if there are large differences between the group means:</p>
+<p><span class="math display">\[s^2_B=\frac{\sum_{i=1}^{k} n_i (\bar{x}_{i}-\bar{x}_{.})^2}{k-1}= \frac{SS_B}{k-1}\]</span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(k\)</span> is the number of groups,</li>
+<li><span class="math inline">\(n_i\)</span> is the sample size for group <span class="math inline">\(i\)</span> and <span class="math inline">\(i=1, ..., k\)</span>,</li>
+<li><span class="math inline">\(\bar{x}_{i}\)</span> is the sample mean for group <span class="math inline">\(i\)</span>, and</li>
+<li><span class="math inline">\(\bar{x}_{.}\)</span> is the sample mean across all groups combined.</li>
+</ul>
+<p>The denominator, <span class="math inline">\(s^2_W\)</span>, represents the variability within groups (via <span class="math inline">\(s^2_i\)</span>) weighted by sample size within groups. It will be large if the data vary a great deal within groups (Figure <a href="anova.html#fig:groupbox2">9.2</a>, right hand plot):</p>
+<p><span class="math display">\[s^2_W = \frac{\sum_{i=1}^{k}(n_i-1)s_i^2}{n_{tot} - k} = \frac{SS_W}{n_{tot} - k}\]</span></p>
+<ul>
+<li>where <span class="math inline">\(s_i^2\)</span> is the sample variance for group <span class="math inline">\(i\)</span>, and</li>
+<li><span class="math inline">\(n_{tot}\)</span> is the total number of observations across all groups.</li>
+</ul>
+<p>If <span class="math inline">\(H_0\)</span> is true, <span class="math inline">\(f_0\)</span> should be small - differences between means are small compared with the spread within groups. If <span class="math inline">\(H_0\)</span> is false, <span class="math inline">\(f_0\)</span> should be large - differences between means will be large compared to the spread within groups. Evidence against <span class="math inline">\(H_0\)</span> is provided by values of <span class="math inline">\(f_0\)</span> which would be unusually large when <span class="math inline">\(H_0\)</span> is true. How large is large?</p>
+<p>Deciding if a test statistic is typical under the null hypothesis, we compare the test statistic with a reference distribution; in this case, the <span class="math inline">\(F_{(df_1,df_2)}\)</span> distribution, where <span class="math inline">\(df_1=k-1\)</span> and <span class="math inline">\(df_2=n_{tot}-k\)</span> is used. This distribution is also used to obtain an exact <span class="math inline">\(p\)</span>-value for the test; we will use <code>R</code> for this in general (although there are tables where critical values can be looked up). Before looking at the <span class="math inline">\(F\)</span> distribution, we examine how <span class="math inline">\(f_0\)</span> is calculated. As with <span class="math inline">\(p\)</span>-values, we will generally use R to calculate <span class="math inline">\(f_0\)</span>, however, it is useful to see how it is calculated and presented.</p>
+</div>
+<div id="calculating-an-anova-table" class="section level3" number="9.3.2">
+<h3><span class="header-section-number">9.3.2</span> Calculating an ANOVA table</h3>
+<p>A convenient way to compile all the values for an <span class="math inline">\(F\)</span> test statistic is to compile an ANOVA table (Table <a href="anova.html#tab:anovatab">9.2</a>). The variability observed in the data is partitioned into the pattern, or signal, which can be explained by the different groups and then what is left over, called errors or residuals. Residuals will crop up again in chapter 13 when regression models are described. In fact with ANOVA, we are fitting a model, it is just that the explanatory variable is a nominal variable.</p>
+<table>
+<caption><span id="tab:anovatab">Table 9.2: </span> Components of an ANOVA table.</caption>
+<thead>
+<tr class="header">
+<th> Source of variation</th>
+<th>df</th>
+<th>Sum Sq</th>
+<th>Mean Sq</th>
+<th><span class="math inline">\(F\)</span> value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Between groups</td>
+<td><span class="math inline">\(k-1\)</span></td>
+<td><span class="math inline">\(SS_B\)</span></td>
+<td><span class="math inline">\(s_B^2\)</span></td>
+<td><span class="math inline">\(f_0\)</span></td>
+</tr>
+<tr class="even">
+<td>Residuals</td>
+<td><span class="math inline">\(n_{tot}-k\)</span></td>
+<td><span class="math inline">\(SS_W\)</span></td>
+<td><span class="math inline">\(s_W^2\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>—————</td>
+<td>————–</td>
+<td>———</td>
+<td>———-</td>
+<td>–</td>
+</tr>
+<tr class="even">
+<td>Total</td>
+<td><span class="math inline">\(n_{tot}-1\)</span></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The completed ANOVA table to test for differences between the mean titanium level in groups B, N and P is given in Table <a href="anova.html#tab:anovatitanium">9.3</a>.</p>
+<table>
+<caption><span id="tab:anovatitanium">Table 9.3: </span> ANOVA table testing for differences in mean titanium levels in plants grown in one of three growing mediums.</caption>
+<thead>
+<tr class="header">
+<th> Source of variation</th>
+<th>df</th>
+<th>Sum Sq</th>
+<th>Mean Sq</th>
+<th><span class="math inline">\(F\)</span> value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Between groups</td>
+<td>2</td>
+<td>118.60</td>
+<td>59.30</td>
+<td>28.31</td>
+</tr>
+<tr class="even">
+<td>Residuals</td>
+<td>43</td>
+<td>90.06</td>
+<td>2.09</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>—————</td>
+<td>————–</td>
+<td>———</td>
+<td>———-</td>
+<td>–</td>
+</tr>
+<tr class="even">
+<td>Total</td>
+<td>45</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>To illustrate the calculations, the number of observations, sample means and standard deviations are required for each group and also these values overall groups (Table <a href="anova.html#tab:plantsumtab">9.4</a>).</p>
+<table style="width:39%;">
+<caption><span id="tab:plantsumtab">Table 9.4: </span> Summary statistics of the titanium levels in plants.</caption>
+<colgroup>
+<col width="11%" />
+<col width="6%" />
+<col width="9%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">GM</th>
+<th align="center">n</th>
+<th align="center">Mean</th>
+<th align="center">SD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">B</td>
+<td align="center">13</td>
+<td align="center">5.1</td>
+<td align="center">1.318</td>
+</tr>
+<tr class="even">
+<td align="center">N</td>
+<td align="center">9</td>
+<td align="center">7.58</td>
+<td align="center">1.622</td>
+</tr>
+<tr class="odd">
+<td align="center">P</td>
+<td align="center">24</td>
+<td align="center">8.85</td>
+<td align="center">1.447</td>
+</tr>
+<tr class="even">
+<td align="center">Total</td>
+<td align="center">46</td>
+<td align="center">7.54</td>
+<td align="center">2.153</td>
+</tr>
+</tbody>
+</table>
+<p>Each component of the table is calculated as follows:</p>
+<p><span class="math display">\[\begin{equation}\label{}
+\begin{split}
+SS_B &amp; = \sum_{i=1}^{k} n_i (\bar{x}_{i.}-\bar{x}_{..})^2 \\
+&amp; = 13(5.10 - 7.54)^2 + 9(7.58 - 7.54)^2 + 24(8.85 - 7.54)^2 \\
+&amp; = 118.60
+\end{split}
+\end{equation}\]</span></p>
+<p><span class="math display">\[s^2_B = \frac{SS_B}{k-1} = \frac{118.60}{3-1} = 59.30 \]</span></p>
+<p><span class="math display">\[\begin{equation}
+\begin{split}
+SS_W &amp; = \sum_{i=1}^{k}(n_i-1)s_i^2 \\
+&amp; = (13-1)1.318^2 + (9-1)1.622^2 + (23-1)1.447^2 \\
+&amp; = 88.16
+\end{split}
+\end{equation}\]</span></p>
+<p><span class="math display">\[s^2_W = \frac{SS_W}{n_{tot}-k} = \frac{90.06}{46 - 3} = 2.09\]</span>
+Finally,</p>
+<p><span class="math display">\[f_0 = \frac{s^2_B}{s^2_W} = \frac{59.307}{2.09} = 28.31\]</span></p>
+<p>Hence, the test statistic is 28.31. To decide whether this is large, we compare it to the <span class="math inline">\(F_{(df_1,df_2)}\)</span> distribution.</p>
+</div>
+<div id="f-distribution" class="section level3" number="9.3.3">
+<h3><span class="header-section-number">9.3.3</span> <span class="math inline">\(F\)</span> distribution</h3>
+<p>The <span class="math inline">\(F\)</span> distribution (named in honour of R. A. Fisher) is a continuous distribution. It is defined by two parameters, <span class="math inline">\(F_{df_1,df_2}\)</span>, where,</p>
+<ul>
+<li><span class="math inline">\(df_1 = k - 1\)</span></li>
+<li><span class="math inline">\(df_2 = n_{tot} - k\)</span>.</li>
+</ul>
+<p>The <span class="math inline">\(F\)</span> distribution can take on a variety of shapes but cannot have negative values. Figure <a href="anova.html#fig:fdist">9.3</a> shows some examples of shapes and you can also explore the shape changes yourself in Figure <a href="anova.html#fig:fshiny">9.4</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:fdist"></span>
+<img src="IntroStats_files/figure-html/fdist-1.png" alt="The probability density function of $F_{df1,df2}$ distribution for different values of the parameters $df1$ and $df2$." width="576" />
+<p class="caption">
+Figure 9.3: The probability density function of <span class="math inline">\(F_{df1,df2}\)</span> distribution for different values of the parameters <span class="math inline">\(df1\)</span> and <span class="math inline">\(df2\)</span>.
+</p>
+</div>
+
+<div class="figure" style="text-align: center"><span id="fig:fshiny"></span>
+<iframe src="https://moniquemackenzie.shinyapps.io/IntroStats_Fdistribution/?showcase=0" width="480" height="600px">
+</iframe>
+<p class="caption">
+Figure 9.4: Visualising the F-distribution. You can see a live version by clicking <a href="https://moniquemackenzie.shinyapps.io/IntroStats_Fdistribution/">here</a>
+</p>
+</div>
+<p>In our example, <span class="math inline">\(df_1=2\)</span> and <span class="math inline">\(df_2=43\)</span> and this distribution is shown in Figure <a href="anova.html#fig:fdist2and4">9.5</a>. We can see that the density (on the <span class="math inline">\(y\)</span>-axis) at a value of about 6 on the <span class="math inline">\(x\)</span>-axis is pretty much zero. Our test statistic is 28.31, hence the probability of obtaining a value as large and larger than this (i.e. <span class="math inline">\(Pr(f \ge 28.31)\)</span> where <span class="math inline">\(f \sim F_{2,43}\)</span>) is going to be small; in fact the <span class="math inline">\(p\)</span>-value is <span class="math inline">\(&lt;0.0001\)</span>. This indicates that it is very unlikely to obtain a value as large, or larger, than 28.31 when the group means are the same. We reject <span class="math inline">\(H_0\)</span> and have strong evidence that at least one of the group means is different to one of the other means.</p>
+<div class="figure" style="text-align: center"><span id="fig:fdist2and4"></span>
+<img src="IntroStats_files/figure-html/fdist2and4-1.png" alt="Reference distribution, $F_{2,43}$ distribution." width="480" />
+<p class="caption">
+Figure 9.5: Reference distribution, <span class="math inline">\(F_{2,43}\)</span> distribution.
+</p>
+</div>
+</div>
+<div id="doing-this-in-r-16" class="section level3" number="9.3.4">
+<h3><span class="header-section-number">9.3.4</span> Doing this in R</h3>
+<p>Fortunately R removes the hard work and does all the calculations, however, to make sense of the output created by the <code>aov</code> function, and create a neat ANOVA table, the <code>summary</code> function is used.</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="anova.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit ANOVA</span></span>
+<span id="cb198-2"><a href="anova.html#cb198-2" aria-hidden="true" tabindex="-1"></a>plant.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(Ti <span class="sc">~</span> Group, <span class="at">data=</span>plant)</span>
+<span id="cb198-3"><a href="anova.html#cb198-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Display ANOVA table</span></span>
+<span id="cb198-4"><a href="anova.html#cb198-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(plant.aov)</span></code></pre></div>
+<pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+Group        2 118.60   59.30   28.31 1.43e-08 ***
+Residuals   43  90.06    2.09                     
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The asterisks give a visual indication of the significance level; in this case the three asterisks (<code>***</code>) indicate that the <span class="math inline">\(p\)</span>-value is between 0 and 0.001.</p>
+<p>One thing to note is that the <span class="math inline">\(p\)</span>-value is only associated with the upper tail. Hence, if we want to calculate the exact <span class="math inline">\(p\)</span>-value, the upper tail has to be specified in the function to obtain the <span class="math inline">\(p\)</span>-value, or indeed if we want to obtain a critical value.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="anova.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exact p-value</span></span>
+<span id="cb200-2"><a href="anova.html#cb200-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pf</span>(<span class="at">q=</span><span class="fl">28.31</span>, <span class="at">df1=</span><span class="dv">2</span>, <span class="at">df2=</span><span class="dv">43</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>[1] 1.429293e-08</code></pre>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="anova.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Critical value, testing at a significance level of 5%</span></span>
+<span id="cb202-2"><a href="anova.html#cb202-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qf</span>(<span class="at">p=</span><span class="fl">0.05</span>, <span class="at">df1=</span><span class="dv">2</span>, <span class="at">df2=</span><span class="dv">43</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>[1] 3.21448</code></pre>
+<p>The critical value, testing at a significance level of 5%, is 3.21 - our test statistic (<span class="math inline">\(f_0\)</span>=28.31) is much larger than this, hence, leading us to the same conclusion.</p>
+<p><strong>Q9.1</strong> A consumer organisation was interested in comparing the price of petrol (pence per litre) in four different locations classified as city, motorway, rural and town. Prices at ten petrol stations, selected at random for the four locations, were recorded; a summary of the results are provided below.</p>
+<table style="width:44%;">
+<colgroup>
+<col width="15%" />
+<col width="6%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Location</th>
+<th align="center">n</th>
+<th align="center">Mean</th>
+<th align="center">SD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">City</td>
+<td align="center">10</td>
+<td align="center">135.4</td>
+<td align="center">5.52</td>
+</tr>
+<tr class="even">
+<td align="center">Motorway</td>
+<td align="center">10</td>
+<td align="center">143.6</td>
+<td align="center">3.84</td>
+</tr>
+<tr class="odd">
+<td align="center">Rural</td>
+<td align="center">10</td>
+<td align="center">140.4</td>
+<td align="center">6.43</td>
+</tr>
+<tr class="even">
+<td align="center">Town</td>
+<td align="center">10</td>
+<td align="center">133</td>
+<td align="center">7</td>
+</tr>
+<tr class="odd">
+<td align="center">Total</td>
+<td align="center">40</td>
+<td align="center">138.1</td>
+<td align="center">7</td>
+</tr>
+</tbody>
+</table>
+<p><strong>a.</strong> Describe the null and alternative hypotheses to be tested.</p>
+<p><strong>b.</strong> Complete the ANOVA table to calculate the <span class="math inline">\(F\)</span> test statistic.</p>
+<p><strong>c.</strong> A critical value, testing at a significance level of 5%, for the reference <span class="math inline">\(F\)</span> distribution is given below. What do you conclude regarding the mean prices between locations?</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="anova.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qf</span>(<span class="at">p=</span><span class="fl">0.05</span>, <span class="at">df1=</span><span class="dv">3</span>, <span class="at">df2=</span><span class="dv">36</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>[1] 2.866266</code></pre>
+</div>
+<div id="assumptions" class="section level3" number="9.3.5">
+<h3><span class="header-section-number">9.3.5</span> Assumptions</h3>
+<p>In order for the <span class="math inline">\(F\)</span> test results to be valid, we need the following assumptions to be met:</p>
+<ul>
+<li>Independence: the data are sampled independently,</li>
+<li>Normality: the data for each group appears to have come from a Normal distribution,</li>
+<li>Constant spread: the underlying standard deviations for each group appear to be equal.</li>
+</ul>
+<p>ANOVA is reasonably robust to departures from the ‘constant spread’ and ‘Normality’ assumptions, however, the ‘independence’ assumption is critical for valid results. As a conservative rule of thumb, ANOVA should give reliable results if the largest standard deviation of the groups is no larger than twice the smallest standard deviation of the groups.</p>
+<p><strong>Example</strong> We can check these assumptions for the ANOVA we have conducted on the plant data. Within each group, different plants were measured for titanium levels and without knowing further details of the data collection, we assume the values are independent. The other assumptions can be tested more formally.</p>
+<p><strong>Checking constant spread</strong></p>
+<p>Table 9.4 indicates that the standard deviations are similar in each group based on the rule of thumb - the smallest is 1.318 and the largest is 1.622. Levene’s test provides a formal test. The null hypothesis is that the population variances for each group are equal (called homogeneity of variances, or homoscedasticity); for example</p>
+<p><span class="math display">\[H_0: \sigma_B^2 = \sigma_N^2 = \sigma_P^2 \]</span>
+The test statistic is compared to an <span class="math inline">\(F_{df_1,df_2}\)</span> distribution (i.e. the same reference distribution as for ANOVA) and we use R to illustrate this. The <code>car</code> <span class="citation">(<a href="references.html#ref-Fox2019" role="doc-biblioref">Fox and Weisberg 2019</a>)</span> library is required for Levene’s test.</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="anova.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb206-2"><a href="anova.html#cb206-2" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(Ti <span class="sc">~</span> Group, <span class="at">data=</span>plant)</span></code></pre></div>
+<pre><code>Levene&#39;s Test for Homogeneity of Variance (center = median)
+      Df F value Pr(&gt;F)
+group  2  0.1852 0.8316
+      43               </code></pre>
+<p>The <span class="math inline">\(p\)</span>-value is interpreted in the same way as for other hypothesis test - in this example, the <span class="math inline">\(p\)</span>-value is large and so we cannot reject the null hypothesis and conclude that the variances are the same.</p>
+<p><strong>Checking normality</strong></p>
+<p>To check whether the data are normally distributed we can examine the observations (as in Figure <a href="anova.html#fig:plantbox">9.1</a>) or look at the residuals (differences between the observations and the values created when fitting the model). The residuals should lie on a straight line if they are normally distributed. (There will be more on residuals in a later chapter.)</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="anova.html#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot a normal QQ plot</span></span>
+<span id="cb208-2"><a href="anova.html#cb208-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(plant.aov<span class="sc">$</span>residuals)</span>
+<span id="cb208-3"><a href="anova.html#cb208-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a line to the plot</span></span>
+<span id="cb208-4"><a href="anova.html#cb208-4" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(plant.aov<span class="sc">$</span>residuals)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:qqnorm1"></span>
+<img src="IntroStats_files/figure-html/qqnorm1-1.png" alt="Quantile-quantile plot of residuals." width="480" />
+<p class="caption">
+Figure 9.6: Quantile-quantile plot of residuals.
+</p>
+</div>
+<p>Figure <a href="anova.html#fig:qqnorm1">9.6</a> indicates that the residuals lie roughly on a straight line. To formally check, we can undertake a Shapiro-Wilk test. The null hypothesis for this test is that the data come from a normally distributed population.</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="anova.html#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(plant.aov<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  plant.aov$residuals
+W = 0.98038, p-value = 0.6216</code></pre>
+<p>We see from the results that the <span class="math inline">\(p\)</span>-value is large (0.62), thus, there is no evidence to reject the null hypothesis and we can conclude that the data are normally distributed.</p>
+<p>All the assumptions have been checked (as far as possible) and are valid for these plant data. Thus, we can move on with the analysis to try and determine where differences lie.</p>
+</div>
+</div>
+<div id="identifying-differences-and-more-on-multiple-comparisons" class="section level2" number="9.4">
+<h2><span class="header-section-number">9.4</span> Identifying differences (and more on multiple comparisons)</h2>
+<p>ANOVA identifies whether, or not, a difference exists between at least one pair of group means. If a difference exists, the next stage is to identify which pairs of groups are different and how large any differences might be. There will be three pairwise comparisons for three groups (B-N, B-P and N-P) but the number soon increases with more groups; the number is given by for <span class="math inline">\(k\)</span> groups:</p>
+<p><span class="math display">\[\textrm{number of pairwise comparisons} = \frac{k!}{(k-2)!2!}\]</span></p>
+<p>We could build 95% confidence intervals for each pairwise comparison but each has a Type I error rate of 5%; these errors compound and so we can adjust the error rate so that the overall, or <strong>family wise</strong>, error rate is 5%. There are various methods of making this adjustment and here we look at three methods; Bonferroni correction, Sidak adjustment and Tukey’s Honest Significance Differences.</p>
+<p><strong>Q9.2</strong> If there are four groups to be compared (as in Q9.1), how many pairwise comparisons can be made?</p>
+<div id="bonferroni-correction" class="section level3" number="9.4.1">
+<h3><span class="header-section-number">9.4.1</span> Bonferroni correction</h3>
+<p>This is a simple method; we calculate a new threshold <span class="math inline">\(p\)</span>-value by dividing the desired Type I error rate (overall comparisons), by the number of comparisons:</p>
+<p><span class="math display">\[\alpha_{adj} = \frac{\alpha}{c}\]</span>
+where</p>
+<ul>
+<li><span class="math inline">\(\alpha_{adj}\)</span> is the new threshold,</li>
+<li><span class="math inline">\(\alpha\)</span> is the desired Type I error collectively (family error rate) and</li>
+<li><span class="math inline">\(c\)</span> is the number of comparisons.</li>
+</ul>
+<p><strong>Example</strong> We want to conduct a series of 5 two sample <span class="math inline">\(t\)</span> tests with a desired overall error rate of 5%. The adjusted error rate is thus, <span class="math inline">\(\alpha_{adj} = 0.05/5 = 0.01\)</span> and so rather than accept a result as significant if the probability is below 0.05, we accept it as significant if the <span class="math inline">\(p\)</span>-value for each test is below 0.01.</p>
+<p>This method is considered to be ‘conservative’ with respect to the family wise error rate, particularly if there are a large number of tests, or comparisons. This correction comes at the cost of increasing the Type II error.</p>
+</div>
+<div id="sidak-adjustment" class="section level3" number="9.4.2">
+<h3><span class="header-section-number">9.4.2</span> Sidak adjustment</h3>
+<p>The Sidak adjustment for the new threshold <span class="math inline">\(p\)</span>-value is calculated from:</p>
+<p><span class="math display">\[\alpha_{adj} = 1 - (1-\alpha)^{\frac{1}{c}}\]</span>
+<strong>Example</strong> We have a control treatment and plan to compare it against 3 different treatments and require an overall Type I error of 5%:</p>
+<p><span class="math display">\[\alpha_{adj} = 1 - (1 - 0.05)^{\frac{1}{3}}=0.01695\]</span>
+Therefore, a <span class="math inline">\(p\)</span>-value &lt; 0.01695 is required to conclude a significant result for each comparison.</p>
+</div>
+<div id="tukeys-honest-significant-difference-hsd" class="section level3" number="9.4.3">
+<h3><span class="header-section-number">9.4.3</span> Tukey’s Honest Significant Difference (HSD)</h3>
+<p>This method is similar to creating confidence intervals for differences between two means but modifies the standard error and multiplier resulting in wider confidence intervals. We can then check to see if zero is contained within each CI to determine whether any pair of group means are significantly different with a family wise error rate of <span class="math inline">\(\alpha\)</span>.</p>
+<p><strong>Example</strong> We return to the data of titanium levels in plants grown in three different types of growing medium; previously we found that a difference does exist. We calculate Tukey’s HSD for the pairwise comparisons to decide where any differences might lie (Table <a href="anova.html#tab:tukeydif">9.5</a>).</p>
+<table style="width:67%;">
+<caption><span id="tab:tukeydif">Table 9.5: </span> Differences and confidence intervals obtained using Tukey’s HSD; the columns are described below.</caption>
+<colgroup>
+<col width="13%" />
+<col width="11%" />
+<col width="13%" />
+<col width="11%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">diff</th>
+<th align="center">lwr</th>
+<th align="center">upr</th>
+<th align="center">p adj</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>N-B</strong></td>
+<td align="center">2.478</td>
+<td align="center">0.9545</td>
+<td align="center">4.001</td>
+<td align="center">0.0008236</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>P-B</strong></td>
+<td align="center">3.75</td>
+<td align="center">2.54</td>
+<td align="center">4.96</td>
+<td align="center">6.734e-09</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>P-N</strong></td>
+<td align="center">1.272</td>
+<td align="center">-0.1009</td>
+<td align="center">2.645</td>
+<td align="center">0.07432</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>the first column indicates the two groups being compared,</p></li>
+<li><p>‘diff’ is the point estimate of the difference in means between the two groups,</p></li>
+<li><p>‘lwr’ and ‘upr’ are the lower and upper bounds, respectively, of the confidence interval for the difference taking into account the multiple comparisons, and</p></li>
+<li><p>‘<span class="math inline">\(p\)</span> adj’ is the <span class="math inline">\(p\)</span>-value evaluating the null hypothesis that the difference between the means of the populations is zero taking into account the number of multiple comparisons.</p></li>
+</ul>
+<p>In this case, one confidence interval contains zero (i.e. P-N); on average the mean titanium level in group P is between -0.1 units lower to 2.65 units higher than group N. An interval containing zero indicates that zero is a plausible value for the difference in means, thus the means for these two groups are not significantly different.</p>
+<p>The other intervals are significantly different - the interval does not contain zero. The mean titanium level in N is significantly higher than B - on average 0.95 to 4.00 units higher (95% confidence). Also, the level in P is significantly higher than in B - on average 2.54 to 4.96 units higher (95% confidence)</p>
+<p>As a comparison, Table <a href="anova.html#tab:normalCI">9.6</a> shows that standard 95% confidence intervals for each of the difference in means are slightly narrower than the confidence intervals obtained using Tukey’s HSD (Table 9.5).</p>
+<table style="width:38%;">
+<caption><span id="tab:normalCI">Table 9.6: </span> Standard 95% confidence intervals for each pairwise comparison.</caption>
+<colgroup>
+<col width="11%" />
+<col width="15%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Group</th>
+<th align="center">lwr</th>
+<th align="center">upr</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">N-B</td>
+<td align="center">1.086</td>
+<td align="center">3.87</td>
+</tr>
+<tr class="even">
+<td align="center">P-B</td>
+<td align="center">2.785</td>
+<td align="center">4.715</td>
+</tr>
+<tr class="odd">
+<td align="center">P-N</td>
+<td align="center">-0.05809</td>
+<td align="center">2.603</td>
+</tr>
+</tbody>
+</table>
+<div id="doing-this-in-r-17" class="section level4" number="9.4.3.1">
+<h4><span class="header-section-number">9.4.3.1</span> Doing this in R</h4>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="anova.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create ANOVA object</span></span>
+<span id="cb211-2"><a href="anova.html#cb211-2" aria-hidden="true" tabindex="-1"></a>plant.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(Ti <span class="sc">~</span> Group, <span class="at">data=</span>plant)</span>
+<span id="cb211-3"><a href="anova.html#cb211-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Tukeys HSD</span></span>
+<span id="cb211-4"><a href="anova.html#cb211-4" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(plant.aov)</span></code></pre></div>
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = Ti ~ Group, data = plant)
+
+$Group
+        diff        lwr      upr     p adj
+N-B 2.477778  0.9544691 4.001086 0.0008236
+P-B 3.750000  2.5402571 4.959743 0.0000000
+P-N 1.272222 -0.1008697 2.645314 0.0743237</code></pre>
+<p>These intervals can be displayed with a helpful dashed line allowing confidence intervals containing zero to be easily identified:</p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="anova.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Tukeys HSD</span></span>
+<span id="cb213-2"><a href="anova.html#cb213-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">TukeyHSD</span>(plant.aov))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-92"></span>
+<img src="IntroStats_files/figure-html/unnamed-chunk-92-1.png" alt="Comparison of titanium levels in groups B, N and P. The horizontal black lines indicate Tukey's HSD confidence interval for the pairwise comparison. The dashed line means it is easy to identify CI that include zero." width="480" />
+<p class="caption">
+Figure 9.7: Comparison of titanium levels in groups B, N and P. The horizontal black lines indicate Tukey’s HSD confidence interval for the pairwise comparison. The dashed line means it is easy to identify CI that include zero.
+</p>
+</div>
+<p><strong>Q9.3</strong> The following are Tukey’s HSD comparing the petrol prices for four different locations.</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="anova.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(prices <span class="sc">~</span> location, <span class="at">data=</span>petrol))</span></code></pre></div>
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = prices ~ location, data = petrol)
+
+$location
+                     diff        lwr        upr     p adj
+Motorway-City    8.201950   1.191987 15.2119125 0.0164806
+Rural-City       5.075935  -1.934027 12.0858982 0.2258147
+Town-City       -2.408140  -9.418102  4.6018231 0.7915806
+Rural-Motorway  -3.126014 -10.135977  3.8839485 0.6301923
+Town-Motorway  -10.610089 -17.620052 -3.6001266 0.0013224
+Town-Rural      -7.484075 -14.494038 -0.4741123 0.0326058</code></pre>
+<p><strong>a.</strong> Which locations are significantly different and which are not, testing at a significance level of 5%?</p>
+<p><strong>b.</strong> Which two locations have the largest difference in means?</p>
+</div>
+</div>
+<div id="multiple-comparison-controversy" class="section level3" number="9.4.4">
+<h3><span class="header-section-number">9.4.4</span> Multiple comparison controversy</h3>
+<p>In making adjustments when performing multiple comparisons, we are trading one error for another; we control a Type I error at the cost of a Type II error. For example, when making multiple comparisons, the adjustments reduce the threshold probability level used to determine significance. This means that we won’t make many Type I errors, but Type II errors could be large. This relates to a concept called power, which is covered in chapter <a href="power.html#power">10</a>.</p>
+<p>The choice of whether, or not, to make any adjustment is not straightforward and is generally context specific:</p>
+<ul>
+<li>sometimes people think adjustments should be made because they are really worried about Type I errors/false positives (e.g. concluding a treatment is effective when it isn’t)</li>
+<li>sometimes making a Type II error/false negative could be concerning (e.g. when exploring new cancer drugs a promising drug might be missed).</li>
+</ul>
+</div>
+</div>
+<div id="alternative-tests-to-anova" class="section level2" number="9.5">
+<h2><span class="header-section-number">9.5</span> Alternative tests to ANOVA</h2>
+<p>If the data do not fulfill the test assumptions of normality and constant spread (or equal standard deviations), alternative tests are available and two are briefly described below. Although some assumptions can be relaxed with these tests, other assumptions can not.</p>
+<p>If the data are not normally distributed, the Kruskal-Wallis test can be used as a non-parametric alternative to ANOVA; it can be thought of as a multi-level version of the Mann-Whitney test (chapter <a href="hypothtests.html#hypothtests">8</a>). However, this test does still assume that the groups have the same standard deviation. This test uses ranks and the null hypothesis is that the mean ranks of the groups is the same. The test statistic follows a <span class="math inline">\(\chi^2\)</span> (chi-square) distribution which is indexed by one parameter, the degrees of freedom; this distribution is discussed in chapter <a href="tableofcounts.html#tableofcounts">12</a>.</p>
+<p>If the groups do not have similar standard deviations (heteroscedastic), an adaptation to ANOVA, called Welch’s ANOVA, can be used, although this still requires that the data are normally distributed.</p>
+<div id="doing-this-in-r-18" class="section level3" number="9.5.1">
+<h3><span class="header-section-number">9.5.1</span> Doing this in R</h3>
+<p>The Kruskal_Wallis test is performed with the <code>kruskal.test</code> function:</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="anova.html#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(Ti <span class="sc">~</span> Group, <span class="at">data=</span>plant)</span></code></pre></div>
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  Ti by Group
+Kruskal-Wallis chi-squared = 26.286, df = 2, p-value = 1.959e-06</code></pre>
+<p>The <span class="math inline">\(p\)</span>-value is interpreted in the same way; here it is very small, providing evidence to reject the null hypothesis. There is also a function which provides multiple comparisons after the Kruskal-Wallis test <span class="citation">(<a href="references.html#ref-Siegel&amp;Castellan1988" role="doc-biblioref">Siegel and Castellan 1988</a>)</span>; this requires the <code>pgirmess</code> library <span class="citation">(<a href="references.html#ref-R-pgirmess" role="doc-biblioref">Giraudoux 2021</a>)</span>. It identifies differences between groups depending on the specified significance level (0.05 by default).</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="anova.html#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pgirmess)</span>
+<span id="cb218-2"><a href="anova.html#cb218-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskalmc</span>(Ti <span class="sc">~</span> Group, <span class="at">data=</span>plant)</span></code></pre></div>
+<pre><code>Multiple comparison test after Kruskal-Wallis 
+p.value: 0.05 
+Comparisons
+      obs.dif critical.dif difference
+B-N 15.085470     13.93401       TRUE
+B-P 23.682692     11.06576       TRUE
+N-P  8.597222     12.55995      FALSE</code></pre>
+<p>Welch’s ANOVA is performed using <code>welch.test</code> which is in the <code>onewaytests</code> library <span class="citation">(<a href="references.html#ref-R-onewaytests" role="doc-biblioref">Dag et al. 2021</a>)</span> (this is not part of the base libraries and so will need to be installed). Again it gives helpful output.</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="anova.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(onewaytests)</span>
+<span id="cb220-2"><a href="anova.html#cb220-2" aria-hidden="true" tabindex="-1"></a><span class="fu">welch.test</span>(Ti <span class="sc">~</span> Group, <span class="at">data=</span>plant)</span></code></pre></div>
+<pre><code>
+  Welch&#39;s Heteroscedastic F Test (alpha = 0.05) 
+------------------------------------------------------------- 
+  data : Ti and Group 
+
+  statistic  : 30.83309 
+  num df     : 2 
+  denom df   : 19.47308 
+  p.value    : 9.232681e-07 
+
+  Result     : Difference is statistically significant. 
+------------------------------------------------------------- </code></pre>
+</div>
+</div>
+<div id="SUManova" class="section level2" number="9.6">
+<h2><span class="header-section-number">9.6</span> Summary</h2>
+<p>Analysis of variance, the procedure for comparing differences in means for more than two groups is a frequently used procedure. Technically we have described here, a one-way ANOVA because data are divided by only one factor, i.e. the different groups. Not covered here is a two-way ANOVA where two factors can be taken into account. As with any statistical test, there are underlying assumptions which need to be met for the results to be valid and an appropriate test needs to be selected based on the data.</p>
+<p>The significance level (<span class="math inline">\(\alpha\)</span>) is the probability of rejecting the null hypothesis when it is true (Type I error) and we want this to be small. The level should be set prior to any test and is the level you are happy to reject the null hypothesis. A value of <span class="math inline">\(\alpha=0.05\)</span> is frequently used but to decrease the chance of making a Type I error, a value of <span class="math inline">\(\alpha=0.01\)</span> is sometimes used; we would advise using 0.01 as a default value.</p>
+<p>Most of the R functions provide an exact <span class="math inline">\(p\)</span>-value associated with the test statistic - this is the probability of obtaining the test statistic, and one more extreme, if the null hypothesis is true. It is found from the area under the reference distribution associated with the test statistic. To decide whether to reject the null hypothesis, the <span class="math inline">\(p\)</span>-value is compared to the <span class="math inline">\(\alpha\)</span> level set prior to the test. A <span class="math inline">\(p\)</span>-value less than <span class="math inline">\(\alpha\)</span> provides evidence to reject the null hypothesis and a <span class="math inline">\(p\)</span>-value greater than <span class="math inline">\(\alpha\)</span> does not provide evidence to reject the null hypothesis.</p>
+<p>If statistically significant differences are detected, then we want to determine where the differences lie. Comparing multiple pairwise combinations of groups increases the risk of making a Type I error and so to ensure that the desired error rate applies over all comparisons an adjustment can be made.</p>
+<p>In this chapter we have concentrated on the Type I error for a test; in the next chapter, the Type II error is considered.</p>
+<p>More information about the <span class="math inline">\(F\)</span> test for ANOVA can be found <a href="https://www.khanacademy.org/math/probability/statistics-inferential/anova/v/anova-3-hypothesis-test-with-f-statistic">here</a></p>
+<div id="learning-outcomes-5" class="section level3" number="9.6.1">
+<h3><span class="header-section-number">9.6.1</span> Learning outcomes</h3>
+<p>In this chapter we have</p>
+<ol style="list-style-type: decimal">
+<li><p>undertaken a one-way analysis of variance to determine differences between more than two groups,</p></li>
+<li><p>determined where differences between groups lie,</p></li>
+<li><p>checked the test assumptions, and</p></li>
+<li><p>if the assumptions for ANOVA are not fulfilled, seen that an alternative test can be used.</p></li>
+</ol>
+</div>
+</div>
+<div id="ANSanova" class="section level2" number="9.7">
+<h2><span class="header-section-number">9.7</span> Answers</h2>
+<p><strong>Q9.1</strong> <strong>a.</strong> The null hypothesis is that the mean petrol price is the same in all four locations:</p>
+<p><span class="math display">\[H_0: \mu_{City} = \mu_{Motorway} = \mu_{Rural} = \mu_{Town} \]</span>
+The alternative hypothesis is that at least one location has a different mean petrol price to one other location.</p>
+<p><strong>Q9.1</strong> <strong>b.</strong> The completed ANOVA table is given below and the <span class="math inline">\(F\)</span> test statistic is 6.77.</p>
+<table>
+<thead>
+<tr class="header">
+<th> Source of variation</th>
+<th>df</th>
+<th>Sum Sq</th>
+<th>Mean Sq</th>
+<th><span class="math inline">\(F\)</span> value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Between locations</td>
+<td>3</td>
+<td>668.4</td>
+<td>229.47</td>
+<td>6.77</td>
+</tr>
+<tr class="even">
+<td>Residuals</td>
+<td>36</td>
+<td>1220.47</td>
+<td>33.90</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>——————</td>
+<td>————–</td>
+<td>———</td>
+<td>———-</td>
+<td>–</td>
+</tr>
+<tr class="even">
+<td>Total</td>
+<td>39</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Each component of the table is calculated as follows where <span class="math inline">\(k = 4\)</span> groups.</p>
+<p><span class="math display">\[\begin{equation}\label{}
+\begin{split}
+SS_B &amp; = \sum_{i=1}^{k} n_i (\bar{x}_{i.}-\bar{x}_{..})^2 \\
+&amp; = 10(135.4 - 138.1)^2 + 10(143.6 - 138.1)^2 + 10(140.4 - 138.1)^2 + 10(133.0 - 138.1)^2\\
+&amp; = 688.4
+\end{split}
+\end{equation}\]</span></p>
+<p><span class="math display">\[s^2_B = \frac{SS_B}{k-1} = \frac{688.4}{4-1} = 229.47\]</span></p>
+<p><span class="math display">\[\begin{equation}
+\begin{split}
+SS_W &amp; = \sum_{i=1}^{k}(n_i-1)s_i^2 \\
+&amp; = (10-1)5.52^2 + (10-1)3.84^2 + (10-1)6.43^2 + (10-1)7.00^2\\
+&amp; = 1220.47
+\end{split}
+\end{equation}\]</span></p>
+<p><span class="math display">\[s^2_W = \frac{SS_W}{n_{tot}-k} = \frac{1220.47}{40 - 4} = 33.90\]</span>
+Finally,</p>
+<p><span class="math display">\[f_0 = \frac{s^2_B}{s^2_W} = \frac{229.47}{33.90} = 6.77\]</span></p>
+<p><strong>Q9.1</strong> <strong>c.</strong> The critical value is 2.866 which is smaller than the <span class="math inline">\(F\)</span> test statistic. Hence, there is evidence to reject the null hypothesis and conclude that at least one location has a different mean petrol prices to one other location.</p>
+<p><strong>Q9.2</strong> If there are four groups, there will be 6 possible pairwise comparisons (see below).</p>
+<p><strong>Q9.3</strong> <strong>a.</strong> The locations which are significantly different are Motorway-City, Town-Motorway and Town-Rural; these CI have a small <span class="math inline">\(p\)</span>-value (&lt;0.05) and do not contain zero. The locations which are not significantly different are Rural-City, Town-City and Rural-Motorway.</p>
+<p><strong>Q9.3</strong> <strong>b.</strong> The largest difference is between Town and Motorway. On average, the price in Town is 3.6 to 17.6 pence per litre lower than the price in the Motorway.</p>
+
+<!-- CP - update 05/08/2020 -->
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="hypothtests.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="power.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="book_assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/lunr.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["IntroStats.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

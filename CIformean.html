@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Confidence intervals for sample means | An Introduction to Statistics</title>
+  <meta name="description" content="Chapter 7 Confidence intervals for sample means | An Introduction to Statistics" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Confidence intervals for sample means | An Introduction to Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Confidence intervals for sample means | An Introduction to Statistics" />
+  
+  
+  
+
+<meta name="author" content="Drs C. Paxton, L. Burt, C. Donovan and L. Scott-Hayward" />
+
+
+<meta name="date" content="2021-06-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="contrv.html"/>
+<link rel="next" href="hypothtests.html"/>
+<script src="book_assets/header-attrs-2.7/header-attrs.js"></script>
+<script src="book_assets/jquery-2.2.3/jquery.min.js"></script>
+<link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script language="javascript">
+    function toggle(id) {
+        var ele = document.getElementById("toggleText" + id);
+        var text = document.getElementById("displayText" + id);
+        var buttonText = text.innerHTML.replace("Show ", "");
+        buttonText = buttonText.replace("Hide ", "");
+        if(ele.style.display == "block") {
+            ele.style.display = "none";
+            text.innerHTML = "Show " + buttonText;
+        } else {
+            ele.style.display = "block";
+            text.innerHTML = "Hide " + buttonText;
+        }
+    }
+</script>
+
+<script language="javascript">
+    function openCode(evt, codeName, id) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent" + id);
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks" + id);
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(codeName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+<script language="javascript">
+    function hide(id){
+        document.getElementById(id).style.display = "none";
+    }
+</script>
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<a href="https://www.st-andrews.ac.uk/mathematics-statistics/"><img src="standard-vertical-black.png" width="180"></a>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#computer-practicals"><i class="fa fa-check"></i>Computer practicals</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introchapt.html"><a href="introchapt.html"><i class="fa fa-check"></i><b>1</b> Thinking About Numbers</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introchapt.html"><a href="introchapt.html#INTintro"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="introchapt.html"><a href="introchapt.html#why-use-statistics"><i class="fa fa-check"></i><b>1.2</b> Why use statistics?</a></li>
+<li class="chapter" data-level="1.3" data-path="introchapt.html"><a href="introchapt.html#why-model"><i class="fa fa-check"></i><b>1.3</b> Why model?</a></li>
+<li class="chapter" data-level="1.4" data-path="introchapt.html"><a href="introchapt.html#examples-of-statistical-claims"><i class="fa fa-check"></i><b>1.4</b> Examples of statistical claims</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="introchapt.html"><a href="introchapt.html#coffee-may-reverse-alzheimers"><i class="fa fa-check"></i><b>1.4.1</b> Coffee ‘may reverse Alzheimer’s’</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introchapt.html"><a href="introchapt.html#abundance-of-prized-sturgeon"><i class="fa fa-check"></i><b>1.4.2</b> Abundance of prized sturgeon</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introchapt.html"><a href="introchapt.html#extrapolating-sprinting-speed"><i class="fa fa-check"></i><b>1.4.3</b> Extrapolating sprinting speed</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introchapt.html"><a href="introchapt.html#mmr-innoculation-and-autism"><i class="fa fa-check"></i><b>1.4.4</b> MMR innoculation and autism</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introchapt.html"><a href="introchapt.html#two-sid-deaths-in-same-family"><i class="fa fa-check"></i><b>1.4.5</b> Two SID deaths in same family</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introchapt.html"><a href="introchapt.html#SUMintro"><i class="fa fa-check"></i><b>1.5</b> Summary</a></li>
+<li class="chapter" data-level="1.6" data-path="introchapt.html"><a href="introchapt.html#ANSintro"><i class="fa fa-check"></i><b>1.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>I Data Collection and Visualisation</b></span></li>
+<li class="chapter" data-level="2" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>2</b> Data collection and Sampling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="sampling.html"><a href="sampling.html#INTsamp"><i class="fa fa-check"></i><b>2.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="sampling.html"><a href="sampling.html#terminology"><i class="fa fa-check"></i><b>2.1.1</b> Terminology</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="sampling.html"><a href="sampling.html#what-is-sampling-and-why-do-it"><i class="fa fa-check"></i><b>2.2</b> What is sampling and why do it?</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="sampling.html"><a href="sampling.html#precision-accuracy-and-bias"><i class="fa fa-check"></i><b>2.2.1</b> Precision, accuracy and bias</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="sampling.html"><a href="sampling.html#three-types-of-data-collection"><i class="fa fa-check"></i><b>2.3</b> Three types of data collection</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="sampling.html"><a href="sampling.html#common-but-unwise-data-collection-strategies"><i class="fa fa-check"></i><b>2.3.1</b> Common, but unwise, data collection strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="sampling.html"><a href="sampling.html#simple-sampling-approaches"><i class="fa fa-check"></i><b>2.4</b> Simple sampling approaches</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="sampling.html"><a href="sampling.html#simple-random-sample"><i class="fa fa-check"></i><b>2.4.1</b> Simple random sample</a></li>
+<li class="chapter" data-level="2.4.2" data-path="sampling.html"><a href="sampling.html#systematic-samples"><i class="fa fa-check"></i><b>2.4.2</b> Systematic samples</a></li>
+<li class="chapter" data-level="2.4.3" data-path="sampling.html"><a href="sampling.html#stratified-random-samples"><i class="fa fa-check"></i><b>2.4.3</b> Stratified random samples</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="sampling.html"><a href="sampling.html#sampling-biases"><i class="fa fa-check"></i><b>2.5</b> Sampling biases</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="sampling.html"><a href="sampling.html#non-sampling-error"><i class="fa fa-check"></i><b>2.5.1</b> Non-sampling error</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="sampling.html"><a href="sampling.html#experiments"><i class="fa fa-check"></i><b>2.6</b> Experiments</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="sampling.html"><a href="sampling.html#randomised-experiments"><i class="fa fa-check"></i><b>2.6.1</b> Randomised experiments</a></li>
+<li class="chapter" data-level="2.6.2" data-path="sampling.html"><a href="sampling.html#components-of-an-experimental-design"><i class="fa fa-check"></i><b>2.6.2</b> Components of an experimental design</a></li>
+<li class="chapter" data-level="2.6.3" data-path="sampling.html"><a href="sampling.html#controls"><i class="fa fa-check"></i><b>2.6.3</b> Controls</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="sampling.html"><a href="sampling.html#observational-studies"><i class="fa fa-check"></i><b>2.7</b> Observational Studies</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="sampling.html"><a href="sampling.html#types-of-observational-study"><i class="fa fa-check"></i><b>2.7.1</b> Types of observational study</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="sampling.html"><a href="sampling.html#observational-studies-vs-experiments"><i class="fa fa-check"></i><b>2.8</b> Observational studies vs experiments</a></li>
+<li class="chapter" data-level="2.9" data-path="sampling.html"><a href="sampling.html#SUMsamp"><i class="fa fa-check"></i><b>2.9</b> Summary</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="sampling.html"><a href="sampling.html#learning-objectives"><i class="fa fa-check"></i><b>2.9.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="sampling.html"><a href="sampling.html#ANSsamp"><i class="fa fa-check"></i><b>2.10</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="describedata.html"><a href="describedata.html"><i class="fa fa-check"></i><b>3</b> Describing data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="describedata.html"><a href="describedata.html#INTdata"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="describedata.html"><a href="describedata.html#types-of-data"><i class="fa fa-check"></i><b>3.2</b> Types of data</a></li>
+<li class="chapter" data-level="3.3" data-path="describedata.html"><a href="describedata.html#frequency-distributions"><i class="fa fa-check"></i><b>3.3</b> Frequency distributions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="describedata.html"><a href="describedata.html#doing-this-in-r-2"><i class="fa fa-check"></i><b>3.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="describedata.html"><a href="describedata.html#numerical-summaries"><i class="fa fa-check"></i><b>3.4</b> Numerical summaries</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="describedata.html"><a href="describedata.html#population-mean"><i class="fa fa-check"></i><b>3.4.1</b> Population mean</a></li>
+<li class="chapter" data-level="3.4.2" data-path="describedata.html"><a href="describedata.html#sample-mean"><i class="fa fa-check"></i><b>3.4.2</b> Sample mean</a></li>
+<li class="chapter" data-level="3.4.3" data-path="describedata.html"><a href="describedata.html#sample-median"><i class="fa fa-check"></i><b>3.4.3</b> Sample median</a></li>
+<li class="chapter" data-level="3.4.4" data-path="describedata.html"><a href="describedata.html#range"><i class="fa fa-check"></i><b>3.4.4</b> Range</a></li>
+<li class="chapter" data-level="3.4.5" data-path="describedata.html"><a href="describedata.html#percentiles"><i class="fa fa-check"></i><b>3.4.5</b> Percentiles</a></li>
+<li class="chapter" data-level="3.4.6" data-path="describedata.html"><a href="describedata.html#population-variance"><i class="fa fa-check"></i><b>3.4.6</b> Population variance</a></li>
+<li class="chapter" data-level="3.4.7" data-path="describedata.html"><a href="describedata.html#sample-variance-and-standard-deviation"><i class="fa fa-check"></i><b>3.4.7</b> Sample variance and standard deviation</a></li>
+<li class="chapter" data-level="3.4.8" data-path="describedata.html"><a href="describedata.html#numerical-summaries-in-r"><i class="fa fa-check"></i><b>3.4.8</b> Numerical summaries in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="describedata.html"><a href="describedata.html#visual-summaries"><i class="fa fa-check"></i><b>3.5</b> Visual summaries</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="describedata.html"><a href="describedata.html#bar-charts"><i class="fa fa-check"></i><b>3.5.1</b> Bar charts</a></li>
+<li class="chapter" data-level="3.5.2" data-path="describedata.html"><a href="describedata.html#pie-charts"><i class="fa fa-check"></i><b>3.5.2</b> Pie charts</a></li>
+<li class="chapter" data-level="3.5.3" data-path="describedata.html"><a href="describedata.html#histograms"><i class="fa fa-check"></i><b>3.5.3</b> Histograms</a></li>
+<li class="chapter" data-level="3.5.4" data-path="describedata.html"><a href="describedata.html#boxplots"><i class="fa fa-check"></i><b>3.5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="3.5.5" data-path="describedata.html"><a href="describedata.html#basic-plots-in-r"><i class="fa fa-check"></i><b>3.5.5</b> Basic plots in R</a></li>
+<li class="chapter" data-level="3.5.6" data-path="describedata.html"><a href="describedata.html#other-plots"><i class="fa fa-check"></i><b>3.5.6</b> Other plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="describedata.html"><a href="describedata.html#summarising-the-relationship-between-two-variables"><i class="fa fa-check"></i><b>3.6</b> Summarising the relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="describedata.html"><a href="describedata.html#cross-tabulation"><i class="fa fa-check"></i><b>3.6.1</b> Cross-tabulation</a></li>
+<li class="chapter" data-level="3.6.2" data-path="describedata.html"><a href="describedata.html#side-by-side-boxplots"><i class="fa fa-check"></i><b>3.6.2</b> Side-by-side boxplots</a></li>
+<li class="chapter" data-level="3.6.3" data-path="describedata.html"><a href="describedata.html#scatter-plot"><i class="fa fa-check"></i><b>3.6.3</b> Scatter plot</a></li>
+<li class="chapter" data-level="3.6.4" data-path="describedata.html"><a href="describedata.html#quilt-plots"><i class="fa fa-check"></i><b>3.6.4</b> Quilt plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="describedata.html"><a href="describedata.html#handy-hints-when-including-tables-and-plots-into-reports"><i class="fa fa-check"></i><b>3.7</b> Handy hints when including tables and plots into reports</a></li>
+<li class="chapter" data-level="3.8" data-path="describedata.html"><a href="describedata.html#SUMdata"><i class="fa fa-check"></i><b>3.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="describedata.html"><a href="describedata.html#learning-outcomes"><i class="fa fa-check"></i><b>3.8.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="describedata.html"><a href="describedata.html#ANSdata"><i class="fa fa-check"></i><b>3.9</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>II Probability and Distributions</b></span></li>
+<li class="chapter" data-level="4" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>4</b> Probability</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="probability.html"><a href="probability.html#INTprob"><i class="fa fa-check"></i><b>4.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="probability.html"><a href="probability.html#random-phenomena-and-uncertain-outcomes"><i class="fa fa-check"></i><b>4.1.1</b> Random phenomena and uncertain outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="probability.html"><a href="probability.html#sample-spaces-and-events"><i class="fa fa-check"></i><b>4.2</b> Sample spaces and events</a></li>
+<li class="chapter" data-level="4.3" data-path="probability.html"><a href="probability.html#definition-of-probability-and-3-axioms"><i class="fa fa-check"></i><b>4.3</b> Definition of Probability and 3 Axioms</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="probability.html"><a href="probability.html#probability-1"><i class="fa fa-check"></i><b>4.3.1</b> Probability</a></li>
+<li class="chapter" data-level="4.3.2" data-path="probability.html"><a href="probability.html#three-axioms"><i class="fa fa-check"></i><b>4.3.2</b> Three Axioms</a></li>
+<li class="chapter" data-level="4.3.3" data-path="probability.html"><a href="probability.html#three-results-of-the-axioms"><i class="fa fa-check"></i><b>4.3.3</b> Three results of the Axioms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="probability.html"><a href="probability.html#independence-and-the-multiplication-rule"><i class="fa fa-check"></i><b>4.4</b> Independence and the Multiplication Rule</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="probability.html"><a href="probability.html#testing-for-independence"><i class="fa fa-check"></i><b>4.4.1</b> Testing for Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="probability.html"><a href="probability.html#conditional-probabilities"><i class="fa fa-check"></i><b>4.5</b> Conditional probabilities</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="probability.html"><a href="probability.html#independence-revisited"><i class="fa fa-check"></i><b>4.5.1</b> Independence revisited</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="probability.html"><a href="probability.html#tree-diagrams"><i class="fa fa-check"></i><b>4.6</b> Tree Diagrams</a></li>
+<li class="chapter" data-level="4.7" data-path="probability.html"><a href="probability.html#marginal-and-joint-probabilities"><i class="fa fa-check"></i><b>4.7</b> Marginal and joint probabilities</a></li>
+<li class="chapter" data-level="4.8" data-path="probability.html"><a href="probability.html#SUMprob"><i class="fa fa-check"></i><b>4.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="probability.html"><a href="probability.html#learning-objectives-1"><i class="fa fa-check"></i><b>4.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="probability.html"><a href="probability.html#ANSprob"><i class="fa fa-check"></i><b>4.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="discreterv.html"><a href="discreterv.html"><i class="fa fa-check"></i><b>5</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="discreterv.html"><a href="discreterv.html#INTdiscrv"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="discreterv.html"><a href="discreterv.html#discrete-random-variables"><i class="fa fa-check"></i><b>5.2</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="discreterv.html"><a href="discreterv.html#probability-mass-function"><i class="fa fa-check"></i><b>5.2.1</b> Probability mass function</a></li>
+<li class="chapter" data-level="5.2.2" data-path="discreterv.html"><a href="discreterv.html#cumulative-distribution-function"><i class="fa fa-check"></i><b>5.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="5.2.3" data-path="discreterv.html"><a href="discreterv.html#expectation"><i class="fa fa-check"></i><b>5.2.3</b> Expectation</a></li>
+<li class="chapter" data-level="5.2.4" data-path="discreterv.html"><a href="discreterv.html#variance"><i class="fa fa-check"></i><b>5.2.4</b> Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="discreterv.html"><a href="discreterv.html#special-discrete-distributions"><i class="fa fa-check"></i><b>5.3</b> Special discrete distributions</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="discreterv.html"><a href="discreterv.html#bernoulli-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="5.3.2" data-path="discreterv.html"><a href="discreterv.html#binomial-distribution"><i class="fa fa-check"></i><b>5.3.2</b> Binomial distribution</a></li>
+<li class="chapter" data-level="5.3.3" data-path="discreterv.html"><a href="discreterv.html#poisdist"><i class="fa fa-check"></i><b>5.3.3</b> Poisson distribution</a></li>
+<li class="chapter" data-level="5.3.4" data-path="discreterv.html"><a href="discreterv.html#comparison-of-binomial-and-poisson-distributions"><i class="fa fa-check"></i><b>5.3.4</b> Comparison of binomial and Poisson distributions?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="discreterv.html"><a href="discreterv.html#SUMdiscrv"><i class="fa fa-check"></i><b>5.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="discreterv.html"><a href="discreterv.html#learning-outcomes-1"><i class="fa fa-check"></i><b>5.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="discreterv.html"><a href="discreterv.html#ANSdiscrv"><i class="fa fa-check"></i><b>5.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="contrv.html"><a href="contrv.html"><i class="fa fa-check"></i><b>6</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="contrv.html"><a href="contrv.html#INTcontrv"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="contrv.html"><a href="contrv.html#continuous-random-variables"><i class="fa fa-check"></i><b>6.2</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="contrv.html"><a href="contrv.html#probability-density-function"><i class="fa fa-check"></i><b>6.2.1</b> Probability density function</a></li>
+<li class="chapter" data-level="6.2.2" data-path="contrv.html"><a href="contrv.html#cumulative-distribution-function-1"><i class="fa fa-check"></i><b>6.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="6.2.3" data-path="contrv.html"><a href="contrv.html#expectation-and-variance-1"><i class="fa fa-check"></i><b>6.2.3</b> Expectation and variance</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="contrv.html"><a href="contrv.html#special-continuous-distributions"><i class="fa fa-check"></i><b>6.3</b> Special continuous distributions</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="contrv.html"><a href="contrv.html#normal-distribution"><i class="fa fa-check"></i><b>6.3.1</b> normal distribution</a></li>
+<li class="chapter" data-level="6.3.2" data-path="contrv.html"><a href="contrv.html#standard-normal-distribution"><i class="fa fa-check"></i><b>6.3.2</b> Standard normal distribution</a></li>
+<li class="chapter" data-level="6.3.3" data-path="contrv.html"><a href="contrv.html#simple-transformations-of-random-variables"><i class="fa fa-check"></i><b>6.3.3</b> Simple transformations of random variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="contrv.html"><a href="contrv.html#SUMcontrv"><i class="fa fa-check"></i><b>6.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="contrv.html"><a href="contrv.html#learning-outcomes-2"><i class="fa fa-check"></i><b>6.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="contrv.html"><a href="contrv.html#ANScontrv"><i class="fa fa-check"></i><b>6.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="CIformean.html"><a href="CIformean.html"><i class="fa fa-check"></i><b>7</b> Confidence intervals for sample means</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="CIformean.html"><a href="CIformean.html#INTci"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="CIformean.html"><a href="CIformean.html#uncertainty-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2</b> Uncertainty of the sample mean</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="CIformean.html"><a href="CIformean.html#precision-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2.1</b> Precision of the sample mean</a></li>
+<li class="chapter" data-level="7.2.2" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-known-sigma"><i class="fa fa-check"></i><b>7.2.2</b> Confidence interval with known <span class="math inline">\(\sigma\)</span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-unknown-sigma"><i class="fa fa-check"></i><b>7.2.3</b> Confidence interval with unknown <span class="math inline">\(\sigma\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="CIformean.html"><a href="CIformean.html#difference-between-two-group-means"><i class="fa fa-check"></i><b>7.3</b> Difference between two group means</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="CIformean.html"><a href="CIformean.html#assuming-equal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.1</b> Assuming equal standard deviations of the two groups</a></li>
+<li class="chapter" data-level="7.3.2" data-path="CIformean.html"><a href="CIformean.html#assuming-unequal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.2</b> Assuming unequal standard deviations of the two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="CIformean.html"><a href="CIformean.html#empirical-bootstrap-based-confidence-intervals"><i class="fa fa-check"></i><b>7.4</b> Empirical (bootstrap-based) confidence intervals</a></li>
+<li class="chapter" data-level="7.5" data-path="CIformean.html"><a href="CIformean.html#confidence-intervals-for-other-sample-statistics"><i class="fa fa-check"></i><b>7.5</b> Confidence intervals for other sample statistics</a></li>
+<li class="chapter" data-level="7.6" data-path="CIformean.html"><a href="CIformean.html#SUMci"><i class="fa fa-check"></i><b>7.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="CIformean.html"><a href="CIformean.html#learning-outcomes-3"><i class="fa fa-check"></i><b>7.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="CIformean.html"><a href="CIformean.html#ANSci"><i class="fa fa-check"></i><b>7.7</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>III Hypothesis Testing</b></span></li>
+<li class="chapter" data-level="8" data-path="hypothtests.html"><a href="hypothtests.html"><i class="fa fa-check"></i><b>8</b> Hypothesis Tests</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="hypothtests.html"><a href="hypothtests.html#INThyp"><i class="fa fa-check"></i><b>8.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="hypothtests.html"><a href="hypothtests.html#types-of-hypotheses"><i class="fa fa-check"></i><b>8.1.1</b> Types of hypotheses</a></li>
+<li class="chapter" data-level="8.1.2" data-path="hypothtests.html"><a href="hypothtests.html#how-do-hypothesis-tests-work"><i class="fa fa-check"></i><b>8.1.2</b> How do hypothesis tests work?</a></li>
+<li class="chapter" data-level="8.1.3" data-path="hypothtests.html"><a href="hypothtests.html#one-sample-t-test"><i class="fa fa-check"></i><b>8.1.3</b> One sample <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="hypothtests.html"><a href="hypothtests.html#two-sample-t-test"><i class="fa fa-check"></i><b>8.2</b> Two sample <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-13"><i class="fa fa-check"></i><b>8.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="hypothtests.html"><a href="hypothtests.html#paired-t-test"><i class="fa fa-check"></i><b>8.3</b> Paired <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-14"><i class="fa fa-check"></i><b>8.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="hypothtests.html"><a href="hypothtests.html#t-test-assumptions"><i class="fa fa-check"></i><b>8.4</b> <span class="math inline">\(t\)</span> test assumptions</a></li>
+<li class="chapter" data-level="8.5" data-path="hypothtests.html"><a href="hypothtests.html#non-parametric-alternative-to-t-tests"><i class="fa fa-check"></i><b>8.5</b> Non-parametric alternative to <span class="math inline">\(t\)</span> tests</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="hypothtests.html"><a href="hypothtests.html#mann-whitney-wilcoxon-test"><i class="fa fa-check"></i><b>8.5.1</b> Mann-Whitney-Wilcoxon test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="hypothtests.html"><a href="hypothtests.html#practical-significance-versus-statistical-significance"><i class="fa fa-check"></i><b>8.6</b> Practical significance versus statistical significance</a></li>
+<li class="chapter" data-level="8.7" data-path="hypothtests.html"><a href="hypothtests.html#SUMhyp"><i class="fa fa-check"></i><b>8.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="hypothtests.html"><a href="hypothtests.html#learning-outcomes-4"><i class="fa fa-check"></i><b>8.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="hypothtests.html"><a href="hypothtests.html#ANShyp"><i class="fa fa-check"></i><b>8.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>9</b> Analysis of Variance</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="anova.html"><a href="anova.html#INTanova"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="anova.html"><a href="anova.html#multiple-comparisons"><i class="fa fa-check"></i><b>9.2</b> Multiple comparisons</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="anova.html"><a href="anova.html#type-i-and-type-ii-error"><i class="fa fa-check"></i><b>9.2.1</b> Type I and Type II error</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="anova.html"><a href="anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.3</b> ANalysis Of VAriance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="anova.html"><a href="anova.html#f-test-statistic-for-anova"><i class="fa fa-check"></i><b>9.3.1</b> <span class="math inline">\(F\)</span> test statistic for ANOVA</a></li>
+<li class="chapter" data-level="9.3.2" data-path="anova.html"><a href="anova.html#calculating-an-anova-table"><i class="fa fa-check"></i><b>9.3.2</b> Calculating an ANOVA table</a></li>
+<li class="chapter" data-level="9.3.3" data-path="anova.html"><a href="anova.html#f-distribution"><i class="fa fa-check"></i><b>9.3.3</b> <span class="math inline">\(F\)</span> distribution</a></li>
+<li class="chapter" data-level="9.3.4" data-path="anova.html"><a href="anova.html#doing-this-in-r-16"><i class="fa fa-check"></i><b>9.3.4</b> Doing this in R</a></li>
+<li class="chapter" data-level="9.3.5" data-path="anova.html"><a href="anova.html#assumptions"><i class="fa fa-check"></i><b>9.3.5</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="anova.html"><a href="anova.html#identifying-differences-and-more-on-multiple-comparisons"><i class="fa fa-check"></i><b>9.4</b> Identifying differences (and more on multiple comparisons)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="anova.html"><a href="anova.html#bonferroni-correction"><i class="fa fa-check"></i><b>9.4.1</b> Bonferroni correction</a></li>
+<li class="chapter" data-level="9.4.2" data-path="anova.html"><a href="anova.html#sidak-adjustment"><i class="fa fa-check"></i><b>9.4.2</b> Sidak adjustment</a></li>
+<li class="chapter" data-level="9.4.3" data-path="anova.html"><a href="anova.html#tukeys-honest-significant-difference-hsd"><i class="fa fa-check"></i><b>9.4.3</b> Tukey’s Honest Significant Difference (HSD)</a></li>
+<li class="chapter" data-level="9.4.4" data-path="anova.html"><a href="anova.html#multiple-comparison-controversy"><i class="fa fa-check"></i><b>9.4.4</b> Multiple comparison controversy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="anova.html"><a href="anova.html#alternative-tests-to-anova"><i class="fa fa-check"></i><b>9.5</b> Alternative tests to ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="anova.html"><a href="anova.html#doing-this-in-r-18"><i class="fa fa-check"></i><b>9.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="anova.html"><a href="anova.html#SUManova"><i class="fa fa-check"></i><b>9.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="anova.html"><a href="anova.html#learning-outcomes-5"><i class="fa fa-check"></i><b>9.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="anova.html"><a href="anova.html#ANSanova"><i class="fa fa-check"></i><b>9.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="power.html"><a href="power.html"><i class="fa fa-check"></i><b>10</b> Statistical Power</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="power.html"><a href="power.html#INTpower"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="power.html"><a href="power.html#a-motivating-example---environmental-impact-assessment"><i class="fa fa-check"></i><b>10.2</b> A motivating example - Environmental impact assessment</a></li>
+<li class="chapter" data-level="10.3" data-path="power.html"><a href="power.html#calculating-power"><i class="fa fa-check"></i><b>10.3</b> Calculating power</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="power.html"><a href="power.html#increasing-the-power"><i class="fa fa-check"></i><b>10.3.1</b> Increasing the power</a></li>
+<li class="chapter" data-level="10.3.2" data-path="power.html"><a href="power.html#power-by-simulation"><i class="fa fa-check"></i><b>10.3.2</b> Power by simulation</a></li>
+<li class="chapter" data-level="10.3.3" data-path="power.html"><a href="power.html#multiple-comparisons-1"><i class="fa fa-check"></i><b>10.3.3</b> Multiple comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="power.html"><a href="power.html#SUMpower"><i class="fa fa-check"></i><b>10.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="power.html"><a href="power.html#learning-objectives-2"><i class="fa fa-check"></i><b>10.4.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="power.html"><a href="power.html#ANSpower"><i class="fa fa-check"></i><b>10.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="proportions.html"><a href="proportions.html"><i class="fa fa-check"></i><b>11</b> Proportions</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="proportions.html"><a href="proportions.html#INTprop"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals"><i class="fa fa-check"></i><b>11.2</b> Confidence intervals</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="proportions.html"><a href="proportions.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>11.2.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="11.2.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals-large-sample-sizes"><i class="fa fa-check"></i><b>11.2.2</b> Confidence intervals: large sample sizes</a></li>
+<li class="chapter" data-level="11.2.3" data-path="proportions.html"><a href="proportions.html#confidence-intervals-small-sample-sizes"><i class="fa fa-check"></i><b>11.2.3</b> Confidence intervals: small sample sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="proportions.html"><a href="proportions.html#comparing-two-proportions-the-z-test"><i class="fa fa-check"></i><b>11.3</b> Comparing two proportions: the <span class="math inline">\(z\)</span> test</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="proportions.html"><a href="proportions.html#testing-for-no-difference-between-groups"><i class="fa fa-check"></i><b>11.3.1</b> Testing for ‘no difference’ between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="proportions.html"><a href="proportions.html#ci-for-the-difference-between-population-proportions-p_1-p_2"><i class="fa fa-check"></i><b>11.4</b> CI for the difference between population proportions, (<span class="math inline">\(p_1-p_2\)</span>)</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="proportions.html"><a href="proportions.html#choosing-the-appropriate-standard-error-when-comparing-proportions"><i class="fa fa-check"></i><b>11.4.1</b> Choosing the appropriate standard error when comparing proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="proportions.html"><a href="proportions.html#odds-ratios"><i class="fa fa-check"></i><b>11.5</b> Odds ratios</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success"><i class="fa fa-check"></i><b>11.5.1</b> Calculating the odds of success</a></li>
+<li class="chapter" data-level="11.5.2" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success-for-2-x-2-tables"><i class="fa fa-check"></i><b>11.5.2</b> Calculating the odds of success for 2 x 2 tables</a></li>
+<li class="chapter" data-level="11.5.3" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-ratio"><i class="fa fa-check"></i><b>11.5.3</b> Calculating the odds ratio</a></li>
+<li class="chapter" data-level="11.5.4" data-path="proportions.html"><a href="proportions.html#confidence-intervals-for-odds-ratios"><i class="fa fa-check"></i><b>11.5.4</b> Confidence intervals for odds ratios</a></li>
+<li class="chapter" data-level="11.5.5" data-path="proportions.html"><a href="proportions.html#final-note-on-odds-ratios"><i class="fa fa-check"></i><b>11.5.5</b> Final note on odds ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="proportions.html"><a href="proportions.html#SUMprop"><i class="fa fa-check"></i><b>11.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="11.6.1" data-path="proportions.html"><a href="proportions.html#learning-outcomes-6"><i class="fa fa-check"></i><b>11.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="proportions.html"><a href="proportions.html#ANSprop"><i class="fa fa-check"></i><b>11.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="tableofcounts.html"><a href="tableofcounts.html"><i class="fa fa-check"></i><b>12</b> Tables of counts</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="tableofcounts.html"><a href="tableofcounts.html#introduction"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-goodness-of-fit-test"><i class="fa fa-check"></i><b>12.2</b> <span class="math inline">\(\chi^2\)</span> goodness-of-fit test</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-22"><i class="fa fa-check"></i><b>12.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-test-of-independence"><i class="fa fa-check"></i><b>12.3</b> <span class="math inline">\(\chi^2\)</span> test of independence</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-23"><i class="fa fa-check"></i><b>12.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="tableofcounts.html"><a href="tableofcounts.html#test-assumptions"><i class="fa fa-check"></i><b>12.4</b> Test assumptions</a></li>
+<li class="chapter" data-level="12.5" data-path="tableofcounts.html"><a href="tableofcounts.html#summary"><i class="fa fa-check"></i><b>12.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="tableofcounts.html"><a href="tableofcounts.html#learning-outcomes-7"><i class="fa fa-check"></i><b>12.5.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="tableofcounts.html"><a href="tableofcounts.html#answers"><i class="fa fa-check"></i><b>12.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>IV Regression and Linear Models</b></span></li>
+<li class="chapter" data-level="13" data-path="correg.html"><a href="correg.html"><i class="fa fa-check"></i><b>13</b> Correlation and Regression</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="correg.html"><a href="correg.html#introcorreg"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.2" data-path="correg.html"><a href="correg.html#correlation"><i class="fa fa-check"></i><b>13.2</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="correg.html"><a href="correg.html#significance-of-r"><i class="fa fa-check"></i><b>13.2.1</b> Significance of <span class="math inline">\(r\)</span></a></li>
+<li class="chapter" data-level="13.2.2" data-path="correg.html"><a href="correg.html#correlation-and-causation"><i class="fa fa-check"></i><b>13.2.2</b> Correlation and causation</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="correg.html"><a href="correg.html#regression"><i class="fa fa-check"></i><b>13.3</b> Regression</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="correg.html"><a href="correg.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>13.3.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="13.3.2" data-path="correg.html"><a href="correg.html#model-specification"><i class="fa fa-check"></i><b>13.3.2</b> Model specification</a></li>
+<li class="chapter" data-level="13.3.3" data-path="correg.html"><a href="correg.html#which-straight-line-to-choose"><i class="fa fa-check"></i><b>13.3.3</b> Which straight line to choose?</a></li>
+<li class="chapter" data-level="13.3.4" data-path="correg.html"><a href="correg.html#fitting-the-model-the-details"><i class="fa fa-check"></i><b>13.3.4</b> Fitting the model: the details</a></li>
+<li class="chapter" data-level="13.3.5" data-path="correg.html"><a href="correg.html#predictions"><i class="fa fa-check"></i><b>13.3.5</b> Predictions</a></li>
+<li class="chapter" data-level="13.3.6" data-path="correg.html"><a href="correg.html#the-variance-estimate"><i class="fa fa-check"></i><b>13.3.6</b> The variance estimate</a></li>
+<li class="chapter" data-level="13.3.7" data-path="correg.html"><a href="correg.html#introduction-to-the-matrix-form"><i class="fa fa-check"></i><b>13.3.7</b> Introduction to the matrix form</a></li>
+<li class="chapter" data-level="13.3.8" data-path="correg.html"><a href="correg.html#regression-in-practise"><i class="fa fa-check"></i><b>13.3.8</b> Regression in practise</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="correg.html"><a href="correg.html#SUMcorreg"><i class="fa fa-check"></i><b>13.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="correg.html"><a href="correg.html#learning-outcomes-8"><i class="fa fa-check"></i><b>13.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="correg.html"><a href="correg.html#ANScorreg"><i class="fa fa-check"></i><b>13.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="introlm.html"><a href="introlm.html"><i class="fa fa-check"></i><b>14</b> Introduction to the linear model</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="introlm.html"><a href="introlm.html#INTlm"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-a-t-test"><i class="fa fa-check"></i><b>14.2</b> The linear model as a <span class="math inline">\(t\)</span> test</a></li>
+<li class="chapter" data-level="14.3" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-analysis-of-variance"><i class="fa fa-check"></i><b>14.3</b> The linear model as analysis of variance</a></li>
+<li class="chapter" data-level="14.4" data-path="introlm.html"><a href="introlm.html#simple-linear-regression-again"><i class="fa fa-check"></i><b>14.4</b> Simple linear regression (again)</a></li>
+<li class="chapter" data-level="14.5" data-path="introlm.html"><a href="introlm.html#model-performance"><i class="fa fa-check"></i><b>14.5</b> Model performance</a></li>
+<li class="chapter" data-level="14.6" data-path="introlm.html"><a href="introlm.html#multiple-regression"><i class="fa fa-check"></i><b>14.6</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="introlm.html"><a href="introlm.html#the-eia-data-again"><i class="fa fa-check"></i><b>14.6.1</b> The EIA data again</a></li>
+<li class="chapter" data-level="14.6.2" data-path="introlm.html"><a href="introlm.html#model-specification-1"><i class="fa fa-check"></i><b>14.6.2</b> Model specification</a></li>
+<li class="chapter" data-level="14.6.3" data-path="introlm.html"><a href="introlm.html#types-of-covariates"><i class="fa fa-check"></i><b>14.6.3</b> Types of covariates</a></li>
+<li class="chapter" data-level="14.6.4" data-path="introlm.html"><a href="introlm.html#model-fitting"><i class="fa fa-check"></i><b>14.6.4</b> Model fitting</a></li>
+<li class="chapter" data-level="14.6.5" data-path="introlm.html"><a href="introlm.html#parameter-interpretation"><i class="fa fa-check"></i><b>14.6.5</b> Parameter Interpretation</a></li>
+<li class="chapter" data-level="14.6.6" data-path="introlm.html"><a href="introlm.html#parameter-uncertainty"><i class="fa fa-check"></i><b>14.6.6</b> Parameter uncertainty</a></li>
+<li class="chapter" data-level="14.6.7" data-path="introlm.html"><a href="introlm.html#confidence-intervals-cis-on-parameters"><i class="fa fa-check"></i><b>14.6.7</b> Confidence intervals (CIs) on parameters</a></li>
+<li class="chapter" data-level="14.6.8" data-path="introlm.html"><a href="introlm.html#hypothesis-testing"><i class="fa fa-check"></i><b>14.6.8</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="14.6.9" data-path="introlm.html"><a href="introlm.html#model-performance-1"><i class="fa fa-check"></i><b>14.6.9</b> Model performance</a></li>
+<li class="chapter" data-level="14.6.10" data-path="introlm.html"><a href="introlm.html#more-covariates-of-mixed-types"><i class="fa fa-check"></i><b>14.6.10</b> More covariates of mixed types</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="introlm.html"><a href="introlm.html#the-matrix-interpretation-of-a-linear-model"><i class="fa fa-check"></i><b>14.7</b> The matrix interpretation of a linear model</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="introlm.html"><a href="introlm.html#dummy-variables"><i class="fa fa-check"></i><b>14.7.1</b> Dummy variables</a></li>
+<li class="chapter" data-level="14.7.2" data-path="introlm.html"><a href="introlm.html#combining-factors-and-continuous-variables"><i class="fa fa-check"></i><b>14.7.2</b> Combining factors and continuous variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.8" data-path="introlm.html"><a href="introlm.html#SUMlm"><i class="fa fa-check"></i><b>14.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="14.8.1" data-path="introlm.html"><a href="introlm.html#learning-objectives-3"><i class="fa fa-check"></i><b>14.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="14.9" data-path="introlm.html"><a href="introlm.html#ANSlm"><i class="fa fa-check"></i><b>14.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="modelselection.html"><a href="modelselection.html"><i class="fa fa-check"></i><b>15</b> Model selection</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="modelselection.html"><a href="modelselection.html#INTmodsel"><i class="fa fa-check"></i><b>15.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="modelselection.html"><a href="modelselection.html#criteria-for-model-selection"><i class="fa fa-check"></i><b>15.1.1</b> Criteria for model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="modelselection.html"><a href="modelselection.html#collinearity"><i class="fa fa-check"></i><b>15.2</b> Collinearity</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="modelselection.html"><a href="modelselection.html#variance-inflation-factors"><i class="fa fa-check"></i><b>15.2.1</b> Variance inflation factors</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="modelselection.html"><a href="modelselection.html#p-value-based-model-selection-the-f-test"><i class="fa fa-check"></i><b>15.3</b> <span class="math inline">\(p\)</span>-value based model selection: the <span class="math inline">\(F\)</span>-test</a></li>
+<li class="chapter" data-level="15.4" data-path="modelselection.html"><a href="modelselection.html#relative-model-fit"><i class="fa fa-check"></i><b>15.4</b> Relative model fit</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="modelselection.html"><a href="modelselection.html#akaikes-information-criterion-aic"><i class="fa fa-check"></i><b>15.4.1</b> Akaike’s Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="modelselection.html"><a href="modelselection.html#other-methods-of-model-selection"><i class="fa fa-check"></i><b>15.5</b> Other methods of model selection</a></li>
+<li class="chapter" data-level="15.6" data-path="modelselection.html"><a href="modelselection.html#automated-variable-selection"><i class="fa fa-check"></i><b>15.6</b> Automated variable selection</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="modelselection.html"><a href="modelselection.html#stepwise-selection"><i class="fa fa-check"></i><b>15.6.1</b> Stepwise selection</a></li>
+<li class="chapter" data-level="15.6.2" data-path="modelselection.html"><a href="modelselection.html#all-possible-subsets-selection"><i class="fa fa-check"></i><b>15.6.2</b> All possible subsets selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="modelselection.html"><a href="modelselection.html#example-model-selection-with-the-medical-data"><i class="fa fa-check"></i><b>15.7</b> Example: model selection with the medical data</a>
+<ul>
+<li class="chapter" data-level="15.7.1" data-path="modelselection.html"><a href="modelselection.html#model-specification-3"><i class="fa fa-check"></i><b>15.7.1</b> Model specification</a></li>
+<li class="chapter" data-level="15.7.2" data-path="modelselection.html"><a href="modelselection.html#interpreting-the-parameter-estimates"><i class="fa fa-check"></i><b>15.7.2</b> Interpreting the parameter estimates</a></li>
+<li class="chapter" data-level="15.7.3" data-path="modelselection.html"><a href="modelselection.html#what-should-be-in-the-model"><i class="fa fa-check"></i><b>15.7.3</b> What ‘should’ be in the model?</a></li>
+<li class="chapter" data-level="15.7.4" data-path="modelselection.html"><a href="modelselection.html#what-terms-are-significant"><i class="fa fa-check"></i><b>15.7.4</b> What terms are significant?</a></li>
+<li class="chapter" data-level="15.7.5" data-path="modelselection.html"><a href="modelselection.html#more-automated-methods"><i class="fa fa-check"></i><b>15.7.5</b> More automated methods</a></li>
+</ul></li>
+<li class="chapter" data-level="15.8" data-path="modelselection.html"><a href="modelselection.html#SUMmodsel"><i class="fa fa-check"></i><b>15.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="15.8.1" data-path="modelselection.html"><a href="modelselection.html#learning-objectives-4"><i class="fa fa-check"></i><b>15.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="15.9" data-path="modelselection.html"><a href="modelselection.html#ANSmodsel"><i class="fa fa-check"></i><b>15.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="interac.html"><a href="interac.html"><i class="fa fa-check"></i><b>16</b> Interactions and the Linear Model</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="interac.html"><a href="interac.html#INTinterac"><i class="fa fa-check"></i><b>16.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="interac.html"><a href="interac.html#fitting-different-models"><i class="fa fa-check"></i><b>16.1.1</b> Fitting different models</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="interac.html"><a href="interac.html#fitting-interaction-terms"><i class="fa fa-check"></i><b>16.2</b> Fitting interaction terms</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="interac.html"><a href="interac.html#specifying-interactions-in-model-formulae"><i class="fa fa-check"></i><b>16.2.1</b> Specifying interactions in model formulae</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="interac.html"><a href="interac.html#interactions-in-practise"><i class="fa fa-check"></i><b>16.3</b> Interactions in practise</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="interac.html"><a href="interac.html#eia-data"><i class="fa fa-check"></i><b>16.3.1</b> EIA data</a></li>
+<li class="chapter" data-level="16.3.2" data-path="interac.html"><a href="interac.html#medical-data"><i class="fa fa-check"></i><b>16.3.2</b> Medical data</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="interac.html"><a href="interac.html#model-selection-and-interactions"><i class="fa fa-check"></i><b>16.4</b> Model selection and interactions</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-eia-data-set"><i class="fa fa-check"></i><b>16.4.1</b> Backwards selection in the EIA data set</a></li>
+<li class="chapter" data-level="16.4.2" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-medical-data-set"><i class="fa fa-check"></i><b>16.4.2</b> Backwards selection in the medical data set</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="interac.html"><a href="interac.html#SUMinterac"><i class="fa fa-check"></i><b>16.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="interac.html"><a href="interac.html#learning-objectives-5"><i class="fa fa-check"></i><b>16.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="interac.html"><a href="interac.html#ANSinterac"><i class="fa fa-check"></i><b>16.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>17</b> Prediction from the linear model</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="prediction.html"><a href="prediction.html#INTpred"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="prediction.html"><a href="prediction.html#prediction-1"><i class="fa fa-check"></i><b>17.2</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-27"><i class="fa fa-check"></i><b>17.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="prediction.html"><a href="prediction.html#uncertainty-in-the-prediction"><i class="fa fa-check"></i><b>17.3</b> Uncertainty in the prediction</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-28"><i class="fa fa-check"></i><b>17.3.1</b> Doing this in R</a></li>
+<li class="chapter" data-level="17.3.2" data-path="prediction.html"><a href="prediction.html#confidence-intervals-for-the-line"><i class="fa fa-check"></i><b>17.3.2</b> Confidence intervals for the line</a></li>
+<li class="chapter" data-level="17.3.3" data-path="prediction.html"><a href="prediction.html#prediction-intervals"><i class="fa fa-check"></i><b>17.3.3</b> Prediction intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="prediction.html"><a href="prediction.html#prediction-in-multiple-regression"><i class="fa fa-check"></i><b>17.4</b> Prediction in multiple regression</a></li>
+<li class="chapter" data-level="17.5" data-path="prediction.html"><a href="prediction.html#SUMpred"><i class="fa fa-check"></i><b>17.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="prediction.html"><a href="prediction.html#learning-objectives-6"><i class="fa fa-check"></i><b>17.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="prediction.html"><a href="prediction.html#ANSpred"><i class="fa fa-check"></i><b>17.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>18</b> Linear model diagnostics</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="diagnostics.html"><a href="diagnostics.html#INTdiag"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="diagnostics.html"><a href="diagnostics.html#predictive-power"><i class="fa fa-check"></i><b>18.2</b> Predictive power</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="diagnostics.html"><a href="diagnostics.html#signal-versus-noise"><i class="fa fa-check"></i><b>18.2.1</b> Signal versus noise</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="diagnostics.html"><a href="diagnostics.html#model-assumptions"><i class="fa fa-check"></i><b>18.3</b> Model assumptions</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="diagnostics.html"><a href="diagnostics.html#normality-assumption"><i class="fa fa-check"></i><b>18.3.1</b> Normality assumption</a></li>
+<li class="chapter" data-level="18.3.2" data-path="diagnostics.html"><a href="diagnostics.html#assessing-constant-error-variance"><i class="fa fa-check"></i><b>18.3.2</b> Assessing constant error variance</a></li>
+<li class="chapter" data-level="18.3.3" data-path="diagnostics.html"><a href="diagnostics.html#assessing-independence"><i class="fa fa-check"></i><b>18.3.3</b> Assessing independence</a></li>
+<li class="chapter" data-level="18.3.4" data-path="diagnostics.html"><a href="diagnostics.html#pseudoreplication"><i class="fa fa-check"></i><b>18.3.4</b> Pseudoreplication</a></li>
+<li class="chapter" data-level="18.3.5" data-path="diagnostics.html"><a href="diagnostics.html#linearity-in-the-model-for-the-signal"><i class="fa fa-check"></i><b>18.3.5</b> Linearity in the model for the signal</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="diagnostics.html"><a href="diagnostics.html#example-diagnostics-with-the-medical-data"><i class="fa fa-check"></i><b>18.4</b> Example: Diagnostics with the medical data</a></li>
+<li class="chapter" data-level="18.5" data-path="diagnostics.html"><a href="diagnostics.html#partial-residual-plots"><i class="fa fa-check"></i><b>18.5</b> Partial residual plots</a>
+<ul>
+<li class="chapter" data-level="18.5.1" data-path="diagnostics.html"><a href="diagnostics.html#doing-this-in-r-30"><i class="fa fa-check"></i><b>18.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="18.6" data-path="diagnostics.html"><a href="diagnostics.html#interaction-terms"><i class="fa fa-check"></i><b>18.6</b> Interaction Terms</a></li>
+<li class="chapter" data-level="18.7" data-path="diagnostics.html"><a href="diagnostics.html#SUMdiag"><i class="fa fa-check"></i><b>18.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="18.7.1" data-path="diagnostics.html"><a href="diagnostics.html#learning-outcomes-9"><i class="fa fa-check"></i><b>18.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="18.8" data-path="diagnostics.html"><a href="diagnostics.html#ANSdiag"><i class="fa fa-check"></i><b>18.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="nextsteps.html"><a href="nextsteps.html"><i class="fa fa-check"></i><b>19</b> The Next Steps</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="nextsteps.html"><a href="nextsteps.html#INTnext"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="nextsteps.html"><a href="nextsteps.html#solving-the-assumptional-problems"><i class="fa fa-check"></i><b>19.2</b> Solving the assumptional problems</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="nextsteps.html"><a href="nextsteps.html#example-the-eia-data"><i class="fa fa-check"></i><b>19.2.1</b> Example: The EIA data</a></li>
+<li class="chapter" data-level="19.2.2" data-path="nextsteps.html"><a href="nextsteps.html#oddly-distributed-residuals"><i class="fa fa-check"></i><b>19.2.2</b> Oddly distributed residuals</a></li>
+<li class="chapter" data-level="19.2.3" data-path="nextsteps.html"><a href="nextsteps.html#non-independence"><i class="fa fa-check"></i><b>19.2.3</b> Non-independence</a></li>
+<li class="chapter" data-level="19.2.4" data-path="nextsteps.html"><a href="nextsteps.html#non-linearity"><i class="fa fa-check"></i><b>19.2.4</b> Non-linearity</a></li>
+<li class="chapter" data-level="19.2.5" data-path="nextsteps.html"><a href="nextsteps.html#bootstrapping"><i class="fa fa-check"></i><b>19.2.5</b> Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="nextsteps.html"><a href="nextsteps.html#summary-1"><i class="fa fa-check"></i><b>19.3</b> Summary</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="nextsteps.html"><a href="nextsteps.html#learning-outcomes-10"><i class="fa fa-check"></i><b>19.3.1</b> Learning outcomes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="notation.html"><a href="notation.html"><i class="fa fa-check"></i><b>20</b> Notation {-}</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="notation.html"><a href="notation.html#summation"><i class="fa fa-check"></i><b>20.1</b> Summation</a></li>
+<li class="chapter" data-level="20.2" data-path="notation.html"><a href="notation.html#factorial"><i class="fa fa-check"></i><b>20.2</b> Factorial</a></li>
+<li class="chapter" data-level="20.3" data-path="notation.html"><a href="notation.html#combinations"><i class="fa fa-check"></i><b>20.3</b> Combinations</a></li>
+<li class="chapter" data-level="20.4" data-path="notation.html"><a href="notation.html#multiplication"><i class="fa fa-check"></i><b>20.4</b> Multiplication</a></li>
+<li class="chapter" data-level="20.5" data-path="notation.html"><a href="notation.html#integration"><i class="fa fa-check"></i><b>20.5</b> Integration</a></li>
+<li class="chapter" data-level="20.6" data-path="notation.html"><a href="notation.html#matrix-multiplication"><i class="fa fa-check"></i><b>20.6</b> Matrix multiplication</a></li>
+<li class="chapter" data-level="20.7" data-path="notation.html"><a href="notation.html#absolute-values"><i class="fa fa-check"></i><b>20.7</b> Absolute values</a></li>
+<li class="chapter" data-level="20.8" data-path="notation.html"><a href="notation.html#pi"><i class="fa fa-check"></i><b>20.8</b> <span class="math inline">\(\pi\)</span></a></li>
+<li class="chapter" data-level="20.9" data-path="notation.html"><a href="notation.html#exponential-function-e"><i class="fa fa-check"></i><b>20.9</b> Exponential function, <span class="math inline">\(e\)</span></a></li>
+<li class="chapter" data-level="20.10" data-path="notation.html"><a href="notation.html#intervals"><i class="fa fa-check"></i><b>20.10</b> Intervals</a></li>
+<li class="chapter" data-level="20.11" data-path="notation.html"><a href="notation.html#axes-on-plots"><i class="fa fa-check"></i><b>20.11</b> Axes on plots</a></li>
+<li class="chapter" data-level="20.12" data-path="notation.html"><a href="notation.html#probability-2"><i class="fa fa-check"></i><b>20.12</b> Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="CIformean" class="section level1" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Confidence intervals for sample means</h1>
+<p><em>… a hypothesis test tells us whether the observed data are consistent with the null hypothesis, and a confidence interval tells us which hypotheses are consistent with the data.</em> <br/> William C. Blackwelder.</p>
+<div id="INTci" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Introduction</h2>
+<p>We would like a sample to be representative of the target population. If we were to generate several samples from the same population and then calculate the sample statistics for each sample (e.g. a mean), it is likely that the statistics would differ between samples - this is due to sampling error and is unavoidable. However, the extent to which these sample means will vary is somewhat predictable and we can use this information to provide a measure of uncertainty for the sample statistic. This takes the form of an interval between which we have some confidence that the true mean lies - this is called a confidence interval (CI). There are several methods which can be used to obtain a CI, depending on whether the data fulfill various criteria.</p>
+<p>In this chapter you will:</p>
+<ul>
+<li>examine the behaviour of the sample mean</li>
+<li>quantify the precision of the sample mean and hence calculate a confidence interval,</li>
+<li>quantify the precision of the difference between two sample means and again calculate a confidence interval, and finally</li>
+<li>consider an alternative approach for obtaining a confidence interval.</li>
+</ul>
+<p>In this chapter we are mainly concerned with sample means but similar uncertainty will exist for other sample statistics such as the median, variance and proportions. In the final section we consider how the uncertainty of these other statistics can be quantified.</p>
+</div>
+<div id="uncertainty-of-the-sample-mean" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Uncertainty of the sample mean</h2>
+<p>To illustrate the variability in the sample, we consider the distribution of women’s heights. Assume that height is normally distributed with a mean of 160 cm and a standard deviation of 6 cm, i.e. Height <span class="math inline">\(\sim N(\mu=160, \sigma^2=6^2)\)</span>.</p>
+<p>If we randomly draw five values from this distribution, then these might be:
+<em>152.7</em>, <em>161.7</em>, <em>166.6</em>, <em>145.9</em> and <em>162.6</em></p>
+<p>The mean of this sample is 157.9 cm and this is quite close to the population mean. Usually however, we don’t know the population mean and so, in general, we want to know how well a sample mean represents the population. To find out how good an estimate is, we need to know how precise it is and this depends on:</p>
+<ul>
+<li>the sample size, and</li>
+<li>the variability in the population.</li>
+</ul>
+<p>Intuitively, we might expect that if the population is very variable, then the distribution of sample means may also be variable. Conversely, if the population is not very variable, then we might expect that sample means will be similar to the population mean and also to each other. In addition, a large sample may more closely resemble the population than a small sample and, hence, the sample mean from a large sample may be more similar to the population mean than the sample mean from a small sample.</p>
+<p>This concept can be illustrated by generating many samples from a known population, calculating the mean for each sample and looking at the distribution of the sample means. In Figure (<a href="CIformean.html#fig:histsampsize">7.1</a>), 1000 sample means have been generated from samples of different sizes, drawn from a normal distribution with mean 160 and standard deviation 6.</p>
+<div class="figure" style="text-align: center"><span id="fig:histsampsize"></span>
+<img src="IntroStats_files/figure-html/histsampsize-1.png" alt="Distributions of 1000 sample means using four different sizes of sample. The underlying population was $N(160,6^2)$." width="480" />
+<p class="caption">
+Figure 7.1: Distributions of 1000 sample means using four different sizes of sample. The underlying population was <span class="math inline">\(N(160,6^2)\)</span>.
+</p>
+</div>
+<p>There are two things to notice about these distributions of sample means:</p>
+<ul>
+<li>the distributions are centered about the true population mean of 160,
+and</li>
+<li>the sample means range from about 152 to 168 when the sample size is 5, but this spread reduces as the sample size increases.</li>
+</ul>
+<p>These patterns will be similar for any distribution of sample estimates and so can be used to inform how precise a sample mean might be.</p>
+<div id="precision-of-the-sample-mean" class="section level3" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Precision of the sample mean</h3>
+<p>The standard deviation of the sample means is found by dividing the population standard deviation by the square root of the sample size being averaged:</p>
+<p><span class="math display">\[sd(\textrm{sample mean}) = \frac{\textrm{Population SD}}{\sqrt{\textrm{sample size}}}\]</span></p>
+<p>The standard deviation of a sampling distribution is called a <strong>standard error</strong>. Therefore, substituting the usual notation (see Chapter <a href="describedata.html#describedata">3</a>) into this formula, the standard error of the mean is given by:</p>
+<p><span class="math display">\[se(\hat \mu) = \frac{\sigma}{\sqrt{n}}\]</span></p>
+<p>Thus, using the height data, the standard error for a sample size of 5 is given by:</p>
+<p><span class="math display">\[se(\hat \mu) = \frac{6}{\sqrt{5}} = 2.68\]</span></p>
+<p>As shown in Figure <a href="CIformean.html#fig:histsampsize">7.1</a>, the standard deviation (and hence standard error) of the distribution of the sample mean reduces as the sample size increases; the standard error using a sample size of 30 is</p>
+<p><span class="math display">\[se(\hat \mu) = \frac{6}{\sqrt{30}} = 1.095\]</span></p>
+</div>
+<div id="confidence-interval-with-known-sigma" class="section level3" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Confidence interval with known <span class="math inline">\(\sigma\)</span></h3>
+<p>In this example, we assumed the data were normally distributed and, as we have seen in Figure <a href="CIformean.html#fig:histsampsize">7.1</a>, the distributions of the sample mean were also normally distributed. This is very handy because we know that for any normally distributed variable, 95% of the time a randomly chosen value will fall within 1.96 standard deviations of the mean. Hence, the sample mean will fall within 1.96 standard deviations of the true population mean about 95% of the time (or for about 95% of samples taken). While we rarely know the true population mean, it is likely that the estimate of the sample mean will fall within about 1.96 standard deviations of the population mean. Thus, we can derive an upper and lower limit between which we think the true population mean will lie - this is called a confidence interval. A 95% confidence interval for the sample mean is given by the following:</p>
+<p><span class="math display">\[ \hat \mu - 1.96 \times \frac{\sigma}{\sqrt{n}} \quad ; \quad \hat \mu + 1.96 \times \frac{\sigma}{\sqrt{n}}\]</span>
+or, writing this more succinctly as,</p>
+<p><span class="math display">\[ \hat \mu \pm 1.96 \times \frac{\sigma}{\sqrt{n}}\]</span></p>
+<p>Thus, for a sample of size 5, the 95% confidence interval for the mean will be</p>
+<p><span class="math display">\[157.9 \pm 1.96 \times 2.68\]</span></p>
+<p><span class="math display">\[157.9 \pm 5.25\]</span></p>
+<p>which results in the limits 152.6 cm and 163.2 cm. We can see for a distribution with a mean and variance equal to our sample mean and standard deviation i.e. <span class="math inline">\(N(\mu=157.9, \sigma^2=2.68^2)\)</span>, that 95% of the distribution lies between these limits (Figure <a href="CIformean.html#fig:popci">7.2</a>). This means that if we repeatedly take samples of size 5, calculate the sample mean and a 95% CI for the mean, 95% of the confidence intervals will include the true population mean.</p>
+<div class="figure" style="text-align: center"><span id="fig:popci"></span>
+<img src="IntroStats_files/figure-html/popci-1.png" alt="Sampling distribution of the sample mean for a sample of size 5. 95\% of the central part of the distribution is shaded blue. The sample mean is shown by the dotted line." width="480" />
+<p class="caption">
+Figure 7.2: Sampling distribution of the sample mean for a sample of size 5. 95% of the central part of the distribution is shaded blue. The sample mean is shown by the dotted line.
+</p>
+</div>
+<p>We can think of 1.96 as a value which multiplies the standard error to provide a value above and below the sample mean to create the confidence interval. Increasing or decreasing this multiplier will result in wider and narrower intervals and we look at this later. Before that we consider a fundamental theorem in statistics.</p>
+<p>To illustrate a confidence interval we used data from a normal distribution and, in general, we don’t usually know if the data are drawn from a normal distribution! However, help is at hand in the form of the Central Limit Theorem.</p>
+<div id="central-limit-theorem" class="section level4" number="7.2.2.1">
+<h4><span class="header-section-number">7.2.2.1</span> Central limit theorem</h4>
+<p>The Central Limit Theorem (CLT) states that no matter what distribution we sample from, the <strong>distribution of the sample means</strong> (<span class="math inline">\(\hat \mu\)</span>) is closely approximated by the normal distribution in large samples.</p>
+<p>We can see this in Figure <a href="CIformean.html#fig:histsampsize">7.1</a>, but how large a sample is required for reliable estimation of the population mean? The sample size required depends somewhat on the data: for data from symmetrical distributions a sample of 5 may be sufficient; for heavily skewed data a sample of 50 may be required.</p>
+<p>In calculating a CI, we also need to consider the variability in the data and this is quantified by the standard deviation. In the example above, we knew the population standard deviation but what happens if we don’t know the population standard deviation? We consider this next.</p>
+</div>
+</div>
+<div id="confidence-interval-with-unknown-sigma" class="section level3" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> Confidence interval with unknown <span class="math inline">\(\sigma\)</span></h3>
+<p>If the population standard deviation is unknown (and in fact the population standard deviation is rarely known), the population standard deviation (<span class="math inline">\(\sigma\)</span>) is simply replaced by the sample standard deviation (<span class="math inline">\(s\)</span>) in the formula for the standard error:</p>
+<p><span class="math display">\[se(\hat \mu)=\frac{\textrm{sample SD}}{\sqrt{\textrm{sample size}}} = \frac{s}{\sqrt{n}}\]</span></p>
+<p>Thus, for the sample of five heights, the sample standard deviation is 8.415 and so the sample standard error is</p>
+<p><span class="math display">\[se(\hat \mu) = \frac{8.415}{\sqrt{5}} = 3.763\]</span></p>
+<p>When we sample data from a normal distribution and we know the population standard deviation (<span class="math inline">\(\sigma\)</span>), the distribution of sample means is exactly normally distributed about the true population mean, <span class="math inline">\(\mu\)</span>. When we don’t know the population standard deviation, we introduce a new source of variability because we use the sample standard deviation of the data instead of a known population standard deviation. Therefore, rather than using quantiles from the normal distribution to find the multipliers needed to calculate the confidence interval, we use a different distribution; the <span class="math inline">\(t\)</span> distribution is used to find the multiplier. Before continuing with the calculation we look at the <span class="math inline">\(t\)</span> distribution and see how it compares to a standard normal distribution.</p>
+<div id="the-t-distribution" class="section level4" number="7.2.3.1">
+<h4><span class="header-section-number">7.2.3.1</span> The <span class="math inline">\(t\)</span> distribution</h4>
+<p>The <span class="math inline">\(t\)</span> distribution (also known as Student’s <span class="math inline">\(t\)</span> distribution) is symmetrical about zero and has a similar shape to the standard normal distribution. However, rather than being defined by a mean and variance, the <span class="math inline">\(t\)</span> distribution is indexed by a parameter called the degrees of freedom (<span class="math inline">\(df\)</span>) (i.e. <span class="math inline">\(t_{df}\)</span>). The degrees of freedom are determined by the sample size such that <span class="math inline">\(df=n-1\)</span>. When <span class="math inline">\(n\)</span> is small the <span class="math inline">\(t\)</span> distribution has fatter tails and a flatter top compared with the normal distribution; as <span class="math inline">\(n\)</span> (and thus <span class="math inline">\(df\)</span>) increases, the <span class="math inline">\(t\)</span> distribution become more and more like a standard normal distribution (Figure <a href="CIformean.html#fig:tandnormplot">7.3</a>). As an example, when <span class="math inline">\(n=11\)</span>, and hence <span class="math inline">\(t_{df=10}\)</span>, only 92% of the distribution falls within 1.96 standard deviations either side the mean, whereas for a standard normal distribution, 95% of the distribution falls within 1.96 standard deviations of the mean. For a <span class="math inline">\(t_{df=10}\)</span> distribution, 95% of the distribution will lie between 2.23 standard deviations of the mean.</p>
+<div class="figure" style="text-align: center"><span id="fig:tandnormplot"></span>
+<img src="IntroStats_files/figure-html/tandnormplot-1.png" alt="Comparison of standard normal and $t$ distributions with 4 and 10 $df$." width="480" />
+<p class="caption">
+Figure 7.3: Comparison of standard normal and <span class="math inline">\(t\)</span> distributions with 4 and 10 <span class="math inline">\(df\)</span>.
+</p>
+</div>
+</div>
+<div id="confidence-interval-for-the-sample-mean" class="section level4" number="7.2.3.2">
+<h4><span class="header-section-number">7.2.3.2</span> Confidence interval for the sample mean</h4>
+<p>When the population standard deviation is unknown and estimated by the sample standard deviation, the multiplier is found from the <span class="math inline">\(t\)</span> distribution such that the confidence interval limits are found from</p>
+<p><span class="math display">\[\hat{\mu} - t_{(1-(\alpha/2), df=n-1)} \times \frac{s}{\sqrt{n}} \quad;\quad \hat{\mu} + t_{(1-(\alpha/2), df=n-1)} \times \frac{s}{\sqrt{n}}\]</span>
+or more succinctly,</p>
+<p><span class="math display">\[\hat{\mu}\pm t_{(1-(\alpha/2), df=n-1)}se(\hat{\mu})\]</span></p>
+<p>where <span class="math inline">\(t_{(1-\alpha/2, df=n-1)}\)</span> represents a value (multiplier) from the <span class="math inline">\(t_{df=(n-1)}\)</span> distribution; this indicates how far we need to extend either side of the sample estimate in order to ‘catch’ the true mean with some associated confidence, represented by <span class="math inline">\(\alpha\)</span>. The confidence represents how confident we want to be that the interval contains the true mean.</p>
+<p>The most frequently quoted CI are 95% confidence intervals (i.e. we want to be 95% confident that the interval contains the true mean). For 95% CI, <span class="math inline">\(\alpha = 5\)</span>%, thus <span class="math inline">\(1 - \frac{\alpha}{2} = 1 - \frac{0.05}{2} = 0.975\)</span>. Thus, the multiplier is the quantile <span class="math inline">\(q\)</span> such that <span class="math inline">\(Pr(X \le q) = 0.975\)</span> where <span class="math inline">\(X \sim t_{{df}}\)</span>.</p>
+<p>To illustrate how to find the multiplier, let’s return to the height sample data. Figure @ref(fig:tdist.ca) shows that a <span class="math inline">\(Pr(X \le 2.78) = 0.975\)</span> and because the <span class="math inline">\(t\)</span> distribution is symmetric round zero, we know that <span class="math inline">\(Pr(X \le -2.78) = 0.025\)</span>, hence 95% of the area (the red shaded area) will lie between -2.78 and 2.78 where <span class="math inline">\(df=4\)</span>.</p>
+<p>(ref:tdist.ca) Probability density distribution for <span class="math inline">\(t_{df=4}\)</span>. The red shaded area is 95% of the area with 2.5% in each tail.</p>
+<div class="figure" style="text-align: center">
+<img src="IntroStats_files/figure-html/tdist.ca-1.png" alt="(ref:tdist.ca)" width="480" />
+<p class="caption">
+(#fig:tdist.ca)(ref:tdist.ca)
+</p>
+</div>
+<p>Thus using the sample standard deviation, the interval is found from:</p>
+<p><span class="math display">\[157.9 \pm t_{0.975, \textrm{df}=4} \times 3.763\]</span></p>
+<p>and substituting in the value for the <span class="math inline">\(t\)</span>-multiplier, <span class="math inline">\(t_{0.975, \textrm{df}=4} = 2.78\)</span>, gives</p>
+<p><span class="math display">\[157.9 \pm 2.78 \times 3.763\]</span>
+<span class="math display">\[157.9 \pm 10.46\]</span></p>
+<p>Thus, the 95% confidence interval for the mean is 147.4 to 168.4 cm; 95% of the time the true mean will lie in the range 147.4 and 168.4 cm. This is wider than the confidence interval found using the population standard deviation (which was 152.6 to 163.2 cm) because of the additional uncertainty about the variability of the distribution.</p>
+</div>
+<div id="what-does-confidence-mean" class="section level4" number="7.2.3.3">
+<h4><span class="header-section-number">7.2.3.3</span> What does confidence mean?</h4>
+<p>Confidence is a long run process, it does not apply to any one particular interval. Essentially, if we repeatedly take samples from a population and calculate a 95% CI (just as we have done above for one sample), 95% of the intervals will contain the true population mean. That means 5% of the intervals will not contain the true mean!</p>
+<p>If we wanted to increase the chance of catching the true mean, the interval could be widened by considering 99% confidence intervals. In this case for our sample of five heights, the <span class="math inline">\(t\)</span>-multiplier would be 4.6 resulting in an interval of 140.6 to 175.2 cm. Conversely, a 90% confidence interval would be narrower i.e. (149.9 to 165.9 cm). Both 90% and 99% confidence intervals are used but 95% CI are the ones most frequently stated.</p>
+</div>
+<div id="doing-this-in-r-7" class="section level4" number="7.2.3.4">
+<h4><span class="header-section-number">7.2.3.4</span> Doing this in R</h4>
+<p>To start with, we illustrate how to calculate a confidence interval by obtaining all the individual components. The <span class="math inline">\(t\)</span>-multiplier is found from the cumulative distribution function for the <span class="math inline">\(t\)</span> distribution <code>qt</code> - this is similar to the <code>qnorm</code> function introduced in Chapter <a href="contrv.html#contrv">6</a>.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="CIformean.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 95% CI for the sample mean assuming underlying population is normal</span></span>
+<span id="cb106-2"><a href="CIformean.html#cb106-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-3"><a href="CIformean.html#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create object for sample data</span></span>
+<span id="cb106-4"><a href="CIformean.html#cb106-4" aria-hidden="true" tabindex="-1"></a>hgt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">152.7</span>, <span class="fl">161.7</span>, <span class="fl">166.6</span>, <span class="fl">145.9</span>, <span class="fl">162.6</span>)</span>
+<span id="cb106-5"><a href="CIformean.html#cb106-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-6"><a href="CIformean.html#cb106-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the individual components of the CI</span></span>
+<span id="cb106-7"><a href="CIformean.html#cb106-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample mean</span></span>
+<span id="cb106-8"><a href="CIformean.html#cb106-8" aria-hidden="true" tabindex="-1"></a>mean.hgt <span class="ot">&lt;-</span> <span class="fu">mean</span>(hgt)</span>
+<span id="cb106-9"><a href="CIformean.html#cb106-9" aria-hidden="true" tabindex="-1"></a>mean.hgt</span></code></pre></div>
+<pre><code>[1] 157.9</code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="CIformean.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample standard deviation</span></span>
+<span id="cb108-2"><a href="CIformean.html#cb108-2" aria-hidden="true" tabindex="-1"></a>sd.hgt <span class="ot">&lt;-</span> <span class="fu">sd</span>(hgt)</span>
+<span id="cb108-3"><a href="CIformean.html#cb108-3" aria-hidden="true" tabindex="-1"></a>sd.hgt</span></code></pre></div>
+<pre><code>[1] 8.415165</code></pre>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="CIformean.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of observations</span></span>
+<span id="cb110-2"><a href="CIformean.html#cb110-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(hgt)</span>
+<span id="cb110-3"><a href="CIformean.html#cb110-3" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div>
+<pre><code>[1] 5</code></pre>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="CIformean.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate standard error</span></span>
+<span id="cb112-2"><a href="CIformean.html#cb112-2" aria-hidden="true" tabindex="-1"></a>se.hgt <span class="ot">&lt;-</span> sd.hgt<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb112-3"><a href="CIformean.html#cb112-3" aria-hidden="true" tabindex="-1"></a>se.hgt</span></code></pre></div>
+<pre><code>[1] 3.763376</code></pre>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="CIformean.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t-multiplier for 95% CI</span></span>
+<span id="cb114-2"><a href="CIformean.html#cb114-2" aria-hidden="true" tabindex="-1"></a>tmult <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">p=</span><span class="fl">0.975</span>, <span class="at">df=</span><span class="dv">4</span>)</span>
+<span id="cb114-3"><a href="CIformean.html#cb114-3" aria-hidden="true" tabindex="-1"></a>tmult</span></code></pre></div>
+<pre><code>[1] 2.776445</code></pre>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="CIformean.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lower limit</span></span>
+<span id="cb116-2"><a href="CIformean.html#cb116-2" aria-hidden="true" tabindex="-1"></a>mean.hgt <span class="sc">-</span> (tmult<span class="sc">*</span>se.hgt)</span></code></pre></div>
+<pre><code>[1] 147.4512</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="CIformean.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Upper limit</span></span>
+<span id="cb118-2"><a href="CIformean.html#cb118-2" aria-hidden="true" tabindex="-1"></a>mean.hgt <span class="sc">+</span> (tmult<span class="sc">*</span>se.hgt)</span></code></pre></div>
+<pre><code>[1] 168.3488</code></pre>
+<p>The above commands illustrate how to construct the confidence intervals from the individual components. However, there is a short cut (isn’t there always in R) to obtain a CI. We make use of the <code>t.test</code> function; the <code>t.test</code> function does a lot more than provide confidence intervals (which we will explore in the following chapter) but for now we only want the CI which are given by specifying <code>$conf.int</code>.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="CIformean.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 95% CI (default)</span></span>
+<span id="cb120-2"><a href="CIformean.html#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x=</span>hgt)<span class="sc">$</span>conf.int</span></code></pre></div>
+<pre><code>[1] 147.4512 168.3488
+attr(,&quot;conf.level&quot;)
+[1] 0.95</code></pre>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="CIformean.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 90% CI</span></span>
+<span id="cb122-2"><a href="CIformean.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x=</span>hgt, <span class="at">conf.level=</span><span class="fl">0.90</span>)<span class="sc">$</span>conf.int</span></code></pre></div>
+<pre><code>[1] 149.8771 165.9229
+attr(,&quot;conf.level&quot;)
+[1] 0.9</code></pre>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="CIformean.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 99% CI</span></span>
+<span id="cb124-2"><a href="CIformean.html#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x=</span>hgt, <span class="at">conf.level=</span><span class="fl">0.99</span>)<span class="sc">$</span>conf.int</span></code></pre></div>
+<pre><code>[1] 140.5731 175.2269
+attr(,&quot;conf.level&quot;)
+[1] 0.99</code></pre>
+<p><strong>Q7.1</strong> A researcher was interested in the typical size of trees (measured as diameter at breast height, dbh) of a particular species in a forest. Data on dbh (in cm) had been collected on a sample of 50 trees. The mean dbh was 765 cm and the standard deviation was 3.</p>
+<p><strong>a.</strong> What is the standard error of the mean?</p>
+<p><strong>b.</strong> Which of the following multipliers should be used for a 90% confidence interval?</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="CIformean.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p=</span><span class="fl">0.90</span>, <span class="at">df=</span><span class="dv">49</span>)</span></code></pre></div>
+<pre><code>[1] 1.299069</code></pre>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="CIformean.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>[1] -1.644854</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="CIformean.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p=</span><span class="fl">0.95</span>, <span class="at">df=</span><span class="dv">49</span>)</span></code></pre></div>
+<pre><code>[1] 1.676551</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="CIformean.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p=</span><span class="fl">0.975</span>, <span class="at">df=</span><span class="dv">49</span>)</span></code></pre></div>
+<pre><code>[1] 2.009575</code></pre>
+<p><strong>c.</strong> Calculate a 90% confidence interval for the mean.</p>
+<p><strong>d.</strong> Interpret the confidence interval.</p>
+<p><strong>Q7.2</strong> A study of birth weight was conducted in San Francisco, US. The summary statistics of weights of babies for the group of non-smoking mothers are as follows: <span class="math inline">\(n=742\)</span>, <span class="math inline">\(\hat \mu = 123.05\)</span> ounces and <span class="math inline">\(s = 17.4\)</span> ounces. Calculate a 95% confidence interval for the mean; the sample size is large and so assume that the <span class="math inline">\(t\)</span> multiplier is 1.96. The full data set can be found <a href="https://www.stat.berkeley.edu/users/statlabs/labs.html">here</a>.</p>
+</div>
+</div>
+</div>
+<div id="difference-between-two-group-means" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Difference between two group means</h2>
+<p>Sometimes we want to compare two means, for example the mean blood pressure of patients that have received one of two treatments or the mean yield of tomato plants grown in one of two varieties of potting compost. Hence, we are interested in the difference between the two means and want to find a confidence interval for the difference. The process is very similar to that described previously.</p>
+<p>Assume we have two groups, which we call <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, and sample means have been obtained, <span class="math inline">\(\hat \mu_A\)</span> and <span class="math inline">\(\hat \mu_B\)</span>. The difference between the sample means is simply given by</p>
+<p><span class="math display">\[\textrm{difference } A - B = \hat \mu_A - \hat \mu_B\]</span></p>
+<p>If this difference is zero (or very close to zero), then it likely that there is no real difference between these two groups. However, if it is not zero there are two possible alternatives:</p>
+<ul>
+<li>the two samples are from the same parent population and the difference is due to sampling variability, or</li>
+<li>the two samples are from different populations and so there is a difference beyond any sampling variability.</li>
+</ul>
+<p>The phrase ‘different populations’ is used here to refer to parent populations that have different population means, however, we also need to consider whether the parent populations have different standard deviations; as we shall see, this is taken account of when considering the precision of the estimate of the difference.</p>
+<p>In the next chapter we look at formal statistical tests to determine between the two alternatives described above but here we want to find an interval around the estimate of the difference that we are confident (to some level) contains the true difference.</p>
+<p>The confidence interval for the difference in the means is given by:</p>
+<p><span class="math display">\[(\hat \mu_A - \hat \mu_B) \pm t_{(1-(\alpha/2), n-1)}se(\hat \mu_A - \hat \mu_B)\]</span></p>
+<p>where <span class="math inline">\(se(\hat \mu_A - \hat \mu_B)\)</span> is the standard error of the difference.</p>
+<p>The standard error of the difference is obtained by combining the uncertainty of the two sample estimates and the calculation depends on whether the variability of the two groups can be assumed to be the same (or very similar) or not.</p>
+<p><strong>Q7.3</strong> According to an advertising campaign, batteries from brand <span class="math inline">\(A\)</span> last longer than
+batteries from brand <span class="math inline">\(B\)</span>. In order to compare the two brands we select a random sample of 90 brand <span class="math inline">\(A\)</span> batteries and 60 brand <span class="math inline">\(B\)</span> batteries. The sample of brand <span class="math inline">\(A\)</span> batteries run continuously for a total of 4451 minutes with a sample standard deviation of 6.32 minutes. The sample of brand <span class="math inline">\(B\)</span> batteries run continuously for a total of 2763 minutes with a sample standard deviation of 3.31 minutes. Assume that the data are normally distributed.</p>
+<p>Find estimates for <span class="math inline">\(\hat \mu_A\)</span> and <span class="math inline">\(\hat \mu_B\)</span>, the mean running time of a battery from brand <span class="math inline">\(A\)</span> and brand <span class="math inline">\(B\)</span>, respectively. Hence find an estimate for the difference in mean running time between the two brands.</p>
+<div id="assuming-equal-standard-deviations-of-the-two-groups" class="section level3" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Assuming equal standard deviations of the two groups</h3>
+<p>If we can assume that the two groups have the same variability, we pool the information on variability (quantified by the sample standard deviations) to generate an estimate of the pooled variability.</p>
+<p>The standard error of the difference in sample means is the pooled estimate of the common standard deviation (<span class="math inline">\(s_p\)</span>) (assuming that the variances in the populations are similar) computed as the weighted average of the standard deviations in the samples,</p>
+<p><span class="math display">\[se(\hat{\mu_A} - \hat{\mu_B})=s_p\sqrt{\frac{1}{n_A} + \frac{1}{n_B}}\]</span></p>
+<p>where <span class="math inline">\(s_p\)</span> is the pooled standard deviation and is found as follows:</p>
+<p><span class="math display">\[ s_p = \sqrt{\frac{(n_A-1)s_A^2 + (n_B-1)s_B^2}{n_A + n_B -2}}\]</span>
+The pooled degrees of freedom are given by <span class="math inline">\(df=(n_A + n_B - 2)\)</span>. These degrees of freedom are then used to find the multiplier <span class="math inline">\(t_{(1-(\alpha/2), df)}\)</span>.</p>
+<p>This specification for the standard error and degrees of freedom are only appropriate when the two groups have equal standard deviations.</p>
+<p><strong>Example</strong> We continue to look at data collected from the observational study of birth weights introduced in Q7.1. In total, 1236 women were enrolled in the study and the participants came from a wide range of economic, social and educational backgrounds. We want to calculate a 95% confidence interval for the difference between the means for the mothers who smoked and mothers who did not smoke. The summary data are provided in Table <a href="CIformean.html#tab:babywgttab">7.1</a>.</p>
+<table style="width:47%;">
+<caption><span id="tab:babywgttab">Table 7.1: </span> Summary of birth weight data for the smoking and non-smoking groups (units are ounces); n is sample size and SD is the standard deviation.</caption>
+<colgroup>
+<col width="13%" />
+<col width="8%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Smoking</th>
+<th align="center">n</th>
+<th align="center">Mean</th>
+<th align="center">SD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">No</td>
+<td align="center">742</td>
+<td align="center">123.05</td>
+<td align="center">17.4</td>
+</tr>
+<tr class="even">
+<td align="center">Yes</td>
+<td align="center">484</td>
+<td align="center">114.11</td>
+<td align="center">18.1</td>
+</tr>
+</tbody>
+</table>
+<p>The estimate for the difference between the non-smoking group (<span class="math inline">\(N\)</span>) and the smoking group (<span class="math inline">\(S\)</span>) is given by</p>
+<p><span class="math display">\[\hat \mu_N - \hat \mu_S = 123.05 - 114.11  = 8.94\]</span></p>
+<p>In this example, the sample standard deviations are very similar and so we will calculate the pooled standard deviation:</p>
+<p><span class="math display">\[ s_p = \sqrt{\frac{(n_N-1)s_N^2 + (n_S-1)s_S^2}{n_N + n_S -2}}\]</span>
+Substituting in the values gives:</p>
+<p><span class="math display">\[ s_p = \sqrt{\frac{(742-1)17.4^2 + (484-1)18.1^2}{742 + 484 -2}}  = \sqrt{\frac{382580.8}{1224}} = 17.68\]</span>
+Thus, the standard error is</p>
+<p><span class="math display">\[se(\hat{\mu}_N - \hat{\mu}_S)=s_p\sqrt{\frac{1}{n_N} + \frac{1}{n_S}} = 17.68 \sqrt{\frac{1}{742} + \frac{1}{484}} = 1.033\]</span></p>
+<p>The degrees of freedom are</p>
+<p><span class="math display">\[df = 742 + 484 - 2 = 1224\]</span></p>
+<p>The next component of the confidence interval is the multiplier <span class="math inline">\(t_{(1-\frac{\alpha}{2}, df)}\)</span>. For a 95% confidence interval, <span class="math inline">\(\alpha=0.05\)</span> and so we want the quantile associated with <span class="math inline">\(t_{(0.975,df=1224)}\)</span>. The degrees of freedom are large and so the relevant <span class="math inline">\(t\)</span> distribution will be very similar to the normal distribution; the actual value of the multiplier is 1.9619. Thus the 95% confidence interval is given by</p>
+<p><span class="math display">\[8.94 \pm 1.9619 \times 1.033 \]</span></p>
+<p><span class="math display">\[8.94 \pm 2.027\]</span></p>
+<p>which results in an interval 6.91 to 10.97 ounces. This interval indicates that we can be 95% confident that, on average, a baby with a non-smoking mother is likely to be about 7 to 11 ounces heavier than a baby with a mother who smokes.</p>
+<div id="doing-this-in-r-8" class="section level4" number="7.3.1.1">
+<h4><span class="header-section-number">7.3.1.1</span> Doing this in R</h4>
+<p>Again we can call on the <code>t.test</code> function to calculate a CI for the difference between two sample means. In the code below, the birth weights for non-smokers and smokers have been stored in objects called <code>grpN</code> and <code>grpS</code>, respectively.</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="CIformean.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 95% CI</span></span>
+<span id="cb134-2"><a href="CIformean.html#cb134-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x=</span>grpN, <span class="at">y=</span>grpS, <span class="at">var.equal=</span><span class="cn">TRUE</span>)<span class="sc">$</span>conf.int</span></code></pre></div>
+<pre><code>[1]  6.911199 10.964133
+attr(,&quot;conf.level&quot;)
+[1] 0.95</code></pre>
+<p><strong>Q7.4</strong> For the details of battery running times provided in Q7.3, calculate the standard error (assuming the standard deviations are equal) for the difference in mean running time and hence, using the following information, calculate a 95% confidence interval for the difference in means.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="CIformean.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p=</span><span class="fl">0.975</span>, <span class="at">df=</span><span class="dv">148</span>)</span></code></pre></div>
+<pre><code>[1] 1.976122</code></pre>
+</div>
+</div>
+<div id="assuming-unequal-standard-deviations-of-the-two-groups" class="section level3" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Assuming unequal standard deviations of the two groups</h3>
+<p>If the standard deviations of the two groups cannot be assumed to be equal, then to accurately describe the differences we need to alter the standard error and degrees of freedom calculations. This standard error formula is:</p>
+<p><span class="math display">\[se(\hat{\mu}_A - \hat{\mu}_B)= \sqrt{\frac{{s_A}^2}{{n_A}} + \frac{{s_B}^2}{{n_B}}}\]</span></p>
+<p>To calculate the degrees of freedom when doing the calculation by hand, use the minimum value out of <span class="math inline">\(n_A-1\)</span> and <span class="math inline">\(n_B -1\)</span>:</p>
+<p><span class="math display">\[df = Min(n_A-1, n_B -1)\]</span></p>
+<p>In computing packages, the more exact (but also more tricky to calculate by hand) Welch-Satterthwaite equation is used:</p>
+<p><span class="math display">\[df_w = \frac{\left(\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}\right)^2}{\frac{s_A^4}{n_A^2(n_A-1)} + \frac{s_A^4}{n_A^2(n_A-1)}}\]</span></p>
+<p>The Welch-Satterthwaite approximation for df (<span class="math inline">\(df_w\)</span>) is always smaller than the degrees of freedom under equal standard deviation, so for the same <span class="math inline">\(\alpha\)</span> level, the multiplier will be wider. We will investigate the effects of using this more exact formula further in the computer practical associated with this chapter.</p>
+<p><strong>Example</strong> Using the summary data in Table <a href="CIformean.html#tab:babywgttab">7.1</a>, we calculate the 95% confidence interval for the difference in means using the standard error formula that should be used if we cannot assume that the standard deviations of the two groups are the same.</p>
+<p>The standard error formula, assuming that the standard deviations of the two groups are not equal is:</p>
+<p><span class="math display">\[se(\hat{\mu}_N - \hat{\mu}_S)= \sqrt{\frac{{s_N}^2}{{n_N}} + \frac{{s_S}^2}{{n_S}}} = \sqrt{\frac{17.4^2}{742} + \frac{18.1^2}{484}} = 1.04\]</span></p>
+<p>Since we are doing this calculation by hand the following formula is used to obtain the degrees of freedom.</p>
+<p><span class="math display">\[df = Min(742-1, 484-1) = 483\]</span>
+This results in a multiplier of 1.965, thus, the 95% confidence is given by</p>
+<p><span class="math display">\[8.94 \pm 1.965 \times 1.04\]</span>
+which results in an interval (6.90, 10.98), hence we can be 95% confident that the difference in birth weights between the smoking and non-smoking mothers is between 6.9 and 11 ounces.</p>
+<p>This is generally the approach that should be used to obtain the confidence interval because the previous approach should only be used if it can be assumed that the population standard deviations (which we generally don’t know) are equal.</p>
+<div id="doing-this-in-r-9" class="section level4" number="7.3.2.1">
+<h4><span class="header-section-number">7.3.2.1</span> Doing this in R</h4>
+<p>The assumption that the standard deviations are unequal is specified by default (with the <code>var.equal=FALSE</code>) but it is useful to include this argument for clarity.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="CIformean.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 95% CI</span></span>
+<span id="cb138-2"><a href="CIformean.html#cb138-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x=</span>grpN, <span class="at">y=</span>grpS, <span class="at">var.equal=</span><span class="cn">FALSE</span>)<span class="sc">$</span>conf.int</span></code></pre></div>
+<pre><code>[1]  6.89385 10.98148
+attr(,&quot;conf.level&quot;)
+[1] 0.95</code></pre>
+<p><strong>Q7.5</strong> Using the information in Q7.3, calculate the standard error for the difference in mean running times assuming that the standard deviations are not equal and hence calculate the 95% confidence interval. Calculate the degrees of freedom and select the correct multiplier from the following information.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="CIformean.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df=</span><span class="dv">59</span>)</span></code></pre></div>
+<pre><code>[1] 2.000995</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="CIformean.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df=</span><span class="dv">148</span>)</span></code></pre></div>
+<pre><code>[1] 1.976122</code></pre>
+</div>
+</div>
+</div>
+<div id="empirical-bootstrap-based-confidence-intervals" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Empirical (bootstrap-based) confidence intervals</h2>
+<p>In the calculation of confidence intervals so far we have relied on the CLT. In some circumstances, for example if the sample size is very small or the wider (or parent) population is very skewed, we may not be able to safely assume that the distribution of the sample mean is approximately normal. In such cases, the confidence interval may not capture the true parameter with the required level of confidence and so an alternative method for calculating confidence intervals may be more appropriate. An <strong>empirical</strong> (also called <strong>non-parametric</strong> or <strong>bootstrap</strong>) approach is a useful alternative to obtaining a confidence interval.</p>
+<p>Assume we want to obtain a CI for a sample mean, then the empirical, bootstrap approach is as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>Select <span class="math inline">\(n\)</span> values at random and <strong>with replacement</strong> from our original sample of <span class="math inline">\(n\)</span> values.</p>
+<ul>
+<li>If we have 100 values in the original sample, we randomly select a sample of 100 values.</li>
+<li>Sampling with replacement, means some of the observations in the original data may be selected several times and other observations not selected at all.</li>
+</ul></li>
+<li><p>Calculate the mean for this generated sample.</p></li>
+<li><p>Repeat steps 1 and 2 many times (e.g. at least 1000 times).</p>
+<ul>
+<li>For example, if we took 1000 samples each with <span class="math inline">\(n=100\)</span>, this would give us a set of 1000 mean values.</li>
+</ul></li>
+<li><p>Examine the distribution of these sample estimates and locate the values which define the central 95% of the values in this distribution (whatever it’s shape) (i.e. the 2.5 and 97.5 percentiles).</p>
+<ul>
+<li>These are called ‘percentile’ confidence intervals.</li>
+</ul></li>
+</ol>
+<p>This method has the advantage that,</p>
+<ul>
+<li>it side-steps the assumption that the distribution of sample estimates is normally distributed and simply locates the central 95% of the sample estimates.</li>
+<li>it can be used to obtain confidence intervals for the median or a difference between means, or any other statistic of interest.</li>
+</ul>
+<p>However,</p>
+<ul>
+<li>this approach can be computationally intensive,</li>
+<li>and because of the random nature it may not always provide the desired coverage (e.g. the intervals may be too small or too large and may not capture the parameter of interest with the desired confidence).</li>
+</ul>
+<p>To illustrate this approach we will use it to find a confidence interval for the mean weights of babies described in Q7.1. To discover more about the bootstrap then see <span class="citation">(<a href="references.html#ref-Davison1997" role="doc-biblioref">Davison and Hinckley 1997</a>)</span>.</p>
+<div id="doing-this-in-r-10" class="section level4" number="7.4.0.1">
+<h4><span class="header-section-number">7.4.0.1</span> Doing this in R</h4>
+<p>The code below shows the steps involved to generate a bootstrap-based confidence interval for the mean weights of babies born to non-smoking mothers. The numbers relate to the steps outlined above. The weights are stored in an object called <code>grpN</code>.</p>
+<p>To repeatedly perform the same commands a ‘<code>for</code> loop’ is used to generate samples and calculate the sample mean; the commands within <code>{}</code> are repeated <code>B</code> times with the index <code>i</code> starting at 1 and increasing by 1 each time the loop is repeated.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="CIformean.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R code to obtain a bootstrap confidence intervals for density</span></span>
+<span id="cb144-2"><a href="CIformean.html#cb144-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-3"><a href="CIformean.html#cb144-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of bootstraps</span></span>
+<span id="cb144-4"><a href="CIformean.html#cb144-4" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb144-5"><a href="CIformean.html#cb144-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of observations</span></span>
+<span id="cb144-6"><a href="CIformean.html#cb144-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(grpN)</span>
+<span id="cb144-7"><a href="CIformean.html#cb144-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create object to store bootstrap sample means</span></span>
+<span id="cb144-8"><a href="CIformean.html#cb144-8" aria-hidden="true" tabindex="-1"></a>res1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, B)</span>
+<span id="cb144-9"><a href="CIformean.html#cb144-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Bootstrap loops</span></span>
+<span id="cb144-10"><a href="CIformean.html#cb144-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="cb144-11"><a href="CIformean.html#cb144-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 1. Generate random sample from data with replacement</span></span>
+<span id="cb144-12"><a href="CIformean.html#cb144-12" aria-hidden="true" tabindex="-1"></a>  bootsamp <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x=</span>grpN, <span class="at">size=</span>n, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb144-13"><a href="CIformean.html#cb144-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 2. Calculate mean of bootstrap sample and store</span></span>
+<span id="cb144-14"><a href="CIformean.html#cb144-14" aria-hidden="true" tabindex="-1"></a>  res1[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(bootsamp) </span>
+<span id="cb144-15"><a href="CIformean.html#cb144-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb144-16"><a href="CIformean.html#cb144-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Obtain central 95 percentiles for CI</span></span>
+<span id="cb144-17"><a href="CIformean.html#cb144-17" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(res1, <span class="at">probs=</span><span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<pre><code>    2.5%    97.5% 
+121.7339 124.2144 </code></pre>
+<p><strong>Creating a function</strong></p>
+<p>If a series of commands are being used repeatedly (as in steps 1 and 2 in the code above), it often makes sense to combine them into a function. This is done in the code below.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="CIformean.html#cb146-1" aria-hidden="true" tabindex="-1"></a>samplemean.f <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">sampdata=</span>data, <span class="at">do.replace=</span><span class="cn">TRUE</span>) { </span>
+<span id="cb146-2"><a href="CIformean.html#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Function to generate a sample and calculate the mean</span></span>
+<span id="cb146-3"><a href="CIformean.html#cb146-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Arguments: </span></span>
+<span id="cb146-4"><a href="CIformean.html#cb146-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># sampdata = original sample </span></span>
+<span id="cb146-5"><a href="CIformean.html#cb146-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># do.replace = indicates whether sampling is with replacement, or not</span></span>
+<span id="cb146-6"><a href="CIformean.html#cb146-6" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(sampdata)</span>
+<span id="cb146-7"><a href="CIformean.html#cb146-7" aria-hidden="true" tabindex="-1"></a>  bootsamp <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x=</span>sampdata, <span class="at">size=</span>n, <span class="at">replace=</span>do.replace)</span>
+<span id="cb146-8"><a href="CIformean.html#cb146-8" aria-hidden="true" tabindex="-1"></a>  bootmean <span class="ot">&lt;-</span> <span class="fu">mean</span>(bootsamp)</span>
+<span id="cb146-9"><a href="CIformean.html#cb146-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return mean</span></span>
+<span id="cb146-10"><a href="CIformean.html#cb146-10" aria-hidden="true" tabindex="-1"></a>  bootmean</span>
+<span id="cb146-11"><a href="CIformean.html#cb146-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Defining a function follows certain conventions:</p>
+<ul>
+<li>the first line assigns the function contained in the function to a name (in this case <code>samplemean.f</code>)</li>
+<li>all arguments required for the function are specified at the top, including any default values,</li>
+<li>all function commands are within the parentheses <code>{}</code></li>
+<li>the last line returns the result of the function.</li>
+</ul>
+<p>Having created this function, we can amend the bootstrap code to include it:</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="CIformean.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of bootstraps</span></span>
+<span id="cb147-2"><a href="CIformean.html#cb147-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb147-3"><a href="CIformean.html#cb147-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create object to store sample means</span></span>
+<span id="cb147-4"><a href="CIformean.html#cb147-4" aria-hidden="true" tabindex="-1"></a>res1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, B)</span>
+<span id="cb147-5"><a href="CIformean.html#cb147-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Bootstrap loops</span></span>
+<span id="cb147-6"><a href="CIformean.html#cb147-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="cb147-7"><a href="CIformean.html#cb147-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 1. and 2. Obtain sample means with function</span></span>
+<span id="cb147-8"><a href="CIformean.html#cb147-8" aria-hidden="true" tabindex="-1"></a>  res1[i] <span class="ot">&lt;-</span> <span class="fu">samplemean.f</span>(<span class="at">sampdata=</span>grpN, <span class="at">do.replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb147-9"><a href="CIformean.html#cb147-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb147-10"><a href="CIformean.html#cb147-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Obtain 95 percentiles for CI</span></span>
+<span id="cb147-11"><a href="CIformean.html#cb147-11" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(res1, <span class="at">probs=</span><span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<pre><code>    2.5%    97.5% 
+121.7559 124.2779 </code></pre>
+<p>How does this empirical CI compare to that using the conventional method? The CIs obtained from the two methods should be similar; the sample size is fairly large and the heights are approximately normally distributed.</p>
+<p><strong>Bootstrapping the easy way!</strong></p>
+<p>The commands above have been included to illustrate all the steps in a bootstrap approach. However, in practice we don’t need to write the code to perform such a bootstrap (unless you want to) because R contains a suite of functions which perform these commands; these require two additional libraries to be installed and then loaded into the R workspace with the <code>library</code> function.</p>
+<p>The process requires two stages; one to generate the distribution of sample estimates and the second to obtain the confidence interval from the distribution.</p>
+<p>The code below generates a CI for mean weight of babies from non-smoking mothers. The <code>oneboot</code> function generates the sample estimates and requires 3 arguments to be specified:</p>
+<ul>
+<li><code>data</code> - the data to be bootstrapped, in this example, the weights are stored in an object called <code>grpN</code>,</li>
+<li><code>FUN</code> - the name of the function used to calculate the statistic of interest (in this case, we want the <code>mean</code> but the <code>median</code> or <code>sd</code>, for example, could also be used), and</li>
+<li><code>R</code> - the number of repetitions.</li>
+</ul>
+<p>The <code>boot.ci</code> function calculates the CI with the specified level of confidence.</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="CIformean.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrapping CI using built-in functions</span></span>
+<span id="cb149-2"><a href="CIformean.html#cb149-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-3"><a href="CIformean.html#cb149-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate bootstrap sample means</span></span>
+<span id="cb149-4"><a href="CIformean.html#cb149-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(simpleboot)</span>
+<span id="cb149-5"><a href="CIformean.html#cb149-5" aria-hidden="true" tabindex="-1"></a>bsmeans <span class="ot">&lt;-</span> <span class="fu">one.boot</span>(<span class="at">data=</span>grpN, <span class="at">FUN=</span>mean, <span class="at">R=</span><span class="dv">1000</span>)</span>
+<span id="cb149-6"><a href="CIformean.html#cb149-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-7"><a href="CIformean.html#cb149-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain CI</span></span>
+<span id="cb149-8"><a href="CIformean.html#cb149-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
+<span id="cb149-9"><a href="CIformean.html#cb149-9" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(bsmeans, <span class="at">conf=</span><span class="fl">0.95</span>, <span class="at">type=</span><span class="st">&quot;perc&quot;</span>) </span></code></pre></div>
+<pre><code>BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+Based on 1000 bootstrap replicates
+
+CALL : 
+boot.ci(boot.out = bsmeans, conf = 0.95, type = &quot;perc&quot;)
+
+Intervals : 
+Level     Percentile     
+95%   (121.8, 124.3 )  
+Calculations and Intervals on Original Scale</code></pre>
+<p>The CI is similar to those calculated previously but due to the random selection of data, the results from a bootstrap may be slightly different each time the code is executed.</p>
+<p>The code below generates a CI for difference in mean weight of babies from non-smoking and smoking mothers using the <code>two.boot</code> function. The arguments are:</p>
+<ul>
+<li><code>sample1</code> and <code>sample2</code> - the two groups of data, in this example, the weights are stored in objects called <code>grpN</code> and <code>grpS</code>,</li>
+<li><code>FUN</code> - the name of the function used to calculate the statistic of interest (in this case, we want the difference between the means), and</li>
+<li><code>R</code> - the number of repetitions.</li>
+</ul>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="CIformean.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrapping CI using built-in functions</span></span>
+<span id="cb151-2"><a href="CIformean.html#cb151-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-3"><a href="CIformean.html#cb151-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate bootstrap sample means</span></span>
+<span id="cb151-4"><a href="CIformean.html#cb151-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(simpleboot)</span>
+<span id="cb151-5"><a href="CIformean.html#cb151-5" aria-hidden="true" tabindex="-1"></a>bsdiffs <span class="ot">&lt;-</span> <span class="fu">two.boot</span>(<span class="at">sample1=</span>grpN, <span class="at">sample2=</span>grpS, <span class="at">FUN=</span>mean, <span class="at">R=</span><span class="dv">1000</span>)</span>
+<span id="cb151-6"><a href="CIformean.html#cb151-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-7"><a href="CIformean.html#cb151-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain CI</span></span>
+<span id="cb151-8"><a href="CIformean.html#cb151-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
+<span id="cb151-9"><a href="CIformean.html#cb151-9" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(bsdiffs, <span class="at">conf=</span><span class="fl">0.95</span>, <span class="at">type=</span><span class="st">&quot;perc&quot;</span>) </span></code></pre></div>
+<pre><code>BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+Based on 1000 bootstrap replicates
+
+CALL : 
+boot.ci(boot.out = bsdiffs, conf = 0.95, type = &quot;perc&quot;)
+
+Intervals : 
+Level     Percentile     
+95%   ( 6.845, 10.975 )  
+Calculations and Intervals on Original Scale</code></pre>
+</div>
+</div>
+<div id="confidence-intervals-for-other-sample-statistics" class="section level2" number="7.5">
+<h2><span class="header-section-number">7.5</span> Confidence intervals for other sample statistics</h2>
+<p>The methods described in this chapter can be adapted to find confidence intervals for other sample statistics, for example the median and variance. As previously mentioned, bootstrap confidence intervals can easily be obtained for these sample statistics in R by changing the <code>FUN</code> argument in the <code>one.boot</code> or <code>two.boot</code> functions.</p>
+<p>Parametric confidence intervals can also be obtained in a similar manner to that of the sample mean. Rather than using the <span class="math inline">\(t\)</span> distribution other statistical distributions are used; for example, for a CI for the variance a <span class="math inline">\(\chi^2\)</span> distribution is used - this distribution is described in Chapter <a href="tableofcounts.html#tableofcounts">12</a>.
+A brief description of a CI for the median is given below. In a later chapter we look at confidence intervals for sample proportions.</p>
+<div id="confidence-interval-for-the-median" class="section level4" number="7.5.0.1">
+<h4><span class="header-section-number">7.5.0.1</span> Confidence interval for the median</h4>
+<p>For the median, the confidence interval is obtained slightly differently and because we are not making any assumptions about the distribution (e.g. that it is symmetric), the CI is approximate.</p>
+<p>Similar to the median, the CI is based on ranked values. The ranked value for the lower 95% CI (for a sample of size <span class="math inline">\(n\)</span>) is given by</p>
+<p><span class="math display">\[\frac{n}{2} - \frac{1.96 \sqrt{n}}{2}\]</span>
+and the ranked value for the upper 95% CI is given by</p>
+<p><span class="math display">\[1 + \frac{n}{2} + \frac{1.96 \sqrt{n}}{2}\]</span></p>
+<p>The CI is then obtained by finding the observed values associated with these ranked values.</p>
+<p><strong>Example</strong> The median weight of babies is 120 ounces. The sample size is 1236 and so the median was the average of the 618th and 619th ranked values. The ranked value for the lower 95% CI is found from</p>
+<p><span class="math display">\[\frac{1236}{2} - \frac{1.96 \sqrt{1236}}{2} = 618 - 34.45 = 583.55\]</span></p>
+<p>The ranked value for the upper 95% CI is found from</p>
+<p><span class="math display">\[1 + \frac{1236}{2} + \frac{1.96 \sqrt{1236}}{2} = 1 + 618 + 34.45 = 653.45\]</span></p>
+<p>There are no ranked values 583.55 and 653.45 and so these values simply get rounded to the nearest integer, hence, the 584th and 653rd ranked observations provide the confidence interval, which in this case is 119 to 121 ounces.</p>
+<p>Note that the confidence interval may not be symmetrical about the median because it is based on ranked values.</p>
+</div>
+<div id="doing-this-in-r-11" class="section level4" number="7.5.0.2">
+<h4><span class="header-section-number">7.5.0.2</span> Doing this in R</h4>
+<p>To obtain a CI for the median, we again make use of a function, <code>wilcox.test</code>, that we will come across again later in the course but for now we use it to harvest the CI.</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="CIformean.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate median</span></span>
+<span id="cb153-2"><a href="CIformean.html#cb153-2" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(baby<span class="sc">$</span>bwt)</span></code></pre></div>
+<pre><code>[1] 120</code></pre>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="CIformean.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 95% CI for median</span></span>
+<span id="cb155-2"><a href="CIformean.html#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(<span class="at">x=</span>baby<span class="sc">$</span>bwt, <span class="at">conf.int=</span><span class="cn">TRUE</span>)<span class="sc">$</span>conf.int</span></code></pre></div>
+<pre><code>[1] 119 121
+attr(,&quot;conf.level&quot;)
+[1] 0.95</code></pre>
+<p>An alternative method (there are others) requires the package <code>DescTools</code> to be installed and loaded and then the function <code>medianCI</code> can be used:</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="CIformean.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library(already installed)</span></span>
+<span id="cb157-2"><a href="CIformean.html#cb157-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DescTools)</span>
+<span id="cb157-3"><a href="CIformean.html#cb157-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 95% CI for median</span></span>
+<span id="cb157-4"><a href="CIformean.html#cb157-4" aria-hidden="true" tabindex="-1"></a><span class="fu">MedianCI</span>(baby<span class="sc">$</span>bwt)</span></code></pre></div>
+<pre><code>median lwr.ci upr.ci 
+   120    119    121 
+attr(,&quot;conf.level&quot;)
+[1] 0.9503555</code></pre>
+</div>
+</div>
+<div id="SUMci" class="section level2" number="7.6">
+<h2><span class="header-section-number">7.6</span> Summary</h2>
+<p>This chapter has illustrated that sample estimates, such as the sample mean, follow statistical distributions and we know something about the location and spread of these sampling distributions based on the information in the sample (i.e. sample size, mean and standard deviation). This information can be used to obtain a plausible range of values for the true, but unknown, population mean: a confidence interval.</p>
+<div id="learning-outcomes-3" class="section level3" number="7.6.1">
+<h3><span class="header-section-number">7.6.1</span> Learning outcomes</h3>
+<p>In this chapter you have seen</p>
+<ul>
+<li>that the sampling distribution of a sample estimate is normally distributed which has led to the Central Limit Theorem,</li>
+<li>the calculation of confidence intervals, for both a sample mean and the difference between two sample means, relying on the CLT, and</li>
+<li>the calculation of bootstrap-based confidence intervals,</li>
+<li>and that confidence intervals can be obtained for other sample statistics.</li>
+</ul>
+</div>
+</div>
+<div id="ANSci" class="section level2" number="7.7">
+<h2><span class="header-section-number">7.7</span> Answers</h2>
+<p><strong>Q7.1</strong> <strong>a.</strong> The standard error is 0.424 cm.</p>
+<p><span class="math display">\[se(\hat \mu) = \frac{s}{\sqrt{n}} = \frac{3}{\sqrt{50}} = 0.424\]</span></p>
+<p><strong>Q7.1</strong> <strong>b.</strong> The correct multiplier for a 90% confidence interval when using the sample standard deviation is <code>qt(p=0.95, df=49) = 1.6765</code></p>
+<p><strong>Q7.1</strong> <strong>c.</strong> The 90% confidence interval is 14.6 to 16.0 cm, calculated from</p>
+<p><span class="math display">\[15.3 \pm 1.6766 \times 0.424\]</span></p>
+<p><strong>Q7.1</strong> <strong>d.</strong> We can be 90% confident that the mean diameter at breast height is between 14.6 cm and 16 cm.</p>
+<p><strong>Q7.2</strong> The 95% confidence interval is given by</p>
+<p><span class="math display">\[\hat \mu \pm 1.96 \times \frac{s}{\sqrt{n}}\]</span></p>
+<p>and substituting in the numbers gives</p>
+<p><span class="math display">\[123.05 \pm 1.96 \times \frac{17.4}{\sqrt{742}}\]</span>
+<span class="math display">\[123.05 \pm 1.96 \times 0.6388\]</span></p>
+<p><span class="math display">\[123.05 \pm 1.252 \]</span>
+<span class="math display">\[121.8 \quad ; \quad 124.3\]</span></p>
+<p>The sample mean is 123.05 ounces with a 95% confidence interval (121.8, 124.3).</p>
+<p><strong>Q7.3</strong> The mean running time for each brand are</p>
+<p><span class="math display">\[\hat \mu_A = \frac{4451}{90} = 49.46 \quad ; \quad \hat \mu_A = \frac{2763}{60} = 46.05 \]</span>
+An estimate of the difference in mean running time is 3.41 minutes:</p>
+<p><span class="math display">\[ \hat \mu_A - \hat \mu_B = 49.46 - 46.05 = 3.41\]</span></p>
+<p><strong>Q7.4</strong> Assuming that the standard deviations are equal, the standard error is given by</p>
+<p><span class="math display">\[se(\hat \mu_A - \hat \mu_B) = s_p \sqrt{\frac{1}{90} + \frac{1}{60}}\]</span>
+where</p>
+<p><span class="math display">\[s_p = \sqrt{\frac{89 \times 6.32^2 + 59 \times 3.31^2}{90 + 60 -2}} = \sqrt{\frac{4205.195}{148}} = 5.33 \]</span>
+<span class="math display">\[se(\hat \mu_A - \hat \mu_B) = 5.33 \times 0.1667 = 0.888\]</span></p>
+<p>The 95% confidence interval for the difference is mean running time is 1.65 to 5.17 minutes.</p>
+<p><span class="math display">\[ 3.41 \pm 1.976 \times 0.888\]</span></p>
+<p><strong>Q7.5</strong> Assuming that the standard deviations are not equal the standard error is given by</p>
+<p><span class="math display">\[se(\hat \mu_A - \hat \mu_B) = \sqrt{\frac{6.32^2}{90} + \frac{3.31^2}{60}} = 0.792\]</span>
+Using the simple approach to obtaining the multiplier, the required degrees of freedom are 59 (i.e. the minimum of 59 and 89), thus the multiplier is 2.001. Substituting in these values, the 95% confidence interval for the difference in mean running time is now between 1.8 and 5 minutes:</p>
+<p><span class="math display">\[3.41 \pm 2.001 \times 0.792\]</span>
+<span class="math display">\[ 1.825 \quad ; \quad 4.995\]</span></p>
+
+<!-- LB update - 04/08/2020 -->
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="contrv.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="hypothtests.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="book_assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/lunr.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["IntroStats.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

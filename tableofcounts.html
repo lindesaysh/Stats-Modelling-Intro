@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 Tables of counts | An Introduction to Statistics</title>
+  <meta name="description" content="Chapter 12 Tables of counts | An Introduction to Statistics" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 Tables of counts | An Introduction to Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Tables of counts | An Introduction to Statistics" />
+  
+  
+  
+
+<meta name="author" content="Drs C. Paxton, L. Burt, C. Donovan and L. Scott-Hayward" />
+
+
+<meta name="date" content="2021-06-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="proportions.html"/>
+<link rel="next" href="correg.html"/>
+<script src="book_assets/header-attrs-2.7/header-attrs.js"></script>
+<script src="book_assets/jquery-2.2.3/jquery.min.js"></script>
+<link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script language="javascript">
+    function toggle(id) {
+        var ele = document.getElementById("toggleText" + id);
+        var text = document.getElementById("displayText" + id);
+        var buttonText = text.innerHTML.replace("Show ", "");
+        buttonText = buttonText.replace("Hide ", "");
+        if(ele.style.display == "block") {
+            ele.style.display = "none";
+            text.innerHTML = "Show " + buttonText;
+        } else {
+            ele.style.display = "block";
+            text.innerHTML = "Hide " + buttonText;
+        }
+    }
+</script>
+
+<script language="javascript">
+    function openCode(evt, codeName, id) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent" + id);
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks" + id);
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(codeName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+<script language="javascript">
+    function hide(id){
+        document.getElementById(id).style.display = "none";
+    }
+</script>
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<a href="https://www.st-andrews.ac.uk/mathematics-statistics/"><img src="standard-vertical-black.png" width="180"></a>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#computer-practicals"><i class="fa fa-check"></i>Computer practicals</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introchapt.html"><a href="introchapt.html"><i class="fa fa-check"></i><b>1</b> Thinking About Numbers</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introchapt.html"><a href="introchapt.html#INTintro"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="introchapt.html"><a href="introchapt.html#why-use-statistics"><i class="fa fa-check"></i><b>1.2</b> Why use statistics?</a></li>
+<li class="chapter" data-level="1.3" data-path="introchapt.html"><a href="introchapt.html#why-model"><i class="fa fa-check"></i><b>1.3</b> Why model?</a></li>
+<li class="chapter" data-level="1.4" data-path="introchapt.html"><a href="introchapt.html#examples-of-statistical-claims"><i class="fa fa-check"></i><b>1.4</b> Examples of statistical claims</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="introchapt.html"><a href="introchapt.html#coffee-may-reverse-alzheimers"><i class="fa fa-check"></i><b>1.4.1</b> Coffee ‘may reverse Alzheimer’s’</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introchapt.html"><a href="introchapt.html#abundance-of-prized-sturgeon"><i class="fa fa-check"></i><b>1.4.2</b> Abundance of prized sturgeon</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introchapt.html"><a href="introchapt.html#extrapolating-sprinting-speed"><i class="fa fa-check"></i><b>1.4.3</b> Extrapolating sprinting speed</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introchapt.html"><a href="introchapt.html#mmr-innoculation-and-autism"><i class="fa fa-check"></i><b>1.4.4</b> MMR innoculation and autism</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introchapt.html"><a href="introchapt.html#two-sid-deaths-in-same-family"><i class="fa fa-check"></i><b>1.4.5</b> Two SID deaths in same family</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introchapt.html"><a href="introchapt.html#SUMintro"><i class="fa fa-check"></i><b>1.5</b> Summary</a></li>
+<li class="chapter" data-level="1.6" data-path="introchapt.html"><a href="introchapt.html#ANSintro"><i class="fa fa-check"></i><b>1.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>I Data Collection and Visualisation</b></span></li>
+<li class="chapter" data-level="2" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>2</b> Data collection and Sampling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="sampling.html"><a href="sampling.html#INTsamp"><i class="fa fa-check"></i><b>2.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="sampling.html"><a href="sampling.html#terminology"><i class="fa fa-check"></i><b>2.1.1</b> Terminology</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="sampling.html"><a href="sampling.html#what-is-sampling-and-why-do-it"><i class="fa fa-check"></i><b>2.2</b> What is sampling and why do it?</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="sampling.html"><a href="sampling.html#precision-accuracy-and-bias"><i class="fa fa-check"></i><b>2.2.1</b> Precision, accuracy and bias</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="sampling.html"><a href="sampling.html#three-types-of-data-collection"><i class="fa fa-check"></i><b>2.3</b> Three types of data collection</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="sampling.html"><a href="sampling.html#common-but-unwise-data-collection-strategies"><i class="fa fa-check"></i><b>2.3.1</b> Common, but unwise, data collection strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="sampling.html"><a href="sampling.html#simple-sampling-approaches"><i class="fa fa-check"></i><b>2.4</b> Simple sampling approaches</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="sampling.html"><a href="sampling.html#simple-random-sample"><i class="fa fa-check"></i><b>2.4.1</b> Simple random sample</a></li>
+<li class="chapter" data-level="2.4.2" data-path="sampling.html"><a href="sampling.html#systematic-samples"><i class="fa fa-check"></i><b>2.4.2</b> Systematic samples</a></li>
+<li class="chapter" data-level="2.4.3" data-path="sampling.html"><a href="sampling.html#stratified-random-samples"><i class="fa fa-check"></i><b>2.4.3</b> Stratified random samples</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="sampling.html"><a href="sampling.html#sampling-biases"><i class="fa fa-check"></i><b>2.5</b> Sampling biases</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="sampling.html"><a href="sampling.html#non-sampling-error"><i class="fa fa-check"></i><b>2.5.1</b> Non-sampling error</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="sampling.html"><a href="sampling.html#experiments"><i class="fa fa-check"></i><b>2.6</b> Experiments</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="sampling.html"><a href="sampling.html#randomised-experiments"><i class="fa fa-check"></i><b>2.6.1</b> Randomised experiments</a></li>
+<li class="chapter" data-level="2.6.2" data-path="sampling.html"><a href="sampling.html#components-of-an-experimental-design"><i class="fa fa-check"></i><b>2.6.2</b> Components of an experimental design</a></li>
+<li class="chapter" data-level="2.6.3" data-path="sampling.html"><a href="sampling.html#controls"><i class="fa fa-check"></i><b>2.6.3</b> Controls</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="sampling.html"><a href="sampling.html#observational-studies"><i class="fa fa-check"></i><b>2.7</b> Observational Studies</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="sampling.html"><a href="sampling.html#types-of-observational-study"><i class="fa fa-check"></i><b>2.7.1</b> Types of observational study</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="sampling.html"><a href="sampling.html#observational-studies-vs-experiments"><i class="fa fa-check"></i><b>2.8</b> Observational studies vs experiments</a></li>
+<li class="chapter" data-level="2.9" data-path="sampling.html"><a href="sampling.html#SUMsamp"><i class="fa fa-check"></i><b>2.9</b> Summary</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="sampling.html"><a href="sampling.html#learning-objectives"><i class="fa fa-check"></i><b>2.9.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="sampling.html"><a href="sampling.html#ANSsamp"><i class="fa fa-check"></i><b>2.10</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="describedata.html"><a href="describedata.html"><i class="fa fa-check"></i><b>3</b> Describing data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="describedata.html"><a href="describedata.html#INTdata"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="describedata.html"><a href="describedata.html#types-of-data"><i class="fa fa-check"></i><b>3.2</b> Types of data</a></li>
+<li class="chapter" data-level="3.3" data-path="describedata.html"><a href="describedata.html#frequency-distributions"><i class="fa fa-check"></i><b>3.3</b> Frequency distributions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="describedata.html"><a href="describedata.html#doing-this-in-r-2"><i class="fa fa-check"></i><b>3.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="describedata.html"><a href="describedata.html#numerical-summaries"><i class="fa fa-check"></i><b>3.4</b> Numerical summaries</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="describedata.html"><a href="describedata.html#population-mean"><i class="fa fa-check"></i><b>3.4.1</b> Population mean</a></li>
+<li class="chapter" data-level="3.4.2" data-path="describedata.html"><a href="describedata.html#sample-mean"><i class="fa fa-check"></i><b>3.4.2</b> Sample mean</a></li>
+<li class="chapter" data-level="3.4.3" data-path="describedata.html"><a href="describedata.html#sample-median"><i class="fa fa-check"></i><b>3.4.3</b> Sample median</a></li>
+<li class="chapter" data-level="3.4.4" data-path="describedata.html"><a href="describedata.html#range"><i class="fa fa-check"></i><b>3.4.4</b> Range</a></li>
+<li class="chapter" data-level="3.4.5" data-path="describedata.html"><a href="describedata.html#percentiles"><i class="fa fa-check"></i><b>3.4.5</b> Percentiles</a></li>
+<li class="chapter" data-level="3.4.6" data-path="describedata.html"><a href="describedata.html#population-variance"><i class="fa fa-check"></i><b>3.4.6</b> Population variance</a></li>
+<li class="chapter" data-level="3.4.7" data-path="describedata.html"><a href="describedata.html#sample-variance-and-standard-deviation"><i class="fa fa-check"></i><b>3.4.7</b> Sample variance and standard deviation</a></li>
+<li class="chapter" data-level="3.4.8" data-path="describedata.html"><a href="describedata.html#numerical-summaries-in-r"><i class="fa fa-check"></i><b>3.4.8</b> Numerical summaries in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="describedata.html"><a href="describedata.html#visual-summaries"><i class="fa fa-check"></i><b>3.5</b> Visual summaries</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="describedata.html"><a href="describedata.html#bar-charts"><i class="fa fa-check"></i><b>3.5.1</b> Bar charts</a></li>
+<li class="chapter" data-level="3.5.2" data-path="describedata.html"><a href="describedata.html#pie-charts"><i class="fa fa-check"></i><b>3.5.2</b> Pie charts</a></li>
+<li class="chapter" data-level="3.5.3" data-path="describedata.html"><a href="describedata.html#histograms"><i class="fa fa-check"></i><b>3.5.3</b> Histograms</a></li>
+<li class="chapter" data-level="3.5.4" data-path="describedata.html"><a href="describedata.html#boxplots"><i class="fa fa-check"></i><b>3.5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="3.5.5" data-path="describedata.html"><a href="describedata.html#basic-plots-in-r"><i class="fa fa-check"></i><b>3.5.5</b> Basic plots in R</a></li>
+<li class="chapter" data-level="3.5.6" data-path="describedata.html"><a href="describedata.html#other-plots"><i class="fa fa-check"></i><b>3.5.6</b> Other plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="describedata.html"><a href="describedata.html#summarising-the-relationship-between-two-variables"><i class="fa fa-check"></i><b>3.6</b> Summarising the relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="describedata.html"><a href="describedata.html#cross-tabulation"><i class="fa fa-check"></i><b>3.6.1</b> Cross-tabulation</a></li>
+<li class="chapter" data-level="3.6.2" data-path="describedata.html"><a href="describedata.html#side-by-side-boxplots"><i class="fa fa-check"></i><b>3.6.2</b> Side-by-side boxplots</a></li>
+<li class="chapter" data-level="3.6.3" data-path="describedata.html"><a href="describedata.html#scatter-plot"><i class="fa fa-check"></i><b>3.6.3</b> Scatter plot</a></li>
+<li class="chapter" data-level="3.6.4" data-path="describedata.html"><a href="describedata.html#quilt-plots"><i class="fa fa-check"></i><b>3.6.4</b> Quilt plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="describedata.html"><a href="describedata.html#handy-hints-when-including-tables-and-plots-into-reports"><i class="fa fa-check"></i><b>3.7</b> Handy hints when including tables and plots into reports</a></li>
+<li class="chapter" data-level="3.8" data-path="describedata.html"><a href="describedata.html#SUMdata"><i class="fa fa-check"></i><b>3.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="describedata.html"><a href="describedata.html#learning-outcomes"><i class="fa fa-check"></i><b>3.8.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="describedata.html"><a href="describedata.html#ANSdata"><i class="fa fa-check"></i><b>3.9</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>II Probability and Distributions</b></span></li>
+<li class="chapter" data-level="4" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>4</b> Probability</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="probability.html"><a href="probability.html#INTprob"><i class="fa fa-check"></i><b>4.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="probability.html"><a href="probability.html#random-phenomena-and-uncertain-outcomes"><i class="fa fa-check"></i><b>4.1.1</b> Random phenomena and uncertain outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="probability.html"><a href="probability.html#sample-spaces-and-events"><i class="fa fa-check"></i><b>4.2</b> Sample spaces and events</a></li>
+<li class="chapter" data-level="4.3" data-path="probability.html"><a href="probability.html#definition-of-probability-and-3-axioms"><i class="fa fa-check"></i><b>4.3</b> Definition of Probability and 3 Axioms</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="probability.html"><a href="probability.html#probability-1"><i class="fa fa-check"></i><b>4.3.1</b> Probability</a></li>
+<li class="chapter" data-level="4.3.2" data-path="probability.html"><a href="probability.html#three-axioms"><i class="fa fa-check"></i><b>4.3.2</b> Three Axioms</a></li>
+<li class="chapter" data-level="4.3.3" data-path="probability.html"><a href="probability.html#three-results-of-the-axioms"><i class="fa fa-check"></i><b>4.3.3</b> Three results of the Axioms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="probability.html"><a href="probability.html#independence-and-the-multiplication-rule"><i class="fa fa-check"></i><b>4.4</b> Independence and the Multiplication Rule</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="probability.html"><a href="probability.html#testing-for-independence"><i class="fa fa-check"></i><b>4.4.1</b> Testing for Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="probability.html"><a href="probability.html#conditional-probabilities"><i class="fa fa-check"></i><b>4.5</b> Conditional probabilities</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="probability.html"><a href="probability.html#independence-revisited"><i class="fa fa-check"></i><b>4.5.1</b> Independence revisited</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="probability.html"><a href="probability.html#tree-diagrams"><i class="fa fa-check"></i><b>4.6</b> Tree Diagrams</a></li>
+<li class="chapter" data-level="4.7" data-path="probability.html"><a href="probability.html#marginal-and-joint-probabilities"><i class="fa fa-check"></i><b>4.7</b> Marginal and joint probabilities</a></li>
+<li class="chapter" data-level="4.8" data-path="probability.html"><a href="probability.html#SUMprob"><i class="fa fa-check"></i><b>4.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="probability.html"><a href="probability.html#learning-objectives-1"><i class="fa fa-check"></i><b>4.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="probability.html"><a href="probability.html#ANSprob"><i class="fa fa-check"></i><b>4.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="discreterv.html"><a href="discreterv.html"><i class="fa fa-check"></i><b>5</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="discreterv.html"><a href="discreterv.html#INTdiscrv"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="discreterv.html"><a href="discreterv.html#discrete-random-variables"><i class="fa fa-check"></i><b>5.2</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="discreterv.html"><a href="discreterv.html#probability-mass-function"><i class="fa fa-check"></i><b>5.2.1</b> Probability mass function</a></li>
+<li class="chapter" data-level="5.2.2" data-path="discreterv.html"><a href="discreterv.html#cumulative-distribution-function"><i class="fa fa-check"></i><b>5.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="5.2.3" data-path="discreterv.html"><a href="discreterv.html#expectation"><i class="fa fa-check"></i><b>5.2.3</b> Expectation</a></li>
+<li class="chapter" data-level="5.2.4" data-path="discreterv.html"><a href="discreterv.html#variance"><i class="fa fa-check"></i><b>5.2.4</b> Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="discreterv.html"><a href="discreterv.html#special-discrete-distributions"><i class="fa fa-check"></i><b>5.3</b> Special discrete distributions</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="discreterv.html"><a href="discreterv.html#bernoulli-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="5.3.2" data-path="discreterv.html"><a href="discreterv.html#binomial-distribution"><i class="fa fa-check"></i><b>5.3.2</b> Binomial distribution</a></li>
+<li class="chapter" data-level="5.3.3" data-path="discreterv.html"><a href="discreterv.html#poisdist"><i class="fa fa-check"></i><b>5.3.3</b> Poisson distribution</a></li>
+<li class="chapter" data-level="5.3.4" data-path="discreterv.html"><a href="discreterv.html#comparison-of-binomial-and-poisson-distributions"><i class="fa fa-check"></i><b>5.3.4</b> Comparison of binomial and Poisson distributions?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="discreterv.html"><a href="discreterv.html#SUMdiscrv"><i class="fa fa-check"></i><b>5.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="discreterv.html"><a href="discreterv.html#learning-outcomes-1"><i class="fa fa-check"></i><b>5.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="discreterv.html"><a href="discreterv.html#ANSdiscrv"><i class="fa fa-check"></i><b>5.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="contrv.html"><a href="contrv.html"><i class="fa fa-check"></i><b>6</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="contrv.html"><a href="contrv.html#INTcontrv"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="contrv.html"><a href="contrv.html#continuous-random-variables"><i class="fa fa-check"></i><b>6.2</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="contrv.html"><a href="contrv.html#probability-density-function"><i class="fa fa-check"></i><b>6.2.1</b> Probability density function</a></li>
+<li class="chapter" data-level="6.2.2" data-path="contrv.html"><a href="contrv.html#cumulative-distribution-function-1"><i class="fa fa-check"></i><b>6.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="6.2.3" data-path="contrv.html"><a href="contrv.html#expectation-and-variance-1"><i class="fa fa-check"></i><b>6.2.3</b> Expectation and variance</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="contrv.html"><a href="contrv.html#special-continuous-distributions"><i class="fa fa-check"></i><b>6.3</b> Special continuous distributions</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="contrv.html"><a href="contrv.html#normal-distribution"><i class="fa fa-check"></i><b>6.3.1</b> normal distribution</a></li>
+<li class="chapter" data-level="6.3.2" data-path="contrv.html"><a href="contrv.html#standard-normal-distribution"><i class="fa fa-check"></i><b>6.3.2</b> Standard normal distribution</a></li>
+<li class="chapter" data-level="6.3.3" data-path="contrv.html"><a href="contrv.html#simple-transformations-of-random-variables"><i class="fa fa-check"></i><b>6.3.3</b> Simple transformations of random variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="contrv.html"><a href="contrv.html#SUMcontrv"><i class="fa fa-check"></i><b>6.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="contrv.html"><a href="contrv.html#learning-outcomes-2"><i class="fa fa-check"></i><b>6.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="contrv.html"><a href="contrv.html#ANScontrv"><i class="fa fa-check"></i><b>6.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="CIformean.html"><a href="CIformean.html"><i class="fa fa-check"></i><b>7</b> Confidence intervals for sample means</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="CIformean.html"><a href="CIformean.html#INTci"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="CIformean.html"><a href="CIformean.html#uncertainty-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2</b> Uncertainty of the sample mean</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="CIformean.html"><a href="CIformean.html#precision-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2.1</b> Precision of the sample mean</a></li>
+<li class="chapter" data-level="7.2.2" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-known-sigma"><i class="fa fa-check"></i><b>7.2.2</b> Confidence interval with known <span class="math inline">\(\sigma\)</span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-unknown-sigma"><i class="fa fa-check"></i><b>7.2.3</b> Confidence interval with unknown <span class="math inline">\(\sigma\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="CIformean.html"><a href="CIformean.html#difference-between-two-group-means"><i class="fa fa-check"></i><b>7.3</b> Difference between two group means</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="CIformean.html"><a href="CIformean.html#assuming-equal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.1</b> Assuming equal standard deviations of the two groups</a></li>
+<li class="chapter" data-level="7.3.2" data-path="CIformean.html"><a href="CIformean.html#assuming-unequal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.2</b> Assuming unequal standard deviations of the two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="CIformean.html"><a href="CIformean.html#empirical-bootstrap-based-confidence-intervals"><i class="fa fa-check"></i><b>7.4</b> Empirical (bootstrap-based) confidence intervals</a></li>
+<li class="chapter" data-level="7.5" data-path="CIformean.html"><a href="CIformean.html#confidence-intervals-for-other-sample-statistics"><i class="fa fa-check"></i><b>7.5</b> Confidence intervals for other sample statistics</a></li>
+<li class="chapter" data-level="7.6" data-path="CIformean.html"><a href="CIformean.html#SUMci"><i class="fa fa-check"></i><b>7.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="CIformean.html"><a href="CIformean.html#learning-outcomes-3"><i class="fa fa-check"></i><b>7.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="CIformean.html"><a href="CIformean.html#ANSci"><i class="fa fa-check"></i><b>7.7</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>III Hypothesis Testing</b></span></li>
+<li class="chapter" data-level="8" data-path="hypothtests.html"><a href="hypothtests.html"><i class="fa fa-check"></i><b>8</b> Hypothesis Tests</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="hypothtests.html"><a href="hypothtests.html#INThyp"><i class="fa fa-check"></i><b>8.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="hypothtests.html"><a href="hypothtests.html#types-of-hypotheses"><i class="fa fa-check"></i><b>8.1.1</b> Types of hypotheses</a></li>
+<li class="chapter" data-level="8.1.2" data-path="hypothtests.html"><a href="hypothtests.html#how-do-hypothesis-tests-work"><i class="fa fa-check"></i><b>8.1.2</b> How do hypothesis tests work?</a></li>
+<li class="chapter" data-level="8.1.3" data-path="hypothtests.html"><a href="hypothtests.html#one-sample-t-test"><i class="fa fa-check"></i><b>8.1.3</b> One sample <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="hypothtests.html"><a href="hypothtests.html#two-sample-t-test"><i class="fa fa-check"></i><b>8.2</b> Two sample <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-13"><i class="fa fa-check"></i><b>8.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="hypothtests.html"><a href="hypothtests.html#paired-t-test"><i class="fa fa-check"></i><b>8.3</b> Paired <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-14"><i class="fa fa-check"></i><b>8.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="hypothtests.html"><a href="hypothtests.html#t-test-assumptions"><i class="fa fa-check"></i><b>8.4</b> <span class="math inline">\(t\)</span> test assumptions</a></li>
+<li class="chapter" data-level="8.5" data-path="hypothtests.html"><a href="hypothtests.html#non-parametric-alternative-to-t-tests"><i class="fa fa-check"></i><b>8.5</b> Non-parametric alternative to <span class="math inline">\(t\)</span> tests</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="hypothtests.html"><a href="hypothtests.html#mann-whitney-wilcoxon-test"><i class="fa fa-check"></i><b>8.5.1</b> Mann-Whitney-Wilcoxon test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="hypothtests.html"><a href="hypothtests.html#practical-significance-versus-statistical-significance"><i class="fa fa-check"></i><b>8.6</b> Practical significance versus statistical significance</a></li>
+<li class="chapter" data-level="8.7" data-path="hypothtests.html"><a href="hypothtests.html#SUMhyp"><i class="fa fa-check"></i><b>8.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="hypothtests.html"><a href="hypothtests.html#learning-outcomes-4"><i class="fa fa-check"></i><b>8.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="hypothtests.html"><a href="hypothtests.html#ANShyp"><i class="fa fa-check"></i><b>8.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>9</b> Analysis of Variance</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="anova.html"><a href="anova.html#INTanova"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="anova.html"><a href="anova.html#multiple-comparisons"><i class="fa fa-check"></i><b>9.2</b> Multiple comparisons</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="anova.html"><a href="anova.html#type-i-and-type-ii-error"><i class="fa fa-check"></i><b>9.2.1</b> Type I and Type II error</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="anova.html"><a href="anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.3</b> ANalysis Of VAriance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="anova.html"><a href="anova.html#f-test-statistic-for-anova"><i class="fa fa-check"></i><b>9.3.1</b> <span class="math inline">\(F\)</span> test statistic for ANOVA</a></li>
+<li class="chapter" data-level="9.3.2" data-path="anova.html"><a href="anova.html#calculating-an-anova-table"><i class="fa fa-check"></i><b>9.3.2</b> Calculating an ANOVA table</a></li>
+<li class="chapter" data-level="9.3.3" data-path="anova.html"><a href="anova.html#f-distribution"><i class="fa fa-check"></i><b>9.3.3</b> <span class="math inline">\(F\)</span> distribution</a></li>
+<li class="chapter" data-level="9.3.4" data-path="anova.html"><a href="anova.html#doing-this-in-r-16"><i class="fa fa-check"></i><b>9.3.4</b> Doing this in R</a></li>
+<li class="chapter" data-level="9.3.5" data-path="anova.html"><a href="anova.html#assumptions"><i class="fa fa-check"></i><b>9.3.5</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="anova.html"><a href="anova.html#identifying-differences-and-more-on-multiple-comparisons"><i class="fa fa-check"></i><b>9.4</b> Identifying differences (and more on multiple comparisons)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="anova.html"><a href="anova.html#bonferroni-correction"><i class="fa fa-check"></i><b>9.4.1</b> Bonferroni correction</a></li>
+<li class="chapter" data-level="9.4.2" data-path="anova.html"><a href="anova.html#sidak-adjustment"><i class="fa fa-check"></i><b>9.4.2</b> Sidak adjustment</a></li>
+<li class="chapter" data-level="9.4.3" data-path="anova.html"><a href="anova.html#tukeys-honest-significant-difference-hsd"><i class="fa fa-check"></i><b>9.4.3</b> Tukey’s Honest Significant Difference (HSD)</a></li>
+<li class="chapter" data-level="9.4.4" data-path="anova.html"><a href="anova.html#multiple-comparison-controversy"><i class="fa fa-check"></i><b>9.4.4</b> Multiple comparison controversy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="anova.html"><a href="anova.html#alternative-tests-to-anova"><i class="fa fa-check"></i><b>9.5</b> Alternative tests to ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="anova.html"><a href="anova.html#doing-this-in-r-18"><i class="fa fa-check"></i><b>9.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="anova.html"><a href="anova.html#SUManova"><i class="fa fa-check"></i><b>9.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="anova.html"><a href="anova.html#learning-outcomes-5"><i class="fa fa-check"></i><b>9.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="anova.html"><a href="anova.html#ANSanova"><i class="fa fa-check"></i><b>9.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="power.html"><a href="power.html"><i class="fa fa-check"></i><b>10</b> Statistical Power</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="power.html"><a href="power.html#INTpower"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="power.html"><a href="power.html#a-motivating-example---environmental-impact-assessment"><i class="fa fa-check"></i><b>10.2</b> A motivating example - Environmental impact assessment</a></li>
+<li class="chapter" data-level="10.3" data-path="power.html"><a href="power.html#calculating-power"><i class="fa fa-check"></i><b>10.3</b> Calculating power</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="power.html"><a href="power.html#increasing-the-power"><i class="fa fa-check"></i><b>10.3.1</b> Increasing the power</a></li>
+<li class="chapter" data-level="10.3.2" data-path="power.html"><a href="power.html#power-by-simulation"><i class="fa fa-check"></i><b>10.3.2</b> Power by simulation</a></li>
+<li class="chapter" data-level="10.3.3" data-path="power.html"><a href="power.html#multiple-comparisons-1"><i class="fa fa-check"></i><b>10.3.3</b> Multiple comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="power.html"><a href="power.html#SUMpower"><i class="fa fa-check"></i><b>10.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="power.html"><a href="power.html#learning-objectives-2"><i class="fa fa-check"></i><b>10.4.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="power.html"><a href="power.html#ANSpower"><i class="fa fa-check"></i><b>10.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="proportions.html"><a href="proportions.html"><i class="fa fa-check"></i><b>11</b> Proportions</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="proportions.html"><a href="proportions.html#INTprop"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals"><i class="fa fa-check"></i><b>11.2</b> Confidence intervals</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="proportions.html"><a href="proportions.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>11.2.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="11.2.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals-large-sample-sizes"><i class="fa fa-check"></i><b>11.2.2</b> Confidence intervals: large sample sizes</a></li>
+<li class="chapter" data-level="11.2.3" data-path="proportions.html"><a href="proportions.html#confidence-intervals-small-sample-sizes"><i class="fa fa-check"></i><b>11.2.3</b> Confidence intervals: small sample sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="proportions.html"><a href="proportions.html#comparing-two-proportions-the-z-test"><i class="fa fa-check"></i><b>11.3</b> Comparing two proportions: the <span class="math inline">\(z\)</span> test</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="proportions.html"><a href="proportions.html#testing-for-no-difference-between-groups"><i class="fa fa-check"></i><b>11.3.1</b> Testing for ‘no difference’ between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="proportions.html"><a href="proportions.html#ci-for-the-difference-between-population-proportions-p_1-p_2"><i class="fa fa-check"></i><b>11.4</b> CI for the difference between population proportions, (<span class="math inline">\(p_1-p_2\)</span>)</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="proportions.html"><a href="proportions.html#choosing-the-appropriate-standard-error-when-comparing-proportions"><i class="fa fa-check"></i><b>11.4.1</b> Choosing the appropriate standard error when comparing proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="proportions.html"><a href="proportions.html#odds-ratios"><i class="fa fa-check"></i><b>11.5</b> Odds ratios</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success"><i class="fa fa-check"></i><b>11.5.1</b> Calculating the odds of success</a></li>
+<li class="chapter" data-level="11.5.2" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success-for-2-x-2-tables"><i class="fa fa-check"></i><b>11.5.2</b> Calculating the odds of success for 2 x 2 tables</a></li>
+<li class="chapter" data-level="11.5.3" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-ratio"><i class="fa fa-check"></i><b>11.5.3</b> Calculating the odds ratio</a></li>
+<li class="chapter" data-level="11.5.4" data-path="proportions.html"><a href="proportions.html#confidence-intervals-for-odds-ratios"><i class="fa fa-check"></i><b>11.5.4</b> Confidence intervals for odds ratios</a></li>
+<li class="chapter" data-level="11.5.5" data-path="proportions.html"><a href="proportions.html#final-note-on-odds-ratios"><i class="fa fa-check"></i><b>11.5.5</b> Final note on odds ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="proportions.html"><a href="proportions.html#SUMprop"><i class="fa fa-check"></i><b>11.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="11.6.1" data-path="proportions.html"><a href="proportions.html#learning-outcomes-6"><i class="fa fa-check"></i><b>11.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="proportions.html"><a href="proportions.html#ANSprop"><i class="fa fa-check"></i><b>11.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="tableofcounts.html"><a href="tableofcounts.html"><i class="fa fa-check"></i><b>12</b> Tables of counts</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="tableofcounts.html"><a href="tableofcounts.html#introduction"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-goodness-of-fit-test"><i class="fa fa-check"></i><b>12.2</b> <span class="math inline">\(\chi^2\)</span> goodness-of-fit test</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-22"><i class="fa fa-check"></i><b>12.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-test-of-independence"><i class="fa fa-check"></i><b>12.3</b> <span class="math inline">\(\chi^2\)</span> test of independence</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-23"><i class="fa fa-check"></i><b>12.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="tableofcounts.html"><a href="tableofcounts.html#test-assumptions"><i class="fa fa-check"></i><b>12.4</b> Test assumptions</a></li>
+<li class="chapter" data-level="12.5" data-path="tableofcounts.html"><a href="tableofcounts.html#summary"><i class="fa fa-check"></i><b>12.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="tableofcounts.html"><a href="tableofcounts.html#learning-outcomes-7"><i class="fa fa-check"></i><b>12.5.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="tableofcounts.html"><a href="tableofcounts.html#answers"><i class="fa fa-check"></i><b>12.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>IV Regression and Linear Models</b></span></li>
+<li class="chapter" data-level="13" data-path="correg.html"><a href="correg.html"><i class="fa fa-check"></i><b>13</b> Correlation and Regression</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="correg.html"><a href="correg.html#introcorreg"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.2" data-path="correg.html"><a href="correg.html#correlation"><i class="fa fa-check"></i><b>13.2</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="correg.html"><a href="correg.html#significance-of-r"><i class="fa fa-check"></i><b>13.2.1</b> Significance of <span class="math inline">\(r\)</span></a></li>
+<li class="chapter" data-level="13.2.2" data-path="correg.html"><a href="correg.html#correlation-and-causation"><i class="fa fa-check"></i><b>13.2.2</b> Correlation and causation</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="correg.html"><a href="correg.html#regression"><i class="fa fa-check"></i><b>13.3</b> Regression</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="correg.html"><a href="correg.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>13.3.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="13.3.2" data-path="correg.html"><a href="correg.html#model-specification"><i class="fa fa-check"></i><b>13.3.2</b> Model specification</a></li>
+<li class="chapter" data-level="13.3.3" data-path="correg.html"><a href="correg.html#which-straight-line-to-choose"><i class="fa fa-check"></i><b>13.3.3</b> Which straight line to choose?</a></li>
+<li class="chapter" data-level="13.3.4" data-path="correg.html"><a href="correg.html#fitting-the-model-the-details"><i class="fa fa-check"></i><b>13.3.4</b> Fitting the model: the details</a></li>
+<li class="chapter" data-level="13.3.5" data-path="correg.html"><a href="correg.html#predictions"><i class="fa fa-check"></i><b>13.3.5</b> Predictions</a></li>
+<li class="chapter" data-level="13.3.6" data-path="correg.html"><a href="correg.html#the-variance-estimate"><i class="fa fa-check"></i><b>13.3.6</b> The variance estimate</a></li>
+<li class="chapter" data-level="13.3.7" data-path="correg.html"><a href="correg.html#introduction-to-the-matrix-form"><i class="fa fa-check"></i><b>13.3.7</b> Introduction to the matrix form</a></li>
+<li class="chapter" data-level="13.3.8" data-path="correg.html"><a href="correg.html#regression-in-practise"><i class="fa fa-check"></i><b>13.3.8</b> Regression in practise</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="correg.html"><a href="correg.html#SUMcorreg"><i class="fa fa-check"></i><b>13.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="correg.html"><a href="correg.html#learning-outcomes-8"><i class="fa fa-check"></i><b>13.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="correg.html"><a href="correg.html#ANScorreg"><i class="fa fa-check"></i><b>13.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="introlm.html"><a href="introlm.html"><i class="fa fa-check"></i><b>14</b> Introduction to the linear model</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="introlm.html"><a href="introlm.html#INTlm"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-a-t-test"><i class="fa fa-check"></i><b>14.2</b> The linear model as a <span class="math inline">\(t\)</span> test</a></li>
+<li class="chapter" data-level="14.3" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-analysis-of-variance"><i class="fa fa-check"></i><b>14.3</b> The linear model as analysis of variance</a></li>
+<li class="chapter" data-level="14.4" data-path="introlm.html"><a href="introlm.html#simple-linear-regression-again"><i class="fa fa-check"></i><b>14.4</b> Simple linear regression (again)</a></li>
+<li class="chapter" data-level="14.5" data-path="introlm.html"><a href="introlm.html#model-performance"><i class="fa fa-check"></i><b>14.5</b> Model performance</a></li>
+<li class="chapter" data-level="14.6" data-path="introlm.html"><a href="introlm.html#multiple-regression"><i class="fa fa-check"></i><b>14.6</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="introlm.html"><a href="introlm.html#the-eia-data-again"><i class="fa fa-check"></i><b>14.6.1</b> The EIA data again</a></li>
+<li class="chapter" data-level="14.6.2" data-path="introlm.html"><a href="introlm.html#model-specification-1"><i class="fa fa-check"></i><b>14.6.2</b> Model specification</a></li>
+<li class="chapter" data-level="14.6.3" data-path="introlm.html"><a href="introlm.html#types-of-covariates"><i class="fa fa-check"></i><b>14.6.3</b> Types of covariates</a></li>
+<li class="chapter" data-level="14.6.4" data-path="introlm.html"><a href="introlm.html#model-fitting"><i class="fa fa-check"></i><b>14.6.4</b> Model fitting</a></li>
+<li class="chapter" data-level="14.6.5" data-path="introlm.html"><a href="introlm.html#parameter-interpretation"><i class="fa fa-check"></i><b>14.6.5</b> Parameter Interpretation</a></li>
+<li class="chapter" data-level="14.6.6" data-path="introlm.html"><a href="introlm.html#parameter-uncertainty"><i class="fa fa-check"></i><b>14.6.6</b> Parameter uncertainty</a></li>
+<li class="chapter" data-level="14.6.7" data-path="introlm.html"><a href="introlm.html#confidence-intervals-cis-on-parameters"><i class="fa fa-check"></i><b>14.6.7</b> Confidence intervals (CIs) on parameters</a></li>
+<li class="chapter" data-level="14.6.8" data-path="introlm.html"><a href="introlm.html#hypothesis-testing"><i class="fa fa-check"></i><b>14.6.8</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="14.6.9" data-path="introlm.html"><a href="introlm.html#model-performance-1"><i class="fa fa-check"></i><b>14.6.9</b> Model performance</a></li>
+<li class="chapter" data-level="14.6.10" data-path="introlm.html"><a href="introlm.html#more-covariates-of-mixed-types"><i class="fa fa-check"></i><b>14.6.10</b> More covariates of mixed types</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="introlm.html"><a href="introlm.html#the-matrix-interpretation-of-a-linear-model"><i class="fa fa-check"></i><b>14.7</b> The matrix interpretation of a linear model</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="introlm.html"><a href="introlm.html#dummy-variables"><i class="fa fa-check"></i><b>14.7.1</b> Dummy variables</a></li>
+<li class="chapter" data-level="14.7.2" data-path="introlm.html"><a href="introlm.html#combining-factors-and-continuous-variables"><i class="fa fa-check"></i><b>14.7.2</b> Combining factors and continuous variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.8" data-path="introlm.html"><a href="introlm.html#SUMlm"><i class="fa fa-check"></i><b>14.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="14.8.1" data-path="introlm.html"><a href="introlm.html#learning-objectives-3"><i class="fa fa-check"></i><b>14.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="14.9" data-path="introlm.html"><a href="introlm.html#ANSlm"><i class="fa fa-check"></i><b>14.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="modelselection.html"><a href="modelselection.html"><i class="fa fa-check"></i><b>15</b> Model selection</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="modelselection.html"><a href="modelselection.html#INTmodsel"><i class="fa fa-check"></i><b>15.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="modelselection.html"><a href="modelselection.html#criteria-for-model-selection"><i class="fa fa-check"></i><b>15.1.1</b> Criteria for model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="modelselection.html"><a href="modelselection.html#collinearity"><i class="fa fa-check"></i><b>15.2</b> Collinearity</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="modelselection.html"><a href="modelselection.html#variance-inflation-factors"><i class="fa fa-check"></i><b>15.2.1</b> Variance inflation factors</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="modelselection.html"><a href="modelselection.html#p-value-based-model-selection-the-f-test"><i class="fa fa-check"></i><b>15.3</b> <span class="math inline">\(p\)</span>-value based model selection: the <span class="math inline">\(F\)</span>-test</a></li>
+<li class="chapter" data-level="15.4" data-path="modelselection.html"><a href="modelselection.html#relative-model-fit"><i class="fa fa-check"></i><b>15.4</b> Relative model fit</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="modelselection.html"><a href="modelselection.html#akaikes-information-criterion-aic"><i class="fa fa-check"></i><b>15.4.1</b> Akaike’s Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="modelselection.html"><a href="modelselection.html#other-methods-of-model-selection"><i class="fa fa-check"></i><b>15.5</b> Other methods of model selection</a></li>
+<li class="chapter" data-level="15.6" data-path="modelselection.html"><a href="modelselection.html#automated-variable-selection"><i class="fa fa-check"></i><b>15.6</b> Automated variable selection</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="modelselection.html"><a href="modelselection.html#stepwise-selection"><i class="fa fa-check"></i><b>15.6.1</b> Stepwise selection</a></li>
+<li class="chapter" data-level="15.6.2" data-path="modelselection.html"><a href="modelselection.html#all-possible-subsets-selection"><i class="fa fa-check"></i><b>15.6.2</b> All possible subsets selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="modelselection.html"><a href="modelselection.html#example-model-selection-with-the-medical-data"><i class="fa fa-check"></i><b>15.7</b> Example: model selection with the medical data</a>
+<ul>
+<li class="chapter" data-level="15.7.1" data-path="modelselection.html"><a href="modelselection.html#model-specification-3"><i class="fa fa-check"></i><b>15.7.1</b> Model specification</a></li>
+<li class="chapter" data-level="15.7.2" data-path="modelselection.html"><a href="modelselection.html#interpreting-the-parameter-estimates"><i class="fa fa-check"></i><b>15.7.2</b> Interpreting the parameter estimates</a></li>
+<li class="chapter" data-level="15.7.3" data-path="modelselection.html"><a href="modelselection.html#what-should-be-in-the-model"><i class="fa fa-check"></i><b>15.7.3</b> What ‘should’ be in the model?</a></li>
+<li class="chapter" data-level="15.7.4" data-path="modelselection.html"><a href="modelselection.html#what-terms-are-significant"><i class="fa fa-check"></i><b>15.7.4</b> What terms are significant?</a></li>
+<li class="chapter" data-level="15.7.5" data-path="modelselection.html"><a href="modelselection.html#more-automated-methods"><i class="fa fa-check"></i><b>15.7.5</b> More automated methods</a></li>
+</ul></li>
+<li class="chapter" data-level="15.8" data-path="modelselection.html"><a href="modelselection.html#SUMmodsel"><i class="fa fa-check"></i><b>15.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="15.8.1" data-path="modelselection.html"><a href="modelselection.html#learning-objectives-4"><i class="fa fa-check"></i><b>15.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="15.9" data-path="modelselection.html"><a href="modelselection.html#ANSmodsel"><i class="fa fa-check"></i><b>15.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="interac.html"><a href="interac.html"><i class="fa fa-check"></i><b>16</b> Interactions and the Linear Model</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="interac.html"><a href="interac.html#INTinterac"><i class="fa fa-check"></i><b>16.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="interac.html"><a href="interac.html#fitting-different-models"><i class="fa fa-check"></i><b>16.1.1</b> Fitting different models</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="interac.html"><a href="interac.html#fitting-interaction-terms"><i class="fa fa-check"></i><b>16.2</b> Fitting interaction terms</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="interac.html"><a href="interac.html#specifying-interactions-in-model-formulae"><i class="fa fa-check"></i><b>16.2.1</b> Specifying interactions in model formulae</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="interac.html"><a href="interac.html#interactions-in-practise"><i class="fa fa-check"></i><b>16.3</b> Interactions in practise</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="interac.html"><a href="interac.html#eia-data"><i class="fa fa-check"></i><b>16.3.1</b> EIA data</a></li>
+<li class="chapter" data-level="16.3.2" data-path="interac.html"><a href="interac.html#medical-data"><i class="fa fa-check"></i><b>16.3.2</b> Medical data</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="interac.html"><a href="interac.html#model-selection-and-interactions"><i class="fa fa-check"></i><b>16.4</b> Model selection and interactions</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-eia-data-set"><i class="fa fa-check"></i><b>16.4.1</b> Backwards selection in the EIA data set</a></li>
+<li class="chapter" data-level="16.4.2" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-medical-data-set"><i class="fa fa-check"></i><b>16.4.2</b> Backwards selection in the medical data set</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="interac.html"><a href="interac.html#SUMinterac"><i class="fa fa-check"></i><b>16.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="interac.html"><a href="interac.html#learning-objectives-5"><i class="fa fa-check"></i><b>16.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="interac.html"><a href="interac.html#ANSinterac"><i class="fa fa-check"></i><b>16.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>17</b> Prediction from the linear model</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="prediction.html"><a href="prediction.html#INTpred"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="prediction.html"><a href="prediction.html#prediction-1"><i class="fa fa-check"></i><b>17.2</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-27"><i class="fa fa-check"></i><b>17.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="prediction.html"><a href="prediction.html#uncertainty-in-the-prediction"><i class="fa fa-check"></i><b>17.3</b> Uncertainty in the prediction</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-28"><i class="fa fa-check"></i><b>17.3.1</b> Doing this in R</a></li>
+<li class="chapter" data-level="17.3.2" data-path="prediction.html"><a href="prediction.html#confidence-intervals-for-the-line"><i class="fa fa-check"></i><b>17.3.2</b> Confidence intervals for the line</a></li>
+<li class="chapter" data-level="17.3.3" data-path="prediction.html"><a href="prediction.html#prediction-intervals"><i class="fa fa-check"></i><b>17.3.3</b> Prediction intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="prediction.html"><a href="prediction.html#prediction-in-multiple-regression"><i class="fa fa-check"></i><b>17.4</b> Prediction in multiple regression</a></li>
+<li class="chapter" data-level="17.5" data-path="prediction.html"><a href="prediction.html#SUMpred"><i class="fa fa-check"></i><b>17.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="prediction.html"><a href="prediction.html#learning-objectives-6"><i class="fa fa-check"></i><b>17.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="prediction.html"><a href="prediction.html#ANSpred"><i class="fa fa-check"></i><b>17.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>18</b> Linear model diagnostics</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="diagnostics.html"><a href="diagnostics.html#INTdiag"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="diagnostics.html"><a href="diagnostics.html#predictive-power"><i class="fa fa-check"></i><b>18.2</b> Predictive power</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="diagnostics.html"><a href="diagnostics.html#signal-versus-noise"><i class="fa fa-check"></i><b>18.2.1</b> Signal versus noise</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="diagnostics.html"><a href="diagnostics.html#model-assumptions"><i class="fa fa-check"></i><b>18.3</b> Model assumptions</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="diagnostics.html"><a href="diagnostics.html#normality-assumption"><i class="fa fa-check"></i><b>18.3.1</b> Normality assumption</a></li>
+<li class="chapter" data-level="18.3.2" data-path="diagnostics.html"><a href="diagnostics.html#assessing-constant-error-variance"><i class="fa fa-check"></i><b>18.3.2</b> Assessing constant error variance</a></li>
+<li class="chapter" data-level="18.3.3" data-path="diagnostics.html"><a href="diagnostics.html#assessing-independence"><i class="fa fa-check"></i><b>18.3.3</b> Assessing independence</a></li>
+<li class="chapter" data-level="18.3.4" data-path="diagnostics.html"><a href="diagnostics.html#pseudoreplication"><i class="fa fa-check"></i><b>18.3.4</b> Pseudoreplication</a></li>
+<li class="chapter" data-level="18.3.5" data-path="diagnostics.html"><a href="diagnostics.html#linearity-in-the-model-for-the-signal"><i class="fa fa-check"></i><b>18.3.5</b> Linearity in the model for the signal</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="diagnostics.html"><a href="diagnostics.html#example-diagnostics-with-the-medical-data"><i class="fa fa-check"></i><b>18.4</b> Example: Diagnostics with the medical data</a></li>
+<li class="chapter" data-level="18.5" data-path="diagnostics.html"><a href="diagnostics.html#partial-residual-plots"><i class="fa fa-check"></i><b>18.5</b> Partial residual plots</a>
+<ul>
+<li class="chapter" data-level="18.5.1" data-path="diagnostics.html"><a href="diagnostics.html#doing-this-in-r-30"><i class="fa fa-check"></i><b>18.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="18.6" data-path="diagnostics.html"><a href="diagnostics.html#interaction-terms"><i class="fa fa-check"></i><b>18.6</b> Interaction Terms</a></li>
+<li class="chapter" data-level="18.7" data-path="diagnostics.html"><a href="diagnostics.html#SUMdiag"><i class="fa fa-check"></i><b>18.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="18.7.1" data-path="diagnostics.html"><a href="diagnostics.html#learning-outcomes-9"><i class="fa fa-check"></i><b>18.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="18.8" data-path="diagnostics.html"><a href="diagnostics.html#ANSdiag"><i class="fa fa-check"></i><b>18.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="nextsteps.html"><a href="nextsteps.html"><i class="fa fa-check"></i><b>19</b> The Next Steps</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="nextsteps.html"><a href="nextsteps.html#INTnext"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="nextsteps.html"><a href="nextsteps.html#solving-the-assumptional-problems"><i class="fa fa-check"></i><b>19.2</b> Solving the assumptional problems</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="nextsteps.html"><a href="nextsteps.html#example-the-eia-data"><i class="fa fa-check"></i><b>19.2.1</b> Example: The EIA data</a></li>
+<li class="chapter" data-level="19.2.2" data-path="nextsteps.html"><a href="nextsteps.html#oddly-distributed-residuals"><i class="fa fa-check"></i><b>19.2.2</b> Oddly distributed residuals</a></li>
+<li class="chapter" data-level="19.2.3" data-path="nextsteps.html"><a href="nextsteps.html#non-independence"><i class="fa fa-check"></i><b>19.2.3</b> Non-independence</a></li>
+<li class="chapter" data-level="19.2.4" data-path="nextsteps.html"><a href="nextsteps.html#non-linearity"><i class="fa fa-check"></i><b>19.2.4</b> Non-linearity</a></li>
+<li class="chapter" data-level="19.2.5" data-path="nextsteps.html"><a href="nextsteps.html#bootstrapping"><i class="fa fa-check"></i><b>19.2.5</b> Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="nextsteps.html"><a href="nextsteps.html#summary-1"><i class="fa fa-check"></i><b>19.3</b> Summary</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="nextsteps.html"><a href="nextsteps.html#learning-outcomes-10"><i class="fa fa-check"></i><b>19.3.1</b> Learning outcomes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="notation.html"><a href="notation.html"><i class="fa fa-check"></i><b>20</b> Notation {-}</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="notation.html"><a href="notation.html#summation"><i class="fa fa-check"></i><b>20.1</b> Summation</a></li>
+<li class="chapter" data-level="20.2" data-path="notation.html"><a href="notation.html#factorial"><i class="fa fa-check"></i><b>20.2</b> Factorial</a></li>
+<li class="chapter" data-level="20.3" data-path="notation.html"><a href="notation.html#combinations"><i class="fa fa-check"></i><b>20.3</b> Combinations</a></li>
+<li class="chapter" data-level="20.4" data-path="notation.html"><a href="notation.html#multiplication"><i class="fa fa-check"></i><b>20.4</b> Multiplication</a></li>
+<li class="chapter" data-level="20.5" data-path="notation.html"><a href="notation.html#integration"><i class="fa fa-check"></i><b>20.5</b> Integration</a></li>
+<li class="chapter" data-level="20.6" data-path="notation.html"><a href="notation.html#matrix-multiplication"><i class="fa fa-check"></i><b>20.6</b> Matrix multiplication</a></li>
+<li class="chapter" data-level="20.7" data-path="notation.html"><a href="notation.html#absolute-values"><i class="fa fa-check"></i><b>20.7</b> Absolute values</a></li>
+<li class="chapter" data-level="20.8" data-path="notation.html"><a href="notation.html#pi"><i class="fa fa-check"></i><b>20.8</b> <span class="math inline">\(\pi\)</span></a></li>
+<li class="chapter" data-level="20.9" data-path="notation.html"><a href="notation.html#exponential-function-e"><i class="fa fa-check"></i><b>20.9</b> Exponential function, <span class="math inline">\(e\)</span></a></li>
+<li class="chapter" data-level="20.10" data-path="notation.html"><a href="notation.html#intervals"><i class="fa fa-check"></i><b>20.10</b> Intervals</a></li>
+<li class="chapter" data-level="20.11" data-path="notation.html"><a href="notation.html#axes-on-plots"><i class="fa fa-check"></i><b>20.11</b> Axes on plots</a></li>
+<li class="chapter" data-level="20.12" data-path="notation.html"><a href="notation.html#probability-2"><i class="fa fa-check"></i><b>20.12</b> Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tableofcounts" class="section level1" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Tables of counts</h1>
+<div id="introduction" class="section level2" number="12.1">
+<h2><span class="header-section-number">12.1</span> Introduction</h2>
+<p>Sometimes our data are summarised as tables of counts (or contingency tables); this might be a frequency distribution if there is only one variable (one-way table) or as a cross-tabulation if there are two discrete variables (two-way table). We can still ask questions of these data to test hypotheses and the general approach is similar to that previously described but the reference distribution used is a <span class="math inline">\(\chi^2\)</span> (pronounced ‘chi-square’) distribution.</p>
+<p>Chi-square tests on contingency tables look at the distributions of counts over the cells (in the table) and we ask does a particular row or column distribution differ significantly from some other distribution. We consider two different types of test; a goodness-of-fit test used on a one-way table and a test of independence used on a cross-tabulation. As usual, the validity of conclusions based on these tests rely on some assumptions being met and these are described.</p>
+</div>
+<div id="chi2-goodness-of-fit-test" class="section level2" number="12.2">
+<h2><span class="header-section-number">12.2</span> <span class="math inline">\(\chi^2\)</span> goodness-of-fit test</h2>
+<p>As a motivating example, we consider data collected from the Scottish Schools Adolescent Lifestyle and Substance Use Survey (SALSUS) established by the Scottish Executive to monitor substance use among young people in Scotland. School pupils in independent and local authority schools were targeted and the data we use are from 2002 - the total sample size was 22,246 pupils.</p>
+<p>Pupils were asked to record the ethnic group to which they identified, (note that the groups were then combined into five broad categories); the numbers in each group are shown in Table <a href="tableofcounts.html#tab:pupilgroup">12.1</a>.</p>
+<table style="width:28%;">
+<caption><span id="tab:pupilgroup">Table 12.1: </span> Observed numbers of school pupils in each ethnic group.</caption>
+<colgroup>
+<col width="11%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Group</th>
+<th align="center">Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">White</td>
+<td align="center">21249</td>
+</tr>
+<tr class="even">
+<td align="center">Asian</td>
+<td align="center">408</td>
+</tr>
+<tr class="odd">
+<td align="center">Black</td>
+<td align="center">113</td>
+</tr>
+<tr class="even">
+<td align="center">Mixed</td>
+<td align="center">204</td>
+</tr>
+<tr class="odd">
+<td align="center">Other</td>
+<td align="center">272</td>
+</tr>
+<tr class="even">
+<td align="center">Total</td>
+<td align="center">22246</td>
+</tr>
+</tbody>
+</table>
+<p>We want to assess the similarity of the ethnicity recorded in the SALSUS sample to that of the population in Scotland. Table <a href="tableofcounts.html#tab:pupilgroup2">12.2</a> shows the proportions of the ethnic groups recorded in the census.</p>
+<table style="width:29%;">
+<caption><span id="tab:pupilgroup2">Table 12.2: </span> Proportion of the population of Scotland in each ethnic group obtained from the census.</caption>
+<colgroup>
+<col width="11%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Group</th>
+<th align="center">Proportion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">White</td>
+<td align="center">0.9726</td>
+</tr>
+<tr class="even">
+<td align="center">Asian</td>
+<td align="center">0.018</td>
+</tr>
+<tr class="odd">
+<td align="center">Black</td>
+<td align="center">0.0014</td>
+</tr>
+<tr class="even">
+<td align="center">Mixed</td>
+<td align="center">0.005</td>
+</tr>
+<tr class="odd">
+<td align="center">Other</td>
+<td align="center">0.003</td>
+</tr>
+</tbody>
+</table>
+<p>As for all tests, we have a null (<span class="math inline">\(H_0\)</span>) and alternative hypothesis (<span class="math inline">\(H_1\)</span>). In this case we want to test:</p>
+<p><span class="math display">\[H_0: \textrm{the ethnicity in the sample is the same as the ethnicity in the population}\]</span></p>
+<p><span class="math display">\[H_1: \textrm{the ethnicity in the sample is not the same as the ethnicity in the population}\]</span></p>
+<p>The first step is to calculate what frequencies we would <strong>expect</strong> to see if the sample reflected the census population. These expected frequencies for each group (or cell in the table) can be obtained by:</p>
+<p><span class="math display">\[\textrm{Expected value} = \textrm{total sample size} \times \textrm{expected cell proportion}\]</span>
+Thus, for the ‘white’ group, the expected value is</p>
+<p><span class="math display">\[ \textrm{Expected value} = 22246 \times 0.9726 = 21636.46\]</span></p>
+<p>These expected values can be obtained for all groups (Table <a href="tableofcounts.html#tab:pupilgroup3">12.3</a>).</p>
+<table style="width:44%;">
+<caption><span id="tab:pupilgroup3">Table 12.3: </span> The observed frequencies from the SALSUS and the expected values according to the census.</caption>
+<colgroup>
+<col width="11%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Group</th>
+<th align="center">Frequency</th>
+<th align="center">Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">White</td>
+<td align="center">21249</td>
+<td align="center">21636</td>
+</tr>
+<tr class="even">
+<td align="center">Asian</td>
+<td align="center">408</td>
+<td align="center">400.4</td>
+</tr>
+<tr class="odd">
+<td align="center">Black</td>
+<td align="center">113</td>
+<td align="center">31.14</td>
+</tr>
+<tr class="even">
+<td align="center">Mixed</td>
+<td align="center">204</td>
+<td align="center">111.2</td>
+</tr>
+<tr class="odd">
+<td align="center">Other</td>
+<td align="center">272</td>
+<td align="center">66.74</td>
+</tr>
+</tbody>
+</table>
+<p>To determine whether the sample data are consistent with the null hypothesis, we calculate a measure of difference between the observed and expected counts using the chi-square test statistic:</p>
+<p><span class="math display">\[\chi_{stat}^2 = \sum_{\textrm{all cells}} \frac{(\textrm{observed count} - \textrm{expected count})^2}{\textrm{expected count}}\]</span>
+This formula is frequently abbreviated to:</p>
+<p><span class="math display">\[\chi_{stat}^2 = \sum_{\textrm{all cells}} \frac{(\textrm{O} - \textrm{E})^2}{\textrm{E}}\]</span></p>
+<p>A key component to this statistic is a simple (squared) distance between what is predicted by our theory (in this case the census), and what we observed in our sample (i.e. O-E in the formula). The chi-square component for the White group is:</p>
+<p><span class="math display">\[\chi_{white}^2 = \frac{(21249 - 21636.46)^2}{21636.46}= 6.938\]</span></p>
+<p>The <span class="math inline">\(\chi^2\)</span> contributions are calculated for all ethnic groups (Table <a href="tableofcounts.html#tab:pupilgroup4">12.4</a>).</p>
+<table style="width:58%;">
+<caption><span id="tab:pupilgroup4">Table 12.4: </span> Chi-square components (column ‘Chi’) for each ethnic group.</caption>
+<colgroup>
+<col width="11%" />
+<col width="16%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Group</th>
+<th align="center">Frequency</th>
+<th align="center">Expected</th>
+<th align="center">Chi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">White</td>
+<td align="center">21249</td>
+<td align="center">21636</td>
+<td align="center">6.939</td>
+</tr>
+<tr class="even">
+<td align="center">Asian</td>
+<td align="center">408</td>
+<td align="center">400.4</td>
+<td align="center">0.1432</td>
+</tr>
+<tr class="odd">
+<td align="center">Black</td>
+<td align="center">113</td>
+<td align="center">31.14</td>
+<td align="center">215.1</td>
+</tr>
+<tr class="even">
+<td align="center">Mixed</td>
+<td align="center">204</td>
+<td align="center">111.2</td>
+<td align="center">77.37</td>
+</tr>
+<tr class="odd">
+<td align="center">Other</td>
+<td align="center">272</td>
+<td align="center">66.74</td>
+<td align="center">631.3</td>
+</tr>
+</tbody>
+</table>
+<p>The <span class="math inline">\(\chi^2\)</span> values for each group are added together to give the overall <span class="math inline">\(\chi^2\)</span>-test statistic.
+<span class="math display">\[\chi_{stat}^2 = 6.939 + 0.1432 + 215.14 + 77.37 + 631.3 = 930.9\]</span></p>
+<p>As with other hypothesis tests, the larger the test statistic, the stronger the evidence against <span class="math inline">\(H_0\)</span>. Therefore, we wish to know if this test statistic (i.e. <span class="math inline">\(\chi_{stat}^2 = 930.9\)</span>) is considered large, if the null hypothesis is true. To determine this, we compare it to a reference distribution; not surprisingly, for a <span class="math inline">\(\chi^2\)</span> test, the reference distribution is a <span class="math inline">\(\chi^2\)</span> distribution. The <span class="math inline">\(\chi^2\)</span> distribution is indexed by one parameter, the degrees of freedom, found from (for a one-way table):</p>
+<p><span class="math display">\[\textrm{df} = \textrm{number of categories} - 1 \]</span></p>
+<p>The <span class="math inline">\(\chi^2\)</span> distribution takes different shapes according to the degrees of freedom. You can explore these in Figure <a href="tableofcounts.html#fig:chishiny">12.1</a>. There is also a live version <a href="https://moniquemackenzie.shinyapps.io/IntroStats_ChiSq/">here</a></p>
+
+<div class="figure" style="text-align: center"><span id="fig:chishiny"></span>
+<iframe src="https://moniquemackenzie.shinyapps.io/IntroStats_ChiSq/?showcase=0" width="480" height="600px">
+</iframe>
+<p class="caption">
+Figure 12.1: Exploring the <span class="math inline">\(\chi^2\)</span> distribution. You can see a live version by clicking <a href="https://moniquemackenzie.shinyapps.io/IntroStats_ChiSq/">here</a>
+</p>
+</div>
+<p>We have 5 ethnic groups and so</p>
+<p><span class="math display">\[\textrm{df} = 5 - 1 = 4\]</span>
+The reference distribution (<span class="math inline">\(\chi^2_{df=4}\)</span>) is shown in Figure <a href="tableofcounts.html#fig:chisq1">12.2</a>.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:chisq1"></span>
+<img src="IntroStats_files/figure-html/chisq1-1.png" alt="Reference distribution, \(\chi^2_{df=4}\). The red shaded area shows the critical region, testing at a 5% significance level. Note that only one tail is used." width="480" />
+<p class="caption">
+Figure 12.2: Reference distribution, <span class="math inline">\(\chi^2_{df=4}\)</span>. The red shaded area shows the critical region, testing at a 5% significance level. Note that only one tail is used.
+</p>
+</div>
+<p>We can see that values most likely to occur are around 2 to 6 and testing at a significance level of 5%, the critical value is 9.49. Hence, a value of 930.9 is very untypical and, indeed the exact probability associated with this test statistic is pretty much zero. Hence, we have strong evidence against <span class="math inline">\(H_0\)</span>; the observed numbers in the ethnic groups from the sample do not represent what we would expect according to the census.</p>
+<p>We can go further and investigate what gave rise to such a large test statistic; <span class="math inline">\(\chi^2\)</span> components for the Black and Other groups were particularly large. The observed number in the Other group was 272 pupils, but according to the census, we expected 67 pupils in this group, hence this large discrepancy led to the large <span class="math inline">\(\chi^2\)</span> component. Thus, pupils identified as Other and Black were over-represented in the sample compared to the population. This may be due to biased sampling or changing demographics in the population.</p>
+<div id="doing-this-in-r-22" class="section level3" number="12.2.1">
+<h3><span class="header-section-number">12.2.1</span> Doing this in R</h3>
+<p>To perform a <span class="math inline">\(\chi^2\)</span> test in R, we need to provide the observed values and the proportions under the null hypothesis (note, the proportions need to sum to 1).</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="tableofcounts.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Groups</span></span>
+<span id="cb252-2"><a href="tableofcounts.html#cb252-2" aria-hidden="true" tabindex="-1"></a>Group <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;White&quot;</span>,<span class="st">&quot;Asian&quot;</span>,<span class="st">&quot;Black&quot;</span>,<span class="st">&quot;Mixed&quot;</span>,<span class="st">&quot;Other&quot;</span>)</span>
+<span id="cb252-3"><a href="tableofcounts.html#cb252-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Observed frequencies from SALSUS</span></span>
+<span id="cb252-4"><a href="tableofcounts.html#cb252-4" aria-hidden="true" tabindex="-1"></a>Frequency <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">21249</span>, <span class="dv">408</span>, <span class="dv">113</span>, <span class="dv">204</span>, <span class="dv">272</span>)</span>
+<span id="cb252-5"><a href="tableofcounts.html#cb252-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportions in each group from census</span></span>
+<span id="cb252-6"><a href="tableofcounts.html#cb252-6" aria-hidden="true" tabindex="-1"></a>CensusProp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.9726</span>, <span class="fl">0.018</span>, <span class="fl">0.0014</span>, <span class="fl">0.005</span>, <span class="fl">0.003</span>)</span>
+<span id="cb252-7"><a href="tableofcounts.html#cb252-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb252-8"><a href="tableofcounts.html#cb252-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Chi-square test - save to new object</span></span>
+<span id="cb252-9"><a href="tableofcounts.html#cb252-9" aria-hidden="true" tabindex="-1"></a>salsusTest <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(<span class="at">x=</span>Frequency, <span class="at">p=</span>CensusProp)</span>
+<span id="cb252-10"><a href="tableofcounts.html#cb252-10" aria-hidden="true" tabindex="-1"></a>salsusTest</span></code></pre></div>
+<pre><code>
+    Chi-squared test for given probabilities
+
+data:  Frequency
+X-squared = 930.91, df = 4, p-value &lt; 2.2e-16</code></pre>
+<p>The new ‘test statistic’ object contains some useful information, such as the expected values:</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="tableofcounts.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected values</span></span>
+<span id="cb254-2"><a href="tableofcounts.html#cb254-2" aria-hidden="true" tabindex="-1"></a>salsusTest<span class="sc">$</span>expected</span></code></pre></div>
+<pre><code>[1] 21636.4596   400.4280    31.1444   111.2300    66.7380</code></pre>
+<p>Unfortunately, the test statistic object does not contain the <span class="math inline">\(\chi^2\)</span> components but these can easily be calculated:</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="tableofcounts.html#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save expected values</span></span>
+<span id="cb256-2"><a href="tableofcounts.html#cb256-2" aria-hidden="true" tabindex="-1"></a>Expected <span class="ot">&lt;-</span> salsusTest<span class="sc">$</span>expected</span>
+<span id="cb256-3"><a href="tableofcounts.html#cb256-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Chi-square values for each group</span></span>
+<span id="cb256-4"><a href="tableofcounts.html#cb256-4" aria-hidden="true" tabindex="-1"></a>(Frequency <span class="sc">-</span> Expected)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>Expected</span></code></pre></div>
+<pre><code>[1]   6.9385169   0.1431848 215.1378499  77.3736663 631.3118260</code></pre>
+<p>The critical value associated with testing at a fixed significance level can be found using the following command. Note that the distribution is not symmetric and so we want the area in the right hand tail.</p>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="tableofcounts.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Critical value, testing at a 5% significance level</span></span>
+<span id="cb258-2"><a href="tableofcounts.html#cb258-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qchisq</span>(<span class="at">p=</span><span class="fl">0.05</span>, <span class="at">df=</span><span class="dv">4</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>[1] 9.487729</code></pre>
+<p>The exact <span class="math inline">\(p\)</span>-value can be found using:</p>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="tableofcounts.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exact p-value for test statistic</span></span>
+<span id="cb260-2"><a href="tableofcounts.html#cb260-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="at">q=</span><span class="fl">930.9</span>, <span class="at">df=</span><span class="dv">4</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>[1] 3.360768e-200</code></pre>
+<hr />
+<p><strong>Q12.1</strong> A curious child was interested in determining whether a six-sided die was fair and threw the die 60 times and recorded the result each time. The observed frequency distribution is given below.</p>
+<table style="width:29%;">
+<colgroup>
+<col width="12%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Number</th>
+<th align="center">Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">7</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">9</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">19</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">7</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table>
+<p><strong>a.</strong> State the null and alternative hypotheses for a chi-square goodness-of-fit test.</p>
+<p><strong>b.</strong> For the null hypothesis is part a, what are the expected values?</p>
+<p><strong>c.</strong> Calculate a suitable test statistic.</p>
+<p><strong>d.</strong> Using the following information, what do you conclude?</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="tableofcounts.html#cb262-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qchisq</span>(<span class="at">p=</span><span class="fl">0.05</span>, <span class="at">df=</span><span class="dv">5</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>[1] 11.0705</code></pre>
+<p><strong>e.</strong> The child is not convinced by these results of the statistical test. What might they do to convince themselves?</p>
+</div>
+</div>
+<div id="chi2-test-of-independence" class="section level2" number="12.3">
+<h2><span class="header-section-number">12.3</span> <span class="math inline">\(\chi^2\)</span> test of independence</h2>
+<p>Previously we described a test for a one-way table. Sometimes we have a cross-tabulation, or two-way table. Consider the following data (Table <a href="tableofcounts.html#tab:voters1">12.5</a>) tabulating support for Democratic, Republican or Independent candidates by gender (taken from <span class="citation">(<a href="references.html#ref-Agresti2007" role="doc-biblioref">Agresti 2007</a>)</span>).</p>
+<table style="width:67%;">
+<caption><span id="tab:voters1">Table 12.5: </span> Numbers of supporters for each political party by gender.</caption>
+<colgroup>
+<col width="12%" />
+<col width="15%" />
+<col width="19%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Gender</th>
+<th align="center">Democrat</th>
+<th align="center">Independent</th>
+<th align="center">Republican</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Female</td>
+<td align="center">762</td>
+<td align="center">327</td>
+<td align="center">468</td>
+</tr>
+<tr class="even">
+<td align="center">Male</td>
+<td align="center">484</td>
+<td align="center">239</td>
+<td align="center">477</td>
+</tr>
+</tbody>
+</table>
+<p>In total there are 2,757 individuals in the sample. A question that might arise is whether there is more female support for Democrats than Republicans, for example. Indeed there are more female supporters for Democrats than Republicans in our sample, but there were also more Democrats in the sample. Even adjusting for this, another sample would give different frequencies and so is the difference explicable by sampling variability or is there a relationship between political support and gender? We wish to determine whether there is a relationship, or association, between political support and gender or whether gender and political support independent of one another.</p>
+<p>The null hypothesis we test assumes that the two variables are independent (hence a test of independence). In this example, the null hypothesis is:</p>
+<p><span class="math display">\[H_0: \textrm{gender and voting intention are independent}\]</span></p>
+<p>The alternative hypothesis states the opposite view.</p>
+<p><span class="math display">\[H_1: \textrm{gender and voting intention are not independent, i.e. there is an association between gender and political support.}\]</span></p>
+<p>As before, we calculate expected counts assuming that <span class="math inline">\(H_0\)</span> is true. In this case, the probability of being in a particular cell, is the probability of being in the particular row, multiplied by the probability of being in the particular column (remember <span class="math inline">\(P(A \cap B) = P(A) \times P(B)\)</span> for independent events). Thus, the expected count for each cell in the table is given by</p>
+<p><span class="math display">\[\textrm{Expected value} =  \frac{\textrm{row total}}{\textrm{grand total}} \times \frac{\textrm{column total}}{\textrm{grand total}} \times \textrm{grand total}\]</span>
+where the grand total is the overall total (or sample size). Some values can be cancelled out and so the formula is abbreviated to:</p>
+<p><span class="math display">\[\textrm{Expected value} =  \frac{\textrm{row total} \times \textrm{column total}}{\textrm{grand total}} \]</span>
+To use this formula in our example, we need the necessary totals (Table <a href="tableofcounts.html#tab:voters2">12.6</a>).</p>
+<table style="width:76%;">
+<caption><span id="tab:voters2">Table 12.6: </span> Numbers of supporters for each political party by gender with the row and column totals added.</caption>
+<colgroup>
+<col width="12%" />
+<col width="15%" />
+<col width="19%" />
+<col width="18%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Gender</th>
+<th align="center">Democrat</th>
+<th align="center">Independent</th>
+<th align="center">Republican</th>
+<th align="center">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Female</td>
+<td align="center">762</td>
+<td align="center">327</td>
+<td align="center">468</td>
+<td align="center">1557</td>
+</tr>
+<tr class="even">
+<td align="center">Male</td>
+<td align="center">484</td>
+<td align="center">239</td>
+<td align="center">477</td>
+<td align="center">1200</td>
+</tr>
+<tr class="odd">
+<td align="center">Total</td>
+<td align="center">1246</td>
+<td align="center">566</td>
+<td align="center">945</td>
+<td align="center">2757</td>
+</tr>
+</tbody>
+</table>
+<p>Thus, the expected number of female Democrat supporters is:</p>
+<p><span class="math display">\[\textrm{Expected value} = \frac{1557 \times 1246}{2757} = 703.67\]</span></p>
+<p>The expected number of male Democrat supporters is:</p>
+<p><span class="math display">\[\textrm{Expected value} = \frac{1200 \times 1246}{2757} = 542.33\]</span></p>
+<p>We do this for all cells in the table (Table <a href="tableofcounts.html#tab:voters3">12.7</a>):</p>
+<table style="width:67%;">
+<caption><span id="tab:voters3">Table 12.7: </span> Expected numbers of supporters for each political party by gender.</caption>
+<colgroup>
+<col width="12%" />
+<col width="15%" />
+<col width="19%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Gender</th>
+<th align="center">Democrat</th>
+<th align="center">Independent</th>
+<th align="center">Republican</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Female</td>
+<td align="center">703.7</td>
+<td align="center">319.6</td>
+<td align="center">533.7</td>
+</tr>
+<tr class="even">
+<td align="center">Male</td>
+<td align="center">542.3</td>
+<td align="center">246.3</td>
+<td align="center">411.3</td>
+</tr>
+</tbody>
+</table>
+<p>As before, the test statistic (<span class="math inline">\(\chi_{stat}^2\)</span>) is given by</p>
+<p><span class="math display">\[\chi_{stat}^2 = \sum_{\textrm{all cells}} \frac{(\textrm{O} - \textrm{E})^2}{\textrm{E}}\]</span></p>
+<p>The chi-square component for the female Democrat supporters is thus:</p>
+<p><span class="math display">\[\frac{(762 - 703.67)^2}{703.67} = 4.84\]</span></p>
+<p>The chi-square values for all cells are shown in Table <a href="tableofcounts.html#tab:voters4">12.8</a>.</p>
+<table style="width:67%;">
+<caption><span id="tab:voters4">Table 12.8: </span> Chi-square values for political support by gender.</caption>
+<colgroup>
+<col width="12%" />
+<col width="15%" />
+<col width="19%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Gender</th>
+<th align="center">Democrat</th>
+<th align="center">Independent</th>
+<th align="center">Republican</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Female</td>
+<td align="center">4.835</td>
+<td align="center">0.169</td>
+<td align="center">8.084</td>
+</tr>
+<tr class="even">
+<td align="center">Male</td>
+<td align="center">6.273</td>
+<td align="center">0.22</td>
+<td align="center">10.49</td>
+</tr>
+</tbody>
+</table>
+<p>Thus, the test statistic is:</p>
+<p><span class="math display">\[\chi^2_{stat} = 4.835 + 0.169 + 8.084 + 6.273 + 0.220 + 10.489 = 30.07\]</span></p>
+<p>We need to compare this to a <span class="math inline">\(\chi^2\)</span> reference distribution; the degrees of freedom are found from:</p>
+<p><span class="math display">\[ \textrm{df} = (\textrm{number of rows}-1) \times (\textrm{number of columns}-1) \]</span></p>
+<p>The data in this example is a <span class="math inline">\(2 \times 3\)</span> table, thus the degrees of freedom are:
+<span class="math display">\[ df = (2-1) \times (3-1) = 2\]</span></p>
+<p>The reference distribution, <span class="math inline">\(\chi^2_{df=2}\)</span>, is shown in Figure <a href="tableofcounts.html#fig:chisq2">12.3</a>.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:chisq2"></span>
+<img src="IntroStats_files/figure-html/chisq2-1.png" alt="Reference distribution, \(\chi^2_{df=2}\). The red shaded area shows the critical region, testing at a 5% significance level." width="480" />
+<p class="caption">
+Figure 12.3: Reference distribution, <span class="math inline">\(\chi^2_{df=2}\)</span>. The red shaded area shows the critical region, testing at a 5% significance level.
+</p>
+</div>
+<p>The red shaded area in Figure <a href="tableofcounts.html#fig:chisq2">12.3</a> indicates that the critical value is 5.99 and so since the test statistic is greater than this, we reject the null hypothesis. There is evidence to suggest that gender is not independent of political support.</p>
+<p>If we examine the <span class="math inline">\(\chi^2\)</span> components (Table <a href="tableofcounts.html#tab:voters4">12.8</a>), we see that the largest components were for Republicans and then Democrats. There were less female Republicans and more male Republicans than expected given the null hypothesis; the converse was true for Democrats.</p>
+<div id="doing-this-in-r-23" class="section level3" number="12.3.1">
+<h3><span class="header-section-number">12.3.1</span> Doing this in R</h3>
+<p>The key to performing a <span class="math inline">\(\chi^2\)</span> test of independence is getting the data into the correct matrix form and so it is useful to print it out before going ahead with the test.</p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="tableofcounts.html#cb264-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data</span></span>
+<span id="cb264-2"><a href="tableofcounts.html#cb264-2" aria-hidden="true" tabindex="-1"></a>voters <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">762</span>,<span class="dv">327</span>,<span class="dv">468</span>,<span class="dv">484</span>,<span class="dv">239</span>,<span class="dv">477</span>)</span>
+<span id="cb264-3"><a href="tableofcounts.html#cb264-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to a matrix</span></span>
+<span id="cb264-4"><a href="tableofcounts.html#cb264-4" aria-hidden="true" tabindex="-1"></a>voters.mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(voters, <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">3</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb264-5"><a href="tableofcounts.html#cb264-5" aria-hidden="true" tabindex="-1"></a>voters.mat</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]  762  327  468
+[2,]  484  239  477</code></pre>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="tableofcounts.html#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Chi-square test of independence</span></span>
+<span id="cb266-2"><a href="tableofcounts.html#cb266-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="at">x=</span>voters.mat)</span></code></pre></div>
+<pre><code>
+    Pearson&#39;s Chi-squared test
+
+data:  voters.mat
+X-squared = 30.07, df = 2, p-value = 2.954e-07</code></pre>
+<p>Note that for 2 <span class="math inline">\(\times\)</span> 2 tables, a correction is applied by default in the <code>chisq.test</code> function. The reason for this is that we assume a discrete distribution can be approximated by continuous distribution (i.e. the <span class="math inline">\(\chi^2\)</span> distribution). To account for this approximation, an adjustment is made to the formula to calculate <span class="math inline">\(\chi_{stat}^2\)</span> which makes the test statistic smaller, and thus the corresponding <span class="math inline">\(p\)</span>-value will be larger.</p>
+<hr />
+<p><strong>Q12.2</strong> A student newspaper (The Saint, 02/02/2019) conducted a survey using social media platforms to determine whether students were in favour of the UK holding a second referendum on Brexit. A statistics student wanted to determine whether voting preference was different on the two social media platforms. The numbers of students who voted are given in the following table.</p>
+<table style="width:32%;">
+<colgroup>
+<col width="15%" />
+<col width="8%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Platfom</th>
+<th align="center">Yes</th>
+<th align="center">No</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Facebook</td>
+<td align="center">158</td>
+<td align="center">61</td>
+</tr>
+<tr class="even">
+<td align="center">Twitter</td>
+<td align="center">19</td>
+<td align="center">11</td>
+</tr>
+</tbody>
+</table>
+<p><strong>a.</strong> State a suitable null and alternative hypothesis of a statistical test to determine whether voting preference was different between the social media
+platforms.</p>
+<p><strong>b.</strong> Calculate the expected counts, assuming that voting preference was not related to social media platform.</p>
+<p><strong>c.</strong> Calculate an appropriate test statistic for the test described in part (a).</p>
+<p><strong>d.</strong> If the exact <span class="math inline">\(p\)</span>-value associated with the test statistic calculated in part (c) was 0.32, what do you conclude?</p>
+</div>
+</div>
+<div id="test-assumptions" class="section level2" number="12.4">
+<h2><span class="header-section-number">12.4</span> Test assumptions</h2>
+<p>As with other hypothesis tests, <span class="math inline">\(\chi^2\)</span> tests require that some assumptions are fulfilled in order that the results are reliable.<span class="math inline">\(\chi^2\)</span> tests are only valid when the data are collected as a random sample or as a number of random samples. They are ‘large’ sample tests that require the total count for the table to be sufficiently large. The following rules of thumb help ensure we don’t use <span class="math inline">\(\chi^2\)</span> tests for samples which are too small:</p>
+<ul>
+<li>each expected cell count should be greater than 1</li>
+<li>80% (at least) of the expected counts should be at least 5.</li>
+</ul>
+<p>If these rules do not hold, then the categories may be combined in some sensible way to achieve acceptable cell counts.</p>
+</div>
+<div id="summary" class="section level2" number="12.5">
+<h2><span class="header-section-number">12.5</span> Summary</h2>
+<p>Although discrete data are summarised and treated differently to continuous data, the approach to hypothesis testing is the same; the null and alternative hypotheses are stated, a test statistic is calculated and then compared to a reference distribution. <span class="math inline">\(\chi^2\)</span> tests are used for discrete data in the form of contingency tables.</p>
+<div id="learning-outcomes-7" class="section level3" number="12.5.1">
+<h3><span class="header-section-number">12.5.1</span> Learning outcomes</h3>
+<p>In this chapter you have seen how to undertake a:</p>
+<ol style="list-style-type: decimal">
+<li><p>test for goodness of fit to some a priori distribution, and</p></li>
+<li><p>test for independence/association.</p></li>
+</ol>
+</div>
+</div>
+<div id="answers" class="section level2" number="12.6">
+<h2><span class="header-section-number">12.6</span> Answers</h2>
+<p><strong>Q12.1</strong> In this example, we conduct a goodness-of-fit test to check whether the die is fair.</p>
+<p><strong>Q12.1</strong> <strong>a.</strong> The hypotheses could be specified in a variety of ways, for example</p>
+<p><span class="math display">\[H_0: \textrm{all numbers are equally likely} \]</span>
+<span class="math display">\[H_1: \textrm{the numbers are not equally likely to occur}\]</span></p>
+<p><strong>Q12.1</strong> <strong>b.</strong> The total number of throws was 60. Thus, if each number is equally likely (i.e. with probability <span class="math inline">\(\frac{1}{6}\)</span>) we would expect each number to be thrown 10 times (for a sample of size 60).</p>
+<p><strong>Q12.1</strong> <strong>c.</strong> The <span class="math inline">\(\chi^2\)</span> test statistic is given by:</p>
+<p><span class="math display">\[\chi_{stat}^2 = \sum_{\textrm{all cells}} \frac{(\textrm{O} - \textrm{E})^2}{\textrm{E}}\]</span>
+The <span class="math inline">\(\chi^2\)</span> values are:</p>
+<table style="width:53%;">
+<colgroup>
+<col width="12%" />
+<col width="16%" />
+<col width="15%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Number</th>
+<th align="center">Frequency</th>
+<th align="center">Expected</th>
+<th align="center">Chi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">8</td>
+<td align="center">10</td>
+<td align="center">0.4</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">7</td>
+<td align="center">10</td>
+<td align="center">0.9</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">9</td>
+<td align="center">10</td>
+<td align="center">0.1</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">19</td>
+<td align="center">10</td>
+<td align="center">8.1</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">7</td>
+<td align="center">10</td>
+<td align="center">0.9</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">10</td>
+<td align="center">10</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<p>The <span class="math inline">\(\chi^2\)</span> test statistic is</p>
+<p><span class="math display">\[\chi_{stat}^2 = 0.4 + 0.9 + 0.1 + 8.1 + 0.9 + 0 = 10.4\]</span></p>
+<p><strong>Q12.1</strong> <strong>d.</strong> The test statistic is compared to a reference distribution; with six categories, df <span class="math inline">\(= 6 - 1 = 5\)</span>. The information provided in the R output was a critical value, testing at a significance level of 5% (i.e. <span class="math inline">\(\chi^2_{crit}=11.07\)</span>). The test statistic is smaller (but not by much) than the critical value, thus these data do not provide evidence to reject the null hypothesis. We conclude that the die is fair.</p>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="tableofcounts.html#cb268-1" aria-hidden="true" tabindex="-1"></a>dieFreq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">10</span>)</span>
+<span id="cb268-2"><a href="tableofcounts.html#cb268-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note, no need to specify proportions if expected cell proportions are equal</span></span>
+<span id="cb268-3"><a href="tableofcounts.html#cb268-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="at">x=</span>dieFreq)</span></code></pre></div>
+<pre><code>
+    Chi-squared test for given probabilities
+
+data:  dieFreq
+X-squared = 10.4, df = 5, p-value = 0.06466</code></pre>
+<p><strong>Q12.1</strong> <strong>e.</strong> The child could increase the sample size with more throws of the die.</p>
+<p><strong>Q12.2</strong> This question calls for a <span class="math inline">\(\chi^2\)</span> test of independence.</p>
+<p><strong>Q12.2</strong> <strong>a.</strong> The hypotheses are:</p>
+<p><span class="math inline">\(H_0\)</span>: Voting preference is independent of social media platform (i.e. no difference in voting preference between platforms)</p>
+<p><span class="math inline">\(H_1\)</span>: Voting preference is not independent of the social media platform (i.e. voting preference is different between platforms).</p>
+<p><strong>Q12.2</strong> <strong>b.</strong> The expected counts in each cell in the table are given by</p>
+<p><span class="math display">\[\textrm{Expected value} = \frac{\textrm{row total} - \textrm{column total}}{\textrm{grand total}}\]</span>
+The totals are</p>
+<table style="width:42%;">
+<colgroup>
+<col width="15%" />
+<col width="8%" />
+<col width="6%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Platfom</th>
+<th align="center">Yes</th>
+<th align="center">No</th>
+<th align="center">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Facebook</td>
+<td align="center">158</td>
+<td align="center">61</td>
+<td align="center">219</td>
+</tr>
+<tr class="even">
+<td align="center">Twitter</td>
+<td align="center">19</td>
+<td align="center">11</td>
+<td align="center">30</td>
+</tr>
+<tr class="odd">
+<td align="center">Total</td>
+<td align="center">177</td>
+<td align="center">72</td>
+<td align="center">249</td>
+</tr>
+</tbody>
+</table>
+<p>The expected values are</p>
+<table style="width:38%;">
+<colgroup>
+<col width="15%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Platfom</th>
+<th align="center">Yes</th>
+<th align="center">No</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Facebook</td>
+<td align="center">155.7</td>
+<td align="center">63.33</td>
+</tr>
+<tr class="even">
+<td align="center">Twitter</td>
+<td align="center">21.33</td>
+<td align="center">8.675</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Q12.2</strong> <strong>c.</strong> The chi-square test statistic is given by</p>
+<p><span class="math display">\[\chi_{stat}^2 = \sum_{\textrm{all cells}} \frac{(\textrm{O} - \textrm{E})^2}{\textrm{E}}\]</span></p>
+<table style="width:40%;">
+<colgroup>
+<col width="15%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Platfom</th>
+<th align="center">Yes</th>
+<th align="center">No</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Facebook</td>
+<td align="center">0.0347</td>
+<td align="center">0.0854</td>
+</tr>
+<tr class="even">
+<td align="center">Twitter</td>
+<td align="center">0.2535</td>
+<td align="center">0.6233</td>
+</tr>
+</tbody>
+</table>
+<p>Summing the <span class="math inline">\(\chi^2\)</span> values gives the test statistic:</p>
+<p><span class="math display">\[ x_{stat}^2 = 0.0347 + 0.0854 + 0.2535 + 0.6233 = 0.9969\]</span></p>
+<p><strong>Q12.2</strong> <strong>d.</strong> Given that the <span class="math inline">\(p\)</span>-value is 0.32 (much greater than a 5% significance level), there is no evidence to reject the null hypothesis and conclude that the two factors are independent, i.e. that voting preference is independent of choice of social media platform.</p>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="tableofcounts.html#cb270-1" aria-hidden="true" tabindex="-1"></a>voteFreq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">158</span>, <span class="dv">61</span>, <span class="dv">19</span>, <span class="dv">11</span>)</span>
+<span id="cb270-2"><a href="tableofcounts.html#cb270-2" aria-hidden="true" tabindex="-1"></a>voteFreq.mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(voteFreq, <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb270-3"><a href="tableofcounts.html#cb270-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Without correction</span></span>
+<span id="cb270-4"><a href="tableofcounts.html#cb270-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="at">x=</span>voteFreq.mat, <span class="at">correct=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>
+    Pearson&#39;s Chi-squared test
+
+data:  voteFreq.mat
+X-squared = 0.99698, df = 1, p-value = 0.318</code></pre>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="tableofcounts.html#cb272-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With correction</span></span>
+<span id="cb272-2"><a href="tableofcounts.html#cb272-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="at">x=</span>voteFreq.mat)</span></code></pre></div>
+<pre><code>
+    Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+
+data:  voteFreq.mat
+X-squared = 0.61432, df = 1, p-value = 0.4332</code></pre>
+
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="proportions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="correg.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="book_assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/lunr.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["IntroStats.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
