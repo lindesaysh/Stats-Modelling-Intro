@@ -82,8 +82,8 @@ $$y=f(x)$$
 This is interpreted as $y$ is a function of $x$. In our example, $y$ is the vitamin D level and this can be written as a function of the TEON group. The alternative syntax used below highlights this interpretation:
 
 ```{r, eval=T}
-# Order TEON levels for comparability 
-meddata$TEON <- relevel(meddata$TEON, ref="Yes")
+# Order TEON levels for comparability
+meddata$TEON <- relevel(as.factor(meddata$TEON), ref="Yes")
 # Two sample t test as a model
 t.test(vitdresul ~ TEON, data=meddata, var.equal=TRUE)
 ```
@@ -109,7 +109,7 @@ summary(TEON_lm)
 ```
 
 + I have set the baseline level to be the `no` group, for comparability with previous analysis (i.e. the intercept)
-+ The `yes` group is then estimated relative to the baseline i.e. the mean value for `yes` is the baseine plus the `coefficient` given for `yes` (19.5862 + -8.8890)
++ The `yes` group is then estimated relative to the baseline i.e. the mean value for `yes` is the baseline plus the `coefficient` given for `yes` (19.5862 + -8.8890)
 + The model structure is like before $y=f(x)$ (or `y ~ x` in R code). 
 + The _signal_ ($f$) in this example is very simple - just _means_ based on group membership. 
 

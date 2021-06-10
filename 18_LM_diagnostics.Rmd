@@ -488,7 +488,7 @@ Let us consider diagnostics for a linear model where a factor (presence/absence 
 
 ```{r, eval=T}
 # Set No to be reference level for TEON
-meddata$TEON <- relevel(meddata$TEON, ref='No')
+meddata$TEON <- relevel(as.factor(meddata$TEON), ref='No')
 # Fit model with factor
 TEON_lm <- lm(vitdresul ~ TEON, data=meddata)
 # Summary of model
