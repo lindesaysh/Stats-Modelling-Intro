@@ -47,7 +47,7 @@ Fitting linear models is no problem - given a numeric response and some covariat
 
 How do we convince ourselves that the model is actually any good?
 
-+ Our linear models effective ly consist of two parts - a mathematical description of the signal and another for the noise.
++ Our linear models effectively consist of two parts - a mathematical description of the signal and another for the noise.
 + We want to check these mathematical descriptions are reasonable given the data.
 + We would have more confidence in our predictions, or descriptions, obtained from the model if these _assumptions_ (based on the mathematical descriptions) are met.
 
@@ -401,6 +401,7 @@ abline (h=0,lty=2)
 # Formal test
 durbinWatsonTest(model1)
 ```
+
 In this case, we could be falsely concluding that one, or more variables, are related to the response because the standard errors are underestimated because of the positive correlation.
 
 ### Pseudoreplication
@@ -511,6 +512,7 @@ estNoise <- residuals(TEON_lm)
 # Histogram of residuals 
 hist(estNoise) 
 ``` 
+
 This histogram looks roughly normal but it is wise to test further. 
 
 ```{r, fig.cap='QQ-Norm plot of the medical model residuals'}
@@ -538,10 +540,11 @@ summary(simpleReg)
 # Plot of fitted v. residuals 
 plot (fitted (simpleReg ), residuals (simpleReg))
 ```
+
 This is a tricky graph to interpret because the spread of residuals seems wider to the left, BUT this might be a feature of the larger amount of data in this range. To formally check, we can undertake a Breusch-Pagan test for non-constant variance. 
 
 ```{r, echo=T,eval=T}
- ncvTest(simpleReg)
+ncvTest(simpleReg)
 ```
 
 Based on these results, there is no reason to reject $H_0$ that the residuals are homogeneous. The next step is to evaluate the normality of the residuals with a QQ-Norm plot and a formal test. 
@@ -551,10 +554,11 @@ Based on these results, there is no reason to reject $H_0$ that the residuals ar
 ```
 
 ```{r}
- shapiro.test(estNoise)
+shapiro.test(residuals(simpleReg))
 ```
 
-So in this case the assumption of normality seems justified. 
+There is little evidence of non-normality from the QQ plot and the $p$-value of the S-W test is $>0.1$ so we fail to reject the null hypothesis that the data are normally distributed. In this case the assumption of normality seems justified. 
+
 
 ## Partial residual plots
 

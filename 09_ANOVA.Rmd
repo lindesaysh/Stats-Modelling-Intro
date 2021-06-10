@@ -265,7 +265,7 @@ pander::pander(petrol.sum)
 
 ```
 
-__a.__ Describe the null and alternative hypotheses to be testes. 
+__a.__ Describe the null and alternative hypotheses to be tested. 
 
 __b.__ Complete the ANOVA table to calculate the $F$ test statistic. 
 
