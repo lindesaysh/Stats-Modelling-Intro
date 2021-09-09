@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Hypothesis Tests | An Introduction to Statistics</title>
+  <meta name="description" content="Chapter 8 Hypothesis Tests | An Introduction to Statistics" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Hypothesis Tests | An Introduction to Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Hypothesis Tests | An Introduction to Statistics" />
+  
+  
+  
+
+<meta name="author" content="Drs C. Paxton, L. Burt, C. Donovan and L. Scott-Hayward" />
+
+
+<meta name="date" content="2021-09-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="CIformean.html"/>
+<link rel="next" href="anova.html"/>
+<script src="book_assets/header-attrs-2.7/header-attrs.js"></script>
+<script src="book_assets/jquery-2.2.3/jquery.min.js"></script>
+<link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script language="javascript">
+    function toggle(id) {
+        var ele = document.getElementById("toggleText" + id);
+        var text = document.getElementById("displayText" + id);
+        var buttonText = text.innerHTML.replace("Show ", "");
+        buttonText = buttonText.replace("Hide ", "");
+        if(ele.style.display == "block") {
+            ele.style.display = "none";
+            text.innerHTML = "Show " + buttonText;
+        } else {
+            ele.style.display = "block";
+            text.innerHTML = "Hide " + buttonText;
+        }
+    }
+</script>
+
+<script language="javascript">
+    function openCode(evt, codeName, id) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent" + id);
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks" + id);
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(codeName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+<script language="javascript">
+    function hide(id){
+        document.getElementById(id).style.display = "none";
+    }
+</script>
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<a href="https://www.st-andrews.ac.uk/mathematics-statistics/"><img src="standard-vertical-black.png" width="180"></a>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#computer-practicals"><i class="fa fa-check"></i>Computer practicals</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introchapt.html"><a href="introchapt.html"><i class="fa fa-check"></i><b>1</b> Thinking About Numbers</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introchapt.html"><a href="introchapt.html#INTintro"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="introchapt.html"><a href="introchapt.html#why-use-statistics"><i class="fa fa-check"></i><b>1.2</b> Why use statistics?</a></li>
+<li class="chapter" data-level="1.3" data-path="introchapt.html"><a href="introchapt.html#why-model"><i class="fa fa-check"></i><b>1.3</b> Why model?</a></li>
+<li class="chapter" data-level="1.4" data-path="introchapt.html"><a href="introchapt.html#examples-of-statistical-claims"><i class="fa fa-check"></i><b>1.4</b> Examples of statistical claims</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="introchapt.html"><a href="introchapt.html#coffee-may-reverse-alzheimers"><i class="fa fa-check"></i><b>1.4.1</b> Coffee ‘may reverse Alzheimer’s’</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introchapt.html"><a href="introchapt.html#abundance-of-prized-sturgeon"><i class="fa fa-check"></i><b>1.4.2</b> Abundance of prized sturgeon</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introchapt.html"><a href="introchapt.html#extrapolating-sprinting-speed"><i class="fa fa-check"></i><b>1.4.3</b> Extrapolating sprinting speed</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introchapt.html"><a href="introchapt.html#mmr-innoculation-and-autism"><i class="fa fa-check"></i><b>1.4.4</b> MMR innoculation and autism</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introchapt.html"><a href="introchapt.html#two-sid-deaths-in-same-family"><i class="fa fa-check"></i><b>1.4.5</b> Two SID deaths in same family</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introchapt.html"><a href="introchapt.html#SUMintro"><i class="fa fa-check"></i><b>1.5</b> Summary</a></li>
+<li class="chapter" data-level="1.6" data-path="introchapt.html"><a href="introchapt.html#ANSintro"><i class="fa fa-check"></i><b>1.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>I Data Collection and Visualisation</b></span></li>
+<li class="chapter" data-level="2" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>2</b> Data collection and Sampling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="sampling.html"><a href="sampling.html#INTsamp"><i class="fa fa-check"></i><b>2.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="sampling.html"><a href="sampling.html#terminology"><i class="fa fa-check"></i><b>2.1.1</b> Terminology</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="sampling.html"><a href="sampling.html#what-is-sampling-and-why-do-it"><i class="fa fa-check"></i><b>2.2</b> What is sampling and why do it?</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="sampling.html"><a href="sampling.html#precision-accuracy-and-bias"><i class="fa fa-check"></i><b>2.2.1</b> Precision, accuracy and bias</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="sampling.html"><a href="sampling.html#three-types-of-data-collection"><i class="fa fa-check"></i><b>2.3</b> Three types of data collection</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="sampling.html"><a href="sampling.html#common-but-unwise-data-collection-strategies"><i class="fa fa-check"></i><b>2.3.1</b> Common, but unwise, data collection strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="sampling.html"><a href="sampling.html#simple-sampling-approaches"><i class="fa fa-check"></i><b>2.4</b> Simple sampling approaches</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="sampling.html"><a href="sampling.html#simple-random-sample"><i class="fa fa-check"></i><b>2.4.1</b> Simple random sample</a></li>
+<li class="chapter" data-level="2.4.2" data-path="sampling.html"><a href="sampling.html#systematic-samples"><i class="fa fa-check"></i><b>2.4.2</b> Systematic samples</a></li>
+<li class="chapter" data-level="2.4.3" data-path="sampling.html"><a href="sampling.html#stratified-random-samples"><i class="fa fa-check"></i><b>2.4.3</b> Stratified random samples</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="sampling.html"><a href="sampling.html#sampling-biases"><i class="fa fa-check"></i><b>2.5</b> Sampling biases</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="sampling.html"><a href="sampling.html#non-sampling-error"><i class="fa fa-check"></i><b>2.5.1</b> Non-sampling error</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="sampling.html"><a href="sampling.html#experiments"><i class="fa fa-check"></i><b>2.6</b> Experiments</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="sampling.html"><a href="sampling.html#randomised-experiments"><i class="fa fa-check"></i><b>2.6.1</b> Randomised experiments</a></li>
+<li class="chapter" data-level="2.6.2" data-path="sampling.html"><a href="sampling.html#components-of-an-experimental-design"><i class="fa fa-check"></i><b>2.6.2</b> Components of an experimental design</a></li>
+<li class="chapter" data-level="2.6.3" data-path="sampling.html"><a href="sampling.html#controls"><i class="fa fa-check"></i><b>2.6.3</b> Controls</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="sampling.html"><a href="sampling.html#observational-studies"><i class="fa fa-check"></i><b>2.7</b> Observational Studies</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="sampling.html"><a href="sampling.html#types-of-observational-study"><i class="fa fa-check"></i><b>2.7.1</b> Types of observational study</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="sampling.html"><a href="sampling.html#observational-studies-vs-experiments"><i class="fa fa-check"></i><b>2.8</b> Observational studies vs experiments</a></li>
+<li class="chapter" data-level="2.9" data-path="sampling.html"><a href="sampling.html#SUMsamp"><i class="fa fa-check"></i><b>2.9</b> Summary</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="sampling.html"><a href="sampling.html#learning-objectives"><i class="fa fa-check"></i><b>2.9.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="sampling.html"><a href="sampling.html#ANSsamp"><i class="fa fa-check"></i><b>2.10</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="describedata.html"><a href="describedata.html"><i class="fa fa-check"></i><b>3</b> Describing data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="describedata.html"><a href="describedata.html#INTdata"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="describedata.html"><a href="describedata.html#types-of-data"><i class="fa fa-check"></i><b>3.2</b> Types of data</a></li>
+<li class="chapter" data-level="3.3" data-path="describedata.html"><a href="describedata.html#frequency-distributions"><i class="fa fa-check"></i><b>3.3</b> Frequency distributions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="describedata.html"><a href="describedata.html#doing-this-in-r-2"><i class="fa fa-check"></i><b>3.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="describedata.html"><a href="describedata.html#numerical-summaries"><i class="fa fa-check"></i><b>3.4</b> Numerical summaries</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="describedata.html"><a href="describedata.html#population-mean"><i class="fa fa-check"></i><b>3.4.1</b> Population mean</a></li>
+<li class="chapter" data-level="3.4.2" data-path="describedata.html"><a href="describedata.html#sample-mean"><i class="fa fa-check"></i><b>3.4.2</b> Sample mean</a></li>
+<li class="chapter" data-level="3.4.3" data-path="describedata.html"><a href="describedata.html#sample-median"><i class="fa fa-check"></i><b>3.4.3</b> Sample median</a></li>
+<li class="chapter" data-level="3.4.4" data-path="describedata.html"><a href="describedata.html#range"><i class="fa fa-check"></i><b>3.4.4</b> Range</a></li>
+<li class="chapter" data-level="3.4.5" data-path="describedata.html"><a href="describedata.html#percentiles"><i class="fa fa-check"></i><b>3.4.5</b> Percentiles</a></li>
+<li class="chapter" data-level="3.4.6" data-path="describedata.html"><a href="describedata.html#population-variance"><i class="fa fa-check"></i><b>3.4.6</b> Population variance</a></li>
+<li class="chapter" data-level="3.4.7" data-path="describedata.html"><a href="describedata.html#sample-variance-and-standard-deviation"><i class="fa fa-check"></i><b>3.4.7</b> Sample variance and standard deviation</a></li>
+<li class="chapter" data-level="3.4.8" data-path="describedata.html"><a href="describedata.html#numerical-summaries-in-r"><i class="fa fa-check"></i><b>3.4.8</b> Numerical summaries in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="describedata.html"><a href="describedata.html#visual-summaries"><i class="fa fa-check"></i><b>3.5</b> Visual summaries</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="describedata.html"><a href="describedata.html#bar-charts"><i class="fa fa-check"></i><b>3.5.1</b> Bar charts</a></li>
+<li class="chapter" data-level="3.5.2" data-path="describedata.html"><a href="describedata.html#pie-charts"><i class="fa fa-check"></i><b>3.5.2</b> Pie charts</a></li>
+<li class="chapter" data-level="3.5.3" data-path="describedata.html"><a href="describedata.html#histograms"><i class="fa fa-check"></i><b>3.5.3</b> Histograms</a></li>
+<li class="chapter" data-level="3.5.4" data-path="describedata.html"><a href="describedata.html#boxplots"><i class="fa fa-check"></i><b>3.5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="3.5.5" data-path="describedata.html"><a href="describedata.html#basic-plots-in-r"><i class="fa fa-check"></i><b>3.5.5</b> Basic plots in R</a></li>
+<li class="chapter" data-level="3.5.6" data-path="describedata.html"><a href="describedata.html#other-plots"><i class="fa fa-check"></i><b>3.5.6</b> Other plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="describedata.html"><a href="describedata.html#summarising-the-relationship-between-two-variables"><i class="fa fa-check"></i><b>3.6</b> Summarising the relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="describedata.html"><a href="describedata.html#cross-tabulation"><i class="fa fa-check"></i><b>3.6.1</b> Cross-tabulation</a></li>
+<li class="chapter" data-level="3.6.2" data-path="describedata.html"><a href="describedata.html#side-by-side-boxplots"><i class="fa fa-check"></i><b>3.6.2</b> Side-by-side boxplots</a></li>
+<li class="chapter" data-level="3.6.3" data-path="describedata.html"><a href="describedata.html#scatter-plot"><i class="fa fa-check"></i><b>3.6.3</b> Scatter plot</a></li>
+<li class="chapter" data-level="3.6.4" data-path="describedata.html"><a href="describedata.html#quilt-plots"><i class="fa fa-check"></i><b>3.6.4</b> Quilt plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="describedata.html"><a href="describedata.html#handy-hints-when-including-tables-and-plots-into-reports"><i class="fa fa-check"></i><b>3.7</b> Handy hints when including tables and plots into reports</a></li>
+<li class="chapter" data-level="3.8" data-path="describedata.html"><a href="describedata.html#SUMdata"><i class="fa fa-check"></i><b>3.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="describedata.html"><a href="describedata.html#learning-outcomes"><i class="fa fa-check"></i><b>3.8.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="describedata.html"><a href="describedata.html#ANSdata"><i class="fa fa-check"></i><b>3.9</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>II Probability and Distributions</b></span></li>
+<li class="chapter" data-level="4" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>4</b> Probability</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="probability.html"><a href="probability.html#INTprob"><i class="fa fa-check"></i><b>4.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="probability.html"><a href="probability.html#random-phenomena-and-uncertain-outcomes"><i class="fa fa-check"></i><b>4.1.1</b> Random phenomena and uncertain outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="probability.html"><a href="probability.html#sample-spaces-and-events"><i class="fa fa-check"></i><b>4.2</b> Sample spaces and events</a></li>
+<li class="chapter" data-level="4.3" data-path="probability.html"><a href="probability.html#definition-of-probability-and-3-axioms"><i class="fa fa-check"></i><b>4.3</b> Definition of Probability and 3 Axioms</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="probability.html"><a href="probability.html#probability-1"><i class="fa fa-check"></i><b>4.3.1</b> Probability</a></li>
+<li class="chapter" data-level="4.3.2" data-path="probability.html"><a href="probability.html#three-axioms"><i class="fa fa-check"></i><b>4.3.2</b> Three Axioms</a></li>
+<li class="chapter" data-level="4.3.3" data-path="probability.html"><a href="probability.html#three-results-of-the-axioms"><i class="fa fa-check"></i><b>4.3.3</b> Three results of the Axioms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="probability.html"><a href="probability.html#independence-and-the-multiplication-rule"><i class="fa fa-check"></i><b>4.4</b> Independence and the Multiplication Rule</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="probability.html"><a href="probability.html#testing-for-independence"><i class="fa fa-check"></i><b>4.4.1</b> Testing for Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="probability.html"><a href="probability.html#conditional-probabilities"><i class="fa fa-check"></i><b>4.5</b> Conditional probabilities</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="probability.html"><a href="probability.html#independence-revisited"><i class="fa fa-check"></i><b>4.5.1</b> Independence revisited</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="probability.html"><a href="probability.html#tree-diagrams"><i class="fa fa-check"></i><b>4.6</b> Tree Diagrams</a></li>
+<li class="chapter" data-level="4.7" data-path="probability.html"><a href="probability.html#marginal-and-joint-probabilities"><i class="fa fa-check"></i><b>4.7</b> Marginal and joint probabilities</a></li>
+<li class="chapter" data-level="4.8" data-path="probability.html"><a href="probability.html#SUMprob"><i class="fa fa-check"></i><b>4.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="probability.html"><a href="probability.html#learning-objectives-1"><i class="fa fa-check"></i><b>4.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="probability.html"><a href="probability.html#ANSprob"><i class="fa fa-check"></i><b>4.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="discreterv.html"><a href="discreterv.html"><i class="fa fa-check"></i><b>5</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="discreterv.html"><a href="discreterv.html#INTdiscrv"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="discreterv.html"><a href="discreterv.html#discrete-random-variables"><i class="fa fa-check"></i><b>5.2</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="discreterv.html"><a href="discreterv.html#probability-mass-function"><i class="fa fa-check"></i><b>5.2.1</b> Probability mass function</a></li>
+<li class="chapter" data-level="5.2.2" data-path="discreterv.html"><a href="discreterv.html#cumulative-distribution-function"><i class="fa fa-check"></i><b>5.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="5.2.3" data-path="discreterv.html"><a href="discreterv.html#expectation"><i class="fa fa-check"></i><b>5.2.3</b> Expectation</a></li>
+<li class="chapter" data-level="5.2.4" data-path="discreterv.html"><a href="discreterv.html#variance"><i class="fa fa-check"></i><b>5.2.4</b> Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="discreterv.html"><a href="discreterv.html#special-discrete-distributions"><i class="fa fa-check"></i><b>5.3</b> Special discrete distributions</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="discreterv.html"><a href="discreterv.html#bernoulli-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="5.3.2" data-path="discreterv.html"><a href="discreterv.html#binomial-distribution"><i class="fa fa-check"></i><b>5.3.2</b> Binomial distribution</a></li>
+<li class="chapter" data-level="5.3.3" data-path="discreterv.html"><a href="discreterv.html#poisdist"><i class="fa fa-check"></i><b>5.3.3</b> Poisson distribution</a></li>
+<li class="chapter" data-level="5.3.4" data-path="discreterv.html"><a href="discreterv.html#comparison-of-binomial-and-poisson-distributions"><i class="fa fa-check"></i><b>5.3.4</b> Comparison of binomial and Poisson distributions?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="discreterv.html"><a href="discreterv.html#SUMdiscrv"><i class="fa fa-check"></i><b>5.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="discreterv.html"><a href="discreterv.html#learning-outcomes-1"><i class="fa fa-check"></i><b>5.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="discreterv.html"><a href="discreterv.html#ANSdiscrv"><i class="fa fa-check"></i><b>5.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="contrv.html"><a href="contrv.html"><i class="fa fa-check"></i><b>6</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="contrv.html"><a href="contrv.html#INTcontrv"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="contrv.html"><a href="contrv.html#continuous-random-variables"><i class="fa fa-check"></i><b>6.2</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="contrv.html"><a href="contrv.html#probability-density-function"><i class="fa fa-check"></i><b>6.2.1</b> Probability density function</a></li>
+<li class="chapter" data-level="6.2.2" data-path="contrv.html"><a href="contrv.html#cumulative-distribution-function-1"><i class="fa fa-check"></i><b>6.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="6.2.3" data-path="contrv.html"><a href="contrv.html#expectation-and-variance-1"><i class="fa fa-check"></i><b>6.2.3</b> Expectation and variance</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="contrv.html"><a href="contrv.html#special-continuous-distributions"><i class="fa fa-check"></i><b>6.3</b> Special continuous distributions</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="contrv.html"><a href="contrv.html#normal-distribution"><i class="fa fa-check"></i><b>6.3.1</b> normal distribution</a></li>
+<li class="chapter" data-level="6.3.2" data-path="contrv.html"><a href="contrv.html#standard-normal-distribution"><i class="fa fa-check"></i><b>6.3.2</b> Standard normal distribution</a></li>
+<li class="chapter" data-level="6.3.3" data-path="contrv.html"><a href="contrv.html#simple-transformations-of-random-variables"><i class="fa fa-check"></i><b>6.3.3</b> Simple transformations of random variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="contrv.html"><a href="contrv.html#SUMcontrv"><i class="fa fa-check"></i><b>6.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="contrv.html"><a href="contrv.html#learning-outcomes-2"><i class="fa fa-check"></i><b>6.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="contrv.html"><a href="contrv.html#ANScontrv"><i class="fa fa-check"></i><b>6.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="CIformean.html"><a href="CIformean.html"><i class="fa fa-check"></i><b>7</b> Confidence intervals for sample means</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="CIformean.html"><a href="CIformean.html#INTci"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="CIformean.html"><a href="CIformean.html#uncertainty-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2</b> Uncertainty of the sample mean</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="CIformean.html"><a href="CIformean.html#precision-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2.1</b> Precision of the sample mean</a></li>
+<li class="chapter" data-level="7.2.2" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-known-sigma"><i class="fa fa-check"></i><b>7.2.2</b> Confidence interval with known <span class="math inline">\(\sigma\)</span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-unknown-sigma"><i class="fa fa-check"></i><b>7.2.3</b> Confidence interval with unknown <span class="math inline">\(\sigma\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="CIformean.html"><a href="CIformean.html#difference-between-two-group-means"><i class="fa fa-check"></i><b>7.3</b> Difference between two group means</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="CIformean.html"><a href="CIformean.html#assuming-equal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.1</b> Assuming equal standard deviations of the two groups</a></li>
+<li class="chapter" data-level="7.3.2" data-path="CIformean.html"><a href="CIformean.html#assuming-unequal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.2</b> Assuming unequal standard deviations of the two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="CIformean.html"><a href="CIformean.html#empirical-bootstrap-based-confidence-intervals"><i class="fa fa-check"></i><b>7.4</b> Empirical (bootstrap-based) confidence intervals</a></li>
+<li class="chapter" data-level="7.5" data-path="CIformean.html"><a href="CIformean.html#confidence-intervals-for-other-sample-statistics"><i class="fa fa-check"></i><b>7.5</b> Confidence intervals for other sample statistics</a></li>
+<li class="chapter" data-level="7.6" data-path="CIformean.html"><a href="CIformean.html#SUMci"><i class="fa fa-check"></i><b>7.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="CIformean.html"><a href="CIformean.html#learning-outcomes-3"><i class="fa fa-check"></i><b>7.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="CIformean.html"><a href="CIformean.html#ANSci"><i class="fa fa-check"></i><b>7.7</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>III Hypothesis Testing</b></span></li>
+<li class="chapter" data-level="8" data-path="hypothtests.html"><a href="hypothtests.html"><i class="fa fa-check"></i><b>8</b> Hypothesis Tests</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="hypothtests.html"><a href="hypothtests.html#INThyp"><i class="fa fa-check"></i><b>8.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="hypothtests.html"><a href="hypothtests.html#types-of-hypotheses"><i class="fa fa-check"></i><b>8.1.1</b> Types of hypotheses</a></li>
+<li class="chapter" data-level="8.1.2" data-path="hypothtests.html"><a href="hypothtests.html#how-do-hypothesis-tests-work"><i class="fa fa-check"></i><b>8.1.2</b> How do hypothesis tests work?</a></li>
+<li class="chapter" data-level="8.1.3" data-path="hypothtests.html"><a href="hypothtests.html#one-sample-t-test"><i class="fa fa-check"></i><b>8.1.3</b> One sample <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="hypothtests.html"><a href="hypothtests.html#two-sample-t-test"><i class="fa fa-check"></i><b>8.2</b> Two sample <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-13"><i class="fa fa-check"></i><b>8.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="hypothtests.html"><a href="hypothtests.html#paired-t-test"><i class="fa fa-check"></i><b>8.3</b> Paired <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-14"><i class="fa fa-check"></i><b>8.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="hypothtests.html"><a href="hypothtests.html#t-test-assumptions"><i class="fa fa-check"></i><b>8.4</b> <span class="math inline">\(t\)</span> test assumptions</a></li>
+<li class="chapter" data-level="8.5" data-path="hypothtests.html"><a href="hypothtests.html#non-parametric-alternative-to-t-tests"><i class="fa fa-check"></i><b>8.5</b> Non-parametric alternative to <span class="math inline">\(t\)</span> tests</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="hypothtests.html"><a href="hypothtests.html#mann-whitney-wilcoxon-test"><i class="fa fa-check"></i><b>8.5.1</b> Mann-Whitney-Wilcoxon test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="hypothtests.html"><a href="hypothtests.html#practical-significance-versus-statistical-significance"><i class="fa fa-check"></i><b>8.6</b> Practical significance versus statistical significance</a></li>
+<li class="chapter" data-level="8.7" data-path="hypothtests.html"><a href="hypothtests.html#SUMhyp"><i class="fa fa-check"></i><b>8.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="hypothtests.html"><a href="hypothtests.html#learning-outcomes-4"><i class="fa fa-check"></i><b>8.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="hypothtests.html"><a href="hypothtests.html#ANShyp"><i class="fa fa-check"></i><b>8.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>9</b> Analysis of Variance</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="anova.html"><a href="anova.html#INTanova"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="anova.html"><a href="anova.html#multiple-comparisons"><i class="fa fa-check"></i><b>9.2</b> Multiple comparisons</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="anova.html"><a href="anova.html#type-i-and-type-ii-error"><i class="fa fa-check"></i><b>9.2.1</b> Type I and Type II error</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="anova.html"><a href="anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.3</b> ANalysis Of VAriance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="anova.html"><a href="anova.html#f-test-statistic-for-anova"><i class="fa fa-check"></i><b>9.3.1</b> <span class="math inline">\(F\)</span> test statistic for ANOVA</a></li>
+<li class="chapter" data-level="9.3.2" data-path="anova.html"><a href="anova.html#calculating-an-anova-table"><i class="fa fa-check"></i><b>9.3.2</b> Calculating an ANOVA table</a></li>
+<li class="chapter" data-level="9.3.3" data-path="anova.html"><a href="anova.html#f-distribution"><i class="fa fa-check"></i><b>9.3.3</b> <span class="math inline">\(F\)</span> distribution</a></li>
+<li class="chapter" data-level="9.3.4" data-path="anova.html"><a href="anova.html#doing-this-in-r-16"><i class="fa fa-check"></i><b>9.3.4</b> Doing this in R</a></li>
+<li class="chapter" data-level="9.3.5" data-path="anova.html"><a href="anova.html#assumptions"><i class="fa fa-check"></i><b>9.3.5</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="anova.html"><a href="anova.html#identifying-differences-and-more-on-multiple-comparisons"><i class="fa fa-check"></i><b>9.4</b> Identifying differences (and more on multiple comparisons)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="anova.html"><a href="anova.html#bonferroni-correction"><i class="fa fa-check"></i><b>9.4.1</b> Bonferroni correction</a></li>
+<li class="chapter" data-level="9.4.2" data-path="anova.html"><a href="anova.html#sidak-adjustment"><i class="fa fa-check"></i><b>9.4.2</b> Sidak adjustment</a></li>
+<li class="chapter" data-level="9.4.3" data-path="anova.html"><a href="anova.html#tukeys-honest-significant-difference-hsd"><i class="fa fa-check"></i><b>9.4.3</b> Tukey’s Honest Significant Difference (HSD)</a></li>
+<li class="chapter" data-level="9.4.4" data-path="anova.html"><a href="anova.html#multiple-comparison-controversy"><i class="fa fa-check"></i><b>9.4.4</b> Multiple comparison controversy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="anova.html"><a href="anova.html#alternative-tests-to-anova"><i class="fa fa-check"></i><b>9.5</b> Alternative tests to ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="anova.html"><a href="anova.html#doing-this-in-r-18"><i class="fa fa-check"></i><b>9.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="anova.html"><a href="anova.html#SUManova"><i class="fa fa-check"></i><b>9.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="anova.html"><a href="anova.html#learning-outcomes-5"><i class="fa fa-check"></i><b>9.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="anova.html"><a href="anova.html#ANSanova"><i class="fa fa-check"></i><b>9.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="power.html"><a href="power.html"><i class="fa fa-check"></i><b>10</b> Statistical Power</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="power.html"><a href="power.html#INTpower"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="power.html"><a href="power.html#a-motivating-example---environmental-impact-assessment"><i class="fa fa-check"></i><b>10.2</b> A motivating example - Environmental impact assessment</a></li>
+<li class="chapter" data-level="10.3" data-path="power.html"><a href="power.html#calculating-power"><i class="fa fa-check"></i><b>10.3</b> Calculating power</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="power.html"><a href="power.html#increasing-the-power"><i class="fa fa-check"></i><b>10.3.1</b> Increasing the power</a></li>
+<li class="chapter" data-level="10.3.2" data-path="power.html"><a href="power.html#power-by-simulation"><i class="fa fa-check"></i><b>10.3.2</b> Power by simulation</a></li>
+<li class="chapter" data-level="10.3.3" data-path="power.html"><a href="power.html#multiple-comparisons-1"><i class="fa fa-check"></i><b>10.3.3</b> Multiple comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="power.html"><a href="power.html#SUMpower"><i class="fa fa-check"></i><b>10.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="power.html"><a href="power.html#learning-objectives-2"><i class="fa fa-check"></i><b>10.4.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="power.html"><a href="power.html#ANSpower"><i class="fa fa-check"></i><b>10.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="proportions.html"><a href="proportions.html"><i class="fa fa-check"></i><b>11</b> Proportions</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="proportions.html"><a href="proportions.html#INTprop"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals"><i class="fa fa-check"></i><b>11.2</b> Confidence intervals</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="proportions.html"><a href="proportions.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>11.2.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="11.2.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals-large-sample-sizes"><i class="fa fa-check"></i><b>11.2.2</b> Confidence intervals: large sample sizes</a></li>
+<li class="chapter" data-level="11.2.3" data-path="proportions.html"><a href="proportions.html#confidence-intervals-small-sample-sizes"><i class="fa fa-check"></i><b>11.2.3</b> Confidence intervals: small sample sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="proportions.html"><a href="proportions.html#comparing-two-proportions-the-z-test"><i class="fa fa-check"></i><b>11.3</b> Comparing two proportions: the <span class="math inline">\(z\)</span> test</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="proportions.html"><a href="proportions.html#testing-for-no-difference-between-groups"><i class="fa fa-check"></i><b>11.3.1</b> Testing for ‘no difference’ between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="proportions.html"><a href="proportions.html#ci-for-the-difference-between-population-proportions-p_1-p_2"><i class="fa fa-check"></i><b>11.4</b> CI for the difference between population proportions, (<span class="math inline">\(p_1-p_2\)</span>)</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="proportions.html"><a href="proportions.html#choosing-the-appropriate-standard-error-when-comparing-proportions"><i class="fa fa-check"></i><b>11.4.1</b> Choosing the appropriate standard error when comparing proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="proportions.html"><a href="proportions.html#odds-ratios"><i class="fa fa-check"></i><b>11.5</b> Odds ratios</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success"><i class="fa fa-check"></i><b>11.5.1</b> Calculating the odds of success</a></li>
+<li class="chapter" data-level="11.5.2" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success-for-2-x-2-tables"><i class="fa fa-check"></i><b>11.5.2</b> Calculating the odds of success for 2 x 2 tables</a></li>
+<li class="chapter" data-level="11.5.3" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-ratio"><i class="fa fa-check"></i><b>11.5.3</b> Calculating the odds ratio</a></li>
+<li class="chapter" data-level="11.5.4" data-path="proportions.html"><a href="proportions.html#confidence-intervals-for-odds-ratios"><i class="fa fa-check"></i><b>11.5.4</b> Confidence intervals for odds ratios</a></li>
+<li class="chapter" data-level="11.5.5" data-path="proportions.html"><a href="proportions.html#final-note-on-odds-ratios"><i class="fa fa-check"></i><b>11.5.5</b> Final note on odds ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="proportions.html"><a href="proportions.html#SUMprop"><i class="fa fa-check"></i><b>11.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="11.6.1" data-path="proportions.html"><a href="proportions.html#learning-outcomes-6"><i class="fa fa-check"></i><b>11.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="proportions.html"><a href="proportions.html#ANSprop"><i class="fa fa-check"></i><b>11.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="tableofcounts.html"><a href="tableofcounts.html"><i class="fa fa-check"></i><b>12</b> Tables of counts</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="tableofcounts.html"><a href="tableofcounts.html#introduction"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-goodness-of-fit-test"><i class="fa fa-check"></i><b>12.2</b> <span class="math inline">\(\chi^2\)</span> goodness-of-fit test</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-22"><i class="fa fa-check"></i><b>12.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-test-of-independence"><i class="fa fa-check"></i><b>12.3</b> <span class="math inline">\(\chi^2\)</span> test of independence</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-23"><i class="fa fa-check"></i><b>12.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="tableofcounts.html"><a href="tableofcounts.html#test-assumptions"><i class="fa fa-check"></i><b>12.4</b> Test assumptions</a></li>
+<li class="chapter" data-level="12.5" data-path="tableofcounts.html"><a href="tableofcounts.html#summary"><i class="fa fa-check"></i><b>12.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="tableofcounts.html"><a href="tableofcounts.html#learning-outcomes-7"><i class="fa fa-check"></i><b>12.5.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="tableofcounts.html"><a href="tableofcounts.html#answers"><i class="fa fa-check"></i><b>12.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>IV Regression and Linear Models</b></span></li>
+<li class="chapter" data-level="13" data-path="correg.html"><a href="correg.html"><i class="fa fa-check"></i><b>13</b> Correlation and Regression</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="correg.html"><a href="correg.html#introcorreg"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.2" data-path="correg.html"><a href="correg.html#correlation"><i class="fa fa-check"></i><b>13.2</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="correg.html"><a href="correg.html#significance-of-r"><i class="fa fa-check"></i><b>13.2.1</b> Significance of <span class="math inline">\(r\)</span></a></li>
+<li class="chapter" data-level="13.2.2" data-path="correg.html"><a href="correg.html#correlation-and-causation"><i class="fa fa-check"></i><b>13.2.2</b> Correlation and causation</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="correg.html"><a href="correg.html#regression"><i class="fa fa-check"></i><b>13.3</b> Regression</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="correg.html"><a href="correg.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>13.3.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="13.3.2" data-path="correg.html"><a href="correg.html#model-specification"><i class="fa fa-check"></i><b>13.3.2</b> Model specification</a></li>
+<li class="chapter" data-level="13.3.3" data-path="correg.html"><a href="correg.html#which-straight-line-to-choose"><i class="fa fa-check"></i><b>13.3.3</b> Which straight line to choose?</a></li>
+<li class="chapter" data-level="13.3.4" data-path="correg.html"><a href="correg.html#fitting-the-model-the-details"><i class="fa fa-check"></i><b>13.3.4</b> Fitting the model: the details</a></li>
+<li class="chapter" data-level="13.3.5" data-path="correg.html"><a href="correg.html#predictions"><i class="fa fa-check"></i><b>13.3.5</b> Predictions</a></li>
+<li class="chapter" data-level="13.3.6" data-path="correg.html"><a href="correg.html#the-variance-estimate"><i class="fa fa-check"></i><b>13.3.6</b> The variance estimate</a></li>
+<li class="chapter" data-level="13.3.7" data-path="correg.html"><a href="correg.html#introduction-to-the-matrix-form"><i class="fa fa-check"></i><b>13.3.7</b> Introduction to the matrix form</a></li>
+<li class="chapter" data-level="13.3.8" data-path="correg.html"><a href="correg.html#regression-in-practise"><i class="fa fa-check"></i><b>13.3.8</b> Regression in practise</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="correg.html"><a href="correg.html#SUMcorreg"><i class="fa fa-check"></i><b>13.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="correg.html"><a href="correg.html#learning-outcomes-8"><i class="fa fa-check"></i><b>13.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="correg.html"><a href="correg.html#ANScorreg"><i class="fa fa-check"></i><b>13.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="introlm.html"><a href="introlm.html"><i class="fa fa-check"></i><b>14</b> Introduction to the linear model</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="introlm.html"><a href="introlm.html#INTlm"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-a-t-test"><i class="fa fa-check"></i><b>14.2</b> The linear model as a <span class="math inline">\(t\)</span> test</a></li>
+<li class="chapter" data-level="14.3" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-analysis-of-variance"><i class="fa fa-check"></i><b>14.3</b> The linear model as analysis of variance</a></li>
+<li class="chapter" data-level="14.4" data-path="introlm.html"><a href="introlm.html#simple-linear-regression-again"><i class="fa fa-check"></i><b>14.4</b> Simple linear regression (again)</a></li>
+<li class="chapter" data-level="14.5" data-path="introlm.html"><a href="introlm.html#model-performance"><i class="fa fa-check"></i><b>14.5</b> Model performance</a></li>
+<li class="chapter" data-level="14.6" data-path="introlm.html"><a href="introlm.html#multiple-regression"><i class="fa fa-check"></i><b>14.6</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="introlm.html"><a href="introlm.html#the-eia-data-again"><i class="fa fa-check"></i><b>14.6.1</b> The EIA data again</a></li>
+<li class="chapter" data-level="14.6.2" data-path="introlm.html"><a href="introlm.html#model-specification-1"><i class="fa fa-check"></i><b>14.6.2</b> Model specification</a></li>
+<li class="chapter" data-level="14.6.3" data-path="introlm.html"><a href="introlm.html#types-of-covariates"><i class="fa fa-check"></i><b>14.6.3</b> Types of covariates</a></li>
+<li class="chapter" data-level="14.6.4" data-path="introlm.html"><a href="introlm.html#model-fitting"><i class="fa fa-check"></i><b>14.6.4</b> Model fitting</a></li>
+<li class="chapter" data-level="14.6.5" data-path="introlm.html"><a href="introlm.html#parameter-interpretation"><i class="fa fa-check"></i><b>14.6.5</b> Parameter Interpretation</a></li>
+<li class="chapter" data-level="14.6.6" data-path="introlm.html"><a href="introlm.html#parameter-uncertainty"><i class="fa fa-check"></i><b>14.6.6</b> Parameter uncertainty</a></li>
+<li class="chapter" data-level="14.6.7" data-path="introlm.html"><a href="introlm.html#confidence-intervals-cis-on-parameters"><i class="fa fa-check"></i><b>14.6.7</b> Confidence intervals (CIs) on parameters</a></li>
+<li class="chapter" data-level="14.6.8" data-path="introlm.html"><a href="introlm.html#hypothesis-testing"><i class="fa fa-check"></i><b>14.6.8</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="14.6.9" data-path="introlm.html"><a href="introlm.html#model-performance-1"><i class="fa fa-check"></i><b>14.6.9</b> Model performance</a></li>
+<li class="chapter" data-level="14.6.10" data-path="introlm.html"><a href="introlm.html#more-covariates-of-mixed-types"><i class="fa fa-check"></i><b>14.6.10</b> More covariates of mixed types</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="introlm.html"><a href="introlm.html#the-matrix-interpretation-of-a-linear-model"><i class="fa fa-check"></i><b>14.7</b> The matrix interpretation of a linear model</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="introlm.html"><a href="introlm.html#dummy-variables"><i class="fa fa-check"></i><b>14.7.1</b> Dummy variables</a></li>
+<li class="chapter" data-level="14.7.2" data-path="introlm.html"><a href="introlm.html#combining-factors-and-continuous-variables"><i class="fa fa-check"></i><b>14.7.2</b> Combining factors and continuous variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.8" data-path="introlm.html"><a href="introlm.html#SUMlm"><i class="fa fa-check"></i><b>14.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="14.8.1" data-path="introlm.html"><a href="introlm.html#learning-objectives-3"><i class="fa fa-check"></i><b>14.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="14.9" data-path="introlm.html"><a href="introlm.html#ANSlm"><i class="fa fa-check"></i><b>14.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="modelselection.html"><a href="modelselection.html"><i class="fa fa-check"></i><b>15</b> Model selection</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="modelselection.html"><a href="modelselection.html#INTmodsel"><i class="fa fa-check"></i><b>15.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="modelselection.html"><a href="modelselection.html#criteria-for-model-selection"><i class="fa fa-check"></i><b>15.1.1</b> Criteria for model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="modelselection.html"><a href="modelselection.html#collinearity"><i class="fa fa-check"></i><b>15.2</b> Collinearity</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="modelselection.html"><a href="modelselection.html#variance-inflation-factors"><i class="fa fa-check"></i><b>15.2.1</b> Variance inflation factors</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="modelselection.html"><a href="modelselection.html#p-value-based-model-selection-the-f-test"><i class="fa fa-check"></i><b>15.3</b> <span class="math inline">\(p\)</span>-value based model selection: the <span class="math inline">\(F\)</span>-test</a></li>
+<li class="chapter" data-level="15.4" data-path="modelselection.html"><a href="modelselection.html#relative-model-fit"><i class="fa fa-check"></i><b>15.4</b> Relative model fit</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="modelselection.html"><a href="modelselection.html#akaikes-information-criterion-aic"><i class="fa fa-check"></i><b>15.4.1</b> Akaike’s Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="modelselection.html"><a href="modelselection.html#other-methods-of-model-selection"><i class="fa fa-check"></i><b>15.5</b> Other methods of model selection</a></li>
+<li class="chapter" data-level="15.6" data-path="modelselection.html"><a href="modelselection.html#automated-variable-selection"><i class="fa fa-check"></i><b>15.6</b> Automated variable selection</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="modelselection.html"><a href="modelselection.html#stepwise-selection"><i class="fa fa-check"></i><b>15.6.1</b> Stepwise selection</a></li>
+<li class="chapter" data-level="15.6.2" data-path="modelselection.html"><a href="modelselection.html#all-possible-subsets-selection"><i class="fa fa-check"></i><b>15.6.2</b> All possible subsets selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="modelselection.html"><a href="modelselection.html#example-model-selection-with-the-medical-data"><i class="fa fa-check"></i><b>15.7</b> Example: model selection with the medical data</a>
+<ul>
+<li class="chapter" data-level="15.7.1" data-path="modelselection.html"><a href="modelselection.html#model-specification-3"><i class="fa fa-check"></i><b>15.7.1</b> Model specification</a></li>
+<li class="chapter" data-level="15.7.2" data-path="modelselection.html"><a href="modelselection.html#interpreting-the-parameter-estimates"><i class="fa fa-check"></i><b>15.7.2</b> Interpreting the parameter estimates</a></li>
+<li class="chapter" data-level="15.7.3" data-path="modelselection.html"><a href="modelselection.html#what-should-be-in-the-model"><i class="fa fa-check"></i><b>15.7.3</b> What ‘should’ be in the model?</a></li>
+<li class="chapter" data-level="15.7.4" data-path="modelselection.html"><a href="modelselection.html#what-terms-are-significant"><i class="fa fa-check"></i><b>15.7.4</b> What terms are significant?</a></li>
+<li class="chapter" data-level="15.7.5" data-path="modelselection.html"><a href="modelselection.html#more-automated-methods"><i class="fa fa-check"></i><b>15.7.5</b> More automated methods</a></li>
+</ul></li>
+<li class="chapter" data-level="15.8" data-path="modelselection.html"><a href="modelselection.html#SUMmodsel"><i class="fa fa-check"></i><b>15.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="15.8.1" data-path="modelselection.html"><a href="modelselection.html#learning-objectives-4"><i class="fa fa-check"></i><b>15.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="15.9" data-path="modelselection.html"><a href="modelselection.html#ANSmodsel"><i class="fa fa-check"></i><b>15.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="interac.html"><a href="interac.html"><i class="fa fa-check"></i><b>16</b> Interactions and the Linear Model</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="interac.html"><a href="interac.html#INTinterac"><i class="fa fa-check"></i><b>16.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="interac.html"><a href="interac.html#fitting-different-models"><i class="fa fa-check"></i><b>16.1.1</b> Fitting different models</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="interac.html"><a href="interac.html#fitting-interaction-terms"><i class="fa fa-check"></i><b>16.2</b> Fitting interaction terms</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="interac.html"><a href="interac.html#specifying-interactions-in-model-formulae"><i class="fa fa-check"></i><b>16.2.1</b> Specifying interactions in model formulae</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="interac.html"><a href="interac.html#interactions-in-practise"><i class="fa fa-check"></i><b>16.3</b> Interactions in practise</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="interac.html"><a href="interac.html#eia-data"><i class="fa fa-check"></i><b>16.3.1</b> EIA data</a></li>
+<li class="chapter" data-level="16.3.2" data-path="interac.html"><a href="interac.html#medical-data"><i class="fa fa-check"></i><b>16.3.2</b> Medical data</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="interac.html"><a href="interac.html#model-selection-and-interactions"><i class="fa fa-check"></i><b>16.4</b> Model selection and interactions</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-eia-data-set"><i class="fa fa-check"></i><b>16.4.1</b> Backwards selection in the EIA data set</a></li>
+<li class="chapter" data-level="16.4.2" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-medical-data-set"><i class="fa fa-check"></i><b>16.4.2</b> Backwards selection in the medical data set</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="interac.html"><a href="interac.html#SUMinterac"><i class="fa fa-check"></i><b>16.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="interac.html"><a href="interac.html#learning-objectives-5"><i class="fa fa-check"></i><b>16.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="interac.html"><a href="interac.html#ANSinterac"><i class="fa fa-check"></i><b>16.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>17</b> Prediction from the linear model</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="prediction.html"><a href="prediction.html#INTpred"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="prediction.html"><a href="prediction.html#prediction-1"><i class="fa fa-check"></i><b>17.2</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-27"><i class="fa fa-check"></i><b>17.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="prediction.html"><a href="prediction.html#uncertainty-in-the-prediction"><i class="fa fa-check"></i><b>17.3</b> Uncertainty in the prediction</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-28"><i class="fa fa-check"></i><b>17.3.1</b> Doing this in R</a></li>
+<li class="chapter" data-level="17.3.2" data-path="prediction.html"><a href="prediction.html#confidence-intervals-for-the-line"><i class="fa fa-check"></i><b>17.3.2</b> Confidence intervals for the line</a></li>
+<li class="chapter" data-level="17.3.3" data-path="prediction.html"><a href="prediction.html#prediction-intervals"><i class="fa fa-check"></i><b>17.3.3</b> Prediction intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="prediction.html"><a href="prediction.html#prediction-in-multiple-regression"><i class="fa fa-check"></i><b>17.4</b> Prediction in multiple regression</a></li>
+<li class="chapter" data-level="17.5" data-path="prediction.html"><a href="prediction.html#SUMpred"><i class="fa fa-check"></i><b>17.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="prediction.html"><a href="prediction.html#learning-objectives-6"><i class="fa fa-check"></i><b>17.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="prediction.html"><a href="prediction.html#ANSpred"><i class="fa fa-check"></i><b>17.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>18</b> Linear model diagnostics</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="diagnostics.html"><a href="diagnostics.html#INTdiag"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="diagnostics.html"><a href="diagnostics.html#predictive-power"><i class="fa fa-check"></i><b>18.2</b> Predictive power</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="diagnostics.html"><a href="diagnostics.html#signal-versus-noise"><i class="fa fa-check"></i><b>18.2.1</b> Signal versus noise</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="diagnostics.html"><a href="diagnostics.html#model-assumptions"><i class="fa fa-check"></i><b>18.3</b> Model assumptions</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="diagnostics.html"><a href="diagnostics.html#normality-assumption"><i class="fa fa-check"></i><b>18.3.1</b> Normality assumption</a></li>
+<li class="chapter" data-level="18.3.2" data-path="diagnostics.html"><a href="diagnostics.html#assessing-constant-error-variance"><i class="fa fa-check"></i><b>18.3.2</b> Assessing constant error variance</a></li>
+<li class="chapter" data-level="18.3.3" data-path="diagnostics.html"><a href="diagnostics.html#assessing-independence"><i class="fa fa-check"></i><b>18.3.3</b> Assessing independence</a></li>
+<li class="chapter" data-level="18.3.4" data-path="diagnostics.html"><a href="diagnostics.html#pseudoreplication"><i class="fa fa-check"></i><b>18.3.4</b> Pseudoreplication</a></li>
+<li class="chapter" data-level="18.3.5" data-path="diagnostics.html"><a href="diagnostics.html#linearity-in-the-model-for-the-signal"><i class="fa fa-check"></i><b>18.3.5</b> Linearity in the model for the signal</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="diagnostics.html"><a href="diagnostics.html#example-diagnostics-with-the-medical-data"><i class="fa fa-check"></i><b>18.4</b> Example: Diagnostics with the medical data</a></li>
+<li class="chapter" data-level="18.5" data-path="diagnostics.html"><a href="diagnostics.html#partial-residual-plots"><i class="fa fa-check"></i><b>18.5</b> Partial residual plots</a>
+<ul>
+<li class="chapter" data-level="18.5.1" data-path="diagnostics.html"><a href="diagnostics.html#doing-this-in-r-30"><i class="fa fa-check"></i><b>18.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="18.6" data-path="diagnostics.html"><a href="diagnostics.html#interaction-terms"><i class="fa fa-check"></i><b>18.6</b> Interaction Terms</a></li>
+<li class="chapter" data-level="18.7" data-path="diagnostics.html"><a href="diagnostics.html#SUMdiag"><i class="fa fa-check"></i><b>18.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="18.7.1" data-path="diagnostics.html"><a href="diagnostics.html#learning-outcomes-9"><i class="fa fa-check"></i><b>18.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="18.8" data-path="diagnostics.html"><a href="diagnostics.html#ANSdiag"><i class="fa fa-check"></i><b>18.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="nextsteps.html"><a href="nextsteps.html"><i class="fa fa-check"></i><b>19</b> The Next Steps</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="nextsteps.html"><a href="nextsteps.html#INTnext"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="nextsteps.html"><a href="nextsteps.html#solving-the-assumptional-problems"><i class="fa fa-check"></i><b>19.2</b> Solving the assumptional problems</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="nextsteps.html"><a href="nextsteps.html#example-the-eia-data"><i class="fa fa-check"></i><b>19.2.1</b> Example: The EIA data</a></li>
+<li class="chapter" data-level="19.2.2" data-path="nextsteps.html"><a href="nextsteps.html#oddly-distributed-residuals"><i class="fa fa-check"></i><b>19.2.2</b> Oddly distributed residuals</a></li>
+<li class="chapter" data-level="19.2.3" data-path="nextsteps.html"><a href="nextsteps.html#non-independence"><i class="fa fa-check"></i><b>19.2.3</b> Non-independence</a></li>
+<li class="chapter" data-level="19.2.4" data-path="nextsteps.html"><a href="nextsteps.html#non-linearity"><i class="fa fa-check"></i><b>19.2.4</b> Non-linearity</a></li>
+<li class="chapter" data-level="19.2.5" data-path="nextsteps.html"><a href="nextsteps.html#bootstrapping"><i class="fa fa-check"></i><b>19.2.5</b> Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="nextsteps.html"><a href="nextsteps.html#summary-1"><i class="fa fa-check"></i><b>19.3</b> Summary</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="nextsteps.html"><a href="nextsteps.html#learning-outcomes-10"><i class="fa fa-check"></i><b>19.3.1</b> Learning outcomes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="notation.html"><a href="notation.html"><i class="fa fa-check"></i><b>20</b> Notation {-}</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="notation.html"><a href="notation.html#summation"><i class="fa fa-check"></i><b>20.1</b> Summation</a></li>
+<li class="chapter" data-level="20.2" data-path="notation.html"><a href="notation.html#factorial"><i class="fa fa-check"></i><b>20.2</b> Factorial</a></li>
+<li class="chapter" data-level="20.3" data-path="notation.html"><a href="notation.html#combinations"><i class="fa fa-check"></i><b>20.3</b> Combinations</a></li>
+<li class="chapter" data-level="20.4" data-path="notation.html"><a href="notation.html#multiplication"><i class="fa fa-check"></i><b>20.4</b> Multiplication</a></li>
+<li class="chapter" data-level="20.5" data-path="notation.html"><a href="notation.html#integration"><i class="fa fa-check"></i><b>20.5</b> Integration</a></li>
+<li class="chapter" data-level="20.6" data-path="notation.html"><a href="notation.html#matrix-multiplication"><i class="fa fa-check"></i><b>20.6</b> Matrix multiplication</a></li>
+<li class="chapter" data-level="20.7" data-path="notation.html"><a href="notation.html#absolute-values"><i class="fa fa-check"></i><b>20.7</b> Absolute values</a></li>
+<li class="chapter" data-level="20.8" data-path="notation.html"><a href="notation.html#pi"><i class="fa fa-check"></i><b>20.8</b> <span class="math inline">\(\pi\)</span></a></li>
+<li class="chapter" data-level="20.9" data-path="notation.html"><a href="notation.html#exponential-function-e"><i class="fa fa-check"></i><b>20.9</b> Exponential function, <span class="math inline">\(e\)</span></a></li>
+<li class="chapter" data-level="20.10" data-path="notation.html"><a href="notation.html#intervals"><i class="fa fa-check"></i><b>20.10</b> Intervals</a></li>
+<li class="chapter" data-level="20.11" data-path="notation.html"><a href="notation.html#axes-on-plots"><i class="fa fa-check"></i><b>20.11</b> Axes on plots</a></li>
+<li class="chapter" data-level="20.12" data-path="notation.html"><a href="notation.html#probability-2"><i class="fa fa-check"></i><b>20.12</b> Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="hypothtests" class="section level1" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Hypothesis Tests</h1>
+<p><em>The value for which <span class="math inline">\(P\)</span>=0.05, or 1 in 20, is 1.96 or nearly 2; it is convenient to take this point as a limit in judging whether a deviation ought to be considered significant or not. Deviations exceeding twice the standard deviation are thus formally regarded as significant. Using this criterion we should be led to follow up a false indication only once in 22 trials, even if the statistics were the only guide available. Small effects will still escape notice if the data are insufficiently numerous to bring them out, but no lowering of the standard of significance would meet this difficulty.</em>
+<br/> R. A Fisher, 1971.</p>
+<div id="INThyp" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Introduction</h2>
+<p>A confidence interval provides a plausible range of values for an unknown parameter (e.g. the population mean). A hypothesis test is conducted to investigate a question e.g. does the application of fertilizer increase crop yield, does a new drug reduce blood pressure compared to a standard drug? These might be termed research hypotheses - the question that the study is designed to answer. In a one sample <span class="math inline">\(t\)</span> test, a sample mean is compared to a known or hypothesised value. A two sample <span class="math inline">\(t\)</span> test is used to determine if two population means are equal. In hypothesis testing, we try to determine the strength of evidence for a particular value given the data - this can be quantified by a probability, the <span class="math inline">\(p\)</span>-value. Hypothesis tests such as <span class="math inline">\(t\)</span> tests rely on assumptions but if these assumptions are not valid, alternative, non-parametric methods can be used.</p>
+<p>This chapter describes</p>
+<ul>
+<li>the different types of hypotheses</li>
+<li>a one sample, two sample and paired <span class="math inline">\(t\)</span> tests</li>
+<li>the differences between one and two-tailed tests</li>
+<li>using a <span class="math inline">\(p\)</span>-value or fixed significance level to make conclusions,</li>
+<li>non-parametric alternatives to <span class="math inline">\(t\)</span> tests and</li>
+<li>statistical and practical significance.</li>
+</ul>
+<div id="types-of-hypotheses" class="section level3" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Types of hypotheses</h3>
+<p>A study is generally designed with a research hypothesis in mind. To test a research hypothesis, two further hypotheses are required and these are defined with a specific format; a null hypothesis and an alternative hypothesis.</p>
+<p>The <strong>null</strong> hypothesis (denoted by <span class="math inline">\(H_0\)</span>) is the hypothesis that is tested and is very specific. In a one sample <span class="math inline">\(t\)</span> test it specifies that there is no difference between the true mean (<span class="math inline">\(\mu\)</span>) and the hypothesised value (say <span class="math inline">\(\mu_0\)</span>). This is represented mathematically as:</p>
+<p><span class="math display">\[H_0: \mu = \mu_0\]</span>
+or equivalently,</p>
+<p><span class="math display">\[H_0: \mu - \mu_0 = 0\]</span>
+<strong>Example</strong> We wish to determine whether a sample of baby weights could have been generated from a population with a mean of 120 ounces; this is the research hypothesis to be tested. The null hypothesis would be</p>
+<p><span class="math display">\[H_0: \mu = 120\]</span></p>
+<p>The <strong>alternative</strong> hypothesis (denoted by <span class="math inline">\(H_1\)</span> or <span class="math inline">\(H_A\)</span>) could take several forms. Firstly, we could state that the true mean is not equal to the hypothesised value:</p>
+<p><span class="math display">\[H_1: \mu \ne \mu_0\]</span>
+This is called a <strong>two-tailed</strong> test because <span class="math inline">\(\mu\)</span> could be either larger or smaller than <span class="math inline">\(\mu_0\)</span> - the direction of any difference is not important. We could, however, be more precise and state a direction where we think the difference will lie, for example:</p>
+<p><span class="math display">\[H_1: \mu &lt; \mu_0\]</span>
+or alternatively:</p>
+<p><span class="math display">\[H_1: \mu &gt; \mu_0\]</span></p>
+<p>These are called <strong>one-tailed</strong> tests because the direction of the difference is important. For both one- and two-tailed tests, the null hypothesis will remain the same.</p>
+<p>The alternative hypothesis for a two-tailed test of the birth weights will be:</p>
+<p><span class="math display">\[H_1: \mu \ne 120\]</span></p>
+<p>The example we have considered so far is a <strong>one sample</strong> test because we have one sample of data and we which to know whether it could have been generated from a process with a particular mean, e.g. 120 ounces.</p>
+<p>We might be interested in determining whether data in two groups could have been generated from processes with the same or different means - this is a <strong>two sample</strong> test because we are comparing two samples, or groups. Assuming two groups, <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, the null hypothesis will be:</p>
+<p><span class="math display">\[H_0: \mu_A = \mu_B\]</span></p>
+<p>or</p>
+<p><span class="math display">\[H_0: \mu_A - \mu_B = 0\]</span></p>
+<p>Similar to a one sample test, the alternative hypotheses could be that the two means are not the same (two-tailed test):</p>
+<p><span class="math display">\[H_1: \mu_A \ne \mu_B\]</span></p>
+<p>or the means are different in some direction (one-tailed tests):</p>
+<p><span class="math display">\[H_1: \mu_A &lt; \mu_B\]</span></p>
+<p><span class="math display">\[H_1: \mu_A &gt; \mu_B\]</span></p>
+<p>Having defined the test hypotheses, a test statistic is calculated and the strength of evidence for this statistic, given the null hypothesis is true, is quantified.</p>
+</div>
+<div id="how-do-hypothesis-tests-work" class="section level3" number="8.1.2">
+<h3><span class="header-section-number">8.1.2</span> How do hypothesis tests work?</h3>
+<p>Hypothesis tests work by comparing an estimate obtained from the data (we call this a ‘data-estimate’) with what we expect to find assuming that <span class="math inline">\(H_0\)</span> is true. The basic formulation of the test statistic (<span class="math inline">\(t_{stat}\)</span>) is:</p>
+<p><span class="math display">\[t_{stat}=\frac{\textrm{data-estimate - hypothesised value}}{\textrm{standard error of data-estimate}}\]</span></p>
+<p>Evidence against the null hypothesis is provided by a large discrepancy between this data-estimate and the hypothesised value given by <span class="math inline">\(H_0\)</span>. If <span class="math inline">\(H_0\)</span> is true, we expect the data-estimate and the hypothesised value to be similar and any difference is due to sampling variation alone.</p>
+<p>However, detecting a difference from a particular value depends on the variability of the data and this is quantified by the standard error of the data-estimate. Consider a two sample test, where we want to decide whether any observed difference between the two group means is due to a real difference between the groups or whether it is due to sampling variability. Figure <a href="hypothtests.html#fig:groupbox">8.1</a> illustrates two sets of data: group 1 has a mean of 30 and group 2 has a mean of 20; the standard deviation in the left hand panel is 2 for both groups and the standard deviation in the right hand panel is 8. A real difference between means seems:</p>
+<ul>
+<li><p>more compelling if the values within groups are tightly clustered (left-hand plot, Figure <a href="hypothtests.html#fig:groupbox">8.1</a>).</p></li>
+<li><p>less convincing if the values within each group are very variable (right-hand plot, Figure <a href="hypothtests.html#fig:groupbox">8.1</a>).</p></li>
+</ul>
+<p>If there are no differences between group means (i.e. the null hypothesis is true) then any observed differences are likely to be small compared with the within-group variability (i.e. similar to the right-hand plot, Figure <a href="hypothtests.html#fig:groupbox">8.1</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:groupbox"></span>
+<img src="IntroStats_files/figure-html/groupbox-1.png" alt="Box plots illustrating the distribution of data for two groups where the variability in the data is low (left) and high (right)." width="480" />
+<p class="caption">
+Figure 8.1: Box plots illustrating the distribution of data for two groups where the variability in the data is low (left) and high (right).
+</p>
+</div>
+<p>We use the ‘test statistic’ to quantify how much our data-estimate differs from the value in the null hypothesis taking into account the variability in the data. The formula for calculating the test statistic varies across data types and the nature of the test. In this chapter we consider one and two sample tests <span class="math inline">\(t\)</span> to compare sample means; proportions are considered in a later chapter.</p>
+</div>
+<div id="one-sample-t-test" class="section level3" number="8.1.3">
+<h3><span class="header-section-number">8.1.3</span> One sample <span class="math inline">\(t\)</span> test</h3>
+<p>In a one sample <span class="math inline">\(t\)</span> test we compare the data-estimate to the hypothesised value; the <span class="math inline">\(t\)</span> test statistic is given by:</p>
+<p><span class="math display">\[t_{stat}=\frac{\hat \mu - \mu_0}{se(\hat \mu)}\]</span>
+where <span class="math inline">\(\hat \mu\)</span> is the sample mean and <span class="math inline">\(se(\hat \mu)\)</span> is the standard error of the sample mean.<br />
+Let’s return to the example where we want to determine whether sample of baby weights could have been generated from a population with a mean of 120 ounces. As a reminder, the null hypothesis is:</p>
+<p><span class="math inline">\(H_0\)</span>: <span class="math inline">\({\mu} = 120\)</span></p>
+<p>We will consider a two-tailed test and so the alternative hypothesis is:</p>
+<p><span class="math inline">\(H_1\)</span>: <span class="math inline">\({\mu} \neq 120\)</span></p>
+<p>The sample statistics are: <span class="math inline">\(\hat\mu\)</span>=119.5769, <span class="math inline">\(s\)</span>=18.236 and <span class="math inline">\(n\)</span>=1236. Substituting in these values we can calculate the standard error and test statistic.</p>
+<p>The standard error is given by:</p>
+<p><span class="math display">\[se(\hat\mu) = \frac{s}{\sqrt{n}} = \frac{18.24}{\sqrt{1236}} = 0.519\]</span>
+The test statistic is, therefore,</p>
+<p><span class="math display">\[t_{stat}=\frac{\hat{\mu} - 120}{se(\hat{\mu})} = \frac{119.577 - 120}{0.519} = -0.815\]</span></p>
+<p>If <span class="math inline">\(H_0\)</span> is true, the test statistic (<span class="math inline">\(t_{stat}\)</span>) should be close to zero because the difference between the test statistic and the hypothesised value is small.</p>
+<p>If <span class="math inline">\(H_0\)</span> is false, the test statistic should be large (positive or negative) because the difference between the test statistic and the hypothesised value is large.</p>
+<p>To decide if a test statistic is ‘large’ under the null hypothesis, we compare the test statistic to a reference distribution and, not surprisingly for a <span class="math inline">\(t\)</span> test, we use the <span class="math inline">\(t\)</span> distribution. The shape of the <span class="math inline">\(t\)</span> distribution depends on the degrees of freedom and for a one sample <span class="math inline">\(t\)</span> test the degrees of freedom (<span class="math inline">\(df\)</span>) are given by <span class="math inline">\(df = n - 1\)</span>. Using this reference distribution we can determine what values might typically arise.</p>
+<p>Having found the test statistic for the one sample test of baby weights, we obtain the associated reference <span class="math inline">\(t\)</span> distribution. The sample size is 1236, and so <span class="math inline">\(df = 1236 - 1 = 1235\)</span>, hence, the reference distribution is a <span class="math inline">\(t_{df=1235}\)</span> distribution (Figure <a href="hypothtests.html#fig:tdist1235">8.2</a>). This figure shows that values close to zero are likely to occur and values smaller than -2, or greater than 2, are unlikely. Where the test statistic lies on the reference distribution indicates how typical it is given the null hypothesis.</p>
+<p>The reference distribution can be used in two ways to determine the strength of evidence for the null hypothesis: by obtaining an exact <span class="math inline">\(p\)</span>-value for the test statistic or using a pre-determined significance level.</p>
+<div id="determining-an-exact-p-value" class="section level4" number="8.1.3.1">
+<h4><span class="header-section-number">8.1.3.1</span> Determining an exact <span class="math inline">\(p\)</span>-value</h4>
+<p>A <strong><span class="math inline">\(p\)</span>-value</strong> is the <strong>probability</strong> of observing a test statistic at least as extreme as the one observed, given the null hypothesis is true. Thus,</p>
+<ul>
+<li><p>a test statistic close to zero would be likely to occur if was no difference between the data-estimate and the hypothesised value (other than sampling variability) and thus the probability of observing such a value would be high.</p></li>
+<li><p>a large, absolute value of the test statistic would be likely if there was a real difference between the data-estimate and the hypothesised value (over and above sampling variability) and thus the probability of observing such a value would be small.</p></li>
+</ul>
+<p>A mathematical representation of the <span class="math inline">\(p\)</span>-value for a two-tailed test is:</p>
+<p><span class="math display">\[Pr(T \le -|t_{stat}|) + Pr(T \ge |t_{stat}|) \]</span>
+where <span class="math inline">\(T\)</span> is a random variable distributed as <span class="math inline">\(t_{df}\)</span>.</p>
+<p>Using the <span class="math inline">\(t_{df=1235}\)</span> distribution, the <span class="math inline">\(p\)</span>-value associated with the test statistic of -0.815 can be obtained (Figure <a href="hypothtests.html#fig:tdist1235">8.2</a>). We want the probability of a value smaller than -0.815 and the probability of a value greater than 0.815 (i.e. the areas in both tails of the distribution):</p>
+<p><span class="math display">\[Pr(T \le -0.815) + Pr(T \ge 0.815) \]</span></p>
+<p>The first part of this expression (i.e. <span class="math inline">\(Pr(T \le -0.815)\)</span>) is the cumulative distribution function and because the distribution is symmetric we can easily find the value <span class="math inline">\(Pr(T \ge 0.815)\)</span>.</p>
+<div class="figure" style="text-align: center"><span id="fig:tdist1235"></span>
+<img src="IntroStats_files/figure-html/tdist1235-1.png" alt="Reference $t$ distribution for one sample example, $t_{df=1235}$. The blue shaded region indicates areas more extreme than the test statistic (for a two-tailed test)." width="480" />
+<p class="caption">
+Figure 8.2: Reference <span class="math inline">\(t\)</span> distribution for one sample example, <span class="math inline">\(t_{df=1235}\)</span>. The blue shaded region indicates areas more extreme than the test statistic (for a two-tailed test).
+</p>
+</div>
+<p>The blue shaded area on Figure <a href="hypothtests.html#fig:tdist1235">8.2</a> is a substantial proportion of the total area and is, in fact, 0.415 (= 0.2076 + 0.2076) of the area, hence the <span class="math inline">\(p\)</span>-value is 0.415. What does this <span class="math inline">\(p\)</span>-value indicate about how likely a test statistic of -0.815 is?</p>
+<p>The <span class="math inline">\(p\)</span>-value measures the strength of evidence against the null hypothesis and, typically, <span class="math inline">\(H_0\)</span> is only rejected when the <span class="math inline">\(p\)</span>-value is really small. What is classed as small? Common threshold values are 0.1, 0.05 or 0.01 and they can be translated as follows <span class="citation">(<a href="references.html#ref-wildgaf" role="doc-biblioref">Wild and Seber 1999</a>)</span>:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Approximate <span class="math inline">\(p\)</span>-value</th>
+<th>Translation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&gt;0.10</td>
+<td><strong>No</strong> evidence against <span class="math inline">\(H_0\)</span></td>
+</tr>
+<tr class="even">
+<td>0.05</td>
+<td><strong>Weak</strong> evidence against <span class="math inline">\(H_0\)</span></td>
+</tr>
+<tr class="odd">
+<td>0.01</td>
+<td><strong>Strong</strong> evidence against <span class="math inline">\(H_0\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\le\)</span> 0.001</td>
+<td><strong>Very strong</strong> evidence against <span class="math inline">\(H_0\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>A <span class="math inline">\(p\)</span>-value of 0.415 is pretty large, much larger than any of the values which provide evidence against <span class="math inline">\(H_0\)</span> (shown in the table above). Hence, we conclude that the test statistic is consistent with <span class="math inline">\(H_0\)</span>; we are pretty likely to observe a test statistic of -0.815, or one more extreme. These data do not provide evidence to reject the null hypothesis and the sample of baby weights could come from an underlying population with a mean of 120 ounces.</p>
+<p><strong>Example</strong> The average age of the mothers in the sample (of size <span class="math inline">\(n=1236\)</span>) from the US was 27.255 years with a standard deviation of 5.7814 years. The average age of first time mothers in the UK 2017 was 28.8 (The original data are <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthcharacteristicsinenglandandwales/2017.html">here</a>). Is there evidence to suggest that the age of mothers differ between the US and UK? We assume that the age of mothers in the UK was obtained from a census (and so there is no uncertainty).</p>
+<p>The null hypothesis is:</p>
+<p><span class="math display">\[H_0: \mu_{US} = 28.8\]</span></p>
+<p>and since there is no reason to suspect that the average age in the US is either higher or lower than in the UK, we consider a two-tailed test and so the alternative hypothesis is:</p>
+<p><span class="math display">\[H_1: \mu_{US} \ne 28.8\]</span></p>
+<p>The standard error is given by:</p>
+<p><span class="math display">\[se(\hat \mu_{US}) = \frac{s}{\sqrt{n}} = \frac{5.7814}{\sqrt{1236}} = 0.1644\]</span></p>
+<p>and thus the test statistic is:</p>
+<p><span class="math display">\[ t_{stat} = \frac{\hat \mu_{US} - 28.8}{se(\hat \mu_{US})} = \frac{27.255 - 28.8}{0.1664} = -9.285\]</span></p>
+<p>We compare this to a reference distribution - since the sample size is 1236, the degrees of freedom for the reference distribution will be 1235. This is the distribution plotted in Figure <a href="hypothtests.html#fig:tdist1235">8.2</a> (since the sample size is the same as the sample of baby weights) and shows that a value of -9.285 will be out in the left hand tail (so much so that it is not even displayed on the <span class="math inline">\(x\)</span>-axis scale.) In fact, the probability of obtaining a value as extreme, or more extreme, than -9.285 (i.e. <span class="math inline">\(Pr(T \le -0.9285)\)</span>) is pretty much zero and even when added to the probability in right hand tail (i.e. <span class="math inline">\(Pr(T \ge 0.9285)\)</span>) the <span class="math inline">\(p\)</span>-value is approximately zero. Translating this value using the table above, there is strong evidence to reject <span class="math inline">\(H_0\)</span> and conclude that the average age of the US mothers is not from a population with a mean of 28.8 years.</p>
+</div>
+<div id="using-a-fixed-significance-level" class="section level4" number="8.1.3.2">
+<h4><span class="header-section-number">8.1.3.2</span> Using a fixed significance level</h4>
+<p>Some studies used a (pre-determined) fixed significance level; the evidence for the null hypothesis is determined with a 5% significance level, for example. We find a ‘critical value’ from the reference distribution based on the significance level and compare the test statistic to this critical value. Let’s return to the reference distribution for the baby weights and assume a fixed significance level of 5%; this is a two-tailed test (as specified in the alternative hypothesis) and so we want to find the quantile (the critical value, <span class="math inline">\(t_{crit}\)</span>) such that:</p>
+<p><span class="math display">\[Pr(T \le -|t_{crit}|) + Pr(T \ge |t_{crit}|) = 0.05\]</span></p>
+<p>In Figure <a href="hypothtests.html#fig:tdist1235ex2">8.3</a>, the critical value, <span class="math inline">\(t_{crit}\)</span> is 1.96 (i.e. the red shaded area is 5% of the total area) and we can see that the test statistic does not fall within the red shaded region. Hence, the conclusion is the same as before, there is no evidence to reject the null hypothesis, testing at a 5% significance level.</p>
+<p>A test statistic falling within the red shaded region would be sufficiently unlikely (based on the significance level) to have occurred if the null hypothesis was true, hence, providing evidence to reject the null hypothesis.</p>
+<div class="figure" style="text-align: center"><span id="fig:tdist1235ex2"></span>
+<img src="IntroStats_files/figure-html/tdist1235ex2-1.png" alt="Reference t distribution for one sample example, $t_{df=1235}$. The red shaded region indicates areas more extreme than the critical value. The blue dashed line indicates the test statistic." width="480" />
+<p class="caption">
+Figure 8.3: Reference t distribution for one sample example, <span class="math inline">\(t_{df=1235}\)</span>. The red shaded region indicates areas more extreme than the critical value. The blue dashed line indicates the test statistic.
+</p>
+</div>
+<p>This method of obtaining a critical value based on a fixed significance level and comparing it to the test statistic was used when making a decision regarding the null hypothesis was limited to looking up critical values in statistical tables. It is still frequently practised - it is commonplace to see the phrase ‘testing at a significance level of …’ in statistical reports. In more recent times, when access to computing power and statistical packages is commonplace, it is now easy to perform a test and obtain an exact <span class="math inline">\(p\)</span>-value and indeed many computer packages routinely provide exact <span class="math inline">\(p\)</span>-values in output.</p>
+</div>
+<div id="doing-this-in-r-12" class="section level4" number="8.1.3.3">
+<h4><span class="header-section-number">8.1.3.3</span> Doing this in R</h4>
+<p>The function <code>t.test</code> was previously introduced to calculate a confidence interval; now we use it to perform a one sample <span class="math inline">\(t\)</span> test on the baby weights. These data are stored in an object called <code>baby</code> and the weights are in a column called <code>bwt</code>. For a one sample test, the hypothesised value (<code>mu</code>) is specified and a two-tailed test (i.e. <span class="math inline">\(H_1: \mu \ne 120\)</span>) is performed by default.</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="hypothtests.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One sample t test</span></span>
+<span id="cb159-2"><a href="hypothtests.html#cb159-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x=</span>baby<span class="sc">$</span>bwt, <span class="at">mu=</span><span class="dv">120</span>)</span></code></pre></div>
+<pre><code>
+    One Sample t-test
+
+data:  baby$bwt
+t = -0.81574, df = 1235, p-value = 0.4148
+alternative hypothesis: true mean is not equal to 120
+95 percent confidence interval:
+ 118.5592 120.5945
+sample estimates:
+mean of x 
+ 119.5769 </code></pre>
+<p>The output provides information about the test; the test statistic, degrees of freedom and exact <span class="math inline">\(p\)</span>-value, what alternative hypothesis has been specified, and the sample mean and 95% confidence interval for the sample mean.</p>
+<p>The <code>t.test</code> function provides the <span class="math inline">\(p\)</span>-value as part of the output, but we can also find this value from the <code>pt</code> function. In the command below, two alternative methods are used to find it.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="hypothtests.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Finding the exact p-value</span></span>
+<span id="cb161-2"><a href="hypothtests.html#cb161-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Calculate area in lower tail and multiply by 2</span></span>
+<span id="cb161-3"><a href="hypothtests.html#cb161-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q=</span><span class="sc">-</span><span class="fl">0.815</span>, <span class="at">df=</span><span class="dv">1235</span>) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
+<pre><code>[1] 0.4152294</code></pre>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="hypothtests.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Calculate area in both tails and add</span></span>
+<span id="cb163-2"><a href="hypothtests.html#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q=</span><span class="sc">-</span><span class="fl">0.815</span>, <span class="at">df=</span><span class="dv">1235</span>) <span class="sc">+</span> <span class="fu">pt</span>(<span class="at">q=</span><span class="fl">0.815</span>, <span class="at">df=</span><span class="dv">1235</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>[1] 0.4152294</code></pre>
+<p>The <code>t.test</code> function does not provide the critical value but this can be obtained from the <code>qt</code> function: for a two-tailed test, the significance level is distributed equally between the two tails. For a significance level of 5%, there will be 2.5% in each tail; by default, the area in the lower tail is provided.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="hypothtests.html#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Left hand (lower) tail</span></span>
+<span id="cb165-2"><a href="hypothtests.html#cb165-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p=</span><span class="fl">0.025</span>, <span class="at">df=</span><span class="dv">1235</span>)</span></code></pre></div>
+<pre><code>[1] -1.961887</code></pre>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="hypothtests.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Right hand (upper) tail</span></span>
+<span id="cb167-2"><a href="hypothtests.html#cb167-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p=</span><span class="fl">0.025</span>, <span class="at">df=</span><span class="dv">1235</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>[1] 1.961887</code></pre>
+<p><strong>Q8.1</strong> The weight of a chocolate bar was supposed to be 100 grams. To check the manufacturing process, a random sample of 100 bars were weighed; the sample mean was 99.06 grams and the standard deviation was 9.58.</p>
+<p><strong>a.</strong> State the null and alternative hypotheses to be tested with a two-tailed test.</p>
+<p><strong>b.</strong> Calculate a test statistic.</p>
+<p><strong>c.</strong> Based the following information, what do you conclude?</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="hypothtests.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p=</span><span class="fl">0.025</span>, <span class="at">df=</span><span class="dv">99</span>)</span></code></pre></div>
+<pre><code>[1] -1.984217</code></pre>
+<p><strong>d.</strong> What command would you use to calculate the exact <span class="math inline">\(p\)</span>-value associated with the test statistic?</p>
+</div>
+</div>
+</div>
+<div id="two-sample-t-test" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Two sample <span class="math inline">\(t\)</span> test</h2>
+<p>In a two sample <span class="math inline">\(t\)</span> test, we are interested in comparing means of continuous data from two groups (e.g. groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>). The test statistic is used to quantify the discrepancy between the data-estimate and the null hypothesis (i.e. no differences between the two means):
+<span class="math display">\[H_0 : \mu_A = \mu_B\]</span>
+or equivalently,</p>
+<p><span class="math display">\[H_0 : \mu_A - \mu_B = 0\]</span>
+The alternative hypothesis for a two-tailed test will be:
+<span class="math display">\[H_1 : \mu_A - \mu_B \ne 0\]</span></p>
+<p>The test statistic is given by:</p>
+<p><span class="math display">\[t_{stat} = \frac{(\hat{\mu}_A - \hat{\mu}_B) - 0}{se(\hat{\mu}_A - \hat{\mu}_B)}\]</span></p>
+<p><strong>Example</strong> We continue to look at data collected from the observational study of birth weights introduced previously. We want to test whether babies born to mothers who did not smoke are heavier in weight compared to babies born to mothers who smoked. The summary data are provided in Table <a href="hypothtests.html#tab:babywgttab2">8.1</a>.</p>
+<table style="width:47%;">
+<caption><span id="tab:babywgttab2">Table 8.1: </span> Summary of birth weight data for the smoking and non-smoking groups (units are ounces).</caption>
+<colgroup>
+<col width="13%" />
+<col width="8%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Smoking</th>
+<th align="center">n</th>
+<th align="center">Mean</th>
+<th align="center">SD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">No</td>
+<td align="center">742</td>
+<td align="center">123.05</td>
+<td align="center">17.4</td>
+</tr>
+<tr class="even">
+<td align="center">Yes</td>
+<td align="center">484</td>
+<td align="center">114.11</td>
+<td align="center">18.1</td>
+</tr>
+</tbody>
+</table>
+<p>We define the null hypothesis for the two groups, smokers (<span class="math inline">\(S\)</span>) and non-smokers (<span class="math inline">\(N\)</span>) as:</p>
+<p><span class="math display">\[H_0: \mu_N - \mu_S = 0\]</span></p>
+<p>The alternative hypothesis will be one-tailed because we want to see if babies in the non-smoking group are heavier than the smoking group babies.</p>
+<p><span class="math display">\[H_1: \mu_N &gt; \mu_S\]</span>
+or</p>
+<p><span class="math display">\[H_1: \mu_N - \mu_S &gt; 0\]</span></p>
+<p>Since we do not want to make the assumption that the standard deviations of the two groups are equal, we will calculate the standard error of the difference from:</p>
+<p><span class="math display">\[se(\hat{\mu_N} - \hat{\mu_S})= \sqrt{\frac{{s_N}^2}{{n_N}} + \frac{{s_S}^2}{{n_S}}} = \sqrt{\frac{17.4^2}{742} + \frac{18.1^2}{484}} = 1.042\]</span>
+Thus, the test statistic is:</p>
+<p><span class="math display">\[t_{stat} = \frac{(123.05 - 114.11) - 0}{1.042} = 8.583\]</span></p>
+<p>The degrees of freedom (for hand calculation) are given by finding the minimum value (<span class="math inline">\(Min\)</span>) from the sample sizes for the two groups minus one:</p>
+<p><span class="math display">\[df = Min(n_N-1, n_S-1) = Min(741, 483) = 483\]</span></p>
+<p>Hence, the reference distribution is <span class="math inline">\(t_{df=483}\)</span> and, because we are conducting a one-tail test, we are only interested in the probability associated with <span class="math inline">\(Pr(T \ge 8.583)\)</span>. Figure <a href="hypothtests.html#fig:tdist483">8.4</a> shows that this probability is going to be very small because the test statistic is in the extreme right hand tail, i.e. the <span class="math inline">\(p\)</span>-value is going to be close to zero. Hence, there is strong evidence to reject the null hypothesis and conclude that the babies from non-smoking mothers are heavier from smoking mothers.</p>
+<div class="figure" style="text-align: center"><span id="fig:tdist483"></span>
+<img src="IntroStats_files/figure-html/tdist483-1.png" alt="Reference $t$ distribution for two sample test example, $t_{df=483}$. The red shaded region indicates areas more extreme than the critical value." width="480" />
+<p class="caption">
+Figure 8.4: Reference <span class="math inline">\(t\)</span> distribution for two sample test example, <span class="math inline">\(t_{df=483}\)</span>. The red shaded region indicates areas more extreme than the critical value.
+</p>
+</div>
+<p>To obtain the critical value associated with a significance level of 5%, we want the area in the right hand tail only - because this is a one-tailed test, i.e. <span class="math inline">\(Pr(T &gt; t_{crit}) = 0.05\)</span>; this is the red shaded area in Figure <a href="hypothtests.html#fig:tdist483">8.4</a>. The test statistic is much larger than the critical value (<span class="math inline">\(t_{crit}=1.65\)</span>) and thus there is evidence to suggest that the babies born to non-smoking mothers are heavier than babies born to mothers who smoked, testing at a 5% significance level.</p>
+<div id="doing-this-in-r-13" class="section level3" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Doing this in R</h3>
+<p>To make the code simple, separate objects are created for two groups. By default, a two-tailed test is performed but a one-tailed test can be specified using the <code>alternative</code> argument. Also by default, the standard deviations are assumed to be unequal and the degrees of freedom will be calculated using the Welch-Satterthwaite equation (Chapter <a href="CIformean.html#CIformean">7</a>).</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="hypothtests.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save objects for two groups</span></span>
+<span id="cb171-2"><a href="hypothtests.html#cb171-2" aria-hidden="true" tabindex="-1"></a>grpN <span class="ot">&lt;-</span> baby<span class="sc">$</span>bwt[baby<span class="sc">$</span>smoke<span class="sc">==</span><span class="dv">0</span>]</span>
+<span id="cb171-3"><a href="hypothtests.html#cb171-3" aria-hidden="true" tabindex="-1"></a>grpS <span class="ot">&lt;-</span> baby<span class="sc">$</span>bwt[baby<span class="sc">$</span>smoke<span class="sc">==</span><span class="dv">1</span>]</span>
+<span id="cb171-4"><a href="hypothtests.html#cb171-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-5"><a href="hypothtests.html#cb171-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Two sample, one-tailed t test</span></span>
+<span id="cb171-6"><a href="hypothtests.html#cb171-6" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x=</span>grpN, <span class="at">y=</span>grpS, <span class="at">alternative=</span><span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
+<pre><code>
+    Welch Two Sample t-test
+
+data:  grpN and grpS
+t = 8.5813, df = 1003.2, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means is greater than 0
+95 percent confidence interval:
+ 7.222928      Inf
+sample estimates:
+mean of x mean of y 
+ 123.0472  114.1095 </code></pre>
+<p>Since a one-tailed test has been specified, only one limit of the confidence interval for the difference in means is provided; in this example it is a plausible value for a lower limit i.e. that the weight of babies born to non-smoking mothers is likely to be at least 7.22 ounces.</p>
+<p>The <span class="math inline">\(p\)</span>-value in the output is found from:</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="hypothtests.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p-value in upper tail (using the Welch-Satterthwaite df)</span></span>
+<span id="cb173-2"><a href="hypothtests.html#cb173-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q=</span><span class="fl">8.5813</span>, <span class="at">df=</span><span class="fl">1003.2</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>[1] 1.762554e-17</code></pre>
+<p>The critical value, testing at a significance level of 5% for a one-tailed test, would be found using the following command:</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="hypothtests.html#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Critical value (using df for hand calculation)</span></span>
+<span id="cb175-2"><a href="hypothtests.html#cb175-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Significance level is 5% for a one-tailed test</span></span>
+<span id="cb175-3"><a href="hypothtests.html#cb175-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p=</span><span class="fl">0.05</span>, <span class="at">df=</span><span class="dv">482</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>[1] 1.648021</code></pre>
+<p><strong>Q8.2</strong> According to an advertising campaign, batteries from brand <span class="math inline">\(A\)</span> last longer than
+batteries from brand <span class="math inline">\(B\)</span>. State the null and alternative hypotheses required to test this claim and hence, conduct a hypothesis test using the following data using a fixed significance level of 5%. Assume that the data are normally distributed. The following may be of use.</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="hypothtests.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p=</span><span class="fl">0.05</span>, <span class="at">df=</span><span class="dv">59</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>[1] 1.671093</code></pre>
+<table style="width:38%;">
+<colgroup>
+<col width="11%" />
+<col width="6%" />
+<col width="9%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Brand</th>
+<th align="center">n</th>
+<th align="center">Mean</th>
+<th align="center">SD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">A</td>
+<td align="center">90</td>
+<td align="center">49.5</td>
+<td align="center">6.32</td>
+</tr>
+<tr class="even">
+<td align="center">B</td>
+<td align="center">60</td>
+<td align="center">46.1</td>
+<td align="center">3.31</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Q8.3</strong> An experiment looked at the effect of either a high or low protein diet on female rats. The gains in weight over a period of time were recorded and a two-sample <span class="math inline">\(t\)</span> test was conducted; the R output is shown below.</p>
+<pre><code>
+    Welch Two Sample t-test
+
+data:  hi.protein and lo.protein
+t = 1.9107, df = 13.082, p-value = 0.07821
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -2.469073 40.469073
+sample estimates:
+mean of x mean of y 
+      120       101 </code></pre>
+<p><strong>a.</strong> State the null and alternative hypotheses that have been tested.</p>
+<p><strong>b.</strong> Given that the standard error for the difference in means used in this test was 9.944, explain how the test statistic was calculated.</p>
+<p><strong>c.</strong> Interpret the test results.</p>
+</div>
+</div>
+<div id="paired-t-test" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Paired <span class="math inline">\(t\)</span> test</h2>
+<p>A paired <span class="math inline">\(t\)</span> test is used to compare the population means of two groups where the observations in one sample can be paired with an observation in the other sample. An example would be a study where participants are measured before and after a treatment and so the two measurments are not independent since the measurements were taken from the same participants. These types of study can be very useful because using the same participants can eliminate any variation other than the treatment between the two groups.</p>
+<p>Let <span class="math inline">\(x\)</span> be a measurement before treatment, or some intervention, and <span class="math inline">\(y\)</span> be a measurement after treatment. The difference between the two measurements on each participant <span class="math inline">\(i\)</span> is given by:</p>
+<p><span class="math display">\[d_i = x_i - y_i\]</span></p>
+<p>The mean of the difference is calculated, here denoted by <span class="math inline">\(\bar d\)</span>, this essentially reduces the data to one sample; a paired <span class="math inline">\(t\)</span> test is the same as a one sample <span class="math inline">\(t\)</span> test on the differences. The null hypothesis is that the true mean of the differences is equal to zero:</p>
+<p><span class="math display">\[H_0: \mu_d = 0\]</span>
+The alternative hypothesis can be specified in several ways depending on whether a one or two-tailed test is required, for example:</p>
+<p><span class="math display">\[H_1: \mu_d \ne 0\]</span>
+<span class="math display">\[H_1: \mu_d &gt; 0\]</span>
+<span class="math display">\[H_1: \mu_d &lt; 0\]</span></p>
+<p>The test statistic is given by:</p>
+<p><span class="math display">\[t_{stat} = \frac{\bar d - 0}{se(\bar d)} \]</span></p>
+<p>The standard error of the differences is:</p>
+<p><span class="math display">\[se(\bar d) = \frac{s_d}{\sqrt{n}}\]</span>
+where <span class="math inline">\(s_d\)</span> is the sample standard deviation of the differences.</p>
+<p>Under the null hypothesis, the test statistic follows a <span class="math inline">\(t_{df=n-1}\)</span> distribution and this can be used to obtain a <span class="math inline">\(p\)</span>-value.</p>
+<p><strong>Example</strong> A study tested whether cholesterol level was reduced after using a certain brand of margarine as part of a low cholesterol diet. Eighteen participants incorporated the margarine into their daily diet and their cholesterol levels were measured at the start and after 4 and 8 weeks. Here we compare the cholesterol levels after 4 and 8 weeks (data can be found <a href="https://www.sheffield.ac.uk/mash/statistics/datasets">here</a>). We do not make an assumption about whether cholesterol levels should be higher or lower after 8 weeks and hence use a two-tailed test.</p>
+<p>The mean and standard deviation of the differences are <span class="math inline">\(\bar d = 0.0628\)</span> and <span class="math inline">\(s_d = 0.0704\)</span>. The test statistic is then:</p>
+<p><span class="math display">\[t_{stat} = \frac{0.0628}{\frac{0.0704}{\sqrt{18}}} = 3.78\]</span>
+This is compared to a <span class="math inline">\(t_{df=17}\)</span> distribution; Figure <a href="hypothtests.html#fig:tdist17">8.5</a> shows that the test statistic lies in the right hand tail and so the probability of obtaining a value as extreme as this is going to be very small. The critical value is 2.11 and Figure <a href="hypothtests.html#fig:tdist17">8.5</a> shows that the test statistic is much greater than the critical value. Therefore, there is some evidence to reject the null hypothesis and conclude that there is a difference in cholesterol levels between weeks 4 and 8.</p>
+<div class="figure" style="text-align: center"><span id="fig:tdist17"></span>
+<img src="IntroStats_files/figure-html/tdist17-1.png" alt="Reference $t_{df}=17$ distribution for paired sample example. The blue dashed line indicates the test statistic and the red shaded region indicates areas more extreme than the critical value (testing at a significance level of 5\%." width="480" />
+<p class="caption">
+Figure 8.5: Reference <span class="math inline">\(t_{df}=17\)</span> distribution for paired sample example. The blue dashed line indicates the test statistic and the red shaded region indicates areas more extreme than the critical value (testing at a significance level of 5%.
+</p>
+</div>
+<div id="doing-this-in-r-14" class="section level3" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Doing this in R</h3>
+<p>The <code>t.test</code> function is used to perform a paired <span class="math inline">\(t\)</span> test with an additional argument to indicate that the data are paired observations. In the example below, the cholesterol data have been stored in an object called <code>chol</code>.</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="hypothtests.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paired t test</span></span>
+<span id="cb180-2"><a href="hypothtests.html#cb180-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(chol<span class="sc">$</span>After8weeks, chol<span class="sc">$</span>After4weeks, <span class="at">paired=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>
+    Paired t-test
+
+data:  chol$After8weeks and chol$After4weeks
+t = -3.7809, df = 17, p-value = 0.001491
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.09780897 -0.02774658
+sample estimates:
+mean of the differences 
+            -0.06277778 </code></pre>
+<p>The similarity between this approach and using a one sample test of the differences is easily shown:</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="hypothtests.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the difference</span></span>
+<span id="cb182-2"><a href="hypothtests.html#cb182-2" aria-hidden="true" tabindex="-1"></a>diff <span class="ot">&lt;-</span> chol<span class="sc">$</span>After8weeks <span class="sc">-</span> chol<span class="sc">$</span>After4weeks </span>
+<span id="cb182-3"><a href="hypothtests.html#cb182-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-4"><a href="hypothtests.html#cb182-4" aria-hidden="true" tabindex="-1"></a><span class="co"># One sample t test of differences</span></span>
+<span id="cb182-5"><a href="hypothtests.html#cb182-5" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x=</span>diff, <span class="at">mu=</span><span class="dv">0</span>)</span></code></pre></div>
+<pre><code>
+    One Sample t-test
+
+data:  diff
+t = -3.7809, df = 17, p-value = 0.001491
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ -0.09780897 -0.02774658
+sample estimates:
+  mean of x 
+-0.06277778 </code></pre>
+</div>
+</div>
+<div id="t-test-assumptions" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> <span class="math inline">\(t\)</span> test assumptions</h2>
+<p>Both one and two sample <span class="math inline">\(t\)</span> tests are based on assumptions that need to be fulfilled for the results to be reliable. These assumptions are that the data are</p>
+<ol style="list-style-type: decimal">
+<li><p>independent (both within and between groups), and</p></li>
+<li><p>normally distributed.</p></li>
+</ol>
+<p>The first assumption can be determined by having knowledge of the data collection procedures and what the data represent. If the sampling units in the groups are paired, then a paired <span class="math inline">\(t\)</span> test can be undertaken.</p>
+<p>The second assumption can be checked by plotting the data, for example using histograms and boxplots. This will be explored further in the chapter <a href="anova.html#anova">9</a>.</p>
+<p>If the data are not normally distributed, then a non-parametric test can be used and so we look at this next.</p>
+<p><strong>Q8.4</strong> For the test described in Q8.3, as well as an assumption regarding standard deviations of the two groups, state two other assumptions on which this test was based.</p>
+</div>
+<div id="non-parametric-alternative-to-t-tests" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> Non-parametric alternative to <span class="math inline">\(t\)</span> tests</h2>
+<p>The <span class="math inline">\(t\)</span> test assumes that the data are normally distributed and, although the test is quite robust if data are not exactly normally distributed (i.e. the test result is still valid), in some situations the data will be skewed or the sample size will be small. In these circumstances, non-parametric, or distribution-free, methods are available. However, these methods still assume that the data are independent within and between groups.</p>
+<p>To determine if two data samples have the same population mean, the Mann-Whitney-Wilcoxon test is used.</p>
+<div id="mann-whitney-wilcoxon-test" class="section level3" number="8.5.1">
+<h3><span class="header-section-number">8.5.1</span> Mann-Whitney-Wilcoxon test</h3>
+<p>This test is known by various names (e.g. Mann-Whitney, two-sample Wilcoxon). The null hypothesis is that the two groups (say <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>) have the same distributions - represented as <span class="math inline">\(H_0: A = B\)</span>. The alternative hypothesis is that there is a shift in the distribution; if there is no reason to suggest a shift to the left or right, the alternative hypothesis will <span class="math inline">\(H_1: A \ne B\)</span>. One-tailed variants (i.e. <span class="math inline">\(H_1: A &lt; B\)</span> or <span class="math inline">\(H_1: A &gt; B\)</span>) can also be tested.</p>
+<p><strong>Example</strong> To illustrate the test procedure, six baby weights from the smoking group and six from the non-smoking group are used. The data in the two groups are</p>
+<p>Non-smoking (N): 120, 113, 123, 136, 138, 132</p>
+<p>Smoking (S): 128, 108, 143, 144, 141, 110</p>
+<p>The test statistic is based on sorting the data into order and assigning ranks - the ranks in each group are then added together. The procedure is:</p>
+<ol style="list-style-type: decimal">
+<li>Combine the values (weights) from both groups and rank them in order of increasing value.</li>
+</ol>
+<table style="width:35%;">
+<colgroup>
+<col width="12%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Weight</th>
+<th align="center">Group</th>
+<th align="center">Rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">108</td>
+<td align="center">S</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">110</td>
+<td align="center">S</td>
+<td align="center">2</td>
+</tr>
+<tr class="odd">
+<td align="center">113</td>
+<td align="center">N</td>
+<td align="center">3</td>
+</tr>
+<tr class="even">
+<td align="center">120</td>
+<td align="center">N</td>
+<td align="center">4</td>
+</tr>
+<tr class="odd">
+<td align="center">123</td>
+<td align="center">N</td>
+<td align="center">5</td>
+</tr>
+<tr class="even">
+<td align="center">128</td>
+<td align="center">S</td>
+<td align="center">6</td>
+</tr>
+<tr class="odd">
+<td align="center">132</td>
+<td align="center">N</td>
+<td align="center">7</td>
+</tr>
+<tr class="even">
+<td align="center">136</td>
+<td align="center">N</td>
+<td align="center">8</td>
+</tr>
+<tr class="odd">
+<td align="center">138</td>
+<td align="center">N</td>
+<td align="center">9</td>
+</tr>
+<tr class="even">
+<td align="center">141</td>
+<td align="center">S</td>
+<td align="center">10</td>
+</tr>
+<tr class="odd">
+<td align="center">143</td>
+<td align="center">S</td>
+<td align="center">11</td>
+</tr>
+<tr class="even">
+<td align="center">144</td>
+<td align="center">S</td>
+<td align="center">12</td>
+</tr>
+</tbody>
+</table>
+<ol start="2" style="list-style-type: decimal">
+<li>Calculate the sum of ranks for each group:</li>
+</ol>
+<p><span class="math display">\[R_N = 3 + 4 + 5 + 7 + 8 + 9 = 36\]</span>
+<span class="math display">\[R_S = 1 + 2 + 6 + 10 + 11 + 12 = 42\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Calculate a test statistic for both groups:</li>
+</ol>
+<p><span class="math display">\[W_N = R_N - \frac{n_N(n_N + 1)}{2} = 36 - \frac{6 \times 7}{2} = 15\]</span></p>
+<p><span class="math display">\[W_S = R_S - \frac{n_S(n_S + 1)}{2} = 42 - \frac{6 \times 7}{2} = 21\]</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Either of these values are used as the test statistic - the smaller value is generally used when consulting statistical tables to determine a critical value (There are some statistical tables <a href="https://onlinepubs.trb.org/onlinepubs/nchrp/cd-22/manual/v2appendixc.pdf">here</a>) and then the test statistic would be compared to the critical value as described previously. Here, we use R and R uses the test statistic for the first group specified in the command (see below).</li>
+</ol>
+<p>There are also one sample and paired sample variants of the Mann-Whitney-Wilcoxon test and these are illustrated below.</p>
+<div id="doing-this-in-r-15" class="section level4" number="8.5.1.1">
+<h4><span class="header-section-number">8.5.1.1</span> Doing this in R</h4>
+<p>The function is called <code>wilcox.test</code> and, as in the example above, only the first six weights in each group are used.</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="hypothtests.html#cb184-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(<span class="at">x=</span>grpN[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>], <span class="at">y=</span>grpS[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>])</span></code></pre></div>
+<pre><code>
+    Wilcoxon rank sum exact test
+
+data:  grpN[1:6] and grpS[1:6]
+W = 15, p-value = 0.6991
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+<p>The <span class="math inline">\(p\)</span>-value is interpreted as before; here it is large and thus provides no evidence to reject the null hypothesis.</p>
+<p>For large samples, the test statistic <span class="math inline">\(W\)</span> is approximately normally distributed and so the <span class="math inline">\(p\)</span>-value is obtained from the normal distribution and a correction is applied to account for this approximation: we can see this using all the data for the baby weights.</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="hypothtests.html#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(<span class="at">x=</span>grpN, <span class="at">y=</span>grpS)</span></code></pre></div>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  grpN and grpS
+W = 231918, p-value &lt; 2.2e-16
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+<p>A one sample version is available; here the null hypothesis can be interpreted as the median is equal to some hypothesised value:</p>
+<p><span class="math display">\[H_0: \textrm{median} = \textrm{median}_0\]</span></p>
+<p>To illustrate the command for the baby weights:</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="hypothtests.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(<span class="at">x=</span>baby<span class="sc">$</span>bwt, <span class="at">mu=</span><span class="dv">120</span>)</span></code></pre></div>
+<pre><code>
+    Wilcoxon signed rank test with continuity correction
+
+data:  baby$bwt
+V = 358753, p-value = 0.7062
+alternative hypothesis: true location is not equal to 120</code></pre>
+<p>To illustrate a paired sample variant of the Mann-Whitney-Wilcoxon test, we return to the cholesterol data.</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="hypothtests.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paired sample</span></span>
+<span id="cb190-2"><a href="hypothtests.html#cb190-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(<span class="at">x=</span>chol<span class="sc">$</span>After4weeks, <span class="at">y=</span>chol<span class="sc">$</span>After8weeks, <span class="at">paired=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>
+    Wilcoxon signed rank test with continuity correction
+
+data:  chol$After4weeks and chol$After8weeks
+V = 152.5, p-value = 0.003725
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+</div>
+</div>
+<div id="practical-significance-versus-statistical-significance" class="section level2" number="8.6">
+<h2><span class="header-section-number">8.6</span> Practical significance versus statistical significance</h2>
+<p>The word ‘significant’ can often cause confusion - in hypothesis tests a significant result frequently means the <span class="math inline">\(p\)</span>-value is less than 0.05. It does not necessarily imply that the result (for example, a difference between means) is substantial and has practical significance. Indeed we sometimes define the significance as part of our test e.g. 0.05, and another analysis might use a different value to determine significance. To illustrate the practical significance, confidence intervals should be reported along with the test results.</p>
+<p>Statistical significance:</p>
+<ul>
+<li><p>relates to the existence of an effect,</p></li>
+<li><p>it can be found with small differences if the sample size is large enough (because the standard error will be small).</p></li>
+</ul>
+<p>Practical (or clinical) significance:</p>
+<ul>
+<li>relates to the size of an effect and should be reported to provide context to the hypothesis test results.</li>
+</ul>
+<p>For an interesting (and short) read about practical and statistical significance have a look at this <a href="https://www.statslife.org.uk/the-statistics-dictionary/1000-the-statistics-dictionary-significantly-misleading">Significance Magazine article</a>.</p>
+</div>
+<div id="SUMhyp" class="section level2" number="8.7">
+<h2><span class="header-section-number">8.7</span> Summary</h2>
+<p>This chapter has covered the underlying concepts of hypothesis testing; a test statistic is obtained and compared to a reference distribution. Where the test statistic lies on this reference distribution provides evidence to either reject, or not reject, the null hypothesis. In terms of the <span class="math inline">\(p\)</span>-value:</p>
+<ul>
+<li><p>a small <span class="math inline">\(p\)</span>-value indicates that the test statistic is very unlikely to be obtained when the null hypothesis is true - <span class="math inline">\(H_0\)</span> is rejected in favour of <span class="math inline">\(H_1\)</span>.</p></li>
+<li><p>a large <span class="math inline">\(p\)</span>-value indicates the test statistic is likely to be obtained when the null hypothesis is true - <span class="math inline">\(H_0\)</span> cannot be rejected.</p></li>
+</ul>
+<p>The <span class="math inline">\(t\)</span> tests rely on data being normally distributed; if this is not a valid assumption, non-parametric tests can be used.</p>
+<p>In chapter 11, we consider hypothesis tests for when there are more than two groups. For more information about hypothesis testing in general <a href="https://www.khanacademy.org/math/probability/statistics-inferential/hypothesis-testing/v/hypothesis-testing-and-p-values">see</a>.</p>
+<div id="learning-outcomes-4" class="section level3" number="8.7.1">
+<h3><span class="header-section-number">8.7.1</span> Learning outcomes</h3>
+<p>In this chapter you have seen how to</p>
+<ol style="list-style-type: decimal">
+<li><p>define test hypotheses and determine whether one-tailed or two-tailed tests should be used,</p></li>
+<li><p>calculate a test statistic for a one, two and paired sample <span class="math inline">\(t\)</span> tests,</p></li>
+<li><p>decide whether to reject, or otherwise, the null hypothesis based on the <span class="math inline">\(p\)</span>-value and testing at a fixed significance level,</p></li>
+<li><p>use a non-parametric alternative to <span class="math inline">\(t\)</span>-tests, and</p></li>
+<li><p>consider the practical and statistical significance of a test.</p></li>
+</ol>
+</div>
+</div>
+<div id="ANShyp" class="section level2" number="8.8">
+<h2><span class="header-section-number">8.8</span> Answers</h2>
+<p><strong>Q8.1</strong> The sample statistics were <span class="math inline">\(n\)</span>=100, <span class="math inline">\(\hat \mu = 99.06\)</span> and <span class="math inline">\(s=9.58\)</span>.</p>
+<p><strong>Q8.1</strong> <strong>a.</strong> We want to determine if the population mean could be 100 grams. The null and alternative hypotheses to be tested with a two-tailed test are:</p>
+<p><span class="math display">\[H_0: \mu = 100\]</span></p>
+<p><span class="math display">\[H_1: \mu \ne 100\]</span></p>
+<p><strong>Q8.1</strong> <strong>b.</strong> The test statistic is</p>
+<p><span class="math display">\[t_{stat} = \frac{\hat \mu - m_0}{\frac{s}{\sqrt{n}}} = \frac{99.06 - 100}{\frac{9.58}{\sqrt{100}}} = -0.9812\]</span></p>
+<p><strong>Q8.1</strong> <strong>c.</strong> The value provided in the output (i.e. -1.984) was the critical value (<span class="math inline">\(t{crit}\)</span>) in the lower tail, testing at a fixed significance level of 5%. In this case <span class="math inline">\(t_{crit} &lt; t_{stat}\)</span> and so there is no evidence to reject the null hypothesis; the sample could have been generated from a population with mean 100 grams.</p>
+<p><strong>d.</strong> The exact <span class="math inline">\(p\)</span>-value associated with the test statistic for a two-tailed test will be provided by the command:</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="hypothtests.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q=</span><span class="sc">-</span><span class="fl">0.9812</span>, <span class="at">df=</span><span class="dv">99</span>) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
+<pre><code>[1] 0.3288859</code></pre>
+<p><strong>Q8.2</strong> The claim is that Brand A batteries last longer than Brand B. Therefore, the hypotheses will be:</p>
+<p><span class="math display">\[H_0: \mu_A - \mu_B = 0\]</span></p>
+<p><span class="math display">\[H_1: \mu_A - \mu_B &gt; 0\]</span></p>
+<p>The test statistic is given by</p>
+<p><span class="math display">\[t_{stat} = \frac{(\hat \mu_A - \hat \mu_B) - 0}{se(\mu_A - \hat \mu_B)}\]</span></p>
+<p>First calculate the standard error of the difference:</p>
+<p><span class="math display">\[se(\hat{\mu_A} - \hat{\mu_B})= \sqrt{\frac{{s_A}^2}{{n_A}} + \frac{{s_B}^2}{{n_B}}} = \sqrt{\frac{6.32^2}{90} + \frac{3.31^2}{60}} = 0.7915\]</span>
+Thus, the test statistic is:</p>
+<p><span class="math display">\[t_{stat} = \frac{(49.5 - 46.1) - 0}{0.7915} = 4.2956\]</span></p>
+<p>For ease of calculation, the degrees of freedom for the relevant <span class="math inline">\(t\)</span> distribution are given by:</p>
+<p><span class="math display">\[df = Min(n_A - 1, n_B - 1) = Min(89, 59) = 59\]</span></p>
+<p>The critical value will be found from R and since this is a one-tailed test, we only want the area in the upper tail.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="hypothtests.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p=</span><span class="fl">0.05</span>, <span class="at">df=</span><span class="dv">59</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>[1] 1.671093</code></pre>
+<p>This value is less than the test statistic and so there is evidence to reject the null hypothesis, testing at a 5% significance level, and conclude that brand A lasts longer than brand B.</p>
+<p>The <span class="math inline">\(p\)</span>-value is found using the <code>pt</code> function:</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="hypothtests.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q=</span><span class="fl">4.2956</span>, <span class="at">df=</span><span class="dv">59</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>[1] 3.298826e-05</code></pre>
+<p>In confirmation, the <span class="math inline">\(p\)</span>-value is small (i.e. &lt;0.001).</p>
+<p><strong>Q8.3</strong> Let the two groups, high protein and low protein diets, be defined by <span class="math inline">\(H\)</span> and <span class="math inline">\(L\)</span>, respectively.</p>
+<p><strong>Q8.3</strong> <strong>a.</strong> The null and alternative hypotheses are</p>
+<p><span class="math display">\[H_0: \mu_H - \mu_L = 0\]</span>
+<span class="math display">\[H_1: \mu_H - \mu_L \ne 0\]</span></p>
+<p><strong>Q8.3</strong> <strong>b.</strong> The test statistic was calculated from the data estimate (difference in means) minus the hypothesised value divided by the standard error of the difference.</p>
+<p><span class="math display">\[\textrm{test statistic} = \frac{(\hat \mu_H - \hat \mu_L) - 0}{se(\hat \mu_H - \hat \mu_L)}\]</span></p>
+<p><span class="math display">\[ 1.9107 =\frac{120 - 101}{9.944} \]</span>
+<strong>Q8.3</strong> <strong>c.</strong> The <span class="math inline">\(p\)</span>-value is 0.07821 which provides weak evidence to reject the null hypothesis.</p>
+<p><strong>Q8.4</strong> The two remaining assumptions are:</p>
+<ol style="list-style-type: decimal">
+<li><p>Independence of the data within and between groups.</p></li>
+<li><p>Data are normally distributed.</p></li>
+</ol>
+
+<!-- LB update - 04/08/2020 -->
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="CIformean.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="anova.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="book_assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/lunr.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["IntroStats.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

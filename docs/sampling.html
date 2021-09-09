@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Data collection and Sampling | An Introduction to Statistics</title>
+  <meta name="description" content="Chapter 2 Data collection and Sampling | An Introduction to Statistics" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Data collection and Sampling | An Introduction to Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Data collection and Sampling | An Introduction to Statistics" />
+  
+  
+  
+
+<meta name="author" content="Drs C. Paxton, L. Burt, C. Donovan and L. Scott-Hayward" />
+
+
+<meta name="date" content="2021-09-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introchapt.html"/>
+<link rel="next" href="describedata.html"/>
+<script src="book_assets/header-attrs-2.7/header-attrs.js"></script>
+<script src="book_assets/jquery-2.2.3/jquery.min.js"></script>
+<link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script language="javascript">
+    function toggle(id) {
+        var ele = document.getElementById("toggleText" + id);
+        var text = document.getElementById("displayText" + id);
+        var buttonText = text.innerHTML.replace("Show ", "");
+        buttonText = buttonText.replace("Hide ", "");
+        if(ele.style.display == "block") {
+            ele.style.display = "none";
+            text.innerHTML = "Show " + buttonText;
+        } else {
+            ele.style.display = "block";
+            text.innerHTML = "Hide " + buttonText;
+        }
+    }
+</script>
+
+<script language="javascript">
+    function openCode(evt, codeName, id) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent" + id);
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks" + id);
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(codeName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+<script language="javascript">
+    function hide(id){
+        document.getElementById(id).style.display = "none";
+    }
+</script>
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<a href="https://www.st-andrews.ac.uk/mathematics-statistics/"><img src="standard-vertical-black.png" width="180"></a>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#computer-practicals"><i class="fa fa-check"></i>Computer practicals</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introchapt.html"><a href="introchapt.html"><i class="fa fa-check"></i><b>1</b> Thinking About Numbers</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introchapt.html"><a href="introchapt.html#INTintro"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="introchapt.html"><a href="introchapt.html#why-use-statistics"><i class="fa fa-check"></i><b>1.2</b> Why use statistics?</a></li>
+<li class="chapter" data-level="1.3" data-path="introchapt.html"><a href="introchapt.html#why-model"><i class="fa fa-check"></i><b>1.3</b> Why model?</a></li>
+<li class="chapter" data-level="1.4" data-path="introchapt.html"><a href="introchapt.html#examples-of-statistical-claims"><i class="fa fa-check"></i><b>1.4</b> Examples of statistical claims</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="introchapt.html"><a href="introchapt.html#coffee-may-reverse-alzheimers"><i class="fa fa-check"></i><b>1.4.1</b> Coffee ‘may reverse Alzheimer’s’</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introchapt.html"><a href="introchapt.html#abundance-of-prized-sturgeon"><i class="fa fa-check"></i><b>1.4.2</b> Abundance of prized sturgeon</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introchapt.html"><a href="introchapt.html#extrapolating-sprinting-speed"><i class="fa fa-check"></i><b>1.4.3</b> Extrapolating sprinting speed</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introchapt.html"><a href="introchapt.html#mmr-innoculation-and-autism"><i class="fa fa-check"></i><b>1.4.4</b> MMR innoculation and autism</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introchapt.html"><a href="introchapt.html#two-sid-deaths-in-same-family"><i class="fa fa-check"></i><b>1.4.5</b> Two SID deaths in same family</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introchapt.html"><a href="introchapt.html#SUMintro"><i class="fa fa-check"></i><b>1.5</b> Summary</a></li>
+<li class="chapter" data-level="1.6" data-path="introchapt.html"><a href="introchapt.html#ANSintro"><i class="fa fa-check"></i><b>1.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>I Data Collection and Visualisation</b></span></li>
+<li class="chapter" data-level="2" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>2</b> Data collection and Sampling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="sampling.html"><a href="sampling.html#INTsamp"><i class="fa fa-check"></i><b>2.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="sampling.html"><a href="sampling.html#terminology"><i class="fa fa-check"></i><b>2.1.1</b> Terminology</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="sampling.html"><a href="sampling.html#what-is-sampling-and-why-do-it"><i class="fa fa-check"></i><b>2.2</b> What is sampling and why do it?</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="sampling.html"><a href="sampling.html#precision-accuracy-and-bias"><i class="fa fa-check"></i><b>2.2.1</b> Precision, accuracy and bias</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="sampling.html"><a href="sampling.html#three-types-of-data-collection"><i class="fa fa-check"></i><b>2.3</b> Three types of data collection</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="sampling.html"><a href="sampling.html#common-but-unwise-data-collection-strategies"><i class="fa fa-check"></i><b>2.3.1</b> Common, but unwise, data collection strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="sampling.html"><a href="sampling.html#simple-sampling-approaches"><i class="fa fa-check"></i><b>2.4</b> Simple sampling approaches</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="sampling.html"><a href="sampling.html#simple-random-sample"><i class="fa fa-check"></i><b>2.4.1</b> Simple random sample</a></li>
+<li class="chapter" data-level="2.4.2" data-path="sampling.html"><a href="sampling.html#systematic-samples"><i class="fa fa-check"></i><b>2.4.2</b> Systematic samples</a></li>
+<li class="chapter" data-level="2.4.3" data-path="sampling.html"><a href="sampling.html#stratified-random-samples"><i class="fa fa-check"></i><b>2.4.3</b> Stratified random samples</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="sampling.html"><a href="sampling.html#sampling-biases"><i class="fa fa-check"></i><b>2.5</b> Sampling biases</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="sampling.html"><a href="sampling.html#non-sampling-error"><i class="fa fa-check"></i><b>2.5.1</b> Non-sampling error</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="sampling.html"><a href="sampling.html#experiments"><i class="fa fa-check"></i><b>2.6</b> Experiments</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="sampling.html"><a href="sampling.html#randomised-experiments"><i class="fa fa-check"></i><b>2.6.1</b> Randomised experiments</a></li>
+<li class="chapter" data-level="2.6.2" data-path="sampling.html"><a href="sampling.html#components-of-an-experimental-design"><i class="fa fa-check"></i><b>2.6.2</b> Components of an experimental design</a></li>
+<li class="chapter" data-level="2.6.3" data-path="sampling.html"><a href="sampling.html#controls"><i class="fa fa-check"></i><b>2.6.3</b> Controls</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="sampling.html"><a href="sampling.html#observational-studies"><i class="fa fa-check"></i><b>2.7</b> Observational Studies</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="sampling.html"><a href="sampling.html#types-of-observational-study"><i class="fa fa-check"></i><b>2.7.1</b> Types of observational study</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="sampling.html"><a href="sampling.html#observational-studies-vs-experiments"><i class="fa fa-check"></i><b>2.8</b> Observational studies vs experiments</a></li>
+<li class="chapter" data-level="2.9" data-path="sampling.html"><a href="sampling.html#SUMsamp"><i class="fa fa-check"></i><b>2.9</b> Summary</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="sampling.html"><a href="sampling.html#learning-objectives"><i class="fa fa-check"></i><b>2.9.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="sampling.html"><a href="sampling.html#ANSsamp"><i class="fa fa-check"></i><b>2.10</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="describedata.html"><a href="describedata.html"><i class="fa fa-check"></i><b>3</b> Describing data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="describedata.html"><a href="describedata.html#INTdata"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="describedata.html"><a href="describedata.html#types-of-data"><i class="fa fa-check"></i><b>3.2</b> Types of data</a></li>
+<li class="chapter" data-level="3.3" data-path="describedata.html"><a href="describedata.html#frequency-distributions"><i class="fa fa-check"></i><b>3.3</b> Frequency distributions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="describedata.html"><a href="describedata.html#doing-this-in-r-2"><i class="fa fa-check"></i><b>3.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="describedata.html"><a href="describedata.html#numerical-summaries"><i class="fa fa-check"></i><b>3.4</b> Numerical summaries</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="describedata.html"><a href="describedata.html#population-mean"><i class="fa fa-check"></i><b>3.4.1</b> Population mean</a></li>
+<li class="chapter" data-level="3.4.2" data-path="describedata.html"><a href="describedata.html#sample-mean"><i class="fa fa-check"></i><b>3.4.2</b> Sample mean</a></li>
+<li class="chapter" data-level="3.4.3" data-path="describedata.html"><a href="describedata.html#sample-median"><i class="fa fa-check"></i><b>3.4.3</b> Sample median</a></li>
+<li class="chapter" data-level="3.4.4" data-path="describedata.html"><a href="describedata.html#range"><i class="fa fa-check"></i><b>3.4.4</b> Range</a></li>
+<li class="chapter" data-level="3.4.5" data-path="describedata.html"><a href="describedata.html#percentiles"><i class="fa fa-check"></i><b>3.4.5</b> Percentiles</a></li>
+<li class="chapter" data-level="3.4.6" data-path="describedata.html"><a href="describedata.html#population-variance"><i class="fa fa-check"></i><b>3.4.6</b> Population variance</a></li>
+<li class="chapter" data-level="3.4.7" data-path="describedata.html"><a href="describedata.html#sample-variance-and-standard-deviation"><i class="fa fa-check"></i><b>3.4.7</b> Sample variance and standard deviation</a></li>
+<li class="chapter" data-level="3.4.8" data-path="describedata.html"><a href="describedata.html#numerical-summaries-in-r"><i class="fa fa-check"></i><b>3.4.8</b> Numerical summaries in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="describedata.html"><a href="describedata.html#visual-summaries"><i class="fa fa-check"></i><b>3.5</b> Visual summaries</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="describedata.html"><a href="describedata.html#bar-charts"><i class="fa fa-check"></i><b>3.5.1</b> Bar charts</a></li>
+<li class="chapter" data-level="3.5.2" data-path="describedata.html"><a href="describedata.html#pie-charts"><i class="fa fa-check"></i><b>3.5.2</b> Pie charts</a></li>
+<li class="chapter" data-level="3.5.3" data-path="describedata.html"><a href="describedata.html#histograms"><i class="fa fa-check"></i><b>3.5.3</b> Histograms</a></li>
+<li class="chapter" data-level="3.5.4" data-path="describedata.html"><a href="describedata.html#boxplots"><i class="fa fa-check"></i><b>3.5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="3.5.5" data-path="describedata.html"><a href="describedata.html#basic-plots-in-r"><i class="fa fa-check"></i><b>3.5.5</b> Basic plots in R</a></li>
+<li class="chapter" data-level="3.5.6" data-path="describedata.html"><a href="describedata.html#other-plots"><i class="fa fa-check"></i><b>3.5.6</b> Other plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="describedata.html"><a href="describedata.html#summarising-the-relationship-between-two-variables"><i class="fa fa-check"></i><b>3.6</b> Summarising the relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="describedata.html"><a href="describedata.html#cross-tabulation"><i class="fa fa-check"></i><b>3.6.1</b> Cross-tabulation</a></li>
+<li class="chapter" data-level="3.6.2" data-path="describedata.html"><a href="describedata.html#side-by-side-boxplots"><i class="fa fa-check"></i><b>3.6.2</b> Side-by-side boxplots</a></li>
+<li class="chapter" data-level="3.6.3" data-path="describedata.html"><a href="describedata.html#scatter-plot"><i class="fa fa-check"></i><b>3.6.3</b> Scatter plot</a></li>
+<li class="chapter" data-level="3.6.4" data-path="describedata.html"><a href="describedata.html#quilt-plots"><i class="fa fa-check"></i><b>3.6.4</b> Quilt plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="describedata.html"><a href="describedata.html#handy-hints-when-including-tables-and-plots-into-reports"><i class="fa fa-check"></i><b>3.7</b> Handy hints when including tables and plots into reports</a></li>
+<li class="chapter" data-level="3.8" data-path="describedata.html"><a href="describedata.html#SUMdata"><i class="fa fa-check"></i><b>3.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="describedata.html"><a href="describedata.html#learning-outcomes"><i class="fa fa-check"></i><b>3.8.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="describedata.html"><a href="describedata.html#ANSdata"><i class="fa fa-check"></i><b>3.9</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>II Probability and Distributions</b></span></li>
+<li class="chapter" data-level="4" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>4</b> Probability</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="probability.html"><a href="probability.html#INTprob"><i class="fa fa-check"></i><b>4.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="probability.html"><a href="probability.html#random-phenomena-and-uncertain-outcomes"><i class="fa fa-check"></i><b>4.1.1</b> Random phenomena and uncertain outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="probability.html"><a href="probability.html#sample-spaces-and-events"><i class="fa fa-check"></i><b>4.2</b> Sample spaces and events</a></li>
+<li class="chapter" data-level="4.3" data-path="probability.html"><a href="probability.html#definition-of-probability-and-3-axioms"><i class="fa fa-check"></i><b>4.3</b> Definition of Probability and 3 Axioms</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="probability.html"><a href="probability.html#probability-1"><i class="fa fa-check"></i><b>4.3.1</b> Probability</a></li>
+<li class="chapter" data-level="4.3.2" data-path="probability.html"><a href="probability.html#three-axioms"><i class="fa fa-check"></i><b>4.3.2</b> Three Axioms</a></li>
+<li class="chapter" data-level="4.3.3" data-path="probability.html"><a href="probability.html#three-results-of-the-axioms"><i class="fa fa-check"></i><b>4.3.3</b> Three results of the Axioms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="probability.html"><a href="probability.html#independence-and-the-multiplication-rule"><i class="fa fa-check"></i><b>4.4</b> Independence and the Multiplication Rule</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="probability.html"><a href="probability.html#testing-for-independence"><i class="fa fa-check"></i><b>4.4.1</b> Testing for Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="probability.html"><a href="probability.html#conditional-probabilities"><i class="fa fa-check"></i><b>4.5</b> Conditional probabilities</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="probability.html"><a href="probability.html#independence-revisited"><i class="fa fa-check"></i><b>4.5.1</b> Independence revisited</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="probability.html"><a href="probability.html#tree-diagrams"><i class="fa fa-check"></i><b>4.6</b> Tree Diagrams</a></li>
+<li class="chapter" data-level="4.7" data-path="probability.html"><a href="probability.html#marginal-and-joint-probabilities"><i class="fa fa-check"></i><b>4.7</b> Marginal and joint probabilities</a></li>
+<li class="chapter" data-level="4.8" data-path="probability.html"><a href="probability.html#SUMprob"><i class="fa fa-check"></i><b>4.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="probability.html"><a href="probability.html#learning-objectives-1"><i class="fa fa-check"></i><b>4.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="probability.html"><a href="probability.html#ANSprob"><i class="fa fa-check"></i><b>4.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="discreterv.html"><a href="discreterv.html"><i class="fa fa-check"></i><b>5</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="discreterv.html"><a href="discreterv.html#INTdiscrv"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="discreterv.html"><a href="discreterv.html#discrete-random-variables"><i class="fa fa-check"></i><b>5.2</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="discreterv.html"><a href="discreterv.html#probability-mass-function"><i class="fa fa-check"></i><b>5.2.1</b> Probability mass function</a></li>
+<li class="chapter" data-level="5.2.2" data-path="discreterv.html"><a href="discreterv.html#cumulative-distribution-function"><i class="fa fa-check"></i><b>5.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="5.2.3" data-path="discreterv.html"><a href="discreterv.html#expectation"><i class="fa fa-check"></i><b>5.2.3</b> Expectation</a></li>
+<li class="chapter" data-level="5.2.4" data-path="discreterv.html"><a href="discreterv.html#variance"><i class="fa fa-check"></i><b>5.2.4</b> Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="discreterv.html"><a href="discreterv.html#special-discrete-distributions"><i class="fa fa-check"></i><b>5.3</b> Special discrete distributions</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="discreterv.html"><a href="discreterv.html#bernoulli-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="5.3.2" data-path="discreterv.html"><a href="discreterv.html#binomial-distribution"><i class="fa fa-check"></i><b>5.3.2</b> Binomial distribution</a></li>
+<li class="chapter" data-level="5.3.3" data-path="discreterv.html"><a href="discreterv.html#poisdist"><i class="fa fa-check"></i><b>5.3.3</b> Poisson distribution</a></li>
+<li class="chapter" data-level="5.3.4" data-path="discreterv.html"><a href="discreterv.html#comparison-of-binomial-and-poisson-distributions"><i class="fa fa-check"></i><b>5.3.4</b> Comparison of binomial and Poisson distributions?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="discreterv.html"><a href="discreterv.html#SUMdiscrv"><i class="fa fa-check"></i><b>5.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="discreterv.html"><a href="discreterv.html#learning-outcomes-1"><i class="fa fa-check"></i><b>5.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="discreterv.html"><a href="discreterv.html#ANSdiscrv"><i class="fa fa-check"></i><b>5.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="contrv.html"><a href="contrv.html"><i class="fa fa-check"></i><b>6</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="contrv.html"><a href="contrv.html#INTcontrv"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="contrv.html"><a href="contrv.html#continuous-random-variables"><i class="fa fa-check"></i><b>6.2</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="contrv.html"><a href="contrv.html#probability-density-function"><i class="fa fa-check"></i><b>6.2.1</b> Probability density function</a></li>
+<li class="chapter" data-level="6.2.2" data-path="contrv.html"><a href="contrv.html#cumulative-distribution-function-1"><i class="fa fa-check"></i><b>6.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="6.2.3" data-path="contrv.html"><a href="contrv.html#expectation-and-variance-1"><i class="fa fa-check"></i><b>6.2.3</b> Expectation and variance</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="contrv.html"><a href="contrv.html#special-continuous-distributions"><i class="fa fa-check"></i><b>6.3</b> Special continuous distributions</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="contrv.html"><a href="contrv.html#normal-distribution"><i class="fa fa-check"></i><b>6.3.1</b> normal distribution</a></li>
+<li class="chapter" data-level="6.3.2" data-path="contrv.html"><a href="contrv.html#standard-normal-distribution"><i class="fa fa-check"></i><b>6.3.2</b> Standard normal distribution</a></li>
+<li class="chapter" data-level="6.3.3" data-path="contrv.html"><a href="contrv.html#simple-transformations-of-random-variables"><i class="fa fa-check"></i><b>6.3.3</b> Simple transformations of random variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="contrv.html"><a href="contrv.html#SUMcontrv"><i class="fa fa-check"></i><b>6.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="contrv.html"><a href="contrv.html#learning-outcomes-2"><i class="fa fa-check"></i><b>6.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="contrv.html"><a href="contrv.html#ANScontrv"><i class="fa fa-check"></i><b>6.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="CIformean.html"><a href="CIformean.html"><i class="fa fa-check"></i><b>7</b> Confidence intervals for sample means</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="CIformean.html"><a href="CIformean.html#INTci"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="CIformean.html"><a href="CIformean.html#uncertainty-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2</b> Uncertainty of the sample mean</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="CIformean.html"><a href="CIformean.html#precision-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2.1</b> Precision of the sample mean</a></li>
+<li class="chapter" data-level="7.2.2" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-known-sigma"><i class="fa fa-check"></i><b>7.2.2</b> Confidence interval with known <span class="math inline">\(\sigma\)</span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-unknown-sigma"><i class="fa fa-check"></i><b>7.2.3</b> Confidence interval with unknown <span class="math inline">\(\sigma\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="CIformean.html"><a href="CIformean.html#difference-between-two-group-means"><i class="fa fa-check"></i><b>7.3</b> Difference between two group means</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="CIformean.html"><a href="CIformean.html#assuming-equal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.1</b> Assuming equal standard deviations of the two groups</a></li>
+<li class="chapter" data-level="7.3.2" data-path="CIformean.html"><a href="CIformean.html#assuming-unequal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.2</b> Assuming unequal standard deviations of the two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="CIformean.html"><a href="CIformean.html#empirical-bootstrap-based-confidence-intervals"><i class="fa fa-check"></i><b>7.4</b> Empirical (bootstrap-based) confidence intervals</a></li>
+<li class="chapter" data-level="7.5" data-path="CIformean.html"><a href="CIformean.html#confidence-intervals-for-other-sample-statistics"><i class="fa fa-check"></i><b>7.5</b> Confidence intervals for other sample statistics</a></li>
+<li class="chapter" data-level="7.6" data-path="CIformean.html"><a href="CIformean.html#SUMci"><i class="fa fa-check"></i><b>7.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="CIformean.html"><a href="CIformean.html#learning-outcomes-3"><i class="fa fa-check"></i><b>7.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="CIformean.html"><a href="CIformean.html#ANSci"><i class="fa fa-check"></i><b>7.7</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>III Hypothesis Testing</b></span></li>
+<li class="chapter" data-level="8" data-path="hypothtests.html"><a href="hypothtests.html"><i class="fa fa-check"></i><b>8</b> Hypothesis Tests</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="hypothtests.html"><a href="hypothtests.html#INThyp"><i class="fa fa-check"></i><b>8.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="hypothtests.html"><a href="hypothtests.html#types-of-hypotheses"><i class="fa fa-check"></i><b>8.1.1</b> Types of hypotheses</a></li>
+<li class="chapter" data-level="8.1.2" data-path="hypothtests.html"><a href="hypothtests.html#how-do-hypothesis-tests-work"><i class="fa fa-check"></i><b>8.1.2</b> How do hypothesis tests work?</a></li>
+<li class="chapter" data-level="8.1.3" data-path="hypothtests.html"><a href="hypothtests.html#one-sample-t-test"><i class="fa fa-check"></i><b>8.1.3</b> One sample <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="hypothtests.html"><a href="hypothtests.html#two-sample-t-test"><i class="fa fa-check"></i><b>8.2</b> Two sample <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-13"><i class="fa fa-check"></i><b>8.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="hypothtests.html"><a href="hypothtests.html#paired-t-test"><i class="fa fa-check"></i><b>8.3</b> Paired <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-14"><i class="fa fa-check"></i><b>8.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="hypothtests.html"><a href="hypothtests.html#t-test-assumptions"><i class="fa fa-check"></i><b>8.4</b> <span class="math inline">\(t\)</span> test assumptions</a></li>
+<li class="chapter" data-level="8.5" data-path="hypothtests.html"><a href="hypothtests.html#non-parametric-alternative-to-t-tests"><i class="fa fa-check"></i><b>8.5</b> Non-parametric alternative to <span class="math inline">\(t\)</span> tests</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="hypothtests.html"><a href="hypothtests.html#mann-whitney-wilcoxon-test"><i class="fa fa-check"></i><b>8.5.1</b> Mann-Whitney-Wilcoxon test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="hypothtests.html"><a href="hypothtests.html#practical-significance-versus-statistical-significance"><i class="fa fa-check"></i><b>8.6</b> Practical significance versus statistical significance</a></li>
+<li class="chapter" data-level="8.7" data-path="hypothtests.html"><a href="hypothtests.html#SUMhyp"><i class="fa fa-check"></i><b>8.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="hypothtests.html"><a href="hypothtests.html#learning-outcomes-4"><i class="fa fa-check"></i><b>8.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="hypothtests.html"><a href="hypothtests.html#ANShyp"><i class="fa fa-check"></i><b>8.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>9</b> Analysis of Variance</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="anova.html"><a href="anova.html#INTanova"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="anova.html"><a href="anova.html#multiple-comparisons"><i class="fa fa-check"></i><b>9.2</b> Multiple comparisons</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="anova.html"><a href="anova.html#type-i-and-type-ii-error"><i class="fa fa-check"></i><b>9.2.1</b> Type I and Type II error</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="anova.html"><a href="anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.3</b> ANalysis Of VAriance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="anova.html"><a href="anova.html#f-test-statistic-for-anova"><i class="fa fa-check"></i><b>9.3.1</b> <span class="math inline">\(F\)</span> test statistic for ANOVA</a></li>
+<li class="chapter" data-level="9.3.2" data-path="anova.html"><a href="anova.html#calculating-an-anova-table"><i class="fa fa-check"></i><b>9.3.2</b> Calculating an ANOVA table</a></li>
+<li class="chapter" data-level="9.3.3" data-path="anova.html"><a href="anova.html#f-distribution"><i class="fa fa-check"></i><b>9.3.3</b> <span class="math inline">\(F\)</span> distribution</a></li>
+<li class="chapter" data-level="9.3.4" data-path="anova.html"><a href="anova.html#doing-this-in-r-16"><i class="fa fa-check"></i><b>9.3.4</b> Doing this in R</a></li>
+<li class="chapter" data-level="9.3.5" data-path="anova.html"><a href="anova.html#assumptions"><i class="fa fa-check"></i><b>9.3.5</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="anova.html"><a href="anova.html#identifying-differences-and-more-on-multiple-comparisons"><i class="fa fa-check"></i><b>9.4</b> Identifying differences (and more on multiple comparisons)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="anova.html"><a href="anova.html#bonferroni-correction"><i class="fa fa-check"></i><b>9.4.1</b> Bonferroni correction</a></li>
+<li class="chapter" data-level="9.4.2" data-path="anova.html"><a href="anova.html#sidak-adjustment"><i class="fa fa-check"></i><b>9.4.2</b> Sidak adjustment</a></li>
+<li class="chapter" data-level="9.4.3" data-path="anova.html"><a href="anova.html#tukeys-honest-significant-difference-hsd"><i class="fa fa-check"></i><b>9.4.3</b> Tukey’s Honest Significant Difference (HSD)</a></li>
+<li class="chapter" data-level="9.4.4" data-path="anova.html"><a href="anova.html#multiple-comparison-controversy"><i class="fa fa-check"></i><b>9.4.4</b> Multiple comparison controversy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="anova.html"><a href="anova.html#alternative-tests-to-anova"><i class="fa fa-check"></i><b>9.5</b> Alternative tests to ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="anova.html"><a href="anova.html#doing-this-in-r-18"><i class="fa fa-check"></i><b>9.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="anova.html"><a href="anova.html#SUManova"><i class="fa fa-check"></i><b>9.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="anova.html"><a href="anova.html#learning-outcomes-5"><i class="fa fa-check"></i><b>9.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="anova.html"><a href="anova.html#ANSanova"><i class="fa fa-check"></i><b>9.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="power.html"><a href="power.html"><i class="fa fa-check"></i><b>10</b> Statistical Power</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="power.html"><a href="power.html#INTpower"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="power.html"><a href="power.html#a-motivating-example---environmental-impact-assessment"><i class="fa fa-check"></i><b>10.2</b> A motivating example - Environmental impact assessment</a></li>
+<li class="chapter" data-level="10.3" data-path="power.html"><a href="power.html#calculating-power"><i class="fa fa-check"></i><b>10.3</b> Calculating power</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="power.html"><a href="power.html#increasing-the-power"><i class="fa fa-check"></i><b>10.3.1</b> Increasing the power</a></li>
+<li class="chapter" data-level="10.3.2" data-path="power.html"><a href="power.html#power-by-simulation"><i class="fa fa-check"></i><b>10.3.2</b> Power by simulation</a></li>
+<li class="chapter" data-level="10.3.3" data-path="power.html"><a href="power.html#multiple-comparisons-1"><i class="fa fa-check"></i><b>10.3.3</b> Multiple comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="power.html"><a href="power.html#SUMpower"><i class="fa fa-check"></i><b>10.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="power.html"><a href="power.html#learning-objectives-2"><i class="fa fa-check"></i><b>10.4.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="power.html"><a href="power.html#ANSpower"><i class="fa fa-check"></i><b>10.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="proportions.html"><a href="proportions.html"><i class="fa fa-check"></i><b>11</b> Proportions</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="proportions.html"><a href="proportions.html#INTprop"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals"><i class="fa fa-check"></i><b>11.2</b> Confidence intervals</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="proportions.html"><a href="proportions.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>11.2.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="11.2.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals-large-sample-sizes"><i class="fa fa-check"></i><b>11.2.2</b> Confidence intervals: large sample sizes</a></li>
+<li class="chapter" data-level="11.2.3" data-path="proportions.html"><a href="proportions.html#confidence-intervals-small-sample-sizes"><i class="fa fa-check"></i><b>11.2.3</b> Confidence intervals: small sample sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="proportions.html"><a href="proportions.html#comparing-two-proportions-the-z-test"><i class="fa fa-check"></i><b>11.3</b> Comparing two proportions: the <span class="math inline">\(z\)</span> test</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="proportions.html"><a href="proportions.html#testing-for-no-difference-between-groups"><i class="fa fa-check"></i><b>11.3.1</b> Testing for ‘no difference’ between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="proportions.html"><a href="proportions.html#ci-for-the-difference-between-population-proportions-p_1-p_2"><i class="fa fa-check"></i><b>11.4</b> CI for the difference between population proportions, (<span class="math inline">\(p_1-p_2\)</span>)</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="proportions.html"><a href="proportions.html#choosing-the-appropriate-standard-error-when-comparing-proportions"><i class="fa fa-check"></i><b>11.4.1</b> Choosing the appropriate standard error when comparing proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="proportions.html"><a href="proportions.html#odds-ratios"><i class="fa fa-check"></i><b>11.5</b> Odds ratios</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success"><i class="fa fa-check"></i><b>11.5.1</b> Calculating the odds of success</a></li>
+<li class="chapter" data-level="11.5.2" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success-for-2-x-2-tables"><i class="fa fa-check"></i><b>11.5.2</b> Calculating the odds of success for 2 x 2 tables</a></li>
+<li class="chapter" data-level="11.5.3" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-ratio"><i class="fa fa-check"></i><b>11.5.3</b> Calculating the odds ratio</a></li>
+<li class="chapter" data-level="11.5.4" data-path="proportions.html"><a href="proportions.html#confidence-intervals-for-odds-ratios"><i class="fa fa-check"></i><b>11.5.4</b> Confidence intervals for odds ratios</a></li>
+<li class="chapter" data-level="11.5.5" data-path="proportions.html"><a href="proportions.html#final-note-on-odds-ratios"><i class="fa fa-check"></i><b>11.5.5</b> Final note on odds ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="proportions.html"><a href="proportions.html#SUMprop"><i class="fa fa-check"></i><b>11.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="11.6.1" data-path="proportions.html"><a href="proportions.html#learning-outcomes-6"><i class="fa fa-check"></i><b>11.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="proportions.html"><a href="proportions.html#ANSprop"><i class="fa fa-check"></i><b>11.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="tableofcounts.html"><a href="tableofcounts.html"><i class="fa fa-check"></i><b>12</b> Tables of counts</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="tableofcounts.html"><a href="tableofcounts.html#introduction"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-goodness-of-fit-test"><i class="fa fa-check"></i><b>12.2</b> <span class="math inline">\(\chi^2\)</span> goodness-of-fit test</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-22"><i class="fa fa-check"></i><b>12.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-test-of-independence"><i class="fa fa-check"></i><b>12.3</b> <span class="math inline">\(\chi^2\)</span> test of independence</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-23"><i class="fa fa-check"></i><b>12.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="tableofcounts.html"><a href="tableofcounts.html#test-assumptions"><i class="fa fa-check"></i><b>12.4</b> Test assumptions</a></li>
+<li class="chapter" data-level="12.5" data-path="tableofcounts.html"><a href="tableofcounts.html#summary"><i class="fa fa-check"></i><b>12.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="tableofcounts.html"><a href="tableofcounts.html#learning-outcomes-7"><i class="fa fa-check"></i><b>12.5.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="tableofcounts.html"><a href="tableofcounts.html#answers"><i class="fa fa-check"></i><b>12.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>IV Regression and Linear Models</b></span></li>
+<li class="chapter" data-level="13" data-path="correg.html"><a href="correg.html"><i class="fa fa-check"></i><b>13</b> Correlation and Regression</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="correg.html"><a href="correg.html#introcorreg"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.2" data-path="correg.html"><a href="correg.html#correlation"><i class="fa fa-check"></i><b>13.2</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="correg.html"><a href="correg.html#significance-of-r"><i class="fa fa-check"></i><b>13.2.1</b> Significance of <span class="math inline">\(r\)</span></a></li>
+<li class="chapter" data-level="13.2.2" data-path="correg.html"><a href="correg.html#correlation-and-causation"><i class="fa fa-check"></i><b>13.2.2</b> Correlation and causation</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="correg.html"><a href="correg.html#regression"><i class="fa fa-check"></i><b>13.3</b> Regression</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="correg.html"><a href="correg.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>13.3.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="13.3.2" data-path="correg.html"><a href="correg.html#model-specification"><i class="fa fa-check"></i><b>13.3.2</b> Model specification</a></li>
+<li class="chapter" data-level="13.3.3" data-path="correg.html"><a href="correg.html#which-straight-line-to-choose"><i class="fa fa-check"></i><b>13.3.3</b> Which straight line to choose?</a></li>
+<li class="chapter" data-level="13.3.4" data-path="correg.html"><a href="correg.html#fitting-the-model-the-details"><i class="fa fa-check"></i><b>13.3.4</b> Fitting the model: the details</a></li>
+<li class="chapter" data-level="13.3.5" data-path="correg.html"><a href="correg.html#predictions"><i class="fa fa-check"></i><b>13.3.5</b> Predictions</a></li>
+<li class="chapter" data-level="13.3.6" data-path="correg.html"><a href="correg.html#the-variance-estimate"><i class="fa fa-check"></i><b>13.3.6</b> The variance estimate</a></li>
+<li class="chapter" data-level="13.3.7" data-path="correg.html"><a href="correg.html#introduction-to-the-matrix-form"><i class="fa fa-check"></i><b>13.3.7</b> Introduction to the matrix form</a></li>
+<li class="chapter" data-level="13.3.8" data-path="correg.html"><a href="correg.html#regression-in-practise"><i class="fa fa-check"></i><b>13.3.8</b> Regression in practise</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="correg.html"><a href="correg.html#SUMcorreg"><i class="fa fa-check"></i><b>13.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="correg.html"><a href="correg.html#learning-outcomes-8"><i class="fa fa-check"></i><b>13.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="correg.html"><a href="correg.html#ANScorreg"><i class="fa fa-check"></i><b>13.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="introlm.html"><a href="introlm.html"><i class="fa fa-check"></i><b>14</b> Introduction to the linear model</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="introlm.html"><a href="introlm.html#INTlm"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-a-t-test"><i class="fa fa-check"></i><b>14.2</b> The linear model as a <span class="math inline">\(t\)</span> test</a></li>
+<li class="chapter" data-level="14.3" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-analysis-of-variance"><i class="fa fa-check"></i><b>14.3</b> The linear model as analysis of variance</a></li>
+<li class="chapter" data-level="14.4" data-path="introlm.html"><a href="introlm.html#simple-linear-regression-again"><i class="fa fa-check"></i><b>14.4</b> Simple linear regression (again)</a></li>
+<li class="chapter" data-level="14.5" data-path="introlm.html"><a href="introlm.html#model-performance"><i class="fa fa-check"></i><b>14.5</b> Model performance</a></li>
+<li class="chapter" data-level="14.6" data-path="introlm.html"><a href="introlm.html#multiple-regression"><i class="fa fa-check"></i><b>14.6</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="introlm.html"><a href="introlm.html#the-eia-data-again"><i class="fa fa-check"></i><b>14.6.1</b> The EIA data again</a></li>
+<li class="chapter" data-level="14.6.2" data-path="introlm.html"><a href="introlm.html#model-specification-1"><i class="fa fa-check"></i><b>14.6.2</b> Model specification</a></li>
+<li class="chapter" data-level="14.6.3" data-path="introlm.html"><a href="introlm.html#types-of-covariates"><i class="fa fa-check"></i><b>14.6.3</b> Types of covariates</a></li>
+<li class="chapter" data-level="14.6.4" data-path="introlm.html"><a href="introlm.html#model-fitting"><i class="fa fa-check"></i><b>14.6.4</b> Model fitting</a></li>
+<li class="chapter" data-level="14.6.5" data-path="introlm.html"><a href="introlm.html#parameter-interpretation"><i class="fa fa-check"></i><b>14.6.5</b> Parameter Interpretation</a></li>
+<li class="chapter" data-level="14.6.6" data-path="introlm.html"><a href="introlm.html#parameter-uncertainty"><i class="fa fa-check"></i><b>14.6.6</b> Parameter uncertainty</a></li>
+<li class="chapter" data-level="14.6.7" data-path="introlm.html"><a href="introlm.html#confidence-intervals-cis-on-parameters"><i class="fa fa-check"></i><b>14.6.7</b> Confidence intervals (CIs) on parameters</a></li>
+<li class="chapter" data-level="14.6.8" data-path="introlm.html"><a href="introlm.html#hypothesis-testing"><i class="fa fa-check"></i><b>14.6.8</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="14.6.9" data-path="introlm.html"><a href="introlm.html#model-performance-1"><i class="fa fa-check"></i><b>14.6.9</b> Model performance</a></li>
+<li class="chapter" data-level="14.6.10" data-path="introlm.html"><a href="introlm.html#more-covariates-of-mixed-types"><i class="fa fa-check"></i><b>14.6.10</b> More covariates of mixed types</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="introlm.html"><a href="introlm.html#the-matrix-interpretation-of-a-linear-model"><i class="fa fa-check"></i><b>14.7</b> The matrix interpretation of a linear model</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="introlm.html"><a href="introlm.html#dummy-variables"><i class="fa fa-check"></i><b>14.7.1</b> Dummy variables</a></li>
+<li class="chapter" data-level="14.7.2" data-path="introlm.html"><a href="introlm.html#combining-factors-and-continuous-variables"><i class="fa fa-check"></i><b>14.7.2</b> Combining factors and continuous variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.8" data-path="introlm.html"><a href="introlm.html#SUMlm"><i class="fa fa-check"></i><b>14.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="14.8.1" data-path="introlm.html"><a href="introlm.html#learning-objectives-3"><i class="fa fa-check"></i><b>14.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="14.9" data-path="introlm.html"><a href="introlm.html#ANSlm"><i class="fa fa-check"></i><b>14.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="modelselection.html"><a href="modelselection.html"><i class="fa fa-check"></i><b>15</b> Model selection</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="modelselection.html"><a href="modelselection.html#INTmodsel"><i class="fa fa-check"></i><b>15.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="modelselection.html"><a href="modelselection.html#criteria-for-model-selection"><i class="fa fa-check"></i><b>15.1.1</b> Criteria for model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="modelselection.html"><a href="modelselection.html#collinearity"><i class="fa fa-check"></i><b>15.2</b> Collinearity</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="modelselection.html"><a href="modelselection.html#variance-inflation-factors"><i class="fa fa-check"></i><b>15.2.1</b> Variance inflation factors</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="modelselection.html"><a href="modelselection.html#p-value-based-model-selection-the-f-test"><i class="fa fa-check"></i><b>15.3</b> <span class="math inline">\(p\)</span>-value based model selection: the <span class="math inline">\(F\)</span>-test</a></li>
+<li class="chapter" data-level="15.4" data-path="modelselection.html"><a href="modelselection.html#relative-model-fit"><i class="fa fa-check"></i><b>15.4</b> Relative model fit</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="modelselection.html"><a href="modelselection.html#akaikes-information-criterion-aic"><i class="fa fa-check"></i><b>15.4.1</b> Akaike’s Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="modelselection.html"><a href="modelselection.html#other-methods-of-model-selection"><i class="fa fa-check"></i><b>15.5</b> Other methods of model selection</a></li>
+<li class="chapter" data-level="15.6" data-path="modelselection.html"><a href="modelselection.html#automated-variable-selection"><i class="fa fa-check"></i><b>15.6</b> Automated variable selection</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="modelselection.html"><a href="modelselection.html#stepwise-selection"><i class="fa fa-check"></i><b>15.6.1</b> Stepwise selection</a></li>
+<li class="chapter" data-level="15.6.2" data-path="modelselection.html"><a href="modelselection.html#all-possible-subsets-selection"><i class="fa fa-check"></i><b>15.6.2</b> All possible subsets selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="modelselection.html"><a href="modelselection.html#example-model-selection-with-the-medical-data"><i class="fa fa-check"></i><b>15.7</b> Example: model selection with the medical data</a>
+<ul>
+<li class="chapter" data-level="15.7.1" data-path="modelselection.html"><a href="modelselection.html#model-specification-3"><i class="fa fa-check"></i><b>15.7.1</b> Model specification</a></li>
+<li class="chapter" data-level="15.7.2" data-path="modelselection.html"><a href="modelselection.html#interpreting-the-parameter-estimates"><i class="fa fa-check"></i><b>15.7.2</b> Interpreting the parameter estimates</a></li>
+<li class="chapter" data-level="15.7.3" data-path="modelselection.html"><a href="modelselection.html#what-should-be-in-the-model"><i class="fa fa-check"></i><b>15.7.3</b> What ‘should’ be in the model?</a></li>
+<li class="chapter" data-level="15.7.4" data-path="modelselection.html"><a href="modelselection.html#what-terms-are-significant"><i class="fa fa-check"></i><b>15.7.4</b> What terms are significant?</a></li>
+<li class="chapter" data-level="15.7.5" data-path="modelselection.html"><a href="modelselection.html#more-automated-methods"><i class="fa fa-check"></i><b>15.7.5</b> More automated methods</a></li>
+</ul></li>
+<li class="chapter" data-level="15.8" data-path="modelselection.html"><a href="modelselection.html#SUMmodsel"><i class="fa fa-check"></i><b>15.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="15.8.1" data-path="modelselection.html"><a href="modelselection.html#learning-objectives-4"><i class="fa fa-check"></i><b>15.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="15.9" data-path="modelselection.html"><a href="modelselection.html#ANSmodsel"><i class="fa fa-check"></i><b>15.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="interac.html"><a href="interac.html"><i class="fa fa-check"></i><b>16</b> Interactions and the Linear Model</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="interac.html"><a href="interac.html#INTinterac"><i class="fa fa-check"></i><b>16.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="interac.html"><a href="interac.html#fitting-different-models"><i class="fa fa-check"></i><b>16.1.1</b> Fitting different models</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="interac.html"><a href="interac.html#fitting-interaction-terms"><i class="fa fa-check"></i><b>16.2</b> Fitting interaction terms</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="interac.html"><a href="interac.html#specifying-interactions-in-model-formulae"><i class="fa fa-check"></i><b>16.2.1</b> Specifying interactions in model formulae</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="interac.html"><a href="interac.html#interactions-in-practise"><i class="fa fa-check"></i><b>16.3</b> Interactions in practise</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="interac.html"><a href="interac.html#eia-data"><i class="fa fa-check"></i><b>16.3.1</b> EIA data</a></li>
+<li class="chapter" data-level="16.3.2" data-path="interac.html"><a href="interac.html#medical-data"><i class="fa fa-check"></i><b>16.3.2</b> Medical data</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="interac.html"><a href="interac.html#model-selection-and-interactions"><i class="fa fa-check"></i><b>16.4</b> Model selection and interactions</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-eia-data-set"><i class="fa fa-check"></i><b>16.4.1</b> Backwards selection in the EIA data set</a></li>
+<li class="chapter" data-level="16.4.2" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-medical-data-set"><i class="fa fa-check"></i><b>16.4.2</b> Backwards selection in the medical data set</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="interac.html"><a href="interac.html#SUMinterac"><i class="fa fa-check"></i><b>16.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="interac.html"><a href="interac.html#learning-objectives-5"><i class="fa fa-check"></i><b>16.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="interac.html"><a href="interac.html#ANSinterac"><i class="fa fa-check"></i><b>16.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>17</b> Prediction from the linear model</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="prediction.html"><a href="prediction.html#INTpred"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="prediction.html"><a href="prediction.html#prediction-1"><i class="fa fa-check"></i><b>17.2</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-27"><i class="fa fa-check"></i><b>17.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="prediction.html"><a href="prediction.html#uncertainty-in-the-prediction"><i class="fa fa-check"></i><b>17.3</b> Uncertainty in the prediction</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-28"><i class="fa fa-check"></i><b>17.3.1</b> Doing this in R</a></li>
+<li class="chapter" data-level="17.3.2" data-path="prediction.html"><a href="prediction.html#confidence-intervals-for-the-line"><i class="fa fa-check"></i><b>17.3.2</b> Confidence intervals for the line</a></li>
+<li class="chapter" data-level="17.3.3" data-path="prediction.html"><a href="prediction.html#prediction-intervals"><i class="fa fa-check"></i><b>17.3.3</b> Prediction intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="prediction.html"><a href="prediction.html#prediction-in-multiple-regression"><i class="fa fa-check"></i><b>17.4</b> Prediction in multiple regression</a></li>
+<li class="chapter" data-level="17.5" data-path="prediction.html"><a href="prediction.html#SUMpred"><i class="fa fa-check"></i><b>17.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="prediction.html"><a href="prediction.html#learning-objectives-6"><i class="fa fa-check"></i><b>17.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="prediction.html"><a href="prediction.html#ANSpred"><i class="fa fa-check"></i><b>17.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>18</b> Linear model diagnostics</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="diagnostics.html"><a href="diagnostics.html#INTdiag"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="diagnostics.html"><a href="diagnostics.html#predictive-power"><i class="fa fa-check"></i><b>18.2</b> Predictive power</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="diagnostics.html"><a href="diagnostics.html#signal-versus-noise"><i class="fa fa-check"></i><b>18.2.1</b> Signal versus noise</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="diagnostics.html"><a href="diagnostics.html#model-assumptions"><i class="fa fa-check"></i><b>18.3</b> Model assumptions</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="diagnostics.html"><a href="diagnostics.html#normality-assumption"><i class="fa fa-check"></i><b>18.3.1</b> Normality assumption</a></li>
+<li class="chapter" data-level="18.3.2" data-path="diagnostics.html"><a href="diagnostics.html#assessing-constant-error-variance"><i class="fa fa-check"></i><b>18.3.2</b> Assessing constant error variance</a></li>
+<li class="chapter" data-level="18.3.3" data-path="diagnostics.html"><a href="diagnostics.html#assessing-independence"><i class="fa fa-check"></i><b>18.3.3</b> Assessing independence</a></li>
+<li class="chapter" data-level="18.3.4" data-path="diagnostics.html"><a href="diagnostics.html#pseudoreplication"><i class="fa fa-check"></i><b>18.3.4</b> Pseudoreplication</a></li>
+<li class="chapter" data-level="18.3.5" data-path="diagnostics.html"><a href="diagnostics.html#linearity-in-the-model-for-the-signal"><i class="fa fa-check"></i><b>18.3.5</b> Linearity in the model for the signal</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="diagnostics.html"><a href="diagnostics.html#example-diagnostics-with-the-medical-data"><i class="fa fa-check"></i><b>18.4</b> Example: Diagnostics with the medical data</a></li>
+<li class="chapter" data-level="18.5" data-path="diagnostics.html"><a href="diagnostics.html#partial-residual-plots"><i class="fa fa-check"></i><b>18.5</b> Partial residual plots</a>
+<ul>
+<li class="chapter" data-level="18.5.1" data-path="diagnostics.html"><a href="diagnostics.html#doing-this-in-r-30"><i class="fa fa-check"></i><b>18.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="18.6" data-path="diagnostics.html"><a href="diagnostics.html#interaction-terms"><i class="fa fa-check"></i><b>18.6</b> Interaction Terms</a></li>
+<li class="chapter" data-level="18.7" data-path="diagnostics.html"><a href="diagnostics.html#SUMdiag"><i class="fa fa-check"></i><b>18.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="18.7.1" data-path="diagnostics.html"><a href="diagnostics.html#learning-outcomes-9"><i class="fa fa-check"></i><b>18.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="18.8" data-path="diagnostics.html"><a href="diagnostics.html#ANSdiag"><i class="fa fa-check"></i><b>18.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="nextsteps.html"><a href="nextsteps.html"><i class="fa fa-check"></i><b>19</b> The Next Steps</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="nextsteps.html"><a href="nextsteps.html#INTnext"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="nextsteps.html"><a href="nextsteps.html#solving-the-assumptional-problems"><i class="fa fa-check"></i><b>19.2</b> Solving the assumptional problems</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="nextsteps.html"><a href="nextsteps.html#example-the-eia-data"><i class="fa fa-check"></i><b>19.2.1</b> Example: The EIA data</a></li>
+<li class="chapter" data-level="19.2.2" data-path="nextsteps.html"><a href="nextsteps.html#oddly-distributed-residuals"><i class="fa fa-check"></i><b>19.2.2</b> Oddly distributed residuals</a></li>
+<li class="chapter" data-level="19.2.3" data-path="nextsteps.html"><a href="nextsteps.html#non-independence"><i class="fa fa-check"></i><b>19.2.3</b> Non-independence</a></li>
+<li class="chapter" data-level="19.2.4" data-path="nextsteps.html"><a href="nextsteps.html#non-linearity"><i class="fa fa-check"></i><b>19.2.4</b> Non-linearity</a></li>
+<li class="chapter" data-level="19.2.5" data-path="nextsteps.html"><a href="nextsteps.html#bootstrapping"><i class="fa fa-check"></i><b>19.2.5</b> Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="nextsteps.html"><a href="nextsteps.html#summary-1"><i class="fa fa-check"></i><b>19.3</b> Summary</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="nextsteps.html"><a href="nextsteps.html#learning-outcomes-10"><i class="fa fa-check"></i><b>19.3.1</b> Learning outcomes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="notation.html"><a href="notation.html"><i class="fa fa-check"></i><b>20</b> Notation {-}</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="notation.html"><a href="notation.html#summation"><i class="fa fa-check"></i><b>20.1</b> Summation</a></li>
+<li class="chapter" data-level="20.2" data-path="notation.html"><a href="notation.html#factorial"><i class="fa fa-check"></i><b>20.2</b> Factorial</a></li>
+<li class="chapter" data-level="20.3" data-path="notation.html"><a href="notation.html#combinations"><i class="fa fa-check"></i><b>20.3</b> Combinations</a></li>
+<li class="chapter" data-level="20.4" data-path="notation.html"><a href="notation.html#multiplication"><i class="fa fa-check"></i><b>20.4</b> Multiplication</a></li>
+<li class="chapter" data-level="20.5" data-path="notation.html"><a href="notation.html#integration"><i class="fa fa-check"></i><b>20.5</b> Integration</a></li>
+<li class="chapter" data-level="20.6" data-path="notation.html"><a href="notation.html#matrix-multiplication"><i class="fa fa-check"></i><b>20.6</b> Matrix multiplication</a></li>
+<li class="chapter" data-level="20.7" data-path="notation.html"><a href="notation.html#absolute-values"><i class="fa fa-check"></i><b>20.7</b> Absolute values</a></li>
+<li class="chapter" data-level="20.8" data-path="notation.html"><a href="notation.html#pi"><i class="fa fa-check"></i><b>20.8</b> <span class="math inline">\(\pi\)</span></a></li>
+<li class="chapter" data-level="20.9" data-path="notation.html"><a href="notation.html#exponential-function-e"><i class="fa fa-check"></i><b>20.9</b> Exponential function, <span class="math inline">\(e\)</span></a></li>
+<li class="chapter" data-level="20.10" data-path="notation.html"><a href="notation.html#intervals"><i class="fa fa-check"></i><b>20.10</b> Intervals</a></li>
+<li class="chapter" data-level="20.11" data-path="notation.html"><a href="notation.html#axes-on-plots"><i class="fa fa-check"></i><b>20.11</b> Axes on plots</a></li>
+<li class="chapter" data-level="20.12" data-path="notation.html"><a href="notation.html#probability-2"><i class="fa fa-check"></i><b>20.12</b> Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sampling" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Data collection and Sampling</h1>
+<!-- \@ref(sampling) -->
+<div id="INTsamp" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Introduction</h2>
+<p>Statistics deals with techniques for collecting and analysing data in order to draw conclusions or make some inference. This chapter outlines processes which are used to obtain data in order to draw sound conclusions. The basic techniques incorporate some form of random sampling. This chapter describes the need for sampling, basic sampling strategies, common problems that can afflict the sampling process, and the terminology required.</p>
+<p>By the end of the this unit, you should be able to:</p>
+<ul>
+<li><p>understand the basic principles of sampling</p></li>
+<li><p>appreciate the sorts of biases that may occur</p></li>
+<li><p>distinguish between accuracy and precision</p></li>
+<li><p>understand the difference between experiments and observational studies.</p></li>
+</ul>
+<div id="terminology" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Terminology</h3>
+<p>We need a common language to talk concisely about statistics and here introduce terms related to sampling that will be used throughout the course:</p>
+<ul>
+<li><p><strong>Sampling unit</strong> : an individual object, animal, or person, on which measurements can be made. Essentially this is a discrete entity which is the basis of statistical inference.</p></li>
+<li><p><strong>Target population</strong>: the overall collection of potential sampling units about which we want to make some inference.</p></li>
+<li><p><strong>Census</strong>: when the entire target population is sampled/measured.</p></li>
+<li><p><strong>Sampling protocol or design</strong>: the procedure, or strategy, for selecting sampling units from the target population.</p></li>
+<li><p><strong>Sample</strong>: a subset of the target population for which measurements on sampling units are made.</p></li>
+<li><p><strong>Variable</strong>: a characteristic defined for each sampling unit (e.g. age, weight, blood group) and are typically denoted by lower case Roman letters (e.g. <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> represent vectors containing measurements for each sampling unit).</p></li>
+<li><p><strong>Parameter</strong>: a numerical summary for the target population (e.g. the mean height of adults in the UK) and are typically denoted by Greek letters (e.g. <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma\)</span>) or a numerical characteristic of a statistical model.</p></li>
+<li><p><strong>Estimate/Statistic</strong>: a numerical summary of a variable for the sample (e.g. the proportion of a sample of UK citizens that favour a particular political party). Different notation conventions apply to represent estimates from samples, but generally lower case Roman letters are used (e.g. <span class="math inline">\(\bar x\)</span> represents the mean of sample data denoted by <span class="math inline">\(x\)</span>). Note, these statistics are often estimates of a population parameter (e.g. <span class="math inline">\(\bar x\)</span> estimates <span class="math inline">\(\mu\)</span>).</p></li>
+</ul>
+</div>
+</div>
+<div id="what-is-sampling-and-why-do-it" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> What is sampling and why do it?</h2>
+<p>Suppose a landowner has 200 acres of forest where the trees ready for harvest and plans to sell the timber; how could we determine the volume of wood from the forest to get an idea of monetary value? A tree could be a sampling unit and one approach would be to visit every tree, measure its total height, diameter at various heights and calculate the volume. We may also want to “grade” the tree in terms of percentage of good wood, lack of defects, decay, etc. In essence, we would be conducting a census of the trees. However, visiting and measuring every tree could be prohibitively expensive, taking far too much time and money.</p>
+<p>Therefore, we don’t measure all the trees but instead take a sample of plots of land (i.e., a subset of the forest), estimate the volume and grade of trees for each subset. From this the average volume on a plot can be obtained and multiplying this by the total number of plots in the forest will result in an estimate of the total volume of wood in the forest.</p>
+<p>In this example, the trees are not necessarily damaged by measuring. In some cases, however, taking a measurement can involve damaging or destroying the unit involved. For example, quality control testing of cans of fizzy drink may involve opening the cans to measure the contents. Taking a census (or indeed sampling a large proportion of the target population) would be clearly counter-productive.</p>
+<p>In many cases, it may not be necessary to know the true (i.e. population) parameter and an estimate will be sufficient. For example, we may not need to know the true volume of wood in the forest and an estimate will be good enough to get an idea of the monetary value of the forest. Therefore, sampling is used rather than take a census. This may be because because we can’t measure the entire population: it would be too expensive, take too much time and effort, is impractical or impossible.</p>
+<div id="precision-accuracy-and-bias" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Precision, accuracy and bias</h3>
+<p>In sampling, we take a sample from a target population and generate a statistic of interest. Suppose we are interested in establishing the proportion of undergraduate students in the University of St Andrews who have a driving licence. We might select a sample of students, ask them whether they have a driving licence and calculate the sample proportion. Image repeating this process with many samples of students. It is likely that the sample proportion will be different for each sample. Ideally, we would like our statistic to be accurate, precise and unbiased (top right in Figure <a href="sampling.html#fig:targetplot">2.1</a>), where</p>
+<ul>
+<li><p><strong>accuracy</strong> implies that each sample statistic is similar to the population parameter</p></li>
+<li><p><strong>precision</strong> implies that the value of the sample statistic is similar for all samples, and</p></li>
+<li><p><strong>bias</strong> implies that the sample statistic tends to differ from the population parameter in some consistent way (i.e. there is a systematic error).</p></li>
+</ul>
+<p>In general, a sample statistic will be some combination of the population parameter being estimated plus any bias and some random variability.</p>
+<div class="figure" style="text-align: center"><span id="fig:targetplot"></span>
+<img src="figures/precision_accuracy_target.png" alt="The centre of the target indicates the true value of the parameter and the dots are sample statistics." width="95%" />
+<p class="caption">
+Figure 2.1: The centre of the target indicates the true value of the parameter and the dots are sample statistics.
+</p>
+</div>
+<p><strong>Q2.1</strong> A headline on the BBC website stated that “Vapers rise ‘to more than three million’ in Britain” (<a href="https://www.bbc.co.uk/news/health-45513762">BBC, 14/09/2018</a>). The article goes onto state that the numbers of e-cigarette users has risen from from 2.9m to 3.2m between 2017 and 2018 - a rise of 10%. It is likely that a sampling survey has been undertaken to obtain these numbers.</p>
+<p><strong>a.</strong> What is the target population?</p>
+<p><strong>b.</strong> What is the sampling unit?</p>
+<p><strong>c.</strong> What is the variable being measured?</p>
+<p><strong>d.</strong> What is the population parameter?</p>
+<p><strong>e.</strong> What is the sample estimate?</p>
+</div>
+</div>
+<div id="three-types-of-data-collection" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Three types of data collection</h2>
+<p>There are three general procedures for collecting data and each are covered in this chapter:</p>
+<ul>
+<li><p>sample surveys (and polls)</p></li>
+<li><p>designed experiments</p></li>
+<li><p>observational studies.</p></li>
+</ul>
+<p>Statisticians make a distinction between experiments and observation studies (also known as quasi-experiments).<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>It is important to emphasise that how data are collected affects the ability to learn about the world. Flawed data collection procedures can make it impossible, or nearly so, to arrive at quality decisions or to make accurate statements. In many cases, no amount of sophisticated data analysis procedures will remedy “bad data.” Notably, whatever method is used for the collection/generation of data, sampling is likely to underpin the collection process. From the outset there is inherent uncertainty surrounding our ability to produce answers for a population from a sample, hence, robust sampling strategies need to be used when selecting a sample.</p>
+<div id="common-but-unwise-data-collection-strategies" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Common, but unwise, data collection strategies</h3>
+<p>For sample estimates to be applicable to the target population from which the sample was taken, the sample needs to be representative. Two approaches to sampling which generally lead to unrepresentative (i.e. biased) samples are anecdotal evidence and self-selected samples.</p>
+<ul>
+<li><p>Anecdotal evidence can be based on haphazardly selected individual cases, which often come to our attention because they are striking in some way. These cases need not be representative of any larger group of cases.</p></li>
+<li><p>Self-selected, or voluntary response, samples are commonplace; magazines and newspapers often include questionnaires that readers can complete and send back. Internet polls are much the same, as are opt-in surveys: individuals choose whether or not they want to respond and hence be included in the sample.</p></li>
+</ul>
+<p>Principally, we want any sample statistic to have:</p>
+<ul>
+<li><p>high precision/low uncertainty,</p></li>
+<li><p>high accuracy, and hence low bias,</p></li>
+</ul>
+<p>as per top right panel in Figure <a href="sampling.html#fig:targetplot">2.1</a>. There can be many sources of inaccuracy and/or a lack of precision, but fortunately some of them can be controlled. Sampling is a just such a controllable source and three frequently used strategies are described below.</p>
+<p><strong>Q2.2</strong> Considering phone-in programmes on the radio, are the opinions expressed representative of the UK population, or even of all the people who listen to the radio show? What type of person is likely to call?</p>
+</div>
+</div>
+<div id="simple-sampling-approaches" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Simple sampling approaches</h2>
+<p>Having decided to take a sample from our target population, the next question is how to choose the sample. All good sample schemes have two features:</p>
+<ul>
+<li><p>planned randomness, and</p></li>
+<li><p>the chance, or probability, that any given sampling unit being selected can be calculated.</p></li>
+</ul>
+<p>These features ensure that sample is representative of the population; i.e., one has controlled for <strong>selection bias</strong>, the bias that results when part of the target population is systematically excluded from the samples.</p>
+<p>Sampling is a large topic of study in itself; here we consider three basic strategies:</p>
+<ul>
+<li><p>Simple random samples</p></li>
+<li><p>Systematic random samples</p></li>
+<li><p>Stratified random samples</p></li>
+</ul>
+<div id="simple-random-sample" class="section level3" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Simple random sample</h3>
+<p>A simple random sample (SRS) is a subset of the target population in which each sampling unit has an equal chance of being selected. The chance, or probability, of a sampling unit being selected can be calculated easily. Say the target population is of size <span class="math inline">\(N\)</span> and the sample size is <span class="math inline">\(n\)</span>, then the probability of an individual sampling unit being selected is <span class="math inline">\(n/N\)</span>.</p>
+<p><strong>Example</strong> We want to select 10 students from a group of 150 using simple random sampling. The probability of an individual student being selected is <span class="math inline">\(\frac{10}{150}\)</span>.</p>
+<p>How do we ensure that each sampling unit has an equal chance of being selected? One way would be to assign a number to each individual, write each number on a slip of paper, put the slip of papers in a hat, mix thoroughly and draw 10 slips out - the numbers on the slips of paper determine who is selected. Alternatively, a computer could be used to generate 10 numbers from a list of numbers 1 to 150.</p>
+<div id="doing-this-in-r" class="section level4" number="2.4.1.1">
+<h4><span class="header-section-number">2.4.1.1</span> Doing this in R</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="sampling.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a simple random sample of size 10 from a population of 150 units</span></span>
+<span id="cb1-2"><a href="sampling.html#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="sampling.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialise necessary objects</span></span>
+<span id="cb1-4"><a href="sampling.html#cb1-4" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">150</span> <span class="co"># Size of target population</span></span>
+<span id="cb1-5"><a href="sampling.html#cb1-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># Sample size</span></span>
+<span id="cb1-6"><a href="sampling.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># SRS </span></span>
+<span id="cb1-7"><a href="sampling.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span>N, <span class="at">size=</span>n, <span class="at">replace=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code> [1] 126  55 148  61  50  76 121  23  52 118</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="sampling.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The sample doesn&#39;t have to be numbers</span></span>
+<span id="cb3-2"><a href="sampling.html#cb3-2" aria-hidden="true" tabindex="-1"></a>IDs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;subject1&quot;</span>, <span class="st">&quot;subject2&quot;</span>, <span class="st">&quot;subject3&quot;</span>, <span class="st">&quot;subject4&quot;</span>, <span class="st">&quot;subject5&quot;</span>)</span>
+<span id="cb3-3"><a href="sampling.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="at">x=</span>IDs, <span class="at">size=</span><span class="dv">2</span>, <span class="at">replace=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>[1] &quot;subject1&quot; &quot;subject2&quot;</code></pre>
+<p>It is worth spending a minute thinking about computer-generated random numbers. Computers are not random, however, they can be ‘effectively’ random with pseudo-Random Number Generators (RNGs). There are many types of RNGs, but all are effectively unpredictable without knowing a starting point. In the examples below, we generate a sample of numbers with and without specifying the starting point.</p>
+<p>First, we don’t specify the starting point and so each time we generate a sample of numbers, the samples are different.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="sampling.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example when the result is unpredictable</span></span>
+<span id="cb5-2"><a href="sampling.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="sampling.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate 4 decimal numbers from 0 to 1 (a uniform (0,1) distribution) </span></span>
+<span id="cb5-4"><a href="sampling.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="at">n=</span><span class="dv">4</span>, <span class="at">min=</span><span class="dv">0</span>, <span class="at">max=</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>[1] 0.1171738 0.2689422 0.2356169 0.8459495</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="sampling.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeat</span></span>
+<span id="cb7-2"><a href="sampling.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="at">n=</span><span class="dv">4</span>, <span class="at">min=</span><span class="dv">0</span>, <span class="at">max=</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>[1] 0.389230859 0.002325913 0.588884435 0.566528345</code></pre>
+<p>But - with a seed, a starting point for the RNG, the generated numbers are predictable/reproducible.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="sampling.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the seed for the RNG</span></span>
+<span id="cb9-2"><a href="sampling.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2343</span>)</span>
+<span id="cb9-3"><a href="sampling.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="at">n=</span><span class="dv">4</span>, <span class="at">min=</span><span class="dv">0</span>, <span class="at">max=</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>[1] 0.20467634 0.09047926 0.61101041 0.17877428</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="sampling.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeat</span></span>
+<span id="cb11-2"><a href="sampling.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2343</span>)</span>
+<span id="cb11-3"><a href="sampling.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="at">n=</span><span class="dv">4</span>, <span class="at">min=</span><span class="dv">0</span>, <span class="at">max=</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>[1] 0.20467634 0.09047926 0.61101041 0.17877428</code></pre>
+<p>Setting the seed is useful for confirming calculations which have a stochastic, or random, component.</p>
+</div>
+</div>
+<div id="systematic-samples" class="section level3" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Systematic samples</h3>
+<p>Suppose there are <span class="math inline">\(N=1000\)</span> individuals in the target population and we want to take a sample of size <span class="math inline">\(n=200\)</span>. A systematic sample can be selected as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>Calculate the fixed periodic interval, <span class="math inline">\(k = N/n\)</span>. In our example, this is <span class="math inline">\(k = 1000/200 = 5\)</span>.</p></li>
+<li><p>Randomly pick a starting number between 1 and <span class="math inline">\(k\)</span>, call it <span class="math inline">\(q\)</span>, say <span class="math inline">\(q=3\)</span></p></li>
+<li><p>Sample the <span class="math inline">\(q\)</span>th individual, then the (<span class="math inline">\(q+k\)</span>)th, then (<span class="math inline">\(q+2k\)</span>)th and so on. Thus, starting at <span class="math inline">\(q=3\)</span>, the sample will be generated by 3, (3+5), (3+2x5), and so on; the sample will consist of sampling units 3, 8, 13, …, 993, 998.</p></li>
+</ol>
+<p>Systematic samples have some advantages over SRS:</p>
+<ul>
+<li><p>it is often easier to draw since only one number is randomly selected (i.e. <span class="math inline">\(q\)</span>).</p></li>
+<li><p>it will distribute the sample more evenly through the population.</p></li>
+<li><p>it will do better than a SRS if there is a trend in the values.</p></li>
+</ul>
+<p><strong>Example</strong> We want to take a sample of customers visiting a bank. From a practical point of view, it is much easier to pick every 10th person, say, arriving in the bank than refer to a SRS of bank customers. In addition, SRS could, by chance, select a lot of customers in the morning which could be a particular subset of the customers if there is a pattern in the type of customers that arrive through the day. A systematic sample would spread the selected customers throughout the day.</p>
+<p>One thing to be aware of is, if the population contains some variation which is periodic in nature and if the fixed periodic interval (<span class="math inline">\(k\)</span>) equals the periodic variation, the sample may be biased. Consider loaves of bread on a production line; each loaf is cut into 20 slices. A slice is taken from each loaf. Using a systematic sample with a fixed interval of <span class="math inline">\(k=20\)</span>, the sample will consist of either all crusts or no crusts, depending on the starting value.</p>
+<div id="doing-this-in-r-1" class="section level4" number="2.4.2.1">
+<h4><span class="header-section-number">2.4.2.1</span> Doing this in R</h4>
+<p>The code below selects a systematic sample.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="sampling.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw a systematic random sample of size 20 from a population of 100 units</span></span>
+<span id="cb13-2"><a href="sampling.html#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="sampling.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialise values</span></span>
+<span id="cb13-4"><a href="sampling.html#cb13-4" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="co"># Size of target population</span></span>
+<span id="cb13-5"><a href="sampling.html#cb13-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="co"># Sample size </span></span>
+<span id="cb13-6"><a href="sampling.html#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate fixed periodic interval k</span></span>
+<span id="cb13-7"><a href="sampling.html#cb13-7" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> N<span class="sc">/</span>n</span>
+<span id="cb13-8"><a href="sampling.html#cb13-8" aria-hidden="true" tabindex="-1"></a>k</span></code></pre></div>
+<pre><code>[1] 5</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="sampling.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Randomly select starting point q</span></span>
+<span id="cb15-2"><a href="sampling.html#cb15-2" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>k, <span class="at">size=</span><span class="dv">1</span>)</span>
+<span id="cb15-3"><a href="sampling.html#cb15-3" aria-hidden="true" tabindex="-1"></a>q</span></code></pre></div>
+<pre><code>[1] 3</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="sampling.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate regular sequence</span></span>
+<span id="cb17-2"><a href="sampling.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from=</span>q, <span class="at">to=</span>N, <span class="at">by=</span>k)</span></code></pre></div>
+<pre><code> [1]  3  8 13 18 23 28 33 38 43 48 53 58 63 68 73 78 83 88 93 98</code></pre>
+</div>
+</div>
+<div id="stratified-random-samples" class="section level3" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Stratified random samples</h3>
+<p>In a stratified random sample, the population is divided into different groups or “strata,” then simple random samples are selected from each stratum. For example, we might divide the population of the university into four strata (e.g. undergraduate students, postgraduate students, academic and research staff, and support staff) and take a SRS from each strata. Why do this?</p>
+<ul>
+<li><p>Sometimes it is more convenient to organise sampling in this way and choose a SRS within a homogeneous group.</p></li>
+<li><p>The stratification ensures that all strata will be represented in the overall sample, which may not be the case for a SRS.</p></li>
+<li><p>It may be useful to examine the separate statistics from each strata.</p></li>
+<li><p>It can result in greater precision when estimating a parameter than for a SRS with the same sample size because sampling units within a stratum may be more similar (hence reducing variability).</p></li>
+<li><p>The size of the sample in each stratum can be proportional to the total number of sampling units in each stratum so that each stratum is represented equally.</p></li>
+</ul>
+<p>The proportion of sampling units in stratum <span class="math inline">\(i\)</span>, <span class="math inline">\(p_i\)</span>, can be found from</p>
+<p><span class="math display">\[p_i = \frac{N_i}{N} \]</span>
+where <span class="math inline">\(N_i\)</span> is the total number of sampling units in stratum <span class="math inline">\(i\)</span>. For a total sample of size <span class="math inline">\(n\)</span>, then the number selected from group <span class="math inline">\(i\)</span> can be calculated from
+<span class="math display">\[n_i = n \times p_i\]</span></p>
+<p>This strategy is frequently used in environmental studies, for example, in fisheries stock assessment where different areas (strata) are sampled with different intensity.</p>
+<p><strong>Q2.3</strong> In 2019, the population of the University of St Andrews was made up of members classed in one of four groups (size of the group is given in parentheses):</p>
+<ul>
+<li><p>undergraduate students (7,221),</p></li>
+<li><p>postgraduate students (1,763),</p></li>
+<li><p>academic and research staff (1,426), and</p></li>
+<li><p>support staff (1,174).</p></li>
+</ul>
+<p><strong>a.</strong> For a simple random sample of size 500, what is the probability of an individual member of the University being selected?</p>
+<p><strong>b.</strong> If we take a systematic sample of size 500, what is the fixed period interval, <span class="math inline">\(k\)</span>?</p>
+<p><strong>c.</strong> Assume that all members of staff are assigned a number. Given a starting number of <span class="math inline">\(q = 12\)</span>, what are the first five numbers of a systematic sample that would be selected using the value of <span class="math inline">\(k\)</span> calculated in part 2a?</p>
+<p><strong>d.</strong> We now want to take a stratified random sample, using the groups as the strata, and sample in proportion to the strata sizes. What will be the sample size for each group if the total sample size is 500?</p>
+</div>
+</div>
+<div id="sampling-biases" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Sampling biases</h2>
+<p>Sampling error is incurred when the characteristics of interest in a population are estimated from a sample - it is the difference between the sample statistics and the true, but unknown, parameter of the population - and is unavoidable. There will also be random variation between samples - sampling error is also used more broadly to refer to this sample-to-sample variation. Therefore, it is important that our samples are representative of the population as a whole. In essence, we want any differences between our samples and the population to be due to random variation only and not due to other sources of error.</p>
+<p>Selecting a sample in such a way that it is unrepresentative of the target population has been mentioned and will cause bias, however, even if a random sample is selected in some way, then serious biases can still occur.</p>
+<div id="non-sampling-error" class="section level3" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Non-sampling error</h3>
+<p>Even though a random sample has been selected, sources of error, or bias, can occur when collecting data. A few common sources of error when surveying people in particular are listed below.</p>
+<p><strong>Non-response bias</strong></p>
+<p>When surveying people, a certain percentage of the sample will not provide information even though they have been selected to take part. The reasons for non-response will be many and may include not being at home, too busy, or having a dislike for pollsters. If the values of the variable(s) being measured differs between non-responders and responders, then the resulting statistic can be severely biased.</p>
+<p><strong>Survey format</strong></p>
+<p>The format of a survey (e.g. postal questionnaire, by telephone, in person) may affect the results. For example, respondents may not feel comfortable giving personal information to an interviewer (e.g. “How old are you?”) but more willing to provide the information in a postal questionnaire.</p>
+<p><strong>Question effects</strong></p>
+<p>Questions can be slanted in a particular way, or lead the respondent on purpose; for a well-designed survey this should be guarded against. The choice of words is also important as the following example illustrates.</p>
+<p><em>Example</em> (from <span class="citation">(<a href="references.html#ref-moore2003" role="doc-biblioref">Moore and McCabe 2003</a>)</span>) When asked ‘How do the Scots feel about the movement to become independent from England?’ 51% of the sample voted for “independence for Scotland,” but only 34% supported “an independent Scotland separate from the United Kingdom.” It seems that the wording of the question had an effect; maybe “independence” is a nice, hopeful word while “separate” is a negative word.</p>
+<p>Poor quality data can also arise depending upon length of survey; the respondent may get tired or bored if there are too many questions, or question response categories, to consider. The questions should also be in some logical order and not jump between topics which may confuse the respondent.</p>
+<p><strong>Response bias</strong></p>
+<p>The behaviour of the respondent or of the interviewer can influence responses in several ways.</p>
+<p>An interviewer can intimidate or alienate the respondent, albeit unintentionally (e.g., different race or social class) leading the respondent to answer untruthfully.</p>
+<p>A respondent may not answer truthfully because a question may have:</p>
+<ul>
+<li><p>a social stigma (or legal implications) related to it (e.g. “Have you ever been arrested?”)</p></li>
+<li><p>a social prestige slant (e.g. “How much money do you earn?”).</p></li>
+</ul>
+<p>Respondents may</p>
+<ul>
+<li><p>answer in a way that is socially acceptable (e.g. to the question “How many units of alcohol do you drink per week?”)</p></li>
+<li><p>suffer from recall bias so that they cannot remember exactly when something happened or what happened (e.g. “How many hours of television did you watch last Thursday?”)</p></li>
+<li><p>misunderstand the question (e.g. giving weight in kilograms instead of pounds).</p></li>
+</ul>
+<p>Careful and thoughtful questionnaire design is important\footnote{Further reading can be found <a href="https://www.pewresearch.org/methods/u-s-survey-research/questionnaire-design/">here</a>. Any questionnaire should be tested to eliminate any inconsistencies or confusion before it is used for real.</p>
+<p><strong>Q2.4</strong> In 1936, a magazine in the USA called the  sent out 10 million questionnaires to people drawn from car registration lists and telephone directories asking who they would vote for in the upcoming election; 2.3 million questionnaires were returned. From the results, the magazine predicted a landslide victory for Republican candidate Alf Landon. In fact, the Democrat candidate, Franklin Roosevelt, won the election. With such a large number of questionnaires returned, what do you think went wrong?</p>
+<p><strong>Q2.5</strong> A psychologist was interested in understanding the motivation of serial killers and in estimating the mean number of victims per serial killer. The psychologist discovered there were 261 serial killers incarcerated worldwide.</p>
+<p><strong>a.</strong> The psychologist initially planned to interview all imprisoned serial killer about various aspects of their personality. Describe the approach being used.</p>
+<p><strong>b.</strong> This initial approach proved to be too costly, therefore, the psychologist randomly choose 80 killers to contact and ask if they were prepared to be interviewed. Thirty-nine agreed to be interviewed. Comment on the representativeness of the sample to the whole population of worldwide serial killers and what type of bias this may result in, if any.</p>
+<p><strong>c.</strong> In choosing the initial 80 prisoners, the psychologist selected them randomly in proportion to the overall number of imprisoned serial killers in each country e.g. if 50% of the world’s convicted serial killers were in prisons in the USA, then 40 serial killers in the USA were selected at random. What sort of sampling design is this?</p>
+</div>
+</div>
+<div id="experiments" class="section level2" number="2.6">
+<h2><span class="header-section-number">2.6</span> Experiments</h2>
+<p>The <span class="citation">(<a href="references.html#ref-dictionary1980oxford" role="doc-biblioref">Anonymous 1980</a>)</span> gives the following definition (one of several) for an experiment: <em>An action or operation undertaken in order to discover something unknown, to test a hypothesis, or establish or illustrate some known truth.</em></p>
+<p>In an experiment, we often try to discover whether a “treatment” or “condition” has an effect on sampling units, or experimental units, and what the nature and magnitude of that effect is. Typically there is a <strong>manipulation</strong> or <strong>intervention</strong>. Note that if the experimental units are animals, they are known as “subjects” and if the experimental units are humans they are increasingly referred to as “participants.” Experiments do not have to be done in the laboratory, they can be undertaken anywhere, for example, experiments might be used to answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li>Does a certain drug improve the prospects for heart transplant patients?</li>
+<li>Does heating a wire increase its electrical resistance?</li>
+<li>How effective is an insecticide?</li>
+</ol>
+<p>To investigate these questions, we give different treatments to different experimental (sampling) units and measure a <strong>response</strong>. In the examples, above, these might be:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Example</th>
+<th>Experimental unit</th>
+<th>Treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>patient</td>
+<td>drug</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>wire</td>
+<td>heat</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>mosquito</td>
+<td>insecticide</td>
+</tr>
+</tbody>
+</table>
+<p>There is often some natural variability in the results of any experiment. Using statistics, we aim to disentangle this natural variation from any variation that is introduced by our treatment method.</p>
+<div id="randomised-experiments" class="section level3" number="2.6.1">
+<h3><span class="header-section-number">2.6.1</span> Randomised experiments</h3>
+<p>In a randomised experiment, treatments are randomly allocated to experimental units by the researcher.</p>
+<p><strong>Example</strong> A new drug for heart-transplant patients is to be tested against a standard drug. Patients in the study are randomly allocated to either the new or standard drug group. Each patient in the heart-transplant study has an equal chance of being selected for the group that will be given the new drug.</p>
+<p>A difference in the response between the two groups can be attributed to the treatment because the patients were randomly allocated to treatments.</p>
+<p><strong>Example</strong> A new insecticide is developed for the control of mosquitoes for use in countries where malaria is a significant problem. How effective is it, and will it be cheaper or more expensive to use than existing chemical treatments?</p>
+<p>The insecticide is designed for use with adult mosquitoes and a scientist might set up an experiment like this:</p>
+<ul>
+<li><p>Create 4 separate enclosures</p></li>
+<li><p>Place a sample of the same number of adult mosquitoes in each enclosure.</p>
+<ul>
+<li>These individuals are the experimental units in this experiment.</li>
+</ul></li>
+<li><p>Choose 4 different concentrations of insecticide, one for each enclosure.</p>
+<ul>
+<li>Apply the treatment each day by spraying enclosure with insecticide.</li>
+<li>The concentration of insecticide is a factor known as the explanatory variable.</li>
+</ul></li>
+<li><p>One treatment should be a control in which no insecticide is applied, but a water spray is applied (in case mosquitoes are actually killed when sprayed).</p></li>
+<li><p>Determine how many mosquitoes in each enclosure survive, and how many die (mortality, in this case, is the response variable/variable of interest).</p></li>
+<li><p>Repeat (replicate the whole experiment) 10 times.</p>
+<ul>
+<li>We can then see how much natural variation occurs in the results of the experiment</li>
+<li>this enables us to determine whether the treatment has a real effect on the outcome or if any differences are down to natural variability alone.</li>
+</ul></li>
+<li><p>Randomly assign experimental units (mosquitoes) to the 4 treatments and 10 replicates. This should get around possible biases</p>
+<ul>
+<li>e.g. if “fitter” individuals are selected for one treatment.</li>
+<li>Differences in responses should then only be due to the effect of the treatments.</li>
+</ul></li>
+</ul>
+</div>
+<div id="components-of-an-experimental-design" class="section level3" number="2.6.2">
+<h3><span class="header-section-number">2.6.2</span> Components of an experimental design</h3>
+<p><strong>Randomization</strong> may be carried out by assigning numbers to individuals, then picking numbers at random. Randomization is done to ensure that treatment groups are, on average, similar.</p>
+<ul>
+<li>Randomization is designed to avoid bias.</li>
+</ul>
+<p><strong>Replication</strong> is carried out in order to:</p>
+<ul>
+<li><p>assess the amount of natural variation in the results. This way, it is possible to determine whether a treatment has a significant effect.</p></li>
+<li><p>increase precision. The more replicates, the more precise the result (but the greater the cost in time and money!)</p></li>
+</ul>
+<p>As a rule of thumb, the number of replicates should be at least twice the number of treatments with an absolute minimum of 6 per treatment.</p>
+<p>Sometimes, the experimental units (or subjects) are partitioned into stratum, or <strong>blocked</strong>. For example,
+in the mosquito experiment, individuals could be assigned to “male” and “female” groups (strata) before being randomly allocated to a particular treatment. This may reduce the amount of natural variability in the results of an experiment, so that the results are more precise.</p>
+<p>In studies involving human subjects, for example in drug trials, a <strong>placebo</strong> may be given to a control group.</p>
+<ul>
+<li><p>A placebo is a ‘treatment’ (e.g. drug or intervention) with no known active effects e.g. sugar pills.</p></li>
+<li><p>It is given so that the patient does not know what treatment they are receiving because there may be a psychological effect when a doctor offers a patient a treatment.</p></li>
+</ul>
+<p>It may also be necessary to use <strong>double blinding</strong> so that the doctor does not know what treatment they are offering and the patient does not know what treatment they are receiving. This avoids subtle differences in the behaviour of doctors according to the treatment they are prescribing.</p>
+<p>If a randomised experiment shows a significant effect, it is possible to argue for causation i.e. that the treatment caused the effect.</p>
+<p><strong>Example</strong> A famous and large-scale designed experiment that is still relevant today is Salk’s polio vaccine study.</p>
+<p>Polio (poliomyelitis) is a serious viral infection that used to be common worldwide. It caused muscle weakness from which a small percentage of people did not recover and even died. The number of cases in the US during the mid 20th century are shown in Figure <a href="sampling.html#fig:polio">2.2</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:polio"></span>
+<img src="IntroStats_files/figure-html/polio-1.png" alt="The number of polio cases from 1930 to 1955" width="480" />
+<p class="caption">
+Figure 2.2: The number of polio cases from 1930 to 1955
+</p>
+</div>
+<ul>
+<li>In general, the incidence of polio was increasing over this time period.</li>
+<li>However, the incidence of disease also fluctuates from year to year, with high and low incident years sometimes alternating.</li>
+</ul>
+<p>Jonas Salk’s created a vaccine and a large-scale trial of this vaccine was conducted in the US in 1954 to determine how effective it was in protecting children from paralysis or death due to polio. Snedecor and Cochran (<span class="citation">(<a href="references.html#ref-Snedecor&amp;Cochran1980" role="doc-biblioref">1980</a>)</span>) describe the study in detail; a summary is provided here. School children were divided into two groups; one group received the vaccine (the treatment group) and the other group received no vaccine (control group). The comparison of the numbers of paralytic cases in each group were used to judge the effectiveness of the vaccine. Since severe symptoms are rare, large numbers of children were required and more than 200,000 children were recruited to each group. Within each participating school, children were randomised such that there were about equal numbers of children in each group. This stratified approach ensured that schools in high risk and low risk regions had about equal numbers of children in each group. A simple randomisation of children to the groups would mean that overall the numbers in the two groups were equal but would not take account of high and low risk regions.</p>
+<p>The children in the vaccine group received three injections of the vaccine and the children in the comparison, or control, group received three injections of a saline solution. They were given at the same time and in the same manner.
+A crucial aspect of the study was that neither parents, children, medics administering the vaccine or the doctors diagnosing illness knew which treatment group the children were in - this was a <strong>double-blind trial</strong>.</p>
+<p>The following table shows the numbers of children in each of the groups and the number of polio cases (<span class="citation">(<a href="references.html#ref-Snedecor&amp;Cochran1980" role="doc-biblioref">Snedecor and Cochran 1980</a>)</span>, pg. 13):</p>
+<table>
+<thead>
+<tr class="header">
+<th>  Group</th>
+<th>Number of children</th>
+<th>Polio cases per 100,000</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vaccinated</td>
+<td>200,745</td>
+<td>16</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>201,229</td>
+<td>57</td>
+</tr>
+</tbody>
+</table>
+<p>The trials provided good evidence for the effectiveness of the vaccine. Regular use of polio vaccine since the Salk trial has reduced the incidence of the disease dramatically.</p>
+<hr />
+<p>To summarise, in an experiment we often try to determine whether a ‘treatment’ (or intervention of some kind) has a significant effect.</p>
+<ul>
+<li><p>A <strong>control group</strong> is a group of units that are not exposed to the treatment. This group is generally necessary for comparison with the treatment group to assess the effectiveness of the treatment.</p></li>
+<li><p>In a <strong>randomised experiment</strong>, subjects/experimental units are assigned to the treatment or control group at random.</p></li>
+<li><p>In <strong>blocked experiments</strong>, the experimental units may first be divided into strata or groups (e.g. on the basis of age).</p></li>
+<li><p>Experiments should be replicated.</p></li>
+<li><p>In drug trials, patients in the control group may be given a <strong>placebo</strong> (an inactive pill or medicine) so that they do not know whether they are in the control or treatment group</p></li>
+<li><p>If the doctor also does not know which group the patient is in, this is a <strong>double-blind</strong> trial</p></li>
+<li><p>If a randomised experiment produces a significant effect, then we can argue for a <strong>causal link</strong> between treatment and effect.</p></li>
+</ul>
+</div>
+<div id="controls" class="section level3" number="2.6.3">
+<h3><span class="header-section-number">2.6.3</span> Controls</h3>
+<p>Controls are benchmarks required for a comparison, they are frequently used <strong>but not necessarily essential</strong>. For example, one might be interested in knowing whether having a cup of coffee elevates heart rate. Here a control is essential, otherwise how would one know if an elevation in heart rate was due to the coffee or because the heartbeat was being measured.</p>
+<p>Sometimes a control is not necessary, for example if the question was “Do different sorts of coffee have different effects on heart rate?” The natural experiment would be to compare different varieties of coffee, no control is required because, here, we have <strong>a contrast</strong>.</p>
+<p><strong>Q2.6</strong> A doctor is investigating the potential effect of a new drug in combating an as yet incurable disease. Is a control required?</p>
+<p><strong>Q2.7</strong> A pharmaceutical company is testing whether a new experimental drug is better than the existing treatments on the market. Is a control required?</p>
+</div>
+</div>
+<div id="observational-studies" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span> Observational Studies</h2>
+<p>Observational studies refer to data collected from ‘nature’ without any kind of manipulation and so conditions are NOT under the control of the researcher. This terminology is commonly used across most of science, however alternative terminology is sometimes used; astronomers often refer to theory-based observation of stars, galaxies, gas clouds as “experiments” although in no sense are they manipulating the cosmos!</p>
+<p><strong>Example</strong> Let us return to the mosquito example. Imagine that villagers have already been using the new insecticide in the field. They have used the chemical at various concentrations. A scientist surveys the area and determines the population density of mosquitoes in different locations.
+This scientist also collects information from the local people as to what concentration of insecticide they have been using.</p>
+<p>This looks quite similar to the previous study. However, the results are more difficult to interpret because:</p>
+<ul>
+<li><p>we do not know if there are naturally-occurring differences in mosquito population density in the different areas due to “other factors.” For example, there may be other animals that eat mosquitoes in one area and so the density is reduced (a <strong>confounding variable</strong>).</p></li>
+<li><p>we do not know that the mosquitoes themselves are “all the same,” e.g mosquitoes in one area may be genetically different to those in another area (another confounding variable).</p></li>
+</ul>
+<p>It is more difficult to argue for <strong>causation</strong> based on an observational study because of potential confounding variables. It is important to remember this when reporting on the outcome of a statistical investigation. However, in practice, observational studies often have to be used as evidence for an effect because:</p>
+<ul>
+<li><p>It may be difficult, in practice, to carry out a randomized experiment, e.g. the effects of fishing on a large ecosystem such as the North Sea cannot be explored by conducting experiments on a series of “replicate” oceans.</p></li>
+<li><p>It may be unethical to carry out a randomized experiment:</p>
+<ul>
+<li>e.g imagine that we want to know about the implications of smoking for human health. We are interested in knowing what effect of mothers smoking during pregnancy has on the average birth-weight of babies. It would not be ethical to ask a randomly-chosen group of mothers to take up smoking, because this might adversely affect their unborn babies or their own health.</li>
+</ul></li>
+</ul>
+<p>Therefore, we have to examine other kinds of evidence:</p>
+<ul>
+<li>randomised experiments carried out on animals</li>
+<li>observational studies, e.g. looking at birth weights of babies born to mothers who have chosen not to smoke and weights of babies born to mothers who have chosen not to give up smoking in pregnancy.</li>
+</ul>
+<p>Remember that an observational study is not a randomized experiment, we may not be able to make a strong argument for causation based on the results. For example, if it is found that babies where the mothers smoked during pregnancy have generally lower birth weight, this could be due to confounding variables, such as diet.</p>
+<div id="types-of-observational-study" class="section level3" number="2.7.1">
+<h3><span class="header-section-number">2.7.1</span> Types of observational study</h3>
+<p>There are a variety of types of observational study. Some of which are given specific definitions:</p>
+<ul>
+<li><p><strong>Cohort study</strong>: A cohort is any group of people who are linked in some way. For instance, a birth cohort includes all people born within a given time frame. Researchers compare what happens to members of the cohort that have been exposed to a particular variable to what happens to the other members who have not been exposed.</p></li>
+<li><p><strong>Case control study</strong>: Researchers identify people with an existing health problem (‘cases’) and a similar group without the problem (‘controls’) and then compare the two groups with respect to an exposure or exposures.</p></li>
+</ul>
+<p>These studies can be <strong>prospective</strong> or <strong>retrospective</strong>:</p>
+<ul>
+<li><p>Prospective: none of the subjects have the disease (or other outcome of interest) when the study commences; the subjects are followed over a period of time to determine whether the disease develops.</p></li>
+<li><p>Retrospective: the researcher looks at historical data to examine previous exposure to suspected factors in relation to an outcome determined at the start of the study.</p></li>
+</ul>
+<p><strong>Example</strong> UK Millennium cohort study</p>
+<p>Known as the ‘Child of the New Century’ project, the lives of nearly 19,000 children born in the UK during 2000 and 2001 were followed. Data were collected when they were 9 months, 3, 5, 7, 11, 14 and 17 years. A large number of studies have been conducted of the data collected looking at, for example, health, behavioural problems, career aspirations. Details can be found <a href="https://cls.ucl.ac.uk/cls-studies/millennium-cohort-study/">here</a></p>
+<p><strong>Example</strong> A retrospective, case control observational study on smokers</p>
+<p>To determine the death rate of men with different smoking habits, large studies were undertaken between 1951 and 1959 (<span class="citation">(<a href="references.html#ref-Snedecor&amp;Cochran1980" role="doc-biblioref">1980</a>)</span>). A questionnaire was sent to the selected group of men asking about current and past smoking habits and other information, such as age. The study compared different groups whose death rates could be compared (e.g. different types of smokers - nonsmokers, cigarettes, cigars, pipes, mixed).</p>
+<p>If death rates were found to be different between the groups it would still be difficult to conclude this was due to the smoking habits. The subjects assigned themselves to groups by their smoking habits and the groups may differ in other ways apart from their smoking habits (e.g. age, income, lifestyle).</p>
+<p>To control for other factors, the researchers must try to control for these other factors and divide the subjects into groups such that these other factors are similar. Then, for example, compare the death-rates of smokers and non-smokers who are in the same age category.</p>
+<p><strong>Example</strong> A retrospective, case control study on sudden infant death syndrome (SIDS)</p>
+<p>A large study on SIDS cases in Scotland were investigated from 1992 to 1995. When a case of SIDS occurred, the parents were interviewed to find out about methods of infant care and socioeconomic factors. Two controls were chosen for each case by identifying babies born in the same maternity unit and just before/after the SIDS baby, thus controlling for time of year and age and maternity unit. More details <a href="http://www.sids-network.org/experts/scottish.htm">here</a></p>
+<hr />
+<p>To summarise, there are two main types of observational study, <strong>cohort</strong> and <strong>case control</strong> studies.</p>
+<ul>
+<li><p>A <strong>prospective study</strong> is one in which samples are chosen, and variables measured, and the subjects (or units) are subsequently observed over time in order to observe the outcomes. The relationship between the initial measured variable on the outcome can be studied.</p></li>
+<li><p>In a <strong>retrospective case-control study</strong>, cases in which a certain outcome has occurred are compared with controls in which that outcome has not occurred. Differences between the case and control groups may indicate factors that are correlated with certain outcomes.</p></li>
+<li><p>A <strong>confounding variable</strong> is some factor not accounted for, which introduces a difference in outcomes between treatment groups that is NOT due to the effects of the treatment.</p></li>
+<li><p>It is generally not possible to infer <strong>causation</strong> from an observational study: it is difficult to exclude the possible effects of confounding variables.</p></li>
+</ul>
+</div>
+</div>
+<div id="observational-studies-vs-experiments" class="section level2" number="2.8">
+<h2><span class="header-section-number">2.8</span> Observational studies vs experiments</h2>
+<p>Observation studies have advantages in that they:</p>
+<ul>
+<li>can often be cheaper, the results are collected from observation rather than requiring active intervention.</li>
+<li>effects can be investigated that would be unethical to manipulate e.g. the action of living near nuclear waste depositories on the risk of cancer. One could not force people live near nuclear power stations.</li>
+</ul>
+<p>Experiments have advantages in that they:</p>
+<ul>
+<li>allow the investigation of variables that might not occur in naturally</li>
+<li>causation can be easier to infer if there has been a direct manipulation.</li>
+</ul>
+<hr />
+<p><strong>Q2.8</strong> An evil industrialist has deliberately created an oil spill to prevent an area being recognised as a conservation zone. You as a statistical ecologist are conducting a survey of species diversity to compare to an earlier survey done prior to the oil spill? Is this an experiment or observational study?</p>
+<p><strong>Q2.9</strong> The evil industrialist is also a statistical ecologist and he conducts and analyses a survey of the polluted area. Is this an experiment or observational study?</p>
+</div>
+<div id="SUMsamp" class="section level2" number="2.9">
+<h2><span class="header-section-number">2.9</span> Summary</h2>
+<p>Any well-designed sampling survey needs to have some random component included when selecting the sampling units in order to avoid bias. Several strategies can be implemented to select the sample depending on the aim of the study. However, even with a randomly selected sample, non-sampling biases can occur, particularly when studying people. Therefore, careful thought is required to decide what data to collect and how to collect it. In randomised designed experiments one can argue that some treatment, or intervention, has caused the observed effect. However in some situations, experiments are not appropriate and so observational studies are used.</p>
+<p>Further reading on the subject can be found in <span class="citation">(<a href="references.html#ref-richard2006veaux" role="doc-biblioref">De Veaux, Velleman, and Bock 2006</a>)</span> or <span class="citation">(<a href="references.html#ref-wildgaf" role="doc-biblioref">Wild and Seber 1999</a>)</span>.</p>
+<div id="learning-objectives" class="section level3" number="2.9.1">
+<h3><span class="header-section-number">2.9.1</span> Learning objectives</h3>
+<p>This unit has covered</p>
+<ol style="list-style-type: decimal">
+<li><p>the basic forms of data collection</p></li>
+<li><p>the basic principles of sampling and illustrated different sampling strategies,</p></li>
+<li><p>illustrated the difference between accuracy and precision, and</p></li>
+<li><p>highlighted the sorts of biases that may occur</p></li>
+<li><p>described the differences between designed experiments and observational studies.</p></li>
+</ol>
+</div>
+</div>
+<div id="ANSsamp" class="section level2" number="2.10">
+<h2><span class="header-section-number">2.10</span> Answers</h2>
+<p><strong>Q2.1</strong> <strong>a.</strong> The target population is the adults in the Great Britain.</p>
+<p><strong>Q2.1</strong> <strong>b.</strong> A sampling unit will be an adult in Great Britain. The article indicated that 12,000 British adults were sampled.</p>
+<p><strong>Q2.1</strong> <strong>c.</strong> The variable being measured on each sampling unit will be e-cigarette use, with likely values ‘user’ or ‘not user’ (or ‘yes’ or ‘no’).</p>
+<p><strong>Q2.1</strong> <strong>d.</strong> The population parameter will be the true number (or proportion) of e-cigarette users in Great British adults.</p>
+<p><strong>Q2.1</strong> <strong>e.</strong> The sample estimate is the number (or proportion) of e-cigarette users in the sample of British adults.</p>
+<p><strong>Q2.2</strong> It is likely that the people who phone in to the radio station hold strong feelings or opinions which may not reflect the opinions all those who listen or indeed of the general population.</p>
+<p><strong>Q2.3</strong> <strong>a.</strong> Calculate the total population size
+<span class="math display">\[ N = 7221 + 1763 + 1426 + 1174 = 11584\]</span>
+The probability of an individual being selected is</p>
+<p><span class="math display">\[ \frac{n}{N} = \frac{500}{11584} = 0.043\]</span>.</p>
+<p>Each member of the university has a 0.043 chance of being selected in the sample.</p>
+<p><strong>Q2.3</strong> <strong>b.</strong> For a systematic sample, the fixed periodic interval is given by</p>
+<p><span class="math display">\[k = \frac{N}n = \frac{11584}{500} = 23.186 \sim 23\]</span></p>
+<p><strong>Q2.3</strong> <strong>c.</strong> The first five elements of a systematic sample will be (<span class="math inline">\(q, q+k, q+2k, q+3k, q+4k)\)</span>. Thus, if <span class="math inline">\(k\)</span>=23 and <span class="math inline">\(q=12\)</span>, the first five individuals selected will be (12, 35, 58, 81 and 104).</p>
+<p><strong>Q2.3</strong> <strong>d.</strong> To calculate the sample size of each stratum, we first need to calculate the proportion of members in each strata. This is given by:</p>
+<p>Undergraduates: <span class="math display">\[\frac{7221}{11584} = 0.623 \]</span></p>
+<p>Postgraduates: <span class="math display">\[\frac{1763}{11584} = 0.152 \]</span></p>
+<p>Academic and research staff: <span class="math display">\[\frac{1426}{11584} = 0.123 \]</span></p>
+<p>Support staff: <span class="math display">\[\frac{1174}{11584} = 0.101 \]</span></p>
+<p>Using these proportions, we can calculate the size of the sample in each group</p>
+<p>Undergraduates: <span class="math display">\[500 \times 0.623 = 311.68 \sim 312 \]</span> individuals
+Postgraduates: <span class="math display">\[500 \times 0.152 = 76.01 \sim 76 \]</span>
+Academic and research staff: <span class="math display">\[500 \times 123 = 61.56 \sim 62 \]</span>
+Support staff: <span class="math display">\[500 \times 0.101 = 50.67 \sim 51 \]</span></p>
+<p>Note: this gives a total sample of 501 and so you can choose either to reduce one of the groups by one, or have a sample of 501 individuals.</p>
+<p>Performing these calculations in R forms the basis of computer practical 2.</p>
+<p><strong>Q2.4</strong> <span class="citation">(<a href="references.html#ref-Squire1" role="doc-biblioref">Squire 1988</a>)</span> identified several problems which compounded the error in the result:</p>
+<ul>
+<li><p>the sampling procedure was flawed - there were differences in voting patterns between those who received a questionnaire (i.e. those with car and/or a telephone) and those who did not receive a questionnaire,</p></li>
+<li><p>a low response rate - although a large number of questionnaires were returned, this was still less than 25% of the total sent out,</p></li>
+<li><p>non-response bias - those who returned their questionnaires favoured Landon.
+As an aside, George Gallup conducted a poll of 50,000 people and correctly predicted the result. Gallup remains a prominent election-polling organisation today.</p></li>
+</ul>
+<p><strong>Q2.5</strong> <strong>a.</strong> This is a census of the imprisoned serial killer population and a sample (presumably not random) of the entire worldwide serial killer population.</p>
+<p><strong>Q2.5</strong> <strong>b.</strong> Whilst the psychologist chose a random sample of serial killers, there may be a non-response bias in that only some chose to respond. These prisoners might have a different psychology compared to those that refused to participate.</p>
+<p>There is another problem too; the imprisoned serial killers are a biased sample of the whole population of serial killers. Potential serial killers who are arrested after their first murder are not defined as serial killers and thus not included in the population. In addition, those not caught, presumably, could kill more than those who are imprisoned, thus, the mean number of victims could be under-estimated.</p>
+<p><strong>Q2.5</strong> <strong>c.</strong> This is a stratified sampling scheme with country being the strata.</p>
+<p><strong>Q2.6</strong> Yes. This question asks whether the drug works at all, so a control is required for comparison.</p>
+<p><strong>Q2.7</strong> No. In this question, the drug is being compared to existing drugs so it is a contrast.</p>
+<p><strong>Q2.8</strong> There is no definitive answer; one could argue that as the statistical ecologist did not create the conditions, it is an observational study.</p>
+<p><strong>Q2.9</strong> It could be argued that because the industrialist deliberately manipulated the environment it is an experiment!</p>
+
+<!-- LB update - 04/08/2020 -->
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>This is one definition of quasi-experiment, there are others<a href="sampling.html#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introchapt.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="describedata.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="book_assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/lunr.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["IntroStats.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

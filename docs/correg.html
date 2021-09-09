@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 13 Correlation and Regression | An Introduction to Statistics</title>
+  <meta name="description" content="Chapter 13 Correlation and Regression | An Introduction to Statistics" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 13 Correlation and Regression | An Introduction to Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 13 Correlation and Regression | An Introduction to Statistics" />
+  
+  
+  
+
+<meta name="author" content="Drs C. Paxton, L. Burt, C. Donovan and L. Scott-Hayward" />
+
+
+<meta name="date" content="2021-09-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tableofcounts.html"/>
+<link rel="next" href="introlm.html"/>
+<script src="book_assets/header-attrs-2.7/header-attrs.js"></script>
+<script src="book_assets/jquery-2.2.3/jquery.min.js"></script>
+<link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script language="javascript">
+    function toggle(id) {
+        var ele = document.getElementById("toggleText" + id);
+        var text = document.getElementById("displayText" + id);
+        var buttonText = text.innerHTML.replace("Show ", "");
+        buttonText = buttonText.replace("Hide ", "");
+        if(ele.style.display == "block") {
+            ele.style.display = "none";
+            text.innerHTML = "Show " + buttonText;
+        } else {
+            ele.style.display = "block";
+            text.innerHTML = "Hide " + buttonText;
+        }
+    }
+</script>
+
+<script language="javascript">
+    function openCode(evt, codeName, id) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent" + id);
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks" + id);
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(codeName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+<script language="javascript">
+    function hide(id){
+        document.getElementById(id).style.display = "none";
+    }
+</script>
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<a href="https://www.st-andrews.ac.uk/mathematics-statistics/"><img src="standard-vertical-black.png" width="180"></a>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#computer-practicals"><i class="fa fa-check"></i>Computer practicals</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introchapt.html"><a href="introchapt.html"><i class="fa fa-check"></i><b>1</b> Thinking About Numbers</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introchapt.html"><a href="introchapt.html#INTintro"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="introchapt.html"><a href="introchapt.html#why-use-statistics"><i class="fa fa-check"></i><b>1.2</b> Why use statistics?</a></li>
+<li class="chapter" data-level="1.3" data-path="introchapt.html"><a href="introchapt.html#why-model"><i class="fa fa-check"></i><b>1.3</b> Why model?</a></li>
+<li class="chapter" data-level="1.4" data-path="introchapt.html"><a href="introchapt.html#examples-of-statistical-claims"><i class="fa fa-check"></i><b>1.4</b> Examples of statistical claims</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="introchapt.html"><a href="introchapt.html#coffee-may-reverse-alzheimers"><i class="fa fa-check"></i><b>1.4.1</b> Coffee ‘may reverse Alzheimer’s’</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introchapt.html"><a href="introchapt.html#abundance-of-prized-sturgeon"><i class="fa fa-check"></i><b>1.4.2</b> Abundance of prized sturgeon</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introchapt.html"><a href="introchapt.html#extrapolating-sprinting-speed"><i class="fa fa-check"></i><b>1.4.3</b> Extrapolating sprinting speed</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introchapt.html"><a href="introchapt.html#mmr-innoculation-and-autism"><i class="fa fa-check"></i><b>1.4.4</b> MMR innoculation and autism</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introchapt.html"><a href="introchapt.html#two-sid-deaths-in-same-family"><i class="fa fa-check"></i><b>1.4.5</b> Two SID deaths in same family</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introchapt.html"><a href="introchapt.html#SUMintro"><i class="fa fa-check"></i><b>1.5</b> Summary</a></li>
+<li class="chapter" data-level="1.6" data-path="introchapt.html"><a href="introchapt.html#ANSintro"><i class="fa fa-check"></i><b>1.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>I Data Collection and Visualisation</b></span></li>
+<li class="chapter" data-level="2" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>2</b> Data collection and Sampling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="sampling.html"><a href="sampling.html#INTsamp"><i class="fa fa-check"></i><b>2.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="sampling.html"><a href="sampling.html#terminology"><i class="fa fa-check"></i><b>2.1.1</b> Terminology</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="sampling.html"><a href="sampling.html#what-is-sampling-and-why-do-it"><i class="fa fa-check"></i><b>2.2</b> What is sampling and why do it?</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="sampling.html"><a href="sampling.html#precision-accuracy-and-bias"><i class="fa fa-check"></i><b>2.2.1</b> Precision, accuracy and bias</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="sampling.html"><a href="sampling.html#three-types-of-data-collection"><i class="fa fa-check"></i><b>2.3</b> Three types of data collection</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="sampling.html"><a href="sampling.html#common-but-unwise-data-collection-strategies"><i class="fa fa-check"></i><b>2.3.1</b> Common, but unwise, data collection strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="sampling.html"><a href="sampling.html#simple-sampling-approaches"><i class="fa fa-check"></i><b>2.4</b> Simple sampling approaches</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="sampling.html"><a href="sampling.html#simple-random-sample"><i class="fa fa-check"></i><b>2.4.1</b> Simple random sample</a></li>
+<li class="chapter" data-level="2.4.2" data-path="sampling.html"><a href="sampling.html#systematic-samples"><i class="fa fa-check"></i><b>2.4.2</b> Systematic samples</a></li>
+<li class="chapter" data-level="2.4.3" data-path="sampling.html"><a href="sampling.html#stratified-random-samples"><i class="fa fa-check"></i><b>2.4.3</b> Stratified random samples</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="sampling.html"><a href="sampling.html#sampling-biases"><i class="fa fa-check"></i><b>2.5</b> Sampling biases</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="sampling.html"><a href="sampling.html#non-sampling-error"><i class="fa fa-check"></i><b>2.5.1</b> Non-sampling error</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="sampling.html"><a href="sampling.html#experiments"><i class="fa fa-check"></i><b>2.6</b> Experiments</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="sampling.html"><a href="sampling.html#randomised-experiments"><i class="fa fa-check"></i><b>2.6.1</b> Randomised experiments</a></li>
+<li class="chapter" data-level="2.6.2" data-path="sampling.html"><a href="sampling.html#components-of-an-experimental-design"><i class="fa fa-check"></i><b>2.6.2</b> Components of an experimental design</a></li>
+<li class="chapter" data-level="2.6.3" data-path="sampling.html"><a href="sampling.html#controls"><i class="fa fa-check"></i><b>2.6.3</b> Controls</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="sampling.html"><a href="sampling.html#observational-studies"><i class="fa fa-check"></i><b>2.7</b> Observational Studies</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="sampling.html"><a href="sampling.html#types-of-observational-study"><i class="fa fa-check"></i><b>2.7.1</b> Types of observational study</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="sampling.html"><a href="sampling.html#observational-studies-vs-experiments"><i class="fa fa-check"></i><b>2.8</b> Observational studies vs experiments</a></li>
+<li class="chapter" data-level="2.9" data-path="sampling.html"><a href="sampling.html#SUMsamp"><i class="fa fa-check"></i><b>2.9</b> Summary</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="sampling.html"><a href="sampling.html#learning-objectives"><i class="fa fa-check"></i><b>2.9.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="sampling.html"><a href="sampling.html#ANSsamp"><i class="fa fa-check"></i><b>2.10</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="describedata.html"><a href="describedata.html"><i class="fa fa-check"></i><b>3</b> Describing data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="describedata.html"><a href="describedata.html#INTdata"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="describedata.html"><a href="describedata.html#types-of-data"><i class="fa fa-check"></i><b>3.2</b> Types of data</a></li>
+<li class="chapter" data-level="3.3" data-path="describedata.html"><a href="describedata.html#frequency-distributions"><i class="fa fa-check"></i><b>3.3</b> Frequency distributions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="describedata.html"><a href="describedata.html#doing-this-in-r-2"><i class="fa fa-check"></i><b>3.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="describedata.html"><a href="describedata.html#numerical-summaries"><i class="fa fa-check"></i><b>3.4</b> Numerical summaries</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="describedata.html"><a href="describedata.html#population-mean"><i class="fa fa-check"></i><b>3.4.1</b> Population mean</a></li>
+<li class="chapter" data-level="3.4.2" data-path="describedata.html"><a href="describedata.html#sample-mean"><i class="fa fa-check"></i><b>3.4.2</b> Sample mean</a></li>
+<li class="chapter" data-level="3.4.3" data-path="describedata.html"><a href="describedata.html#sample-median"><i class="fa fa-check"></i><b>3.4.3</b> Sample median</a></li>
+<li class="chapter" data-level="3.4.4" data-path="describedata.html"><a href="describedata.html#range"><i class="fa fa-check"></i><b>3.4.4</b> Range</a></li>
+<li class="chapter" data-level="3.4.5" data-path="describedata.html"><a href="describedata.html#percentiles"><i class="fa fa-check"></i><b>3.4.5</b> Percentiles</a></li>
+<li class="chapter" data-level="3.4.6" data-path="describedata.html"><a href="describedata.html#population-variance"><i class="fa fa-check"></i><b>3.4.6</b> Population variance</a></li>
+<li class="chapter" data-level="3.4.7" data-path="describedata.html"><a href="describedata.html#sample-variance-and-standard-deviation"><i class="fa fa-check"></i><b>3.4.7</b> Sample variance and standard deviation</a></li>
+<li class="chapter" data-level="3.4.8" data-path="describedata.html"><a href="describedata.html#numerical-summaries-in-r"><i class="fa fa-check"></i><b>3.4.8</b> Numerical summaries in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="describedata.html"><a href="describedata.html#visual-summaries"><i class="fa fa-check"></i><b>3.5</b> Visual summaries</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="describedata.html"><a href="describedata.html#bar-charts"><i class="fa fa-check"></i><b>3.5.1</b> Bar charts</a></li>
+<li class="chapter" data-level="3.5.2" data-path="describedata.html"><a href="describedata.html#pie-charts"><i class="fa fa-check"></i><b>3.5.2</b> Pie charts</a></li>
+<li class="chapter" data-level="3.5.3" data-path="describedata.html"><a href="describedata.html#histograms"><i class="fa fa-check"></i><b>3.5.3</b> Histograms</a></li>
+<li class="chapter" data-level="3.5.4" data-path="describedata.html"><a href="describedata.html#boxplots"><i class="fa fa-check"></i><b>3.5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="3.5.5" data-path="describedata.html"><a href="describedata.html#basic-plots-in-r"><i class="fa fa-check"></i><b>3.5.5</b> Basic plots in R</a></li>
+<li class="chapter" data-level="3.5.6" data-path="describedata.html"><a href="describedata.html#other-plots"><i class="fa fa-check"></i><b>3.5.6</b> Other plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="describedata.html"><a href="describedata.html#summarising-the-relationship-between-two-variables"><i class="fa fa-check"></i><b>3.6</b> Summarising the relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="describedata.html"><a href="describedata.html#cross-tabulation"><i class="fa fa-check"></i><b>3.6.1</b> Cross-tabulation</a></li>
+<li class="chapter" data-level="3.6.2" data-path="describedata.html"><a href="describedata.html#side-by-side-boxplots"><i class="fa fa-check"></i><b>3.6.2</b> Side-by-side boxplots</a></li>
+<li class="chapter" data-level="3.6.3" data-path="describedata.html"><a href="describedata.html#scatter-plot"><i class="fa fa-check"></i><b>3.6.3</b> Scatter plot</a></li>
+<li class="chapter" data-level="3.6.4" data-path="describedata.html"><a href="describedata.html#quilt-plots"><i class="fa fa-check"></i><b>3.6.4</b> Quilt plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="describedata.html"><a href="describedata.html#handy-hints-when-including-tables-and-plots-into-reports"><i class="fa fa-check"></i><b>3.7</b> Handy hints when including tables and plots into reports</a></li>
+<li class="chapter" data-level="3.8" data-path="describedata.html"><a href="describedata.html#SUMdata"><i class="fa fa-check"></i><b>3.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="describedata.html"><a href="describedata.html#learning-outcomes"><i class="fa fa-check"></i><b>3.8.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="describedata.html"><a href="describedata.html#ANSdata"><i class="fa fa-check"></i><b>3.9</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>II Probability and Distributions</b></span></li>
+<li class="chapter" data-level="4" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>4</b> Probability</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="probability.html"><a href="probability.html#INTprob"><i class="fa fa-check"></i><b>4.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="probability.html"><a href="probability.html#random-phenomena-and-uncertain-outcomes"><i class="fa fa-check"></i><b>4.1.1</b> Random phenomena and uncertain outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="probability.html"><a href="probability.html#sample-spaces-and-events"><i class="fa fa-check"></i><b>4.2</b> Sample spaces and events</a></li>
+<li class="chapter" data-level="4.3" data-path="probability.html"><a href="probability.html#definition-of-probability-and-3-axioms"><i class="fa fa-check"></i><b>4.3</b> Definition of Probability and 3 Axioms</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="probability.html"><a href="probability.html#probability-1"><i class="fa fa-check"></i><b>4.3.1</b> Probability</a></li>
+<li class="chapter" data-level="4.3.2" data-path="probability.html"><a href="probability.html#three-axioms"><i class="fa fa-check"></i><b>4.3.2</b> Three Axioms</a></li>
+<li class="chapter" data-level="4.3.3" data-path="probability.html"><a href="probability.html#three-results-of-the-axioms"><i class="fa fa-check"></i><b>4.3.3</b> Three results of the Axioms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="probability.html"><a href="probability.html#independence-and-the-multiplication-rule"><i class="fa fa-check"></i><b>4.4</b> Independence and the Multiplication Rule</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="probability.html"><a href="probability.html#testing-for-independence"><i class="fa fa-check"></i><b>4.4.1</b> Testing for Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="probability.html"><a href="probability.html#conditional-probabilities"><i class="fa fa-check"></i><b>4.5</b> Conditional probabilities</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="probability.html"><a href="probability.html#independence-revisited"><i class="fa fa-check"></i><b>4.5.1</b> Independence revisited</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="probability.html"><a href="probability.html#tree-diagrams"><i class="fa fa-check"></i><b>4.6</b> Tree Diagrams</a></li>
+<li class="chapter" data-level="4.7" data-path="probability.html"><a href="probability.html#marginal-and-joint-probabilities"><i class="fa fa-check"></i><b>4.7</b> Marginal and joint probabilities</a></li>
+<li class="chapter" data-level="4.8" data-path="probability.html"><a href="probability.html#SUMprob"><i class="fa fa-check"></i><b>4.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="probability.html"><a href="probability.html#learning-objectives-1"><i class="fa fa-check"></i><b>4.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="probability.html"><a href="probability.html#ANSprob"><i class="fa fa-check"></i><b>4.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="discreterv.html"><a href="discreterv.html"><i class="fa fa-check"></i><b>5</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="discreterv.html"><a href="discreterv.html#INTdiscrv"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="discreterv.html"><a href="discreterv.html#discrete-random-variables"><i class="fa fa-check"></i><b>5.2</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="discreterv.html"><a href="discreterv.html#probability-mass-function"><i class="fa fa-check"></i><b>5.2.1</b> Probability mass function</a></li>
+<li class="chapter" data-level="5.2.2" data-path="discreterv.html"><a href="discreterv.html#cumulative-distribution-function"><i class="fa fa-check"></i><b>5.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="5.2.3" data-path="discreterv.html"><a href="discreterv.html#expectation"><i class="fa fa-check"></i><b>5.2.3</b> Expectation</a></li>
+<li class="chapter" data-level="5.2.4" data-path="discreterv.html"><a href="discreterv.html#variance"><i class="fa fa-check"></i><b>5.2.4</b> Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="discreterv.html"><a href="discreterv.html#special-discrete-distributions"><i class="fa fa-check"></i><b>5.3</b> Special discrete distributions</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="discreterv.html"><a href="discreterv.html#bernoulli-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="5.3.2" data-path="discreterv.html"><a href="discreterv.html#binomial-distribution"><i class="fa fa-check"></i><b>5.3.2</b> Binomial distribution</a></li>
+<li class="chapter" data-level="5.3.3" data-path="discreterv.html"><a href="discreterv.html#poisdist"><i class="fa fa-check"></i><b>5.3.3</b> Poisson distribution</a></li>
+<li class="chapter" data-level="5.3.4" data-path="discreterv.html"><a href="discreterv.html#comparison-of-binomial-and-poisson-distributions"><i class="fa fa-check"></i><b>5.3.4</b> Comparison of binomial and Poisson distributions?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="discreterv.html"><a href="discreterv.html#SUMdiscrv"><i class="fa fa-check"></i><b>5.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="discreterv.html"><a href="discreterv.html#learning-outcomes-1"><i class="fa fa-check"></i><b>5.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="discreterv.html"><a href="discreterv.html#ANSdiscrv"><i class="fa fa-check"></i><b>5.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="contrv.html"><a href="contrv.html"><i class="fa fa-check"></i><b>6</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="contrv.html"><a href="contrv.html#INTcontrv"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="contrv.html"><a href="contrv.html#continuous-random-variables"><i class="fa fa-check"></i><b>6.2</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="contrv.html"><a href="contrv.html#probability-density-function"><i class="fa fa-check"></i><b>6.2.1</b> Probability density function</a></li>
+<li class="chapter" data-level="6.2.2" data-path="contrv.html"><a href="contrv.html#cumulative-distribution-function-1"><i class="fa fa-check"></i><b>6.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="6.2.3" data-path="contrv.html"><a href="contrv.html#expectation-and-variance-1"><i class="fa fa-check"></i><b>6.2.3</b> Expectation and variance</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="contrv.html"><a href="contrv.html#special-continuous-distributions"><i class="fa fa-check"></i><b>6.3</b> Special continuous distributions</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="contrv.html"><a href="contrv.html#normal-distribution"><i class="fa fa-check"></i><b>6.3.1</b> normal distribution</a></li>
+<li class="chapter" data-level="6.3.2" data-path="contrv.html"><a href="contrv.html#standard-normal-distribution"><i class="fa fa-check"></i><b>6.3.2</b> Standard normal distribution</a></li>
+<li class="chapter" data-level="6.3.3" data-path="contrv.html"><a href="contrv.html#simple-transformations-of-random-variables"><i class="fa fa-check"></i><b>6.3.3</b> Simple transformations of random variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="contrv.html"><a href="contrv.html#SUMcontrv"><i class="fa fa-check"></i><b>6.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="contrv.html"><a href="contrv.html#learning-outcomes-2"><i class="fa fa-check"></i><b>6.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="contrv.html"><a href="contrv.html#ANScontrv"><i class="fa fa-check"></i><b>6.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="CIformean.html"><a href="CIformean.html"><i class="fa fa-check"></i><b>7</b> Confidence intervals for sample means</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="CIformean.html"><a href="CIformean.html#INTci"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="CIformean.html"><a href="CIformean.html#uncertainty-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2</b> Uncertainty of the sample mean</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="CIformean.html"><a href="CIformean.html#precision-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2.1</b> Precision of the sample mean</a></li>
+<li class="chapter" data-level="7.2.2" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-known-sigma"><i class="fa fa-check"></i><b>7.2.2</b> Confidence interval with known <span class="math inline">\(\sigma\)</span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-unknown-sigma"><i class="fa fa-check"></i><b>7.2.3</b> Confidence interval with unknown <span class="math inline">\(\sigma\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="CIformean.html"><a href="CIformean.html#difference-between-two-group-means"><i class="fa fa-check"></i><b>7.3</b> Difference between two group means</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="CIformean.html"><a href="CIformean.html#assuming-equal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.1</b> Assuming equal standard deviations of the two groups</a></li>
+<li class="chapter" data-level="7.3.2" data-path="CIformean.html"><a href="CIformean.html#assuming-unequal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.2</b> Assuming unequal standard deviations of the two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="CIformean.html"><a href="CIformean.html#empirical-bootstrap-based-confidence-intervals"><i class="fa fa-check"></i><b>7.4</b> Empirical (bootstrap-based) confidence intervals</a></li>
+<li class="chapter" data-level="7.5" data-path="CIformean.html"><a href="CIformean.html#confidence-intervals-for-other-sample-statistics"><i class="fa fa-check"></i><b>7.5</b> Confidence intervals for other sample statistics</a></li>
+<li class="chapter" data-level="7.6" data-path="CIformean.html"><a href="CIformean.html#SUMci"><i class="fa fa-check"></i><b>7.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="CIformean.html"><a href="CIformean.html#learning-outcomes-3"><i class="fa fa-check"></i><b>7.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="CIformean.html"><a href="CIformean.html#ANSci"><i class="fa fa-check"></i><b>7.7</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>III Hypothesis Testing</b></span></li>
+<li class="chapter" data-level="8" data-path="hypothtests.html"><a href="hypothtests.html"><i class="fa fa-check"></i><b>8</b> Hypothesis Tests</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="hypothtests.html"><a href="hypothtests.html#INThyp"><i class="fa fa-check"></i><b>8.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="hypothtests.html"><a href="hypothtests.html#types-of-hypotheses"><i class="fa fa-check"></i><b>8.1.1</b> Types of hypotheses</a></li>
+<li class="chapter" data-level="8.1.2" data-path="hypothtests.html"><a href="hypothtests.html#how-do-hypothesis-tests-work"><i class="fa fa-check"></i><b>8.1.2</b> How do hypothesis tests work?</a></li>
+<li class="chapter" data-level="8.1.3" data-path="hypothtests.html"><a href="hypothtests.html#one-sample-t-test"><i class="fa fa-check"></i><b>8.1.3</b> One sample <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="hypothtests.html"><a href="hypothtests.html#two-sample-t-test"><i class="fa fa-check"></i><b>8.2</b> Two sample <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-13"><i class="fa fa-check"></i><b>8.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="hypothtests.html"><a href="hypothtests.html#paired-t-test"><i class="fa fa-check"></i><b>8.3</b> Paired <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-14"><i class="fa fa-check"></i><b>8.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="hypothtests.html"><a href="hypothtests.html#t-test-assumptions"><i class="fa fa-check"></i><b>8.4</b> <span class="math inline">\(t\)</span> test assumptions</a></li>
+<li class="chapter" data-level="8.5" data-path="hypothtests.html"><a href="hypothtests.html#non-parametric-alternative-to-t-tests"><i class="fa fa-check"></i><b>8.5</b> Non-parametric alternative to <span class="math inline">\(t\)</span> tests</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="hypothtests.html"><a href="hypothtests.html#mann-whitney-wilcoxon-test"><i class="fa fa-check"></i><b>8.5.1</b> Mann-Whitney-Wilcoxon test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="hypothtests.html"><a href="hypothtests.html#practical-significance-versus-statistical-significance"><i class="fa fa-check"></i><b>8.6</b> Practical significance versus statistical significance</a></li>
+<li class="chapter" data-level="8.7" data-path="hypothtests.html"><a href="hypothtests.html#SUMhyp"><i class="fa fa-check"></i><b>8.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="hypothtests.html"><a href="hypothtests.html#learning-outcomes-4"><i class="fa fa-check"></i><b>8.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="hypothtests.html"><a href="hypothtests.html#ANShyp"><i class="fa fa-check"></i><b>8.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>9</b> Analysis of Variance</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="anova.html"><a href="anova.html#INTanova"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="anova.html"><a href="anova.html#multiple-comparisons"><i class="fa fa-check"></i><b>9.2</b> Multiple comparisons</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="anova.html"><a href="anova.html#type-i-and-type-ii-error"><i class="fa fa-check"></i><b>9.2.1</b> Type I and Type II error</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="anova.html"><a href="anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.3</b> ANalysis Of VAriance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="anova.html"><a href="anova.html#f-test-statistic-for-anova"><i class="fa fa-check"></i><b>9.3.1</b> <span class="math inline">\(F\)</span> test statistic for ANOVA</a></li>
+<li class="chapter" data-level="9.3.2" data-path="anova.html"><a href="anova.html#calculating-an-anova-table"><i class="fa fa-check"></i><b>9.3.2</b> Calculating an ANOVA table</a></li>
+<li class="chapter" data-level="9.3.3" data-path="anova.html"><a href="anova.html#f-distribution"><i class="fa fa-check"></i><b>9.3.3</b> <span class="math inline">\(F\)</span> distribution</a></li>
+<li class="chapter" data-level="9.3.4" data-path="anova.html"><a href="anova.html#doing-this-in-r-16"><i class="fa fa-check"></i><b>9.3.4</b> Doing this in R</a></li>
+<li class="chapter" data-level="9.3.5" data-path="anova.html"><a href="anova.html#assumptions"><i class="fa fa-check"></i><b>9.3.5</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="anova.html"><a href="anova.html#identifying-differences-and-more-on-multiple-comparisons"><i class="fa fa-check"></i><b>9.4</b> Identifying differences (and more on multiple comparisons)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="anova.html"><a href="anova.html#bonferroni-correction"><i class="fa fa-check"></i><b>9.4.1</b> Bonferroni correction</a></li>
+<li class="chapter" data-level="9.4.2" data-path="anova.html"><a href="anova.html#sidak-adjustment"><i class="fa fa-check"></i><b>9.4.2</b> Sidak adjustment</a></li>
+<li class="chapter" data-level="9.4.3" data-path="anova.html"><a href="anova.html#tukeys-honest-significant-difference-hsd"><i class="fa fa-check"></i><b>9.4.3</b> Tukey’s Honest Significant Difference (HSD)</a></li>
+<li class="chapter" data-level="9.4.4" data-path="anova.html"><a href="anova.html#multiple-comparison-controversy"><i class="fa fa-check"></i><b>9.4.4</b> Multiple comparison controversy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="anova.html"><a href="anova.html#alternative-tests-to-anova"><i class="fa fa-check"></i><b>9.5</b> Alternative tests to ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="anova.html"><a href="anova.html#doing-this-in-r-18"><i class="fa fa-check"></i><b>9.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="anova.html"><a href="anova.html#SUManova"><i class="fa fa-check"></i><b>9.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="anova.html"><a href="anova.html#learning-outcomes-5"><i class="fa fa-check"></i><b>9.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="anova.html"><a href="anova.html#ANSanova"><i class="fa fa-check"></i><b>9.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="power.html"><a href="power.html"><i class="fa fa-check"></i><b>10</b> Statistical Power</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="power.html"><a href="power.html#INTpower"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="power.html"><a href="power.html#a-motivating-example---environmental-impact-assessment"><i class="fa fa-check"></i><b>10.2</b> A motivating example - Environmental impact assessment</a></li>
+<li class="chapter" data-level="10.3" data-path="power.html"><a href="power.html#calculating-power"><i class="fa fa-check"></i><b>10.3</b> Calculating power</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="power.html"><a href="power.html#increasing-the-power"><i class="fa fa-check"></i><b>10.3.1</b> Increasing the power</a></li>
+<li class="chapter" data-level="10.3.2" data-path="power.html"><a href="power.html#power-by-simulation"><i class="fa fa-check"></i><b>10.3.2</b> Power by simulation</a></li>
+<li class="chapter" data-level="10.3.3" data-path="power.html"><a href="power.html#multiple-comparisons-1"><i class="fa fa-check"></i><b>10.3.3</b> Multiple comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="power.html"><a href="power.html#SUMpower"><i class="fa fa-check"></i><b>10.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="power.html"><a href="power.html#learning-objectives-2"><i class="fa fa-check"></i><b>10.4.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="power.html"><a href="power.html#ANSpower"><i class="fa fa-check"></i><b>10.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="proportions.html"><a href="proportions.html"><i class="fa fa-check"></i><b>11</b> Proportions</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="proportions.html"><a href="proportions.html#INTprop"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals"><i class="fa fa-check"></i><b>11.2</b> Confidence intervals</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="proportions.html"><a href="proportions.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>11.2.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="11.2.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals-large-sample-sizes"><i class="fa fa-check"></i><b>11.2.2</b> Confidence intervals: large sample sizes</a></li>
+<li class="chapter" data-level="11.2.3" data-path="proportions.html"><a href="proportions.html#confidence-intervals-small-sample-sizes"><i class="fa fa-check"></i><b>11.2.3</b> Confidence intervals: small sample sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="proportions.html"><a href="proportions.html#comparing-two-proportions-the-z-test"><i class="fa fa-check"></i><b>11.3</b> Comparing two proportions: the <span class="math inline">\(z\)</span> test</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="proportions.html"><a href="proportions.html#testing-for-no-difference-between-groups"><i class="fa fa-check"></i><b>11.3.1</b> Testing for ‘no difference’ between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="proportions.html"><a href="proportions.html#ci-for-the-difference-between-population-proportions-p_1-p_2"><i class="fa fa-check"></i><b>11.4</b> CI for the difference between population proportions, (<span class="math inline">\(p_1-p_2\)</span>)</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="proportions.html"><a href="proportions.html#choosing-the-appropriate-standard-error-when-comparing-proportions"><i class="fa fa-check"></i><b>11.4.1</b> Choosing the appropriate standard error when comparing proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="proportions.html"><a href="proportions.html#odds-ratios"><i class="fa fa-check"></i><b>11.5</b> Odds ratios</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success"><i class="fa fa-check"></i><b>11.5.1</b> Calculating the odds of success</a></li>
+<li class="chapter" data-level="11.5.2" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success-for-2-x-2-tables"><i class="fa fa-check"></i><b>11.5.2</b> Calculating the odds of success for 2 x 2 tables</a></li>
+<li class="chapter" data-level="11.5.3" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-ratio"><i class="fa fa-check"></i><b>11.5.3</b> Calculating the odds ratio</a></li>
+<li class="chapter" data-level="11.5.4" data-path="proportions.html"><a href="proportions.html#confidence-intervals-for-odds-ratios"><i class="fa fa-check"></i><b>11.5.4</b> Confidence intervals for odds ratios</a></li>
+<li class="chapter" data-level="11.5.5" data-path="proportions.html"><a href="proportions.html#final-note-on-odds-ratios"><i class="fa fa-check"></i><b>11.5.5</b> Final note on odds ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="proportions.html"><a href="proportions.html#SUMprop"><i class="fa fa-check"></i><b>11.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="11.6.1" data-path="proportions.html"><a href="proportions.html#learning-outcomes-6"><i class="fa fa-check"></i><b>11.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="proportions.html"><a href="proportions.html#ANSprop"><i class="fa fa-check"></i><b>11.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="tableofcounts.html"><a href="tableofcounts.html"><i class="fa fa-check"></i><b>12</b> Tables of counts</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="tableofcounts.html"><a href="tableofcounts.html#introduction"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-goodness-of-fit-test"><i class="fa fa-check"></i><b>12.2</b> <span class="math inline">\(\chi^2\)</span> goodness-of-fit test</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-22"><i class="fa fa-check"></i><b>12.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-test-of-independence"><i class="fa fa-check"></i><b>12.3</b> <span class="math inline">\(\chi^2\)</span> test of independence</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-23"><i class="fa fa-check"></i><b>12.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="tableofcounts.html"><a href="tableofcounts.html#test-assumptions"><i class="fa fa-check"></i><b>12.4</b> Test assumptions</a></li>
+<li class="chapter" data-level="12.5" data-path="tableofcounts.html"><a href="tableofcounts.html#summary"><i class="fa fa-check"></i><b>12.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="tableofcounts.html"><a href="tableofcounts.html#learning-outcomes-7"><i class="fa fa-check"></i><b>12.5.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="tableofcounts.html"><a href="tableofcounts.html#answers"><i class="fa fa-check"></i><b>12.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>IV Regression and Linear Models</b></span></li>
+<li class="chapter" data-level="13" data-path="correg.html"><a href="correg.html"><i class="fa fa-check"></i><b>13</b> Correlation and Regression</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="correg.html"><a href="correg.html#introcorreg"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.2" data-path="correg.html"><a href="correg.html#correlation"><i class="fa fa-check"></i><b>13.2</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="correg.html"><a href="correg.html#significance-of-r"><i class="fa fa-check"></i><b>13.2.1</b> Significance of <span class="math inline">\(r\)</span></a></li>
+<li class="chapter" data-level="13.2.2" data-path="correg.html"><a href="correg.html#correlation-and-causation"><i class="fa fa-check"></i><b>13.2.2</b> Correlation and causation</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="correg.html"><a href="correg.html#regression"><i class="fa fa-check"></i><b>13.3</b> Regression</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="correg.html"><a href="correg.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>13.3.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="13.3.2" data-path="correg.html"><a href="correg.html#model-specification"><i class="fa fa-check"></i><b>13.3.2</b> Model specification</a></li>
+<li class="chapter" data-level="13.3.3" data-path="correg.html"><a href="correg.html#which-straight-line-to-choose"><i class="fa fa-check"></i><b>13.3.3</b> Which straight line to choose?</a></li>
+<li class="chapter" data-level="13.3.4" data-path="correg.html"><a href="correg.html#fitting-the-model-the-details"><i class="fa fa-check"></i><b>13.3.4</b> Fitting the model: the details</a></li>
+<li class="chapter" data-level="13.3.5" data-path="correg.html"><a href="correg.html#predictions"><i class="fa fa-check"></i><b>13.3.5</b> Predictions</a></li>
+<li class="chapter" data-level="13.3.6" data-path="correg.html"><a href="correg.html#the-variance-estimate"><i class="fa fa-check"></i><b>13.3.6</b> The variance estimate</a></li>
+<li class="chapter" data-level="13.3.7" data-path="correg.html"><a href="correg.html#introduction-to-the-matrix-form"><i class="fa fa-check"></i><b>13.3.7</b> Introduction to the matrix form</a></li>
+<li class="chapter" data-level="13.3.8" data-path="correg.html"><a href="correg.html#regression-in-practise"><i class="fa fa-check"></i><b>13.3.8</b> Regression in practise</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="correg.html"><a href="correg.html#SUMcorreg"><i class="fa fa-check"></i><b>13.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="correg.html"><a href="correg.html#learning-outcomes-8"><i class="fa fa-check"></i><b>13.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="correg.html"><a href="correg.html#ANScorreg"><i class="fa fa-check"></i><b>13.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="introlm.html"><a href="introlm.html"><i class="fa fa-check"></i><b>14</b> Introduction to the linear model</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="introlm.html"><a href="introlm.html#INTlm"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-a-t-test"><i class="fa fa-check"></i><b>14.2</b> The linear model as a <span class="math inline">\(t\)</span> test</a></li>
+<li class="chapter" data-level="14.3" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-analysis-of-variance"><i class="fa fa-check"></i><b>14.3</b> The linear model as analysis of variance</a></li>
+<li class="chapter" data-level="14.4" data-path="introlm.html"><a href="introlm.html#simple-linear-regression-again"><i class="fa fa-check"></i><b>14.4</b> Simple linear regression (again)</a></li>
+<li class="chapter" data-level="14.5" data-path="introlm.html"><a href="introlm.html#model-performance"><i class="fa fa-check"></i><b>14.5</b> Model performance</a></li>
+<li class="chapter" data-level="14.6" data-path="introlm.html"><a href="introlm.html#multiple-regression"><i class="fa fa-check"></i><b>14.6</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="introlm.html"><a href="introlm.html#the-eia-data-again"><i class="fa fa-check"></i><b>14.6.1</b> The EIA data again</a></li>
+<li class="chapter" data-level="14.6.2" data-path="introlm.html"><a href="introlm.html#model-specification-1"><i class="fa fa-check"></i><b>14.6.2</b> Model specification</a></li>
+<li class="chapter" data-level="14.6.3" data-path="introlm.html"><a href="introlm.html#types-of-covariates"><i class="fa fa-check"></i><b>14.6.3</b> Types of covariates</a></li>
+<li class="chapter" data-level="14.6.4" data-path="introlm.html"><a href="introlm.html#model-fitting"><i class="fa fa-check"></i><b>14.6.4</b> Model fitting</a></li>
+<li class="chapter" data-level="14.6.5" data-path="introlm.html"><a href="introlm.html#parameter-interpretation"><i class="fa fa-check"></i><b>14.6.5</b> Parameter Interpretation</a></li>
+<li class="chapter" data-level="14.6.6" data-path="introlm.html"><a href="introlm.html#parameter-uncertainty"><i class="fa fa-check"></i><b>14.6.6</b> Parameter uncertainty</a></li>
+<li class="chapter" data-level="14.6.7" data-path="introlm.html"><a href="introlm.html#confidence-intervals-cis-on-parameters"><i class="fa fa-check"></i><b>14.6.7</b> Confidence intervals (CIs) on parameters</a></li>
+<li class="chapter" data-level="14.6.8" data-path="introlm.html"><a href="introlm.html#hypothesis-testing"><i class="fa fa-check"></i><b>14.6.8</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="14.6.9" data-path="introlm.html"><a href="introlm.html#model-performance-1"><i class="fa fa-check"></i><b>14.6.9</b> Model performance</a></li>
+<li class="chapter" data-level="14.6.10" data-path="introlm.html"><a href="introlm.html#more-covariates-of-mixed-types"><i class="fa fa-check"></i><b>14.6.10</b> More covariates of mixed types</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="introlm.html"><a href="introlm.html#the-matrix-interpretation-of-a-linear-model"><i class="fa fa-check"></i><b>14.7</b> The matrix interpretation of a linear model</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="introlm.html"><a href="introlm.html#dummy-variables"><i class="fa fa-check"></i><b>14.7.1</b> Dummy variables</a></li>
+<li class="chapter" data-level="14.7.2" data-path="introlm.html"><a href="introlm.html#combining-factors-and-continuous-variables"><i class="fa fa-check"></i><b>14.7.2</b> Combining factors and continuous variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.8" data-path="introlm.html"><a href="introlm.html#SUMlm"><i class="fa fa-check"></i><b>14.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="14.8.1" data-path="introlm.html"><a href="introlm.html#learning-objectives-3"><i class="fa fa-check"></i><b>14.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="14.9" data-path="introlm.html"><a href="introlm.html#ANSlm"><i class="fa fa-check"></i><b>14.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="modelselection.html"><a href="modelselection.html"><i class="fa fa-check"></i><b>15</b> Model selection</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="modelselection.html"><a href="modelselection.html#INTmodsel"><i class="fa fa-check"></i><b>15.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="modelselection.html"><a href="modelselection.html#criteria-for-model-selection"><i class="fa fa-check"></i><b>15.1.1</b> Criteria for model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="modelselection.html"><a href="modelselection.html#collinearity"><i class="fa fa-check"></i><b>15.2</b> Collinearity</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="modelselection.html"><a href="modelselection.html#variance-inflation-factors"><i class="fa fa-check"></i><b>15.2.1</b> Variance inflation factors</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="modelselection.html"><a href="modelselection.html#p-value-based-model-selection-the-f-test"><i class="fa fa-check"></i><b>15.3</b> <span class="math inline">\(p\)</span>-value based model selection: the <span class="math inline">\(F\)</span>-test</a></li>
+<li class="chapter" data-level="15.4" data-path="modelselection.html"><a href="modelselection.html#relative-model-fit"><i class="fa fa-check"></i><b>15.4</b> Relative model fit</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="modelselection.html"><a href="modelselection.html#akaikes-information-criterion-aic"><i class="fa fa-check"></i><b>15.4.1</b> Akaike’s Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="modelselection.html"><a href="modelselection.html#other-methods-of-model-selection"><i class="fa fa-check"></i><b>15.5</b> Other methods of model selection</a></li>
+<li class="chapter" data-level="15.6" data-path="modelselection.html"><a href="modelselection.html#automated-variable-selection"><i class="fa fa-check"></i><b>15.6</b> Automated variable selection</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="modelselection.html"><a href="modelselection.html#stepwise-selection"><i class="fa fa-check"></i><b>15.6.1</b> Stepwise selection</a></li>
+<li class="chapter" data-level="15.6.2" data-path="modelselection.html"><a href="modelselection.html#all-possible-subsets-selection"><i class="fa fa-check"></i><b>15.6.2</b> All possible subsets selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="modelselection.html"><a href="modelselection.html#example-model-selection-with-the-medical-data"><i class="fa fa-check"></i><b>15.7</b> Example: model selection with the medical data</a>
+<ul>
+<li class="chapter" data-level="15.7.1" data-path="modelselection.html"><a href="modelselection.html#model-specification-3"><i class="fa fa-check"></i><b>15.7.1</b> Model specification</a></li>
+<li class="chapter" data-level="15.7.2" data-path="modelselection.html"><a href="modelselection.html#interpreting-the-parameter-estimates"><i class="fa fa-check"></i><b>15.7.2</b> Interpreting the parameter estimates</a></li>
+<li class="chapter" data-level="15.7.3" data-path="modelselection.html"><a href="modelselection.html#what-should-be-in-the-model"><i class="fa fa-check"></i><b>15.7.3</b> What ‘should’ be in the model?</a></li>
+<li class="chapter" data-level="15.7.4" data-path="modelselection.html"><a href="modelselection.html#what-terms-are-significant"><i class="fa fa-check"></i><b>15.7.4</b> What terms are significant?</a></li>
+<li class="chapter" data-level="15.7.5" data-path="modelselection.html"><a href="modelselection.html#more-automated-methods"><i class="fa fa-check"></i><b>15.7.5</b> More automated methods</a></li>
+</ul></li>
+<li class="chapter" data-level="15.8" data-path="modelselection.html"><a href="modelselection.html#SUMmodsel"><i class="fa fa-check"></i><b>15.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="15.8.1" data-path="modelselection.html"><a href="modelselection.html#learning-objectives-4"><i class="fa fa-check"></i><b>15.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="15.9" data-path="modelselection.html"><a href="modelselection.html#ANSmodsel"><i class="fa fa-check"></i><b>15.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="interac.html"><a href="interac.html"><i class="fa fa-check"></i><b>16</b> Interactions and the Linear Model</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="interac.html"><a href="interac.html#INTinterac"><i class="fa fa-check"></i><b>16.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="interac.html"><a href="interac.html#fitting-different-models"><i class="fa fa-check"></i><b>16.1.1</b> Fitting different models</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="interac.html"><a href="interac.html#fitting-interaction-terms"><i class="fa fa-check"></i><b>16.2</b> Fitting interaction terms</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="interac.html"><a href="interac.html#specifying-interactions-in-model-formulae"><i class="fa fa-check"></i><b>16.2.1</b> Specifying interactions in model formulae</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="interac.html"><a href="interac.html#interactions-in-practise"><i class="fa fa-check"></i><b>16.3</b> Interactions in practise</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="interac.html"><a href="interac.html#eia-data"><i class="fa fa-check"></i><b>16.3.1</b> EIA data</a></li>
+<li class="chapter" data-level="16.3.2" data-path="interac.html"><a href="interac.html#medical-data"><i class="fa fa-check"></i><b>16.3.2</b> Medical data</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="interac.html"><a href="interac.html#model-selection-and-interactions"><i class="fa fa-check"></i><b>16.4</b> Model selection and interactions</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-eia-data-set"><i class="fa fa-check"></i><b>16.4.1</b> Backwards selection in the EIA data set</a></li>
+<li class="chapter" data-level="16.4.2" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-medical-data-set"><i class="fa fa-check"></i><b>16.4.2</b> Backwards selection in the medical data set</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="interac.html"><a href="interac.html#SUMinterac"><i class="fa fa-check"></i><b>16.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="interac.html"><a href="interac.html#learning-objectives-5"><i class="fa fa-check"></i><b>16.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="interac.html"><a href="interac.html#ANSinterac"><i class="fa fa-check"></i><b>16.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>17</b> Prediction from the linear model</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="prediction.html"><a href="prediction.html#INTpred"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="prediction.html"><a href="prediction.html#prediction-1"><i class="fa fa-check"></i><b>17.2</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-27"><i class="fa fa-check"></i><b>17.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="prediction.html"><a href="prediction.html#uncertainty-in-the-prediction"><i class="fa fa-check"></i><b>17.3</b> Uncertainty in the prediction</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-28"><i class="fa fa-check"></i><b>17.3.1</b> Doing this in R</a></li>
+<li class="chapter" data-level="17.3.2" data-path="prediction.html"><a href="prediction.html#confidence-intervals-for-the-line"><i class="fa fa-check"></i><b>17.3.2</b> Confidence intervals for the line</a></li>
+<li class="chapter" data-level="17.3.3" data-path="prediction.html"><a href="prediction.html#prediction-intervals"><i class="fa fa-check"></i><b>17.3.3</b> Prediction intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="prediction.html"><a href="prediction.html#prediction-in-multiple-regression"><i class="fa fa-check"></i><b>17.4</b> Prediction in multiple regression</a></li>
+<li class="chapter" data-level="17.5" data-path="prediction.html"><a href="prediction.html#SUMpred"><i class="fa fa-check"></i><b>17.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="prediction.html"><a href="prediction.html#learning-objectives-6"><i class="fa fa-check"></i><b>17.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="prediction.html"><a href="prediction.html#ANSpred"><i class="fa fa-check"></i><b>17.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>18</b> Linear model diagnostics</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="diagnostics.html"><a href="diagnostics.html#INTdiag"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="diagnostics.html"><a href="diagnostics.html#predictive-power"><i class="fa fa-check"></i><b>18.2</b> Predictive power</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="diagnostics.html"><a href="diagnostics.html#signal-versus-noise"><i class="fa fa-check"></i><b>18.2.1</b> Signal versus noise</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="diagnostics.html"><a href="diagnostics.html#model-assumptions"><i class="fa fa-check"></i><b>18.3</b> Model assumptions</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="diagnostics.html"><a href="diagnostics.html#normality-assumption"><i class="fa fa-check"></i><b>18.3.1</b> Normality assumption</a></li>
+<li class="chapter" data-level="18.3.2" data-path="diagnostics.html"><a href="diagnostics.html#assessing-constant-error-variance"><i class="fa fa-check"></i><b>18.3.2</b> Assessing constant error variance</a></li>
+<li class="chapter" data-level="18.3.3" data-path="diagnostics.html"><a href="diagnostics.html#assessing-independence"><i class="fa fa-check"></i><b>18.3.3</b> Assessing independence</a></li>
+<li class="chapter" data-level="18.3.4" data-path="diagnostics.html"><a href="diagnostics.html#pseudoreplication"><i class="fa fa-check"></i><b>18.3.4</b> Pseudoreplication</a></li>
+<li class="chapter" data-level="18.3.5" data-path="diagnostics.html"><a href="diagnostics.html#linearity-in-the-model-for-the-signal"><i class="fa fa-check"></i><b>18.3.5</b> Linearity in the model for the signal</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="diagnostics.html"><a href="diagnostics.html#example-diagnostics-with-the-medical-data"><i class="fa fa-check"></i><b>18.4</b> Example: Diagnostics with the medical data</a></li>
+<li class="chapter" data-level="18.5" data-path="diagnostics.html"><a href="diagnostics.html#partial-residual-plots"><i class="fa fa-check"></i><b>18.5</b> Partial residual plots</a>
+<ul>
+<li class="chapter" data-level="18.5.1" data-path="diagnostics.html"><a href="diagnostics.html#doing-this-in-r-30"><i class="fa fa-check"></i><b>18.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="18.6" data-path="diagnostics.html"><a href="diagnostics.html#interaction-terms"><i class="fa fa-check"></i><b>18.6</b> Interaction Terms</a></li>
+<li class="chapter" data-level="18.7" data-path="diagnostics.html"><a href="diagnostics.html#SUMdiag"><i class="fa fa-check"></i><b>18.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="18.7.1" data-path="diagnostics.html"><a href="diagnostics.html#learning-outcomes-9"><i class="fa fa-check"></i><b>18.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="18.8" data-path="diagnostics.html"><a href="diagnostics.html#ANSdiag"><i class="fa fa-check"></i><b>18.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="nextsteps.html"><a href="nextsteps.html"><i class="fa fa-check"></i><b>19</b> The Next Steps</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="nextsteps.html"><a href="nextsteps.html#INTnext"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="nextsteps.html"><a href="nextsteps.html#solving-the-assumptional-problems"><i class="fa fa-check"></i><b>19.2</b> Solving the assumptional problems</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="nextsteps.html"><a href="nextsteps.html#example-the-eia-data"><i class="fa fa-check"></i><b>19.2.1</b> Example: The EIA data</a></li>
+<li class="chapter" data-level="19.2.2" data-path="nextsteps.html"><a href="nextsteps.html#oddly-distributed-residuals"><i class="fa fa-check"></i><b>19.2.2</b> Oddly distributed residuals</a></li>
+<li class="chapter" data-level="19.2.3" data-path="nextsteps.html"><a href="nextsteps.html#non-independence"><i class="fa fa-check"></i><b>19.2.3</b> Non-independence</a></li>
+<li class="chapter" data-level="19.2.4" data-path="nextsteps.html"><a href="nextsteps.html#non-linearity"><i class="fa fa-check"></i><b>19.2.4</b> Non-linearity</a></li>
+<li class="chapter" data-level="19.2.5" data-path="nextsteps.html"><a href="nextsteps.html#bootstrapping"><i class="fa fa-check"></i><b>19.2.5</b> Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="nextsteps.html"><a href="nextsteps.html#summary-1"><i class="fa fa-check"></i><b>19.3</b> Summary</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="nextsteps.html"><a href="nextsteps.html#learning-outcomes-10"><i class="fa fa-check"></i><b>19.3.1</b> Learning outcomes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="notation.html"><a href="notation.html"><i class="fa fa-check"></i><b>20</b> Notation {-}</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="notation.html"><a href="notation.html#summation"><i class="fa fa-check"></i><b>20.1</b> Summation</a></li>
+<li class="chapter" data-level="20.2" data-path="notation.html"><a href="notation.html#factorial"><i class="fa fa-check"></i><b>20.2</b> Factorial</a></li>
+<li class="chapter" data-level="20.3" data-path="notation.html"><a href="notation.html#combinations"><i class="fa fa-check"></i><b>20.3</b> Combinations</a></li>
+<li class="chapter" data-level="20.4" data-path="notation.html"><a href="notation.html#multiplication"><i class="fa fa-check"></i><b>20.4</b> Multiplication</a></li>
+<li class="chapter" data-level="20.5" data-path="notation.html"><a href="notation.html#integration"><i class="fa fa-check"></i><b>20.5</b> Integration</a></li>
+<li class="chapter" data-level="20.6" data-path="notation.html"><a href="notation.html#matrix-multiplication"><i class="fa fa-check"></i><b>20.6</b> Matrix multiplication</a></li>
+<li class="chapter" data-level="20.7" data-path="notation.html"><a href="notation.html#absolute-values"><i class="fa fa-check"></i><b>20.7</b> Absolute values</a></li>
+<li class="chapter" data-level="20.8" data-path="notation.html"><a href="notation.html#pi"><i class="fa fa-check"></i><b>20.8</b> <span class="math inline">\(\pi\)</span></a></li>
+<li class="chapter" data-level="20.9" data-path="notation.html"><a href="notation.html#exponential-function-e"><i class="fa fa-check"></i><b>20.9</b> Exponential function, <span class="math inline">\(e\)</span></a></li>
+<li class="chapter" data-level="20.10" data-path="notation.html"><a href="notation.html#intervals"><i class="fa fa-check"></i><b>20.10</b> Intervals</a></li>
+<li class="chapter" data-level="20.11" data-path="notation.html"><a href="notation.html#axes-on-plots"><i class="fa fa-check"></i><b>20.11</b> Axes on plots</a></li>
+<li class="chapter" data-level="20.12" data-path="notation.html"><a href="notation.html#probability-2"><i class="fa fa-check"></i><b>20.12</b> Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="correg" class="section level1" number="13">
+<h1><span class="header-section-number">Chapter 13</span> Correlation and Regression</h1>
+<div id="introcorreg" class="section level2" number="13.1">
+<h2><span class="header-section-number">13.1</span> Introduction</h2>
+<p>We can think about ANOVA in terms of explaining a continuous variable by the different groups, a nominal variable, but what if both variables are continuous? In this case, we might still be interested in ascertaining whether there is a relationship between the variables and correlation can help. If we want to try and explain one variable with the other variable, we fit a simple linear regression model and this allows us to describe the relationship with an equation.</p>
+<p>In this chapter we look at the two basic statistical concepts of correlation and simple linear regression.</p>
+</div>
+<div id="correlation" class="section level2" number="13.2">
+<h2><span class="header-section-number">13.2</span> Correlation</h2>
+<p>To illustrate the concept of correlation, one might ask the question “Is left leg length (LLL) associated with total height of a person?”</p>
+<div class="figure" style="text-align: center"><span id="fig:scatplot1"></span>
+<img src="IntroStats_files/figure-html/scatplot1-1.png" alt="Scatterplot of total height and left leg length." width="480" />
+<p class="caption">
+Figure 13.1: Scatterplot of total height and left leg length.
+</p>
+</div>
+<p>Does Figure <a href="correg.html#fig:scatplot1">13.1</a> provide evidence that there is an association or <strong>correlation</strong>, as we say with continuous variables?</p>
+<p>If you think that plot provided evidence of correlation, what about this data set (Figure <a href="correg.html#fig:scatplot2">13.2</a>)?</p>
+<div class="figure" style="text-align: center"><span id="fig:scatplot2"></span>
+<img src="IntroStats_files/figure-html/scatplot2-1.png" alt="Scatterplot of total height and left leg length." width="480" />
+<p class="caption">
+Figure 13.2: Scatterplot of total height and left leg length.
+</p>
+</div>
+<p>Or this one Figure <a href="correg.html#fig:scatplot3">13.3</a>?</p>
+<div class="figure" style="text-align: center"><span id="fig:scatplot3"></span>
+<img src="IntroStats_files/figure-html/scatplot3-1.png" alt="Scatterplot of total height and left leg length." width="480" />
+<p class="caption">
+Figure 13.3: Scatterplot of total height and left leg length.
+</p>
+</div>
+<p>It would be useful to have a method to objectively answer these questions. In this case, one undertakes correlation. Correlation asks the question “is there a relationship?” but not what the relationship is - for that we use regression (which we consider later). Here we will consider linear correlation but there could also be a non-linear relationship and then the statistic of association is called <strong>concurvity</strong>.</p>
+<p>Correlation is typically indexed by a <strong>correlation coefficient</strong> (<span class="math inline">\(R\)</span> or <span class="math inline">\(r\)</span>) which takes a value from -1 to +1 where,</p>
+<ul>
+<li>-1 indicates a perfect negative relationship,</li>
+<li>0 means no relationship and</li>
+<li>+1 indicates a perfect positive relationship.</li>
+</ul>
+<p>The statistic <span class="math inline">\(r\)</span> is the estimated (or sample) coefficient of the unknown population correlation coefficient, <span class="math inline">\(\rho\)</span>.</p>
+<p>There are many types of correlation coefficients, but one frequently used is Pearson’s product moment correlation coefficient which, for two continuous variables denoted by <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, is given by:</p>
+<p><span class="math display">\[r=\frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i-\bar{x})^2\sum_{i=1}^{n}(y_i-\bar{y})^2}}\]</span>
+where</p>
+<ul>
+<li><span class="math inline">\(n\)</span> is the number of observations,</li>
+<li><span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span> are values for observation <span class="math inline">\(i\)</span>,</li>
+<li><span class="math inline">\(\bar x\)</span> and <span class="math inline">\(\bar y\)</span> are sample means for each variable.</li>
+</ul>
+<p>For example, consider the contribution of left leg length to human height in a sample of men (using the data in Figure <a href="correg.html#fig:scatplot1">13.1</a>), we can use R to do the calculation; the variables <code>LLL</code> and <code>TotalHeight</code> are stored in a data frame <code>hgt</code>.</p>
+<p><span class="math display">\[r=\frac{\sum(diffx)(diffy)}{\sqrt{\sum (diffx)^2\sum(diffy)^2}}\]</span>
+where <span class="math inline">\(diffx = x_i - \bar x\)</span> and <span class="math inline">\(diffy = y_i - \bar y\)</span>.</p>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="correg.html#cb274-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manual calculation of r</span></span>
+<span id="cb274-2"><a href="correg.html#cb274-2" aria-hidden="true" tabindex="-1"></a>diffx <span class="ot">&lt;-</span> hgt<span class="sc">$</span>LLL <span class="sc">-</span> <span class="fu">mean</span>(hgt<span class="sc">$</span>LLL) <span class="do">####differences of x and xbar</span></span>
+<span id="cb274-3"><a href="correg.html#cb274-3" aria-hidden="true" tabindex="-1"></a>diffy <span class="ot">&lt;-</span>  hgt<span class="sc">$</span>TotalHeight <span class="sc">-</span> <span class="fu">mean</span>(hgt<span class="sc">$</span>TotalHeight)</span>
+<span id="cb274-4"><a href="correg.html#cb274-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb274-5"><a href="correg.html#cb274-5" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">sum</span>(diffx<span class="sc">*</span>diffy)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">sum</span> (diffx<span class="sc">^</span><span class="dv">2</span>)<span class="sc">*</span><span class="fu">sum</span>(diffy<span class="sc">^</span><span class="dv">2</span>) )</span>
+<span id="cb274-6"><a href="correg.html#cb274-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span> (r)</span></code></pre></div>
+<pre><code>[1] 0.8675782</code></pre>
+<p>Thus, <span class="math inline">\(r = 0.868\)</span>; it is close to <span class="math inline">\(+1\)</span> indicating a strong, positive relationship between LLL and total height.</p>
+<p>The value can also be obtained by using the command <code>cor</code> where you supply it the two vectors of interest.</p>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="correg.html#cb276-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(hgt<span class="sc">$</span>TotalHeight, hgt<span class="sc">$</span>LLL)</span></code></pre></div>
+<pre><code>[1] 0.8675782</code></pre>
+<p>Another alternative formula for the sample product-moment correlation coefficient is</p>
+<p><span class="math display">\[r= \frac{\frac{\sum (x-\bar{x})(y-\bar{y})}{n-1}}{s_xs_y}\]</span></p>
+<p>Or assuming the population correlation coefficient is of interest
+<span class="math display">\[\rho= \frac{\frac{\sum (x-\bar{x})(y-\bar{y}}{N}}{\sigma_x\sigma_y}\]</span></p>
+<p>The numerator here is called the <strong>covariance</strong> of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> and so an alternative way to describe the formula is:</p>
+<p><span class="math display">\[r = \frac{Cov(xy)}{\sqrt{Var(x)Var(y)}}\]</span></p>
+<hr />
+<p><strong>Q13.1</strong> I have two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. The variances of these variables are 2.5 and 4, respectively, and their covariance is -2.5. What is the correlation between these two variables?</p>
+<p><strong>Q13.2</strong> Suppose I was to create a new random variable <span class="math inline">\(Z=X + Y\)</span> from the previous question. What would be the consequence to the variance estimate of <span class="math inline">\(Z\)</span> if I were to ignore the covariance of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (assuming X and Y actually were correlated)?</p>
+<div id="significance-of-r" class="section level3" number="13.2.1">
+<h3><span class="header-section-number">13.2.1</span> Significance of <span class="math inline">\(r\)</span></h3>
+<p>Just like other statistics <span class="math inline">\(r\)</span> can have a significance associated with it. The test is typically whether <span class="math inline">\(\rho\)</span>, the unknown population correlation coefficient, is different from one. So</p>
+<p><span class="math display">\[H_0:  \rho = 0\]</span>
+<span class="math display">\[H_1:  \rho \neq 0\]</span></p>
+<p>In fact, the significance is generated by a <span class="math inline">\(t\)</span> test statistic with <span class="math inline">\(n-2\)</span> degrees of freedom:</p>
+<p><span class="math display">\[t = \frac{r \times \sqrt{n-2}}{\sqrt {1-r^2}}\]</span></p>
+<p>In the case of the correlation of total height and left leg length, <span class="math inline">\(r = 0.868\)</span> and <span class="math inline">\(n=100\)</span> so</p>
+<p><span class="math display">\[t = \frac{0.868 \times \sqrt{100-2}}{\sqrt {1-0.868^2}}= \frac{8.593}{0.497} = 17.289\]</span></p>
+<p>The significance level associated with this test statistic is found from:</p>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="correg.html#cb278-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="fu">pt</span>(<span class="at">q=</span><span class="fl">17.289</span>, <span class="at">df=</span><span class="dv">98</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>) <span class="do">###assuming a two-tailed test </span></span></code></pre></div>
+<pre><code>[1] 1.583346e-31</code></pre>
+<p>Such a small <span class="math inline">\(p\)</span>-value is perhaps not surprising in this case where <span class="math inline">\(r\)</span> is close to one.</p>
+<p>The confidence intervals for <span class="math inline">\(\rho\)</span>, the unknown population correlation coefficient are actually quite complicated involving a transformation of <span class="math inline">\(r\)</span> to normalise it, then adding/subtracting an equivalent of the “<span class="math inline">\(se \times t_{\alpha/2, df}\)</span>” term seen so frequently throughout this module, and then back-transforming back to scale of <span class="math inline">\(r\)</span>.</p>
+<p>Unsurprisingly there is a function in R to compute the CI and conduct the hypothesis test.</p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="correg.html#cb280-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span> (hgt<span class="sc">$</span>TotalHeight, hgt<span class="sc">$</span>LLL)</span></code></pre></div>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  hgt$TotalHeight and hgt$LLL
+t = 17.27, df = 98, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.8090244 0.9090815
+sample estimates:
+      cor 
+0.8675782 </code></pre>
+</div>
+<div id="correlation-and-causation" class="section level3" number="13.2.2">
+<h3><span class="header-section-number">13.2.2</span> Correlation and causation</h3>
+<p>The causal correlation fallacy is the idea that just because there is a <em>correlation</em>, or indeed <em>association</em>, (in the case of categorical variables) between two (or more) sets of variables then there is a causal link. Obviously, causality implies correlation but correlation does not necessarily imply causation.</p>
+<p>Variables might be correlated by</p>
+<ol style="list-style-type: lower-alpha">
+<li>chance</li>
+<li>another third variable which affects them both.</li>
+<li>genuine causation.</li>
+</ol>
+<p>Figure <a href="correg.html#fig:quartet">13.4</a> shows “Anscombe’s quartet,” a series of famous data sets that show identical correlation coefficients but probably negligible causation! The summary values of each variable are shown below.</p>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  x1 and y1
+t = 4.2415, df = 9, p-value = 0.00217
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.4243912 0.9506933
+sample estimates:
+      cor 
+0.8164205 </code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  x2 and y2
+t = 4.2386, df = 9, p-value = 0.002179
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.4239389 0.9506402
+sample estimates:
+      cor 
+0.8162365 </code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  x3 and y3
+t = 4.2394, df = 9, p-value = 0.002176
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.4240623 0.9506547
+sample estimates:
+      cor 
+0.8162867 </code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  x4 and y4
+t = 4.243, df = 9, p-value = 0.002165
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.4246394 0.9507224
+sample estimates:
+      cor 
+0.8165214 </code></pre>
+<p>Each pair of variables (i.e.<span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span>, <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span>, etc.) have identical <span class="math inline">\(r\)</span> values!</p>
+<div class="figure" style="text-align: center"><span id="fig:quartet"></span>
+<img src="IntroStats_files/figure-html/quartet-1.png" alt="Anscombe's four regressions" width="480" />
+<p class="caption">
+Figure 13.4: Anscombe’s four regressions
+</p>
+</div>
+<p>Here is a slightly more modern version from the R library <code>datasauRus</code>. All the following data have an approximately identical albeit low <span class="math inline">\(r\)</span>.</p>
+<pre><code>[1] &quot;dino&quot;
+
+    Pearson&#39;s product-moment correlation
+
+data:  x and y
+t = -0.76443, df = 140, p-value = 0.4459
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.2267905  0.1013316
+sample estimates:
+        cor 
+-0.06447185 </code></pre>
+<pre><code>[1] &quot;away&quot;
+
+    Pearson&#39;s product-moment correlation
+
+data:  x and y
+t = -0.76034, df = 140, p-value = 0.4483
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.2264633  0.1016730
+sample estimates:
+        cor 
+-0.06412835 </code></pre>
+<pre><code>[1] &quot;h_lines&quot;
+
+    Pearson&#39;s product-moment correlation
+
+data:  x and y
+t = -0.73161, df = 140, p-value = 0.4656
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.2241632  0.1040704
+sample estimates:
+        cor 
+-0.06171484 </code></pre>
+<pre><code>[1] &quot;v_lines&quot;
+
+    Pearson&#39;s product-moment correlation
+
+data:  x and y
+t = -0.82368, df = 140, p-value = 0.4115
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.2315243  0.0963843
+sample estimates:
+        cor 
+-0.06944557 </code></pre>
+<pre><code>[1] &quot;x_shape&quot;
+
+    Pearson&#39;s product-moment correlation
+
+data:  x and y
+t = -0.77767, df = 140, p-value = 0.4381
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.2278491  0.1002267
+sample estimates:
+        cor 
+-0.06558334 </code></pre>
+<pre><code>[1] &quot;star&quot;
+
+    Pearson&#39;s product-moment correlation
+
+data:  x and y
+t = -0.74645, df = 140, p-value = 0.4566
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.2253512  0.1028327
+sample estimates:
+       cor 
+-0.0629611 </code></pre>
+<pre><code>[1] &quot;high_lines&quot;
+
+    Pearson&#39;s product-moment correlation
+
+data:  x and y
+t = -0.81246, df = 140, p-value = 0.4179
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.23062896  0.09732128
+sample estimates:
+        cor 
+-0.06850422 </code></pre>
+<pre><code>[1] &quot;dots&quot;
+
+    Pearson&#39;s product-moment correlation
+
+data:  x and y
+t = -0.71527, df = 140, p-value = 0.4756
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.2228536  0.1054338
+sample estimates:
+        cor 
+-0.06034144 </code></pre>
+<pre><code>[1] &quot;circle&quot;
+
+    Pearson&#39;s product-moment correlation
+
+data:  x and y
+t = -0.81054, df = 140, p-value = 0.419
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.23047593  0.09748136
+sample estimates:
+        cor 
+-0.06834336 </code></pre>
+<pre><code>[1] &quot;bullseye&quot;
+
+    Pearson&#39;s product-moment correlation
+
+data:  x and y
+t = -0.81344, df = 140, p-value = 0.4173
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.2307071  0.0972395
+sample estimates:
+        cor 
+-0.06858639 </code></pre>
+<pre><code>[1] &quot;slant_up&quot;
+
+    Pearson&#39;s product-moment correlation
+
+data:  x and y
+t = -0.81371, df = 140, p-value = 0.4172
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.23072883  0.09721679
+sample estimates:
+        cor 
+-0.06860921 </code></pre>
+<pre><code>[1] &quot;slant_down&quot;
+
+    Pearson&#39;s product-moment correlation
+
+data:  x and y
+t = -0.81813, df = 140, p-value = 0.4147
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.23108127  0.09684801
+sample estimates:
+        cor 
+-0.06897974 </code></pre>
+<div class="figure" style="text-align: center"><span id="fig:datasaurus"></span>
+<img src="IntroStats_files/figure-html/datasaurus-1.png" alt="Datasaurus regressions" width="480" />
+<p class="caption">
+Figure 13.5: Datasaurus regressions
+</p>
+</div>
+<p><strong>Q13.3</strong> A television advert for <em>Booster</em> breakfast cereal claims “that people who start their day with a healthy breakfast like <em>Booster</em> actually lose more weight than those who skip breakfast.”</p>
+<p>Does this support a causal link between healthy breakfast cereals and weight loss?</p>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div id="regression" class="section level2" number="13.3">
+<h2><span class="header-section-number">13.3</span> Regression</h2>
+<p>Correlation asks the question “Is there a (linear) relationship?” A more interesting question might be “Is there a (linear) relationship and what is it?” i.e. what is our best estimate of the equation relating the two variables; <strong>linear regression</strong> allows us to do this. Here we will explore this using the environmental impact assessment (EIA) data and other datasets we have already encountered, for example, we might use variables in the EIA data to predict depth (<code>Depth</code>) at a particular location.</p>
+<p>Regression is a way to study relationships between variables. There are three main reasons why we may want to do this:</p>
+<ul>
+<li><strong>Description</strong>: It can be useful to describe relationships (without necessarily really explaining them. For example a spatial map of an animal species for example.</li>
+<li><strong>Explanation:</strong> Genuine interest in the nature of the relationship between variables e.g. How is depth and penguin density related?</li>
+<li><strong>Prediction:</strong> Using variables to predict others (e.g. using <code>DistCoast</code> to predict <code>Depth</code>)</li>
+</ul>
+<p>Linear regression models:</p>
+<ul>
+<li>contain explanatory (sometime called “independent”) variable(s) which help us explain or predict the behaviour of the response variable.</li>
+<li>assume constantly increasing, or decreasing, relationships between each explanatory variable and the response.</li>
+</ul>
+<p>In simple linear regression, we consider only one explanatory variable in the regression model.</p>
+<div id="exploratory-data-analysis-1" class="section level3" number="13.3.1">
+<h3><span class="header-section-number">13.3.1</span> Exploratory data analysis</h3>
+<p>To analyse the EIA data properly would require some more advanced methods, but we can illustrate the basic principles of simple linear regression with these data.</p>
+<p>First, we consider a potential relationship between the distance from the coast and the depth of the water (fairly trivial but it will illustrate the methods):</p>
+<ul>
+<li>We want to use a function of distance from coast to explain depth.</li>
+<li>Visualising the relationship between two numeric (and continuous) variables suggests using a scatterplot.</li>
+<li>By convention, we put distance from coast on the <span class="math inline">\(x\)</span>-axis because this is the explanatory variable (and the function we are after is <span class="math inline">\(y=f(x)\)</span>).</li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:depthdistscatter"></span>
+<img src="IntroStats_files/figure-html/depthdistscatter-1.png" alt="Relationship of distance to coast and depth." width="480" />
+<p class="caption">
+Figure 13.6: Relationship of distance to coast and depth.
+</p>
+</div>
+<p>The scatterplot (Figure <a href="correg.html#fig:depthdistscatter">13.6</a>) tells us:</p>
+<ul>
+<li>waters nearer the shore are shallower</li>
+<li>there is a positive relationship is apparent (i.e. as distance to coast increases so does the depth)</li>
+<li>(there are also stripes, which is interesting)</li>
+</ul>
+<p>How can we formalise this relationship?</p>
+</div>
+<div id="model-specification" class="section level3" number="13.3.2">
+<h3><span class="header-section-number">13.3.2</span> Model specification</h3>
+<div id="setting-up-the-model" class="section level4" number="13.3.2.1">
+<h4><span class="header-section-number">13.3.2.1</span> Setting up the model</h4>
+<p>We will first explain this using generic data. Assume there is a variable <span class="math inline">\(X\)</span> and a variable <span class="math inline">\(Y\)</span>,
+which is thought to be potentially dependent on <span class="math inline">\(X\)</span>. We can plot them out (Figure <a href="correg.html#fig:xy">13.7</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:xy"></span>
+<img src="IntroStats_files/figure-html/xy-1.png" alt="A scatterplot illustrating the relationship between $X$ and $Y$." width="480" />
+<p class="caption">
+Figure 13.7: A scatterplot illustrating the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.
+</p>
+</div>
+<div style="page-break-after: always;"></div>
+<p>A linear/straight line relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> might be a reasonable starting point; perhaps some lines like those in Figure <a href="correg.html#fig:manylines">13.8</a> would be a good fit and summarise these data well.</p>
+<div class="figure" style="text-align: center"><span id="fig:manylines"></span>
+<img src="IntroStats_files/figure-html/manylines-1.png" alt="Scatterplot with examples of possible fitted lines." width="480" />
+<p class="caption">
+Figure 13.8: Scatterplot with examples of possible fitted lines.
+</p>
+</div>
+<p>All the lines shown in Figure <a href="correg.html#fig:manylines">13.8</a> have the same general form. What we want to do is find the ‘best’ model. <strong>A simple linear regression model</strong> has the form:</p>
+<p><span class="math display">\[\textrm{response} = \textrm{intercept} + \textrm{slope} \times \textrm{explanatory variable} + \textrm{error}\]</span>
+In notation form this can be represented as:</p>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1 x_i + \epsilon_i\]</span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(y_i\)</span> refers to the individual values of <span class="math inline">\(Y\)</span> indexed by <span class="math inline">\(i\)</span>,i.e. i = 1, …, n observations. This the response or the dependent variable.</li>
+<li><span class="math inline">\(x_i\)</span> refers to the individual values of <span class="math inline">\(X\)</span> indexed by <span class="math inline">\(i\)</span>,<br />
+</li>
+<li><span class="math inline">\(\beta_0\)</span> is the intercept parameter,</li>
+<li><span class="math inline">\(\beta_1\)</span> is the slope parameter, and</li>
+<li><span class="math inline">\(\epsilon_i\)</span> is an error term.
+<br/>
+We use the data to estimate values for the intercept and slope.</li>
+</ul>
+</div>
+<div id="the-intercept-beta_0" class="section level4" number="13.3.2.2">
+<h4><span class="header-section-number">13.3.2.2</span> The intercept (<span class="math inline">\(\beta_0\)</span>)</h4>
+<p>The intercept can be thought of in a few ways:</p>
+<ul>
+<li>The response value (under the model) when the explanatory variable(s) is/are zero</li>
+<li>Where the regression line cuts the vertical axis</li>
+<li>The expected value of the response (<span class="math inline">\(y_i\)</span>) when <span class="math inline">\(x_i=0\)</span>.</li>
+</ul>
+</div>
+<div id="the-slope-beta_1" class="section level4" number="13.3.2.3">
+<h4><span class="header-section-number">13.3.2.3</span> The slope (<span class="math inline">\(\beta_1\)</span>)</h4>
+<p>The slope, or <strong>gradient</strong>, of the regression line is:</p>
+<ul>
+<li>the expected change in the response (<span class="math inline">\(y_i\)</span>) when <span class="math inline">\(x_i\)</span> increases by 1 unit.</li>
+</ul>
+</div>
+<div id="the-error-term-a-model-for-the-noise" class="section level4" number="13.3.2.4">
+<h4><span class="header-section-number">13.3.2.4</span> The error term (a model for the noise)</h4>
+<p>A linear regression model might summarise the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, but not all the observations follow this linear relationship <strong>exactly</strong>. The error term (<span class="math inline">\(\epsilon_i\)</span>) allows for deviations from this linear relationship:</p>
+<ul>
+<li>In the simplest version of regression described here (i.e. one explanatory variable) the error is assumed to be distributed normally in the <span class="math inline">\(y\)</span> dimension i.e. the uncertainty is in the dependent variable not the x variable.</li>
+<li>The normal distribution has two parameters that describe it, the mean (<span class="math inline">\(\mu\)</span>) and variance (<span class="math inline">\(\sigma^2\)</span>).</li>
+<li>Since we are modelling the mean response, there is <strong>zero</strong> mean difference between the line and the observations;</li>
+<li>The variance of the errors (<span class="math inline">\(\sigma_e^2\)</span>) is estimated as a part of the linear model fitting process.</li>
+</ul>
+<p>This can be summarised as <span class="math inline">\(\epsilon_i \sim N(0, \sigma_e^2)\)</span>.</p>
+</div>
+</div>
+<div id="which-straight-line-to-choose" class="section level3" number="13.3.3">
+<h3><span class="header-section-number">13.3.3</span> Which straight line to choose?</h3>
+<p>There are many possible straight lines as we saw in Figure <a href="correg.html#fig:manylines">13.8</a>:</p>
+<ul>
+<li><p>We want values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> that look most plausible in light of our data</p></li>
+<li><p>We want <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> which give the best fitting line - the <strong>regression line</strong>.</p></li>
+</ul>
+<p>We can use least-squares to find the best fitting regression line.</p>
+<div id="the-least-squares-ls-criterion" class="section level4" number="13.3.3.1">
+<h4><span class="header-section-number">13.3.3.1</span> The Least Squares (LS) criterion</h4>
+<p>A variety of criteria could be used to fit a “best fit” line. One often used criterion is the leat squares criterion. We want to choose values for the parameters that minimise the sum of the squared differences between the observed data (<span class="math inline">\(y_i\)</span>) and the predictions under the model (<span class="math inline">\(\hat{y}_i\)</span>). The LS criterion finds parameter estimates which minimise this:</p>
+<p><span class="math display">\[\sum_{i=1}^n (data-model)^2=\sum_{i=1}^n (y_i-\hat{y}_i)^2 = SS_{Res} \]</span></p>
+<ul>
+<li><p>The solid line in Figure <a href="correg.html#fig:bestline">13.9</a> (our model for the signal) will be as close as we can get to the data (on average, based on vertical distances). Other fitted lines (e.g. like the red dashed line) will have a far higher sum of squared differences <span class="math inline">\(SS_{Resl}\)</span>.</p></li>
+<li><p>Note other (possibly non linear) models may be better, but this is our best straight line model.</p></li>
+<li><p>The vertical distances between the observed data and the best fit line are called <strong>“residuals”</strong>. The least square criterion obtains a line that minimises the summed squares of the residuals, typically abbreviated to <strong>“the sum of squares”</strong>.</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:bestline"></span>
+<img src="IntroStats_files/figure-html/bestline-1.png" alt="A simple *X-Y* scatterplot with different regression lines; best fit line (black), less optimal line (red). The vertical difference (shown by the arrows) between the observations and the best fit line are the residuals." width="480" />
+<p class="caption">
+Figure 13.9: A simple <em>X-Y</em> scatterplot with different regression lines; best fit line (black), less optimal line (red). The vertical difference (shown by the arrows) between the observations and the best fit line are the residuals.
+</p>
+</div>
+<p>Figure <a href="correg.html#fig:sumsqshiny">13.10</a> allows you to choose a best fit line yourself. Can you find the best fit that minimises the sum of the square of the residuals? The red arrows indicate the residual lengths.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:sumsqshiny"></span>
+<iframe src="https://moniquemackenzie.shinyapps.io/IntroStats_SumsSq/?showcase=0" width="480" height="600px">
+</iframe>
+<p class="caption">
+Figure 13.10: Exploring the line of best fit using residual sums of squares. You can see a live version by clicking <a href="https://moniquemackenzie.shinyapps.io/IntroStats_SumsSq/">here</a>
+</p>
+</div>
+</div>
+</div>
+<div id="fitting-the-model-the-details" class="section level3" number="13.3.4">
+<h3><span class="header-section-number">13.3.4</span> Fitting the model: the details</h3>
+<p>The slope and intercept estimates can be found from the data using:</p>
+<p><span class="math display">\[\hat{\beta}_1=\frac{\sum_{i=1}^{n}(x_i-\bar{x})y_i}{\sum_{i=1}^{n}(x_i-\bar{x})^2}\]</span></p>
+<p><span class="math display">\[\hat{\beta}_0=\bar{y} - \hat{\beta}_1\bar{x}\]</span>
+where <span class="math inline">\(\bar{x}\)</span> is the mean of the explanatory variable and <span class="math inline">\(\bar{y}\)</span> is the mean of the response.</p>
+<p>Least squares is a useful criterion and it has another advantage; the least squares estimate for the gradient is also <em>the maximum likelihood estimator</em> for the gradient which has theoretical usefulness in more advanced applications.</p>
+</div>
+<div id="predictions" class="section level3" number="13.3.5">
+<h3><span class="header-section-number">13.3.5</span> Predictions</h3>
+<p>Having obtained estimates for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, they can be used to obtain predicted, or fitted, values of the response:</p>
+<p><span class="math display">\[\hat{y_i}=\hat{\beta}_0+\hat{\beta}_1x_{i}\]</span></p>
+<p>We can then estimate <span class="math inline">\(Y\)</span> for any given value of <span class="math inline">\(X\)</span> (within reason).</p>
+</div>
+<div id="the-variance-estimate" class="section level3" number="13.3.6">
+<h3><span class="header-section-number">13.3.6</span> The variance estimate</h3>
+<p>We can find the variance estimate for the error term (<span class="math inline">\(\sigma_e^2\)</span>) as follows:
+<span class="math display">\[\begin{equation}
+s^2 = \hat{\sigma_e}^2=\frac{1}{n-k-1}\sum_{i=1}^n(y_i-\hat{y}_i)^2
+\end{equation}\]</span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\hat{y}_i\)</span> are the fitted values,</li>
+<li><span class="math inline">\(n\)</span> is the number of observations,</li>
+<li><span class="math inline">\(k\)</span> is the number of slope parameters estimated (in simple linear regression <span class="math inline">\(k=1\)</span>).</li>
+</ul>
+<p>This estimate (<span class="math inline">\(s=\sqrt{s^2}\)</span>) is provided as the <code>Residual Standard Error</code> in the <code>R</code> output (see later):</p>
+<ul>
+<li>Remember, our model for noise is a single normal distribution - so this value indicates how wide/variable this distribution is.</li>
+<li>The model for noise implies points tend to be near the line; less likely to be far away (i.e. because the residuals are assumed to have a normal distribution with a mean of zero).</li>
+<li>However, this value is not the uncertainty on any given prediction from the model, see Chapter <a href="prediction.html#prediction">17</a> for details on that.</li>
+</ul>
+</div>
+<div id="introduction-to-the-matrix-form" class="section level3" number="13.3.7">
+<h3><span class="header-section-number">13.3.7</span> Introduction to the matrix form</h3>
+<p>There is another way to consider the simple linear regression model which allows for efficient notation and reflects how the best fit line is fitted in practice, as well as allowing computation of more complicated models in the future. The generic equation of the line can be given as:</p>
+<p><span class="math display">\[ Y_i = \beta_0+\beta_1 X_i + \epsilon_i \]</span></p>
+<p>where <span class="math inline">\(Y_i\)</span> is the <span class="math inline">\(i\)</span>th <span class="math inline">\(Y\)</span> variable and <span class="math inline">\(X_i\)</span> is the <span class="math inline">\(i\)</span>th predictor and <span class="math inline">\(\epsilon_i\)</span> the error associated with the <span class="math inline">\(i\)</span>th point.</p>
+<p>For each datum in turn this would be</p>
+<p><span class="math display">\[ Y_1 = \beta_0+\beta_1 X_1 + \epsilon_1 \]</span>
+<span class="math display">\[ Y_2 = \beta_0+\beta_1 X_2 + \epsilon_2 \]</span>
+<span class="math display">\[ Y_3 = \beta_0+\beta_1 X_3 + \epsilon_3 \]</span></p>
+<p>etc.</p>
+<p>The <span class="math inline">\(Y\)</span>’s can be considered as single vector</p>
+<p><span class="math display">\[
+\mathbf{Y} = \left[\begin{array}
+{r}
+Y_1  \\
+Y_2  \\
+\vdots\\
+Y_n
+\end{array}\right]
+\]</span></p>
+<p>Likewise the right-hand side of the equation can be broken up as</p>
+<p><span class="math display">\[
+\left[\begin{array}
+{r}
+\beta_0 + \beta_1 X_1 \\
+ \beta_0 + \beta_1 X_2 \\  
+\vdots \\
+\beta_0+\beta_1 X_n
+\end{array}\right] +
+\left[\begin{array}
+{r}
+\epsilon_1 \\
+ \epsilon_2 \\  
+\vdots\\
+\epsilon_n
+\end{array}\right]
+\]</span></p>
+<p>which can be turned into (for those familiar with matrices and matrix multiplication)</p>
+<p><span class="math display">\[
+\left[\begin{array}
+{rr}
+1 &amp; X_1 \\
+1 &amp; X_2 \\  
+\vdots &amp; \vdots\\
+1 &amp; X_n
+\end{array}\right] 
+\left[\begin{array}
+{r}
+\beta_0 \\
+\beta_1 \\  
+\end{array}\right] +
+\left[\begin{array}
+{r}
+\epsilon_1 \\
+\epsilon_2 \\  
+\vdots\\
+\epsilon_n
+\end{array}\right]
+\]</span></p>
+<p>If</p>
+<p><span class="math display">\[
+\mathbf{X} = 
+\left[\begin{array}
+{rr}
+1 &amp; X_1 \\
+1 &amp; X_2 \\  
+\vdots &amp; \vdots\\
+1 &amp; X_n
+\end{array}\right] 
+\]</span></p>
+<p><span class="math display">\[
+\mathbf{\beta} = 
+\left[\begin{array}
+{r}
+\beta_0 \\
+ \beta_1 \\  
+\end{array}\right]
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\mathbf{\epsilon} = 
+\left[\begin{array}
+{r}
+\epsilon_1 \\
+ \epsilon_2 \\  
+\vdots \\
+\epsilon_n
+\end{array}\right]
+\]</span></p>
+<p>Then we get</p>
+<p><span class="math display">\[ \mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \mathbf{\epsilon}\]</span></p>
+<p>Which for our fitted regression would be:</p>
+<p><span class="math display">\[ \hat{\mathbf{y}} = \mathbf{X} \hat{\boldsymbol{\beta}} \]</span></p>
+<p>Which is simply <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i\)</span>, for all values of <span class="math inline">\(i\)</span> in an economic way which allows scope for future complexity.</p>
+<p>To illustrate matrix calculations, we fit a simple regression to eight observations:</p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="correg.html#cb298-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
+<span id="cb298-2"><a href="correg.html#cb298-2" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">8</span>)</span>
+<span id="cb298-3"><a href="correg.html#cb298-3" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> x<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">8</span>)</span>
+<span id="cb298-4"><a href="correg.html#cb298-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb298-5"><a href="correg.html#cb298-5" aria-hidden="true" tabindex="-1"></a>  smallLM <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb298-6"><a href="correg.html#cb298-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb298-7"><a href="correg.html#cb298-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, y)</span>
+<span id="cb298-8"><a href="correg.html#cb298-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="fu">coef</span>(smallLM))</span></code></pre></div>
+<p><img src="IntroStats_files/figure-html/unnamed-chunk-144-1.png" width="480" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="correg.html#cb299-1" aria-hidden="true" tabindex="-1"></a>  modelEst <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">coef</span>(smallLM))</span>
+<span id="cb299-2"><a href="correg.html#cb299-2" aria-hidden="true" tabindex="-1"></a>  modelEst</span></code></pre></div>
+<pre><code>[1] 2.120458 2.763582</code></pre>
+<p>The matrix <em><span class="math inline">\(X\)</span></em> would be</p>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="correg.html#cb301-1" aria-hidden="true" tabindex="-1"></a>XMat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">8</span>), x)</span>
+<span id="cb301-2"><a href="correg.html#cb301-2" aria-hidden="true" tabindex="-1"></a>XMat</span></code></pre></div>
+<pre><code>               x
+[1,] 1 0.2162537
+[2,] 1 0.2747640
+[3,] 1 0.3899251
+[4,] 1 0.6557397
+[5,] 1 0.4358664
+[6,] 1 0.8034841
+[7,] 1 0.3856799
+[8,] 1 0.8333017</code></pre>
+<p>So if we (matrix) multiply this by the model coefficients we get our predicted values (<span class="math inline">\(\hat{y}\)</span>). We can see this if we compare the results of the matrix multiplication <code>%*%</code> to the fitted values found from the regression model object.</p>
+<p>Compare:</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="correg.html#cb303-1" aria-hidden="true" tabindex="-1"></a> XMat <span class="sc">%*%</span> modelEst</span></code></pre></div>
+<pre><code>         [,1]
+[1,] 2.718093
+[2,] 2.879791
+[3,] 3.198048
+[4,] 3.932649
+[5,] 3.325011
+[6,] 4.340952
+[7,] 3.186316
+[8,] 4.423356</code></pre>
+<p>to the fitted values:</p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="correg.html#cb305-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fitted</span>(smallLM)</span></code></pre></div>
+<pre><code>       1        2        3        4        5        6        7        8 
+2.718093 2.879791 3.198048 3.932649 3.325011 4.340952 3.186316 4.423356 </code></pre>
+</div>
+<div id="regression-in-practise" class="section level3" number="13.3.8">
+<h3><span class="header-section-number">13.3.8</span> Regression in practise</h3>
+<p>We can now return to the EIA example and use <code>DistCoast</code> to explain/predict <code>Depth</code>:</p>
+<ul>
+<li><code>DistCoast</code> is the explanatory variable (<span class="math inline">\(x_i\)</span>=<code>DistCoast</code>)</li>
+<li><code>Depth</code> is the response variable (<span class="math inline">\(y_i\)</span>=<code>Depth</code>)</li>
+<li>We have 31502 observations (<span class="math inline">\(i=1,...,31502\)</span>) (observations right on the coast line have been removed)</li>
+<li>However, we have <code>Depth</code> values when <code>Distcoast</code> (<span class="math inline">\(x\)</span>) is close to zero, but this is not guaranteed in many other situations; <strong>it is ill-advised</strong> to assume a linear relationship holds outside the range of the observed data.</li>
+</ul>
+<p>In this example, the slope is the change in <code>Depth</code> (in m) for a 1 km increase in distance from the shore:</p>
+<ul>
+<li>A slope <span class="math inline">\(&gt;0\)</span> indicates a positive/increasing relationship</li>
+<li>A slope<span class="math inline">\(=0\)</span> indicates no relationship (horizontal line)</li>
+<li>A slope<span class="math inline">\(&lt;0\)</span> indicates a negative/decreasing relationship</li>
+<li><code>Depth</code> is measured on a continuous scale</li>
+</ul>
+<p>We can start by modelling the differences between the data and the model using a normal distribution.</p>
+<p><em>N.B.</em></p>
+<ul>
+<li>There is not really a linear response in this example.</li>
+<li>The relationship looks quite complex so maybe something else is going on.</li>
+<li>As we shall see, assuming a simple linear model (i.e. a straight line relationship) in this example might be inappropriate.</li>
+</ul>
+<div id="doing-this-in-r-24" class="section level4" number="13.3.8.1">
+<h4><span class="header-section-number">13.3.8.1</span> Doing this in R</h4>
+<p>The data have been stored in an object called <code>EIAData</code>. The function used to fit a linear model is <code>lm</code>.</p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="correg.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a regression using lm (linear model)</span></span>
+<span id="cb307-2"><a href="correg.html#cb307-2" aria-hidden="true" tabindex="-1"></a>depthModel <span class="ot">&lt;-</span> <span class="fu">lm</span>(Depth <span class="sc">~</span> DistCoast,  <span class="at">data=</span>EIAData)</span></code></pre></div>
+<p>Note that when we write the regression equation we want to fit, we just need to specify <span class="math inline">\(\textrm{response} \sim \textrm{explanatory variable}\)</span>. The intercept and gradient terms get included automatically.</p>
+<p>To look at the output, it is useful to use <code>summary</code> as a wrapper function:</p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="correg.html#cb308-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(depthModel)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = Depth ~ DistCoast, data = EIAData)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-12.7798  -2.7073   0.1306   2.0266  14.7909 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 2.145980   0.044140   48.62   &lt;2e-16 ***
+DistCoast   1.268106   0.004721  268.59   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 4.182 on 31500 degrees of freedom
+Multiple R-squared:  0.6961,    Adjusted R-squared:  0.6961 
+F-statistic: 7.214e+04 on 1 and 31500 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>From the output we can obtain the regression coefficients:</p>
+<ul>
+<li>the intercept: <span class="math inline">\(\hat{\beta_0}=2.150\)</span></li>
+<li>the slope of the line: <span class="math inline">\(\hat{\beta_1}= 1.268\)</span></li>
+<li>the estimated standard deviation of the errors: <span class="math inline">\(s = \hat{\sigma}=4.18\)</span></li>
+</ul>
+<p>Thus, the fitted line (shown in Figure <a href="correg.html#fig:fitteddepth">13.11</a>) is:</p>
+<p><span class="math display">\[\hat{\textrm{Depth}} = 2.150 + 1.268\textrm{DistCoast}\]</span></p>
+<div class="figure" style="text-align: center"><span id="fig:fitteddepth"></span>
+<img src="IntroStats_files/figure-html/fitteddepth-1.png" alt="A scatterplot of depth and distance from coast with the least squares best fit line" width="480" />
+<p class="caption">
+Figure 13.11: A scatterplot of depth and distance from coast with the least squares best fit line
+</p>
+</div>
+<p>It is worth looking at the summary output again, as well as an anova table output (equivalent to a one-way analysis of variance table). Using these functions in <code>R</code> tell you different information about the fitted model.</p>
+<p>The output from the <code>summary</code> function tells you what the regression coefficients are and whether they are significantly different from zero.</p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="correg.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of fitted model</span></span>
+<span id="cb310-2"><a href="correg.html#cb310-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(depthModel)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = Depth ~ DistCoast, data = EIAData)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-12.7798  -2.7073   0.1306   2.0266  14.7909 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 2.145980   0.044140   48.62   &lt;2e-16 ***
+DistCoast   1.268106   0.004721  268.59   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 4.182 on 31500 degrees of freedom
+Multiple R-squared:  0.6961,    Adjusted R-squared:  0.6961 
+F-statistic: 7.214e+04 on 1 and 31500 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The <code>anova</code> table tells you about the variation about the best fit line.</p>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="correg.html#cb312-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Analysis of variance table</span></span>
+<span id="cb312-2"><a href="correg.html#cb312-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(depthModel)</span></code></pre></div>
+<pre><code>Analysis of Variance Table
+
+Response: Depth
+             Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+DistCoast     1 1261676 1261676   72142 &lt; 2.2e-16 ***
+Residuals 31500  550898      17                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>There are connections between the two tables. For example, the <span class="math inline">\(t\)</span> statistic (<code>t value</code>) in the <code>summary</code> statement, for <code>DistCoast</code> is directly related to the <span class="math inline">\(F\)</span> statistic in the <code>anova</code> table.</p>
+<p><span class="math display">\[t^2 = F\]</span></p>
+<p><span class="math display">\[114.5^2 = 13112\]</span></p>
+<p>We will return to the <code>anova</code> table later.</p>
+</div>
+</div>
+</div>
+<div id="SUMcorreg" class="section level2" number="13.4">
+<h2><span class="header-section-number">13.4</span> Summary</h2>
+<p>When we have two continuous variables, we are oftn interested in whether there is a relationship between them. A correlation coefficient measures the strength of a linear relationship. A simple linear regression describes the linear relationship when we want to use one variable to explain the other variable. Regression is a useful tool in statistics and can be extended to include many explanatory variables but first we consider the general framework of the linear model.</p>
+<div id="learning-outcomes-8" class="section level3" number="13.4.1">
+<h3><span class="header-section-number">13.4.1</span> Learning outcomes</h3>
+<p>At the end of this chapter you should understand</p>
+<ol style="list-style-type: decimal">
+<li>correlation and its constraints</li>
+<li>the need to be cautious in assigning causation, and</li>
+<li>simple linear regression.</li>
+</ol>
+</div>
+</div>
+<div id="ANScorreg" class="section level2" number="13.5">
+<h2><span class="header-section-number">13.5</span> Answers</h2>
+<p><strong>Q13.1</strong> Using the <span class="math inline">\(r= \frac{Covar(XY)}{\sqrt(Var(x))\sqrt(Var(Y))}\)</span> formula.</p>
+<p><span class="math display">\[r= \frac{-2.5}{\sqrt(2.5)\sqrt(4)} = -0.791\]</span>
+<strong>Q13.2</strong> If the variance of <span class="math inline">\(Z\)</span> is calculated ignoring the covariance of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, then it will be overestimated as <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are being treated as independent (see earlier chapters for the addition rules for variances).</p>
+<p><strong>Q13.3</strong> Assuming it is a real effect, there may be other reasons why <em>Booster</em> consumers lose more weight than breakfast skippers. They may have a more healthy, or active, lifestyle more generally, for example.</p>
+<!-- # Bibliography -->
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tableofcounts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introlm.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="book_assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/lunr.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["IntroStats.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

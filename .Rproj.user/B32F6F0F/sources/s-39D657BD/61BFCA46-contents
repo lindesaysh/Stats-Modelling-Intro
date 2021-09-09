@@ -1,0 +1,52 @@
+book_filename: "IntroStats"
+language:
+  ui:
+    chapter_name: "Chapter "
+delete_merged_file: true
+rmd_files:
+  html: ["index.Rmd", 
+  "01_Introduction.Rmd", 
+  "02_Sampling.Rmd", 
+  "03_Describing_data.Rmd", 
+  "04_Prob.Rmd",
+  "05_Discrete_rvs.Rmd",
+  "06_Continuous_rvs.Rmd",
+  "07_CI_for_sample_means.Rmd",
+  "08_Hypothesis_Tests.Rmd",
+  "09_ANOVA.Rmd",
+  "10_Power.Rmd",
+  "11_Prop.Rmd",
+  "12_Hypothesis_Tests_Counts.Rmd",
+  "13_Corr_and_Regr.Rmd",
+  "14_Introlm.Rmd",
+  "15_Model_selection.Rmd",
+  "16_Interactions.Rmd",
+  "17_LM_Prediction.Rmd",
+  "18_LM_diagnostics.Rmd",
+  "19_.Rmd",
+  "20-notation.Rmd",
+  "21-references.Rmd"]
+  latex: ["index.Rmd", 
+  "01_Introduction.Rmd", 
+  "02_Sampling.Rmd", 
+  "03_Describing_data.Rmd", 
+  "04_Prob.Rmd",
+  "05_Discrete_rvs.Rmd",
+  "06_Continuous_rvs.Rmd",
+  "07_CI_for_sample_means.Rmd",
+  "08_Hypothesis_Tests.Rmd",
+  "09_ANOVA.Rmd",
+  "10_Power.Rmd",
+  "11_Prop.Rmd",
+  "12_Hypothesis_Tests_Counts.Rmd",
+  "13_Corr_and_Regr.Rmd",
+  "14_Introlm.Rmd",
+  "15_Model_selection.Rmd",
+  "16_Interactions.Rmd",
+  "17_LM_Prediction.Rmd",
+  "18_LM_diagnostics.Rmd",
+  "19_.Rmd",        
+  "20-notation.Rmd",
+  "21-references.Rmd",
+  "22-ch_appendix.Rmd"]
+output_dir: "docs"

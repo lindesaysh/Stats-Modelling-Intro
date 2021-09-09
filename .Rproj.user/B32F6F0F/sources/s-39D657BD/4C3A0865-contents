@@ -1,0 +1,1058 @@
+# Multiple Linear Regression {#MLR}
+
+We are going to try and use variables in the EIA data to predict density in this area using linear regression. **Regression** is a way to study relationships between a response and one, or more, explanatory variables. With one explanatory variable, this is often referred to as 'simple linear regression'. If there is more than one explanatory variable, it is called 'multiple linear regression'. If there are many potential explanatory variables, not all variables may be useful in explaining the response and so we want to select a subset of variables that are the most important, therefore we need to perform model selection. Having selected a model, the next stage is to check that the model conforms to the underlying assumptions of the model, otherwise any conclusions based on the model may not be valid.
+
+At the end of this chapter you should be able to:
+
++ specify a multiple linear regression model
+
++ understand how the model coefficients are estimated
+
++ fit a multiple linear regression model in R
+
++ interpret R output
+
++ perform model selection, and 
+
++ check model assumptions. 
+
+## Why fit linear models?
+
+Linear models assume constantly increasing, or decreasing, relationships between each continuous explanatory variable and the response. There are two main reasons why we may want to fit regression models:
+
+> **Description**: We may be genuinely interested in finding the relationship between such variables (e.g. what, if any, is the relationship between  density and depth?)
+
+> **Prediction**: If there is a relationship between the variables under study, then knowledge of some variables will help us predict others (e.g., if we know that density changes with depth on the transects, then knowing the depth of a site will help us predict density off the transects).
+
+
+```{block}
+**Linear regression models** contain **explanatory** variable(s) that help us explain or predict the behaviour of the **response** variable (whose behaviour we want to predict).
+```
+
+```{task}
+Which of the following statements is not an assumption of a simple linear regression that seeks to predict a variable $Y$ on the basis of an explanatory variable $X$? 
+  
+ A. The errors are Normally distributed with a mean of zero and some fixed variance.
+
+ B. The errors are independent of one another.
+ 
+ C. The variable $X$ is Normally distributed.
+ 
+ D. The variable $X$ is measured without error.
+ 
+ E. There is a linear relationship between $X$ and the expected value of $Y$.
+```
+
+```{solution}
+Statement C is FALSE. The explanatory variable does not have to be Normally distributed. 
+```
+
+In fitting a multiple regression model, there are several candidate variables that can be used to explain the response and we want to select the variables that are most important, or the best predictors. However, there may be variables which essentially explain the same information. In the EIA data, there is some overlap between the year and phase information, since the phases move from A, B to C over the years. Specifically, phase C only occurs in 2011 while phase B occurs 2003-2007 and phase A in 2000-2002.
+
+```{r}
+knitr::kable(table(df$Phase, df$Year))
+```
+
+This will mean that both phase and year will be unable to be fitted together in a model (these variables are *collinear*, the variables are correlated - see the notes to the introductory statistics course) because they essentially explain the same information. Hence, we may want to include only one of these variables for consideration in the model and model selection is discussed later in the chapter.
+
+## Model specification {#modspeclr}
+
+Multiple regression models have $p \geq 1$ explanatory variables which can be written as:
+
+$$
+y_{it} =  \beta_0 +
+\beta_1x_{1it} + \beta_2x_{2it} +,...,+\beta_px_{pit} +\varepsilon_{it}
+$$
+
+where
+
+$$
+\varepsilon_{it} \sim N(0, \sigma^2) \qquad \mbox{for all }  \quad i,t
+$$
+
+$y_{it}$ is the (continuous) response (in our case, density for transect $i$ at time $t$),
+
+$\beta_0$, is the intercept parameter, 
+
+$\beta_1,\beta_2$,...,$\beta_p$ are slope coefficients and 
+
+$x_{1it}, x_{2it},...,x_{pit}$ are the explanatory variables.
+
+The parameters $\beta_0$, $\beta_1$ etc. are estimated from the data. 
+
+As an initial model for the EIA data, we include 6 predictors/covariates (i.e. $p=6$) which are a mix of continuous variables and factors:
+
++ $x_{1it}$ represents the X coordinate (for the $i$-transect at time $t$)
++ $x_{2it}$ represents the Y-coordinate (for the $i$-transect at time $t$)
++ $x_{3it}$ represents distance from coast (for the $i$-transect at time $t$)
++ $x_{4it}$ represents depth (for the $i$-transect at time $t$)
++ $x_{5it}$ represents month=2,
++ $x_{6it}$ represents month=3,
++ $x_{7it}$ represents month=4,
++  $x_{8it}$ represents phase B (for the $i$-transect at time $t$).
++  $x_{9it}$ represents phase C (for the $i$-transect at time $t$).
+
+```{task}
+In the initial model, there are terms explicitly specifying phase B and phase C. Why isn't there a term for phase A?
+```
+
+```{solution}
+Phase is a factor and one factor level is used as a baseline or reference level, specified by the intercept. Other levels are then estimated relative to the reference level. In this case, phase A (and also month 1) is used as the reference level. 
+```
+
+At this point, we are going to assume the relationship between each continuous covariate and density is linear.
+
+In order to determine if there has been some redistribution of density across phases, we can quantify the evidence that (a particular sort of) density pattern in the `X` or `Y` direction differs across phases. We do this by introducing *interaction* effect(s) which permit a different slope coefficient
+(in this case based around `X` or `Y`)  for different levels of the phase variable (`A`, `B` or `C`).
+
+We can implement this in a model using `phase:X` and `phase:Y` terms.
+
+In our  interaction-based model we have:
+$$
+y_{it}=\beta_{0}+\beta_1x_{1it}+\beta_2x_{2it}+\beta_3x_{3it}+...+\beta_{13}x_{13it} + \varepsilon_{it}
+$$
+
+where $\beta_{0}$ to $\beta_9$ and $x_{1it}$ to $x_{9it}$ are as described before and relate to `X`, `Y`, `DistCoast`, `depth`,  `month` and `phase`. The new aspects of the output are as follows:
+
++ X:phaseB: $\beta_{10}$ is the expected change in the slope coefficient for the X relationship in phase B compared with the X relationship in phase A
++ X:phaseC: $\beta_{11}$ is the expected change in the slope coefficient for the X relationship in phase C compared with the X relationship in phase A
++ Y:phaseB: $\beta_{12}$ is the expected change in the slope coefficient for the Y relationship in phase B compared with the Y relationship in phase A
++ Y:phaseC: $\beta_{13}$ is the expected change in the slope coefficient for the Y relationship in phase C compared with the Y relationship in  phase A
+
+## Model fitting {#modfitlr}
+
+Estimating two or more slope coefficients is straightforward using least-squares. We find estimates of $\beta_0,\beta_1,...,\beta_p$ that *best* fit the data.
+
+We can do this by finding the minimum of:
+
+$$
+\sum_{i=1}^s\sum_{t=1}^{n_i}(y_{it}-(\hat{\beta}_0 + \hat{\beta}_1x_{1it}+...+\hat{\beta}_px_{pit}))^2
+$$
+
+
+The estimates can be found using:
+
+$$
+\hat{\boldsymbol{\beta}}=(\mathbf{X}^T\mathbf{X})^{-1}(\mathbf{X}^T\mathbf{y})
+$$
+
+where 
+
++ $\mathbf{y}$ is the $N \times 1=31502 \times 1$ response vector and
+
++ $\mathbf{X}$ is a $N \times (p+1)$ covariate/design matrix.
+
+```{task}
+Why is $N$ = 31502?
+```
+
+```{solution}
+31502 is the number of density values in the data. 
+
+``{r}
+length(df$Count)
+``
+
+```
+
+Least-squares have some nice properties and are what's called `Best Linear Unbiased Predictors (BLUE)':
+
++ The estimates are unbiased, i.e., the distribution of estimates is centred around the true parameter value (which means they are neither systematically too large or too small)
++ The estimates are consistent (i.e., if we increase the sample size we get closer, on average, to the true parameter values)
++ The estimates are `best' since there are no other unbiased estimators that are more efficient -- efficiency means the estimates get closer on average to the true parameter more often compared with another estimator.
+
+For a 7 minute clip about least squares estimation, see [here](http://www.youtube.com/watch?v=vOBtEiij-fA)
+
+
+The estimates of the parameters (i.e $\hat{\beta_0},\hat{\beta_1},...,\hat{\beta_p}$) are calculated by the `lm` function in `R`; the values are given in `Estimate` column.  For example,
+
+```{r}
+# Specify month as a factor (so it won't be interpreted as a number)
+df$FMonth <- as.factor(df$Month)
+# Fit model 
+workingModel_Int <- lm(Count/Area ~ XPos + YPos + DistCoast + Depth + FMonth +
+                        Phase + Phase:XPos + Phase:YPos, data=df)
+# Display model 
+summary(workingModel_Int)
+```
+
+```{task}
+Write down the fitted model for phase A and month 1. 
+```
+
+```{solution}
+The fitted model for Phase A and Month 1 is: 
+
+$$\hat{density} = 3279 + 0.084XPos - 0.551YPos - 0.314DistCoast - 0.454Depth$$
+  
+Phase A and month 1 is the reference level and so other terms are not required. 
+```
+
+### Parameter interpretation {#pinterplr}
+
+Typically we wouldn't proceed with interpreting model output until we had assessed model assumptions and had confidence in the model. However, in general:
+
++ The parameter for each continuous covariate is defined as the change in the expected response (i.e. density) for a unit increase in a given covariate.
+
++ The parameter for each discrete covariate (i.e. month and phase) is defined as the change in expected density for a given month or phase compared with the baseline (month=1 and phase=A).
+
+<!-- The model coefficients ($\hat{\boldsymbol{\beta}}$) for the {\tt  workingModel\_Int} model can be interpreted as follows. As:\pause -->
+<!-- + `depth` increases by 1 metre (i.e. becomes 1m deeper) then `density` is expected to decrease by 0.5420 units. -->
+<!-- + `year` increases by 1 unit then {\tt density} -->
+<!-- is expected to increase by  0.06787 units.\pause -->
+<!-- + `month` increases by 1 unit then  {\tt density} is expected to  increase -->
+<!-- by 0.3174 units. -->
+
+<!-- % -->
+<!-- %\begin{frame} -->
+<!-- %The intercept refers to the expected value of the response when all of the covariates are equal to zero. In this case, we would expect density to be 2.642 $\times 10^{3}$ units, which has no meaning -->
+<!-- %in this case. -->
+<!-- %\end{frame} -->
+<!-- % -->
+<!-- % -->
+<!-- %\begin{frame}[fragile] -->
+<!-- %\hidden{These statements are  true when all of the -->
+<!-- %	other variables are fixed at some value.} -->
+<!-- % -->
+<!-- % -->
+<!-- %A 5 minute clip about parameter interpretation for multiple regression can be found here: \newline	http://www.youtube.com/watch?v=JwGaos2Y9bM. -->
+<!-- %\end{frame} -->
+<!-- % -->
+
+## Parameter inference {#pinflr}
+
+So far, we have computed the parameter estimates for each coefficient (each $\beta_j$) but we know that every time we take a sample and calculate the estimates from each new sample they are going to be slightly different (because the data going into the recipes/estimators will be different).
+
+In order to be able to make general statements about the model parameters we need to be able to construct CIs and test hypotheses for these parameters.
+
+The variance-covariance matrix of the parameter estimates can be obtained using the error variance and the design matrix:
+
+$$
+Var(\hat{\boldsymbol{\beta}})=\sigma^2(\mathbf{X}^T\mathbf{X})^{-1}
+$$
+
+and the square-root of the diagonal of this $(p+1) \times (p+1)$ matrix returns the standard errors:
+
+```{r}
+sqrt(diag(vcov(workingModel_Int)))
+```
+
+```{task}
+Considering all the output shown for the `workingModel_Int` where have you seen the standard errors of the parameter estimates? 
+```
+
+```{solution}
+The standard errors of the parameter estimates are given in the output of the `summary` function.
+
+``{r}
+summary(workingModel_Int)
+``
+
+```
+
+<!-- %subsubsection{Confidence intervals} -->
+
+### Confidence intervals
+
+Building CIs for model parameters is very similar to building a CI for a mean estimate. We need the estimate, the standard error, a confidence level and we will use the $t$-distribution (with residual $df=N-p-1$) to give us our multiplier:
+
+$$\hat{\beta}_j \pm t_{(\alpha/2, df=N-p-1)} \times SE_{\beta_j}$$
+
+The function `confint` is useful for obtaining CI of model parameters:
+
+```{r}
+confint(workingModel_Int)
+```
+
+```{task}
+Using the expression above for calculating a confidence interval, confirm the 95\% CI for the regression term associated with the term `XPos`. You may find the following useful:
+  
+``{r}
+qt(p=0.975, df=31488)
+``
+
+```
+
+```{solution}
+The 95\% Ci for the term `XPos` is given by:
+$$0.08446 \pm \left( 1.96 \times 0.01958 \right) = 0.08466 \pm 0.03838$$
+(0.04608, 0.1228)
+Check the calculation:
+  
+``{r}
+confint(workingModel_Int)[2, ]
+``
+
+```
+
+<!-- % -->
+<!-- %\begin{frame}[fragile] -->
+<!-- %\hidden{The estimate and standard error for each $\beta$ term is provided in the {\tt R} output, -->
+<!-- %and if we choose a confidence level  and obtain our $t$-multiplier, we can build a CI:} -->
+<!-- % -->
+<!-- %\begin{equation} -->
+<!-- %\hat{\beta}_j \pm t_{(\alpha/2, df=N-p-1)} \times SE_{\beta_j} -->
+<!-- %\end{equation} -->
+<!-- %\end{frame} -->
+
+
+<!-- % -->
+<!-- %\begin{frame}[fragile] -->
+<!-- %For example, the 95\% confidence interval for the coefficient associated with {\tt year} is: -->
+<!-- %\begin{verbatim} -->
+<!-- %> 6.787e-02 +qt(0.025,31495)*6.061e-02  -->
+<!-- %[1] -0.05092798 -->
+<!-- %> 6.787e-02-qt(0.025,31495)*6.061e-02  -->
+<!-- %[1] 0.186668 -->
+<!-- %\end{verbatim} -->
+<!-- %\end{frame} -->
+<!-- % -->
+<!-- % -->
+<!-- %\begin{frame}[fragile] -->
+<!-- %\hidden{Note this interval contains zero (it moves from a negative value to a positive value). So even though the estimated parameter is positive, a 95\% CI clearly casts doubt as to whether the parameter is positive, negative or zero.} -->
+<!-- %\end{frame} -->
+
+### Hypothesis testing {#MLRhyptest}
+
+Hypothesis test results for each covariate are provided in the `summary` output in the `t` value and  `Pr(>|t|)` columns.
+
+Specifically, the two-sided hypothesis test of **no relationship** for each covariate (i.e.. $H_0: \beta_j=0$, $H_1: \beta_j \neq 0$) is performed in the familiar way:
+
+\begin{align*}
+\textrm{test statistic} =& \frac{\textrm{data-estimate - hypothesised value}}{ {\textrm{standard error}}}\\
+=&\frac{\hat{\beta}_j-0}{SE(\hat{\beta}_j)}
+\end{align*}
+
+As an approximation, data-estimates that are more than about 2 standard errors from the hypothesized value ($\beta_j=0$ in this case, no real underlying relationship) provide compelling evidence against $H_0$.}
+
+<!-- % -->
+<!-- %\begin{frame}[fragile] -->
+<!-- %So, for the {\tt year} coefficient we have: -->
+<!-- %\begin{align*} -->
+<!-- %\textrm{test statistic} = &\frac{\hat{\beta}_j-0}{SE(\hat{\beta}_j)}\\ -->
+<!-- %=& \frac{0.06787-0}{0.06061}=1.120 -->
+<!-- %\end{align*} -->
+<!-- %which is the value shown in the output. -->
+<!-- %\end{frame} -->
+<!-- % -->
+<!-- % -->
+<!-- %\begin{frame}[fragile] -->
+<!-- %\hidden{In this case, the coefficient is just over 1 standard error from zero which is not far -->
+<!-- %from the null hypothesis ($\beta_j=0$) and does not provide compelling evidence against the `no relationship' -->
+<!-- %hypothesis. We can quantify this using a $p$-value:}\pause -->
+<!-- %\begin{verbatim} -->
+<!-- %> 2*pt(-1.120,31495) -->
+<!-- %[1] 0.2627223 -->
+<!-- %\end{verbatim} -->
+<!-- %\pause which suggests we have no evidence against $H_0$ ($p>0.15$) and we would fail to reject the null -->
+<!-- %hypothesis at both the 5\% and 1\% level. This $p$-value is also shown in the {\tt R} output. -->
+<!-- %\end{frame} -->
+
+```{task}
+Calculate the test statistic for the `XPos` term. 
+```
+
+```{solution}
+The test statistic for the `XPos` term is given by:
+
+$$ \frac{0.08446 - 0}{0.01958} = 4.314$$
+
+```
+
+Based on the $p$-values in the `workingModel_Int` summary output, which variables should be retained in this model?
+
+It is difficult to know from this output; factor variables have multiple coefficients (which are tested separately in the summary output) but we are actually interested in assessing the group of coefficients for a factor variable simultaneously. For example, we want to choose between models with and without `phase`; these models will differ by 2 parameters (because phase has 3 levels). Here, we'll compare a reduced model (without phase) with the full model (with phase). 
+
+We can formally test the hypothesis that the reduced model (with $q$ parameters) is as good as the full model (with $p$ parameters) and hence the reduced model is preferred.
+
+If $H_0$ is true, and a reduced model is as good as the full model, the $F$-statistic  will be small:
+
+$$
+F=\frac{(ESS_{Reduced Model}-ESS_{FullModel})/(p-q)}{ESS_{FullModel}/(N-p-1)} \quad\sim F_{(p-q, N-p-1)}
+$$
+
+This procedure to evaluate the $F$-statistic is also called the **Analysis of Variance (ANOVA)**.  Fortunately there is an R function which performs these tests for each variable in the model:
+
+```{r}
+# Anova table
+library(car)
+Anova(workingModel_Int)
+```
+
+An 8 minute clip about hypothesis testing for multiple linear regression coefficients can be found [here](http://www.youtube.com/watch?v=fZV4ntLEPlU)
+
+A 7 minute clip about the F-test can be found online [here](http://www.youtube.com/watch?v=orGhAoQvSOM)
+
+```{task}
+In the ANOVA table above, why are the degrees of freedom (`Df`) different for different terms in the model? 
+```
+
+```{solution}
+The degrees of freedom indicate the number of coefficients that have been estimated for each term in the model. In this example, there are a mixture of continuous and factor variables in the model and one coefficient is estimated for a continuous variable (e.g. XPos). For a factor, the number of coefficients is the number of levels minus one, hence for Phase, with three levels (A, B and C), the degrees of freedom is 2. 
+```
+
+```{task}
+Based on the ANOVA table above, do you think that all terms are required in the model? Justify your answer. 
+```
+
+```{solution}
+This model contains interaction terms and so we consider those first. The $p$-value associated with YPos:Phase is 0.629 which indicates that this term is not significant and not required in the model. Hence, we remove this term and then refit the model and examine the output again. We look at methods for model selection in the next section.
+```
+
+<!-- % -->
+<!-- %\begin{frame} -->
+<!-- %\begin{block}{Does this result mean that density does not change across years?}\hidden{\pause Not necessarily. What it means however, is that once other variables are taken into account, {\tt year} no longer contributes significantly to explaining density.} -->
+<!-- %\end{block} -->
+<!-- %\end{frame} -->
+
+<!-- % -->
+<!-- %\begin{frame}[fragile] -->
+<!-- %For instance, a model fitted with year alone has a much smaller $p$-value: -->
+<!-- %\ifthenelse{\slides=1}{\footnotesize}{} -->
+<!-- %\begin{verbatim} -->
+<!-- %> summary(yearAlone) -->
+<!-- %Call: -->
+<!-- %lm(formula = count/area ~ year, data = windfarm) -->
+<!-- % -->
+<!-- %Residuals: -->
+<!-- %Min      1Q  Median      3Q     Max -->
+<!-- %-3.87   -3.70   -3.53   -2.92 1721.20 -->
+<!-- % -->
+<!-- %Coefficients: -->
+<!-- %       Estimate Std. Error t value Pr(>|t|) -->
+<!-- %(Intercept) 175.47930   85.67584   2.048   0.0406 * -->
+<!-- %year         -0.08581    0.04274  -2.008   0.0447 * -->
+<!-- %--- -->
+<!-- %Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 -->
+<!-- % -->
+<!-- %Residual standard error: 28.05 on 31500 degrees of freedom -->
+<!-- %Multiple R-squared:  0.0001279,	Adjusted R-squared:  9.619e-05 -->
+<!-- %F-statistic:  4.03 on 1 and 31500 DF,  p-value: 0.0447 -->
+<!-- %\end{verbatim} -->
+<!-- %\end{frame} -->
+
+## Model selection {#modsellr}
+
+In our EIA data we have multiple covariates and we know that the regression coefficients and associated $p$-values for each covariate depend, to some extent, on what else is in the model. In this case, how do we decide which  variables to include?
+
+We want to include variables that:
+
+1. have a genuine relationship with the response,
+2. offer a sufficient amount of new information about the response (after considering those variables already in the model).
+
+We want to exclude variables that offer essentially the same information about the response i.e., we want to avoid **collinearity**.
+
+A 5 minute clip about this issue can be found [here](http://www.youtube.com/watch?v=O4jDva9B3fw).
+
+:::: {.palebluebox data-latex=""}
+::: {.center data-latex=""}
+**Reminder: Collinearity**
+:::
+
+When `collinear' variables are fitted together in a model, the resulting model is unstable and we obtain inflated standard errors for the parameter estimates. Collinearity can be detected using 'variance inflation factors' (VIFs).
+
+$$VIF_j=\frac{1}{1-R^2_j}$$
+The square root of the VIF score for a given variable tells you how much the confidence intervals are inflated by other variables in the model. For example, VIF=4 means that the confidence intervals are twice ($\sqrt4$) as wide as they should be if there was no collinearity with another variable. 
+
+VIFs are estimated in `R` using the `vif` function from the `car` library.
+
+::::
+
+<!-- %\subsubsection{Collinearity} -->
+<!-- % -->
+<!-- %\begin{frame} -->
+<!-- %\hidden{When `collinear' variables are -->
+<!-- %fitted together in a model, the resulting model is unstable and we obtain inflated standard errors for the parameter estimates. Collinearity can be detected using `variance inflation factors' (VIFs).} -->
+<!-- %\end{frame} -->
+<!-- % -->
+<!-- % -->
+<!-- %\begin{frame} -->
+<!-- %Variance inflation factors are based on fitting linear models between each covariate and all of the other covariates (with some error, $u_{it}$), in turn. E.g., for the first covariate: -->
+<!-- % -->
+<!-- %\begin{equation} -->
+<!-- %x_{1it}=\delta_0+\delta_1x_{2it}+\delta_2x_{3it}+...+\delta_px_{pit}+u_{it} -->
+<!-- %\end{equation} -->
+<!-- % -->
+<!-- %A different model is fitted for each covariate and if any of these models has a high $R^2$ value, then the VIF will also be high: -->
+<!-- %\begin{equation} -->
+<!-- %VIF_j=\frac{1}{1-R^2_j} -->
+<!-- %\end{equation} -->
+<!-- % -->
+<!-- %for covariates $j=1,...,p$. -->
+<!-- %\end{frame} -->
+<!-- % -->
+<!-- % -->
+<!-- % -->
+<!-- %\begin{frame} -->
+<!-- %Large VIFs indicate collinearity, however there are no hard and fast rules about how large VIFs need to be before remedial action -->
+<!-- %is required; some say VIFs $> 5$, some say VIFs $>10$. -->
+<!-- % -->
+<!-- %\pause -->
+<!-- % -->
+<!-- %\hidden{Another clue that you have collinear variables is when parameter estimates change substantially as explanatory -->
+<!-- %variables are added to the model.} -->
+<!-- %\end{frame} -->
+<!-- % -->
+<!-- % -->
+<!-- %\begin{frame} -->
+<!-- %VIFs can be calculated for the explanatory variables in {\tt R} using the {\tt vif}  function. These are shown below for the new model ({\tt linearAll}). -->
+<!-- %\end{frame} -->
+<!-- % -->
+<!-- % -->
+<!-- %\begin{frame}[fragile] -->
+<!-- %\ifthenelse{\slides=1}{\footnotesize}{\footnotesize} -->
+<!-- %\begin{verbatim} -->
+<!-- %> library(car) -->
+<!-- %> vif(linearAll) -->
+<!-- %       X         Y DistCoast     depth     month      year -->
+<!-- %1.027112  2.754312  2.125287  2.712461  1.046090  2.035691 -->
+<!-- %\end{verbatim} -->
+<!-- %\end{frame} -->
+<!-- % -->
+<!-- % -->
+<!-- %\begin{frame} -->
+<!-- %Collinearity can be addressed in a number of ways, the simplest of these is to remove one or more of the collinear variables. \pause  Sometimes, this occurs automatically when automated variable selection techniques (e.g., stepwise selection) are used, because the standard errors and $p$-values are often large. -->
+<!-- %\end{frame} -->
+
+
+### Automated variable selection
+
+We want to have a 'good' set of covariates in our model: 
+
++ if we include too few variables in a model we throw away valuable information.
+
++ if we include both  essential and non-essential variables in a model, the standard errors, confidence intervals and $p$-values tend to be too large.
+
+There are several methods of variable selection:
+
++ backward elimination (e.g. step-wise selection using the `step` function or $p$-values, starting with a full model)
++ forwards selection (starting with a simple model)
++ all possible subsets (e.g. using the `dredge` function).
+
+Options for assessing "best" fit for each of the methods above:
+
++ Information criteria (e.g. AIC, BIC, etc.),
++ $p$-values (Wald tests or F-tests),
++ other criteria such as cross-validation.
+
+:::: {.palebluebox data-latex=""}
+::: {.center data-latex=""}
+**Reminder: Information Criteria**
+:::
+
+Here is a short reminder of the two most common information criteria used for model selection:
+
+
+**Akaike's Information Criterion (AIC)**
+
+The AIC statistic is a fit measure which is penalized for the number of parameters estimated in a model;
+
+$$AIC= -2 \textrm{ log-likelihood value} + 2p$$
+
+
+**Bayesian Information Criterion (BIC)**
+
+BIC score differs from the AIC score by employing a penalty that changes with the sample size ($n$)
+
+$$BIC=-2 \textrm{log-likelihood value}  + \log(n)p$$
+
+Where $p$ is the number of covariates used to fit the model. A smaller AIC or BIC value signals a better model. 
+
+::::
+
+
+
+Using the F-test results shown in the Anova table, if we remove the `YPos-phase` interaction from the model then all terms are now significant in the model. Rather than specifying the whole model again minus the `YPos:phase` term, we can use the `update` function to fit this model:
+
+```{r}
+# Remove YPos:Phase term
+workingModel_Int <- update(workingModel_Int, .~. -YPos:Phase)
+# Check Anova for updated model
+Anova(workingModel_Int)
+```
+
+<!--
+Note, while the `phase` term considered alone is not significant in the model, it forms part of the interaction term and so is typically retained in the model regardless.
+-->
+
+```{task}
+How are the residual degrees of freedom calculated? 
+```
+
+```{solution}
+The residual degrees of freedom are given by $df = N - p - 1$ = 31502 - 11 - 1 = 31490. 
+```
+
+## Checking model assumptions
+
+Before we interpret model coefficients and/or make predictions based on this model, we should assess if the assumptions on which the model is based are reasonable.
+
+In setting up the model, we have assumed that the relationship between each covariate and the response is  linear, but we have also assumed the errors are Normally distributed,  independent (i.e., uncorrelated with each other) and have constant variance.
+
+If all model assumptions are satisfied, the residuals should behave approximately like a random sample from a Normal distribution centered at 0. These assumptions are is often summarised as The residuals (denoted by $\epsilon_{it}$ in our example) are mutually independent and distributed as $N(0, \sigma^2)$. 
+
+If some of the assumptions are violated we should see a systematic pattern in the residuals and so plots of residuals are frequently used to diagnose any problems in the fitted model. 
+
+### Assessing Linearity
+
+To check that linearity for each term in a working model (with or without interactions) is appropriate, it is best to produce **partial residual plots**. Let's first consider these without interaction terms in the model.
+
+### Partial residual plots
+
+Recall that we want to include variables that improve model fit. This means including variables with strong relationships between $x$ and $y$ which offer new information about $y$ after considering those variables already in the model.
+
+We can view the contribution of each covariate to the model using partial residual plots.
+
+The partial residuals (for the $p$ covariate/predictor) are found by adding the estimated relationship (for the $p$-th predictor; $\hat{\beta}_px_{pit}$) to the residuals for the working model ($r_{it}$):
+
+$$
+ r_{pit}=r_{it}+\hat{\beta}_px_{pit}
+$$
+
+
+and when the $x$-variable ($x_{pit}$) is plotted with the partial residuals ($r_{pit}$) we have a **partial residual plot**; they have several useful properties:
+
+1. The slope of the plotted line is the regression coefficient
+2. The amount of scatter about the line reflects how important $x_{p}$ is as a predictor: large scatter=less important
+3. Large residuals can be identified
+4. Curved plots signal non-linear relationships.
+
+Partial residual plots (for models without interactions) are easily obtained in `R` using the `termplot` function (and so `workingModel` is fit without interaction terms). The plots below show the regression terms against their predictors (and standard errors) both without (Figure \@ref(fig:workingModelTerms)) and with the partial residuals (Figure \@ref(fig:workingModelTermsRes)).  
+
+```{r workingModelTerms, fig.cap='Regression terms against covariates for the `workingModel` model; regression terms (solid line) and standard error (dashed line). Note partial residuals are not shown.'}
+# Exclude interaction term (YPos:phase excluded previously)
+workingModel <- update(workingModel_Int, .~. - XPos:Phase)
+# For termplot to be able to plot discrete variables, they must be considered
+# 'factors' in your data/model and not 'characters'. We change phase and update the model.
+df2 <- df %>% mutate(Phase = as.factor(Phase))
+workingModel<-update(workingModel, .~., data=df2)
+# Divide plot window
+par(mfrow=c(3,2))
+# Partial residual plots - individual residuals not shown
+termplot(workingModel, se=TRUE, data=df2)
+```
+
+```{r workingModelTermsRes, fig.cap='Regression terms against covariates for the `workingModel` model showing the  partial residuals.'}
+par(mfrow=c(3,2))
+# Partial residual plots with residuals
+termplot(workingModel, se=TRUE, partial.resid=TRUE)
+```
+
+In this case, it is hard to determine if linearity is reasonable for the continuous covariates due to the size of the partial residuals (Figure \@ref(fig:workingModelTermsRes)).
+
+To view partial relationships when interaction terms are present, we need to use the `effects` library. This can be used to generate the partial plots for either the terms separately (e.g. for the `Y`-coordinate relationship, see below) or the interactions (e.g. for `XPos:Phase`, see below):
+
+```{r workingModelintTerms, fig.cap="Partial plots for the interaction term in the interaction working model. The ticks along the $x$-axis indicate the values of the observations."}
+library(effects)
+plot(effect(c("XPos:Phase"), workingModel_Int, ylab="XPos"))
+```
+
+#### Influential points
+
+These partial plots may also show us:
+
+> **Outliers**: observations that are not well fitted 	by the model.  If a standardized residual is **greater** than 2.5, this observation deserves further attention.
+
+> **Influential observations**: are observations which are very influential in the fitting process (ie. if removed, results change substantially). Often this happens if an observation is an outlier or if it is well separated in terms of values of regressors (outlying $x$-values).
+
+We could use something like Cook's distance to measure influence.
+
+The Cook's distance can be obtained for each residual and plotted using:
+
+```{r cooksdistanceIntModel, fig.cap="Cook's distance values for the interaction model."}
+# Plot Cook's distance
+plot(workingModel_Int, which=4)
+```
+
+```{task}
+Cooks distance plot has indicated that observation number 11304 is an influential point. What is the observed count associated with this observation or how would you find out? 
+```
+
+```{solution}
+The count associated with observation 11304 is 1649 birds. This can simply be found from the following:
+  
+``{r}
+df$Count[11304]
+``
+
+```
+
+<!-- % -->
+<!-- % -->
+<!-- %\begin{frame}[fragile] -->
+<!-- %	\frametitle{Measuring influence} -->
+<!-- %	The Cook's distance is a measure of influence: -->
+<!-- %	\begin{align} -->
+<!-- %	D_k=&\frac{1}{s^2(p+1)}\sum_{i=1}^{s}\sum_{t=1}^{n_i}(\hat{y}_{it(k)}-\hat{y}_{it})^2\\\label{eq:cooksdist2} -->
+<!-- %	=&(e_{k})^2\frac{h_{(k,k)}}{(1+p)(1-h_{(k,k)})} -->
+<!-- %	\end{align} -->
+<!-- %\end{frame} -->
+<!-- % -->
+<!-- %\begin{frame}[fragile] -->
+<!-- %	where $\hat{y}_{it(k)}$ is the fitted values for the $it$-th -->
+<!-- %	observation when the $k$th observation is omitted from the model -->
+<!-- %	fitting process.  -->
+<!-- %\end{frame} -->
+<!-- % -->
+<!-- % -->
+<!-- %\begin{frame} -->
+<!-- %	\hidden{$h_{(k,k)}$ is the diagonal of the hat matrix for the $k$-th omitted value, and  -->
+<!-- %		$$\hat{\mathbf{y}}=\mathbf{Xb}=\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{y}=\mathbf{Hy}$$} For more, see this 7 minute clip: http://www.youtube.com/watch?v=Z-jXJpVohiI. -->
+<!-- %	~\end{frame} -->
+<!-- % -->
+<!-- % -->
+<!-- % -->
+<!-- %\begin{frame}[fragile] -->
+<!-- %	\hidden{The Cook's distance can be obtained for each residual and plotted using:} -->
+<!-- %	\begin{verbatim} -->
+<!-- %	> plot(cooks.distance(workingModel_Int)) -->
+<!-- %	\end{verbatim} -->
+<!-- %\end{frame} -->
+<!-- % -->
+<!-- % -->
+<!-- %\begin{frame}[fragile] -->
+<!-- %	A relatively large value of -->
+<!-- %	$D_k$ indicates a point is highly influential. \pause The fact that $D_k$ -->
+<!-- %	can be calculated using 	Equation \ref{eq:cooksdist2} is handy since this can be done -->
+<!-- %	using a single regression. -->
+<!-- %\end{frame} -->
+<!-- % -->
+<!-- %\begin{frame} -->
+<!-- %	\begin{figure} -->
+<!-- %		\begin{center} -->
+<!-- %			\includegraphics[height=3.0in]{cooksdistanceIntModel} -->
+<!-- %			\caption{Cooks distance values for the {\tt workingModel\_Int} model.}\label{fig:cooksdistanceIntModel} -->
+<!-- %		\end{center} -->
+<!-- %	\end{figure} -->
+<!-- %\end{frame} -->
+
+### Assessing constant variance
+
+Constant error variance can be checked visually using residual plots.
+
+The residuals should exhibit roughly equal spread across the range of the fitted values if constant error variance holds and thus, changes in the spread of residuals across the fitted value range indicate this assumption is violated.
+
+In the interaction model, the variance of the residuals appears to increase with the fitted values (Figure \@ref(fig:fittedresplotworkingModelInt)).
+
+```{r fittedresplotworkingModelInt, fig.cap='Fitted values vs the residuals for the interaction based model.'}
+ggplot(workingModel_Int, aes(.fitted, .stdresid)) + geom_point()
+
+# Alternative code - NOT RUN
+#plot(fitted(workingModel_Int), rstandard(workingModel_Int), 
+#     xlab="Fitted", ylab="Standarised residuals")
+```
+
+We can formally test for non-constant error variance using the **Breusch-Pagan** test ($H_0$: constant error variance).
+
+The idea behind the test is that if we have constant error variance then the variation in the residuals (the squared residuals from our working model, $r^2_{it}$) should be unrelated to any of the covariates. For more information, this [online tutorial](http://www.youtube.com/watch?v=wzLADO24CDk) is excellent.
+
+The Breusch-Pagan test for the interaction model suggests strong evidence of non-constant error variance (see below).
+
+```{r}
+# Breusch-Pagan test (car library)
+ncvTest(workingModel_Int)
+```
+
+<!-- % -->
+<!-- %\begin{frame}[fragile] 	 -->
+<!-- %	\footnotesize -->
+<!-- %	\begin{verbatim} -->
+<!-- %	#fitting a log-y model -->
+<!-- %	>IntModel.log<- lm(log((count+1)/area) ~ Y + DistCoast + depth + month + phase * X, data = windfarm) -->
+<!-- %	 -->
+<!-- %	#fitting a sqrt-y model -->
+<!-- %	> IntModel.sqrt<- lm(sqrt(count/area) ~ ~ Y + DistCoast + depth + month + phase * X, data = windfarm) -->
+<!-- %	\end{verbatim} -->
+<!-- %\end{frame} -->
+<!-- % -->
+<!-- %\begin{frame}[fragile] -->
+<!-- %	\footnotesize  -->
+<!-- %	\begin{verbatim} -->
+<!-- %	#checking the constant variance assumption -->
+<!-- %	for the log and sqrt models -->
+<!-- %	> ncvTest(IntModel.log) -->
+<!-- %	Non-constant Variance Score Test  -->
+<!-- %	Variance formula: ~ fitted.values  -->
+<!-- %	Chisquare = 7916.365    Df = 1     p = 0  -->
+<!-- %	 -->
+<!-- %	> ncvTest(IntModel.sqrt) -->
+<!-- %	Non-constant Variance Score Test  -->
+<!-- %	Variance formula: ~ fitted.values  -->
+<!-- %	Chisquare = 12092.49    Df = 1     p = 0  -->
+<!-- %	\end{verbatim} -->
+<!-- %\end{frame} -->
+
+To deal with this issue, the response variable could be transformed and rather than arbitrarily choose a transformation (such as `log` or `sqrt`) for the response, we can use `R` to estimate a transformation needed to return constant error variance. This can  be done in `R` using the `spreadLevelPlot` function in the `car` library. This function plots (for a linear model) the log of absolute studentized residuals versus the log of fitted values, fits a line to the plot and calculates a spread-stabilizing transformation from the slope of the line.
+
+```{r spreadLevelPlotIntModel, fig.cap='Spread level plot results for the interaction based model.', echo=-2}
+sp <- spreadLevelPlot(workingModel_Int)
+# Extract power transformation
+sp.trans <- signif(sp$PowerTransformation, digits=2)
+sp.trans
+```
+
+In this case the suggested power transformation is $`r sp.trans`$ and so $(count/area)^{`r sp.trans`}$ is the suggested transformed response.
+
+The suggested transformation looks to have slightly stabilised the variance (Figure \@ref(fig:spreadLevelPlotIntModel)), though it is now difficult to interpret the associated model coefficients.
+
+**Looking for constant error variance in detail**
+
+We can investigate the way the spread of the residuals varies with the fitted values in more detail by dividing the fitted values into intervals and plotting the mean of the fitted values against the variance of the associated residuals in each interval (Figure \@ref(fig:unclutteredvarplot)):
+
+```{r}
+# Create cutpoints of fitted values
+cut.points <- quantile(fitted(workingModel_Int),
+                       probs=c(seq(from=0, to=1, by=0.05)))
+# Allocate fitted values to interval
+cut.fit <- cut(fitted(workingModel_Int), breaks=cut.points)
+# Number of points in each interval
+table(cut.fit)
+```
+
+A model which satisfies the constant error variance assumption would show no mean-variance relationship and produce a pattern-less plot much like the plot based on the estimated transformation. The variance still appears not to be constant however, the size of the variance is much reduced compared with the raw response.
+
+```{r, eval=FALSE}
+# Mean fitted value in each interval
+means1 <- tapply(fitted(workingModel_Int), cut.fit, mean)
+# Variances in interval
+vars1 <- tapply(residuals(workingModel_Int), cut.fit, var)
+# Plot means vs variances
+plot(means1, vars1, xlab="Fitted Values", ylab="Variance of the residuals",
+     main="Raw response",  pch=16)
+# Add variance assumed under each model 
+abline(h=summary(workingModel_Int)$sigma**2, lwd=2)
+
+# Code of plots for transform models is similar but not shown. 
+```
+
+```{r unclutteredvarplot, fig.cap='Fitted values versus variance of the residuals for the range of models. The variance assumed under each model is represented by the solid line. Note that the scales for the three transfom plots are all the same but different to the raw plot.', echo=FALSE}
+# Transformation
+#Log Model
+logModel<-lm(log((Count/Area)+1) ~ XPos + YPos + DistCoast + Depth + FMonth +
+               Phase+Phase:XPos, data = df)
+
+# Square Root Model
+sqrtModel<-lm(sqrt(Count/Area) ~ XPos + YPos + DistCoast + Depth + FMonth +
+                Phase+Phase:XPos, data = df)
+
+#raw response
+cut.fit<- cut(fitted(workingModel_Int), 
+              breaks=quantile(fitted(workingModel_Int), probs=c(seq(0,1,by=0.05))))
+
+par(mfrow=c(2,2))
+means1<- tapply(fitted(workingModel_Int),cut.fit,mean)
+vars1<- tapply(residuals(workingModel_Int),cut.fit,var)
+plot(means1,vars1, xlab="Fitted Values",
+     ylab="Variance of the residuals",main="Raw response",
+     pch=16)
+abline(h=summary(workingModel_Int)$sigma**2,lwd=2)
+
+#log response
+cut.fit<- cut(fitted(logModel), 
+              breaks=quantile(fitted(logModel), probs=c(seq(0,1,by=0.05))))
+
+means1<- tapply(fitted(logModel),cut.fit,mean)
+vars1<- tapply(residuals(logModel),cut.fit,var)
+plot(means1,vars1, xlab="Fitted Values",
+     ylab="Variance of the residuals",main="Log-response",
+     pch=16, ylim=c(0,11))
+abline(h=summary(logModel)$sigma**2,lwd=2)
+
+#sqrt response
+cut.fit<- cut(fitted(sqrtModel), 
+              breaks=quantile(fitted(sqrtModel), probs=c(seq(0,1,by=0.05))))
+
+means1<- tapply(fitted(sqrtModel),cut.fit,mean)
+vars1<- tapply(residuals(sqrtModel),cut.fit,var)
+plot(means1,vars1, xlab="Fitted Values",
+     ylab="Variance of the residuals",main="Square root-response",
+     pch=16, ylim=c(0,11))
+abline(h=summary(sqrtModel)$sigma**2,lwd=2)
+
+
+#est trans
+esttrans<-lm(formula = (Count/Area)**sp.trans  ~ XPos + YPos + DistCoast + Depth + FMonth + Phase *  XPos, data = df)
+cut.fit<- cut(fitted(esttrans), 
+              breaks=quantile(fitted(esttrans), probs=c(seq(0,1,by=0.05))))
+
+means1<- tapply(fitted(esttrans),cut.fit,mean)
+vars1<- tapply(residuals(esttrans),cut.fit,var)
+plot(means1, vars1, xlab="Fitted Values",
+     ylab="Variance of the residuals",main="Estimated Trans.",
+     pch=16, ylim=c(0,11))
+abline(h=summary(esttrans)$sigma**2, lwd=2)
+```
+
+An important thing to note is that the model(s) fitted to date produce negative fitted values, while the input data (counts/area) are never negative. This is a common problem when fitting normal-error based models to continuous data that is bounded by zero. We will address this problem in later sections and restrict the fitted values to be non-negative.
+
+```{task}
+Which R command would you use to fit the interaction model where the response is transformed with a square root function?
+```
+
+```{solution}
+
+``{r}
+# Square root transformed model
+sqrtModel <- lm(sqrt(Count/Area) ~ XPos + YPos + DistCoast + Depth + FMonth +
+               Phase + Phase:XPos, data=df)
+``
+
+```
+
+```{task}
+Adapt the code above to reproduce the fitted value versus variance residual plot for the square root transformed model. 
+```
+
+```{solution}
+
+``{r}
+# Create intervals for 10 points
+cut.fit <- cut(fitted(sqrtModel), 
+               breaks=quantile(fitted(sqrtModel), probs=c(seq(from=0,
+                                                             to=1, by=0.05))))
+# Means of fitted values
+means1 <- tapply(fitted(sqrtModel), cut.fit, mean)
+# Variances of residuals
+vars1 <- tapply(residuals(sqrtModel), cut.fit, var)
+# Plot
+plot(means1, vars1, xlab="Fitted Values", ylab="Variance of the residuals",
+     main="Square root-response", pch=16)
+abline(h=summary(logModel)$sigma**2, lwd=2)
+``
+
+```
+
+### Assessing Independence
+
+When the errors are independent the residuals should resemble a random scatter of points about the horizontal axis.  Clusters of successive positive or negative residuals suggest serial correlation (a relationship between successive residuals).
+
+To illustrate this, the first 200 residuals from the interaction models are plotted in observation order in Figure \@ref(fig:residinorderzoom).
+
+```{r residinorderzoom, fig.cap='Standardized residuals for the preliminary model in observation order. These are the first 200 residuals only.'}
+# Select first 200 residuals 
+sres200 <- rstandard(workingModel_Int)[1:200]
+# Converts to dataframe and add column names
+dr <- data.frame(1:200, sres200)
+colnames(dr) <- c("Index", "StRes")
+
+# Plot
+ggplot(dr, aes(x=Index, y=StRes)) + 
+  geom_line() +
+  geom_point() + 
+  theme_bw() +
+  geom_hline(aes(yintercept=0))+
+  xlab("Observation Order") + ylab("Standardised Residuals") 
+
+# Alternative plotting code - NOT RUN
+#plot(dr$Index, dr$StRes, type="b", pch=19, xlab="Observation Order",
+#     ylab="Standardised Residuals")
+#abline(h=0)
+```
+
+In this case, a pattern is evident (Figure \@ref(fig:residinorderzoom)); there is clear oscillation between negative and positive residuals suggesting some positive temporal correlation. This is not surprising when you consider we have density data collected along transects over time.
+
+Independence is also a **critical** model assumption and violation of this assumption can lead to unrealistic standard errors and misleading significance tests.
+
+In short, positively correlated data:
+
++ vary less than independent data  (data along transects is typically more similar than data from different transects) and
++ offer less information than independent pieces of data (i.e., our effective sample size is less than the apparent sample size).
+
+These features combined lead us to underestimate the error variance (compared with independent data) and assume we have a sample size which is larger than it is. This can lead us to falsely  conclude that one, or more, variables are important in the model when, in fact, they are not.
+
+Correlated errors in the model also means that the least-squares method of obtaining the parameter estimates is no longer ideal -- that is, they don't always return parameter estimates which are closest to the true parameter value. There are better estimators for data of this type, which get closer to the parameter more of the time.
+
+A 6-minute clip about this and some causes of auto-correlation can be found [here](http://www.youtube.com/watch?v=jt5nl2VEpwg).
+
+In these cases, methods which do not require independent errors can be used instead; a generalized least squares (GLS) model is a linear model alternative which allows correlated errors (see Chapter \@ref(GLS)).
+
+For a short description see [here](http://www.youtube.com/watch?v=ZjsDE3SyDlk).
+
+### Normality
+
+Normality can be visually checked using histograms and/or quantile-quantile (QQ) plots. The idea behind a QQ plot is that we have two samples from the Normal distribution and we order these samples (according to value) and plot these ordered samples they should lie roughly on a **straight line**.
+
+In this case, we have the residuals which we can plot against a hypothetical sample (i.e., quantiles) from a $N$(0,1) distribution. If the normality assumption holds, we should obtain a straight line (with scatter).  We could also plot a histogram of the residuals, to see whether we obtain something ``Normal-looking" (e.g., it should be symmetric). We will return to this assumption after dealing with the constant error variance and independence assumptions using GLS models.
+
+```{task}
+Which of the following statements is FALSE?
+  
+A. The larger the $p$-value the stronger the evidence against the null hypothesis.
+
+B. The $p$-value is the probability that, if the hypothesis is true, sampling variation would produce an estimate that is further away from the hypothesised value than our data estimate. 
+
+C. We cannot establish if the null hypothesis is true. 
+
+D. We make hypothesis tests about parameters and not estimates. 
+
+E. The $p$-value measures the strength of the evidence against the null hypothesis.
+```
+
+```{solution}
+Statement A is FALSE. The smaller the $p$-value, the more evidence against the null hypothesis.  
+```
+
+```{task}
+In order to bring products to market, cosmetics companies must show their proposed products are not more irritable than products already on sale. They do this by applying their products to the skin of paid volunteers and measure various aspects of volunteers skin before and after application of both existing and proposed products. These companies recruit people of all genders and all age groups because it is known that skin types (and their responses to new products) differ across gender and age. When considering the study, which statement is FALSE? 
+  
+A. When setting up a study, it is often useful to consult an expert when considering which covariates might be relevant. 
+
+B. Even if the main interest lies in comparing the new product with the products already on sale (and not in demographics), the analysis should consider age and gender in the analysis. 
+
+C. If the proposed product causes irritation on womens`'`s skin and there are many more women in the study than men, the results are likely to indicate the proposed product is more irritable than the existing product, unless gender is taken into account in the analysis.
+
+D. If younger skin is less irritated with the proposed product and there are many more younger people in the study than older people, then the results will indicate any proposed product is less irritable, regardless of whether age is taken into account in the analysis.
+
+E. If gender was included in a statistical model, it would appear in the model as a factor variable.
+```
+
+```{solution}
+Statement D is FALSE. The results will indicate that the proposed product is less irritable only if age is not included; if age is included in the model, the differences in irritation between ages will be highlighted.  
+```
+
+```{task}
+A model is fitted with response (irritation) and two explanatory variables: age ($x_1$) and product ($x_2$) that has two levels (existing and proposed where existing is used as the baseline, or reference, level). Choose the correct equation to give predictions for the existing product. 
+
+A. $\hat y_{it} =  \hat \beta_0 + \hat \beta_1 x_1$
+  
+B. $\hat y_{it} = \hat \beta_0 + \hat \beta_1 x_1 + \hat \beta_2 x_2$
+```
+
+```{solution}
+Equation A will provide predictions for the baseline level (i.e. the existing product).
+```
+
+```{task}
+You are modelling ibex density as a function of ambient noise level. You suspect that ibex choose quieter habitats when possible. You know that their density depends on the type of food available and the distance to water supply. You fit a linear model to some data with the R command:  `lm(ibex.density ~ food + water + noise, data=ibex)`.
+
+Which of the following statements is FALSE?
+
+A. If the parameter estimate for noise is negative, that means that as noise levels decrease, ibex density increases (this would confirm your suspicion that ibex prefer quiet habitats).
+
+B. Since ibex need to be near water, we expect the parameter estimate for water to be negative.
+
+C. If the parameter estimate for noise is positive and large, and the corresponding test statistic is large (e.g. > 3) then we cannot reject the null hypothesis that noise has no effect on ibex density.
+
+D. A friend provides you with some new, additional data from another study site. If you add it to your dataset and refit the model, you should expect the new parameter estimates to be different.
+```
+
+```{solution}
+Statement C is FALSE. If the test statistic was large, we would expect a corresponding small $p$-value indicating we should reject the null hypothesis.  
+```
+
+## Summary {#MLRsummary}
+
+Simple linear regression describes a response as a function of one explanatory variable but we might expect that for some systems, including more than one variable would provide better predictions. Multiple linear regression is a powerful tool for describing a continuous response as a function of more than one explanatory variables. Techniques allow for model selection such that important variables can be identified, however, care is required such that correlated variables are not included; adding an explanatory variable that is correlated with a variable already in the model will add little to improving prediction - the information it contains is already contained in the model. Once a model is selected, assessment of the model is required to ensure that the underlying assumptions are valid.  
+
+Response data for simple and multiple linear regressions is continuous and we require that residuals are normally distributed. Sometimes response data is not continuous or we cannot make this assumption; in these cases we need to fit different types of models and we explore examples in the following chapters. 
+
+## Learning outcomes {#MLRLO}
+
+At the end of this chapter you should be able to: 
+
++ fit a multiple linear regression model in R and interpret the output
+
++ perform model selection 
+
++ assess the model diagnostics. 
+
