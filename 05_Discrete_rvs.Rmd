@@ -114,9 +114,10 @@ __d.__ Include question to calculate an interval estimate.
 
 Although the outcome of a process is uncertain, the PMF can be used to determine what value might be expected on average, if the process was to be repeated many times. For a discrete random variable $X$, with a finite number of outcomes $k$, the __expected value__ of $X$, denoted by $E(X)$ is given by 
 
-\begin{align}
+\begin{equation}
 E(X) = \sum_{x=k}^n xPr(X=x)
-\end{align}
+\label{discexpx}
+\end{equation}
 
 This is actually a weighted average where the probabilities are the weights (since the probabilities sum to one).  
 
@@ -150,9 +151,10 @@ Since we cannot say with certainty what the outcome of an event will be, but onl
 
 To quantify the degree to which the values differ from the expected value, or how spread out they may be, we calculate the variance of $X$, denoted by $Var(X)$:
 
-\begin{align}
+\begin{equation}
 Var(X) = \sum_{x=k}^n (x - E(X))^2Pr(X=x)
-\end{align}
+\label{discvarx}
+\end{equation}
 
 Thus, the variance for the outcome of tossing a die is given by:
 
@@ -353,7 +355,7 @@ __d.__ What is the probability of answering no questions correctly?
 __e.__ Is the student more likely to select the correct answer for every question or the wrong answer for every question? 
 
 
-__Q5.8__ Use the PMF values shown in section \@ref(binomR) for throwing four darts (i.e. the output from R) and equation 2 to confirm that the expected number of bull's eye the player could be expected to throw is 1. Use equation 3 to confirm that the variance is 0.75 and hence calculate the standard deviation.
+__Q5.8__ Use the PMF values shown in section \@ref(binomR) for throwing four darts (i.e. the output from R) and equation \@ref(discexpx) to confirm that the expected number of bull's eye the player could be expected to throw is 1. Use equation \@ref(discvarx) to confirm that the variance is 0.75 and hence calculate the standard deviation.
 
 ### Poisson distribution {#poisdist}
 
@@ -398,7 +400,8 @@ The CDF is found using the `ppois` function. For example this function can be us
 ppois(q=3, lambda=4)
 
 # This is equivalent to
-dpois(x=0, lambda=4) + dpois(x=1, lambda=4) + dpois(x=2, lambda=4) + dpois(x=3, lambda=4) 
+dpois(x=0, lambda=4) + dpois(x=1, lambda=4) + 
+  dpois(x=2, lambda=4) + dpois(x=3, lambda=4) 
 ```
 
 #### Expected value and variance
@@ -616,7 +619,8 @@ We can confirm this calculation in R using the function `ppois`:
 ppois(q=3, lambda=4.5)
 
 # Check this calculation
-dpois(x=0, lambda=4.5) + dpois(x=1, lambda=4.5) + dpois(x=2, lambda=4.5) + dpois(x=3, lambda=4.5)
+dpois(x=0, lambda=4.5) + dpois(x=1, lambda=4.5) + 
+  dpois(x=2, lambda=4.5) + dpois(x=3, lambda=4.5)
 ```
 
 <!-- ## Bibliography -->

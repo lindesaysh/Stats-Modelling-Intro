@@ -260,7 +260,7 @@ t.test(x=hgt, conf.level=0.99)$conf.int
 ```
 
 
-__Q7.1__ A researcher was interested in the typical size of trees (measured as diameter at breast height, dbh) of a particular species in a forest. Data on dbh (in cm) had been collected on a sample of 50 trees. The mean dbh was 765 cm and the standard deviation was 3.
+__Q7.1__ A researcher was interested in the typical size of trees (measured as diameter at breast height, `dbh`) of a particular species in a forest. Data on `dbh` (in cm) had been collected on a sample of 50 trees. The mean `dbh` was 15.3 cm and the standard deviation was 3.
 
 __a.__ What is the standard error of the mean? 
 

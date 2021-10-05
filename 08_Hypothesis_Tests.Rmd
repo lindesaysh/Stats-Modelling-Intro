@@ -625,7 +625,7 @@ Practical (or clinical) significance:
 
 + relates to the size of an effect and should be reported to provide context to the hypothesis test results.
 
-For an interesting (and short) read about practical and statistical significance have a look at this [Significance Magazine article](https://www.statslife.org.uk/the-statistics-dictionary/1000-the-statistics-dictionary-significantly-misleading).
+For an interesting (and short) read about practical and statistical significance have a look at this [Significance Magazine article](https://www.significancemagazine.com/14-the-statistics-dictionary/112-the-statistics-dictionary-significantly-misleading).
 
 ## Summary {#SUMhyp}
 

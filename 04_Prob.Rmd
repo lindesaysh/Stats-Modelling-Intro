@@ -268,6 +268,12 @@ information can be used to calculate conditional probabilities for particular ev
 
 $$Pr(S|D) = \frac{Pr(S \cap D)}{Pr(D)}$$
 
+This equation can be rewritten: we know that $Pr(S \cap D) = Pr(D \cap S)$ and  $Pr(D \cap S) = Pr(D|S)P(S)$ (if $Pr(S) \ne 0$). Hence,
+
+$$Pr(S|D) = \frac{Pr(D|S)P(S)}{Pr(D)}$$
+
+This equation is named after Reverend Thomas Bayes and known as __Bayes' theorem__. For more information see [here](
+https://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/).
 
 If $S$ and $D$ are __independent__ then whether $D$ occurred or not will not affect $Pr(S)$, so that  $Pr(S|D) = Pr(S)$.
 
@@ -308,7 +314,7 @@ Other   | 0.287 | 0.112  | 0.399
 Total   | 0.807 | 0.193  | 1.000 
 
 
-Let $G$ be the event that a firearm was used then $\Pr(G)$ = 0.601. If $F$ be the event that a victim is female then $\Pr(F)$ = 0.193.
+Let $G$ be the event that a firearm was used then $\Pr(G)$ = 0.601. If $F$ is the event that a victim is female then $\Pr(F)$ = 0.193.
 
 * If you know the victim was Female (i.e. __Given__ Female), what is the probability a firearm was used? We need the values from the table that represent the probability that the victim was Female **and** used a firearm (0.081) and the probability the victim was Female (0.193): 
 
@@ -440,11 +446,11 @@ $$Pr(Lived|First)  = \frac{Pr(Lived \cap First)} {Pr(First)} = \frac{0.092} {0.1
 ## Summary {#SUMprob}
 
 Understanding the basics of probability is extremely useful in interpreting evidence and in applying the tests and models that come later in the module.  
-If you want to learn more about the philisophical aspects of probability then consider taking the module *Statistical Thinking*. 
+If you want to learn more about the philosophical aspects of probability then consider taking the module *Statistical Thinking*. 
 
-### Learning objectives 
+### Learning outcomes 
 
-By the end of the this unit, you should be able to   
+You should now be able to   
 
 1. distinguish the different definitions of probability
 2. understand the basic axioms of probability.
@@ -462,9 +468,8 @@ By the end of the this unit, you should be able to
 
 **Q4.5** Here it is rather difficult to predict the probabilities from observed events. The given probability comes from belief.   
 
-**Q4.6** $Pr(A \cup B) = Pr(A) + Pr(B)$ but event B can only be regarded as independent if Pr(B) is adjusted for the fact that drawing the first card has altered things. There are $4 \times 13 =52$ card
-The probability of obtaining the first card is 1/52. The probability of obtaining the second card is 1/51 because before the second draw there are only 51 cards in the back. 
-So $Pr(A \cap B) = Pr(A) \times  Pr(B) = 1/52 \times 1/51 = 1/2652$.
+**Q4.6** There are 4 x 13 = 52 cards. Thus the probability of obtaining the first card, $Pr(A)$, is $1/52$. $Pr(A)$ and $Pr(B)$ are not independent and so the probability of obtaining the second card given that one card has already been taken is $Pr(B|A) = 1/51$. Therefore, $Pr(A \cap B)  = Pr(A) * Pr(B | A) = \frac{1}{52} \times \frac{1}{51} = \frac{1}{2652}$
+
 
 
 <!-- ## Bibliography -->

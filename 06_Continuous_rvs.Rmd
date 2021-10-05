@@ -562,14 +562,14 @@ If the units sold for military and civilian use are independent, then the varian
 $$Var(2000X + 3500Y) = 2000^2Var(X) + 3500^2Var(Y)$$
 The variance will be the same for the difference in profits. 
 
-__Q6.3__ Let $X$ represent the short planks and $Y$ represent the long planks and so a floorboard is made up of $F = X + 2Y$. 
+__Q6.3__ Let $X$ represent the short planks and $Y$ represent the long planks and so a floorboard is made up of $F = X + Y1 + Y2$. 
 
 __Q6.3__ __a.__  Using equation 11, let $a=0$, $b=1$ and $c=2$,
-$$E(F) = 1 \times E(X) + 2 \times E(Y) = 0.5 + 2 \times 1.5 = 3.5$$
+$$E(F) = 1 \times E(X) + E(Y1) + E(Y2) = 0.5 + 1.5 + 1.5 = 3.5$$
 The expected length of a floorboard is 3.5m. 
 
 __Q6.3__ __b.__ Similarly, the variance is given by
-$$Var(F) = 1 \times Var(X) + 2^2Var(Y) = 0.01 + 4 \times 0.0625 = 0.26$$
+$$Var(F) = 1 \times Var(X) + Var(Y1) + Var(Y2) = 0.01 + 0.0625 + 0.065 = 0.135$$
 __Q6.3__ __c.__ The probability $Pr(F > 4)$ is required, where $F \sim N(3.5, 0.26)$. R can be used to find this probability with the `pnorm` command. There are two equivalent commands:
 
 Using $1 - Pr(X \le 4)$

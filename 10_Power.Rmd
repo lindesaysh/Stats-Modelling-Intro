@@ -43,7 +43,7 @@ Calculating power requires we know (or speculate) about what the alternative hyp
 Wind and current turbines (Figure \@ref(fig:MCT)) are being built around the world to provide green energy. Typically, as part of the environmental impact associated with such construction, people consider the effects of the turbines on wildlife before being built, during development and when they are in operation. The impact may be an actual population change caused by the turbines or a redistribution of the population caused by the turbines.  
 
 
-```{r, MCT, echo=F,fig.cap='A current turbine' }
+```{r, MCT, echo=F,fig.cap='A current turbine'}
 include_graphics("figures/MCT.png")
 ```
 
