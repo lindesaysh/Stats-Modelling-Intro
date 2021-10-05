@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 18 Linear model diagnostics | An Introduction to Statistics</title>
+  <meta name="description" content="Chapter 18 Linear model diagnostics | An Introduction to Statistics" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 18 Linear model diagnostics | An Introduction to Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 18 Linear model diagnostics | An Introduction to Statistics" />
+  
+  
+  
+
+<meta name="author" content="Drs C. Paxton, L. Burt, C. Donovan and L. Scott-Hayward" />
+
+
+<meta name="date" content="2021-10-05" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="prediction.html"/>
+<link rel="next" href="nextsteps.html"/>
+<script src="book_assets/header-attrs-2.11/header-attrs.js"></script>
+<script src="book_assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="book_assets/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="book_assets/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script language="javascript">
+    function toggle(id) {
+        var ele = document.getElementById("toggleText" + id);
+        var text = document.getElementById("displayText" + id);
+        var buttonText = text.innerHTML.replace("Show ", "");
+        buttonText = buttonText.replace("Hide ", "");
+        if(ele.style.display == "block") {
+            ele.style.display = "none";
+            text.innerHTML = "Show " + buttonText;
+        } else {
+            ele.style.display = "block";
+            text.innerHTML = "Hide " + buttonText;
+        }
+    }
+</script>
+
+<script language="javascript">
+    function openCode(evt, codeName, id) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent" + id);
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks" + id);
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(codeName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+<script language="javascript">
+    function hide(id){
+        document.getElementById(id).style.display = "none";
+    }
+</script>
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<a href="https://www.st-andrews.ac.uk/mathematics-statistics/"><img src="standard-vertical-black.png" width="180"></a>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#computer-practicals"><i class="fa fa-check"></i>Computer practicals</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introchapt.html"><a href="introchapt.html"><i class="fa fa-check"></i><b>1</b> Thinking About Numbers</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introchapt.html"><a href="introchapt.html#INTintro"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="introchapt.html"><a href="introchapt.html#why-use-statistics"><i class="fa fa-check"></i><b>1.2</b> Why use statistics?</a></li>
+<li class="chapter" data-level="1.3" data-path="introchapt.html"><a href="introchapt.html#why-model"><i class="fa fa-check"></i><b>1.3</b> Why model?</a></li>
+<li class="chapter" data-level="1.4" data-path="introchapt.html"><a href="introchapt.html#examples-of-statistical-claims"><i class="fa fa-check"></i><b>1.4</b> Examples of statistical claims</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="introchapt.html"><a href="introchapt.html#coffee-may-reverse-alzheimers"><i class="fa fa-check"></i><b>1.4.1</b> Coffee ‘may reverse Alzheimer’s’</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introchapt.html"><a href="introchapt.html#abundance-of-prized-sturgeon"><i class="fa fa-check"></i><b>1.4.2</b> Abundance of prized sturgeon</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introchapt.html"><a href="introchapt.html#extrapolating-sprinting-speed"><i class="fa fa-check"></i><b>1.4.3</b> Extrapolating sprinting speed</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introchapt.html"><a href="introchapt.html#mmr-innoculation-and-autism"><i class="fa fa-check"></i><b>1.4.4</b> MMR innoculation and autism</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introchapt.html"><a href="introchapt.html#two-sid-deaths-in-same-family"><i class="fa fa-check"></i><b>1.4.5</b> Two SID deaths in same family</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introchapt.html"><a href="introchapt.html#SUMintro"><i class="fa fa-check"></i><b>1.5</b> Summary</a></li>
+<li class="chapter" data-level="1.6" data-path="introchapt.html"><a href="introchapt.html#ANSintro"><i class="fa fa-check"></i><b>1.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>I Data Collection and Visualisation</b></span></li>
+<li class="chapter" data-level="2" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>2</b> Data collection and Sampling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="sampling.html"><a href="sampling.html#INTsamp"><i class="fa fa-check"></i><b>2.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="sampling.html"><a href="sampling.html#terminology"><i class="fa fa-check"></i><b>2.1.1</b> Terminology</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="sampling.html"><a href="sampling.html#what-is-sampling-and-why-do-it"><i class="fa fa-check"></i><b>2.2</b> What is sampling and why do it?</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="sampling.html"><a href="sampling.html#precision-accuracy-and-bias"><i class="fa fa-check"></i><b>2.2.1</b> Precision, accuracy and bias</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="sampling.html"><a href="sampling.html#three-types-of-data-collection"><i class="fa fa-check"></i><b>2.3</b> Three types of data collection</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="sampling.html"><a href="sampling.html#common-but-unwise-data-collection-strategies"><i class="fa fa-check"></i><b>2.3.1</b> Common, but unwise, data collection strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="sampling.html"><a href="sampling.html#simple-sampling-approaches"><i class="fa fa-check"></i><b>2.4</b> Simple sampling approaches</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="sampling.html"><a href="sampling.html#simple-random-sample"><i class="fa fa-check"></i><b>2.4.1</b> Simple random sample</a></li>
+<li class="chapter" data-level="2.4.2" data-path="sampling.html"><a href="sampling.html#systematic-samples"><i class="fa fa-check"></i><b>2.4.2</b> Systematic samples</a></li>
+<li class="chapter" data-level="2.4.3" data-path="sampling.html"><a href="sampling.html#stratified-random-samples"><i class="fa fa-check"></i><b>2.4.3</b> Stratified random samples</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="sampling.html"><a href="sampling.html#sampling-biases"><i class="fa fa-check"></i><b>2.5</b> Sampling biases</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="sampling.html"><a href="sampling.html#non-sampling-error"><i class="fa fa-check"></i><b>2.5.1</b> Non-sampling error</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="sampling.html"><a href="sampling.html#experiments"><i class="fa fa-check"></i><b>2.6</b> Experiments</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="sampling.html"><a href="sampling.html#randomised-experiments"><i class="fa fa-check"></i><b>2.6.1</b> Randomised experiments</a></li>
+<li class="chapter" data-level="2.6.2" data-path="sampling.html"><a href="sampling.html#components-of-an-experimental-design"><i class="fa fa-check"></i><b>2.6.2</b> Components of an experimental design</a></li>
+<li class="chapter" data-level="2.6.3" data-path="sampling.html"><a href="sampling.html#controls"><i class="fa fa-check"></i><b>2.6.3</b> Controls</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="sampling.html"><a href="sampling.html#observational-studies"><i class="fa fa-check"></i><b>2.7</b> Observational Studies</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="sampling.html"><a href="sampling.html#types-of-observational-study"><i class="fa fa-check"></i><b>2.7.1</b> Types of observational study</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="sampling.html"><a href="sampling.html#observational-studies-vs-experiments"><i class="fa fa-check"></i><b>2.8</b> Observational studies vs experiments</a></li>
+<li class="chapter" data-level="2.9" data-path="sampling.html"><a href="sampling.html#SUMsamp"><i class="fa fa-check"></i><b>2.9</b> Summary</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="sampling.html"><a href="sampling.html#learning-objectives"><i class="fa fa-check"></i><b>2.9.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="sampling.html"><a href="sampling.html#ANSsamp"><i class="fa fa-check"></i><b>2.10</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="describedata.html"><a href="describedata.html"><i class="fa fa-check"></i><b>3</b> Describing data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="describedata.html"><a href="describedata.html#INTdata"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="describedata.html"><a href="describedata.html#types-of-data"><i class="fa fa-check"></i><b>3.2</b> Types of data</a></li>
+<li class="chapter" data-level="3.3" data-path="describedata.html"><a href="describedata.html#frequency-distributions"><i class="fa fa-check"></i><b>3.3</b> Frequency distributions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="describedata.html"><a href="describedata.html#doing-this-in-r-2"><i class="fa fa-check"></i><b>3.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="describedata.html"><a href="describedata.html#numerical-summaries"><i class="fa fa-check"></i><b>3.4</b> Numerical summaries</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="describedata.html"><a href="describedata.html#population-mean"><i class="fa fa-check"></i><b>3.4.1</b> Population mean</a></li>
+<li class="chapter" data-level="3.4.2" data-path="describedata.html"><a href="describedata.html#sample-mean"><i class="fa fa-check"></i><b>3.4.2</b> Sample mean</a></li>
+<li class="chapter" data-level="3.4.3" data-path="describedata.html"><a href="describedata.html#sample-median"><i class="fa fa-check"></i><b>3.4.3</b> Sample median</a></li>
+<li class="chapter" data-level="3.4.4" data-path="describedata.html"><a href="describedata.html#range"><i class="fa fa-check"></i><b>3.4.4</b> Range</a></li>
+<li class="chapter" data-level="3.4.5" data-path="describedata.html"><a href="describedata.html#percentiles"><i class="fa fa-check"></i><b>3.4.5</b> Percentiles</a></li>
+<li class="chapter" data-level="3.4.6" data-path="describedata.html"><a href="describedata.html#population-variance"><i class="fa fa-check"></i><b>3.4.6</b> Population variance</a></li>
+<li class="chapter" data-level="3.4.7" data-path="describedata.html"><a href="describedata.html#sample-variance-and-standard-deviation"><i class="fa fa-check"></i><b>3.4.7</b> Sample variance and standard deviation</a></li>
+<li class="chapter" data-level="3.4.8" data-path="describedata.html"><a href="describedata.html#numerical-summaries-in-r"><i class="fa fa-check"></i><b>3.4.8</b> Numerical summaries in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="describedata.html"><a href="describedata.html#visual-summaries"><i class="fa fa-check"></i><b>3.5</b> Visual summaries</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="describedata.html"><a href="describedata.html#bar-charts"><i class="fa fa-check"></i><b>3.5.1</b> Bar charts</a></li>
+<li class="chapter" data-level="3.5.2" data-path="describedata.html"><a href="describedata.html#pie-charts"><i class="fa fa-check"></i><b>3.5.2</b> Pie charts</a></li>
+<li class="chapter" data-level="3.5.3" data-path="describedata.html"><a href="describedata.html#histograms"><i class="fa fa-check"></i><b>3.5.3</b> Histograms</a></li>
+<li class="chapter" data-level="3.5.4" data-path="describedata.html"><a href="describedata.html#boxplots"><i class="fa fa-check"></i><b>3.5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="3.5.5" data-path="describedata.html"><a href="describedata.html#basic-plots-in-r"><i class="fa fa-check"></i><b>3.5.5</b> Basic plots in R</a></li>
+<li class="chapter" data-level="3.5.6" data-path="describedata.html"><a href="describedata.html#other-plots"><i class="fa fa-check"></i><b>3.5.6</b> Other plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="describedata.html"><a href="describedata.html#summarising-the-relationship-between-two-variables"><i class="fa fa-check"></i><b>3.6</b> Summarising the relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="describedata.html"><a href="describedata.html#cross-tabulation"><i class="fa fa-check"></i><b>3.6.1</b> Cross-tabulation</a></li>
+<li class="chapter" data-level="3.6.2" data-path="describedata.html"><a href="describedata.html#side-by-side-boxplots"><i class="fa fa-check"></i><b>3.6.2</b> Side-by-side boxplots</a></li>
+<li class="chapter" data-level="3.6.3" data-path="describedata.html"><a href="describedata.html#scatter-plot"><i class="fa fa-check"></i><b>3.6.3</b> Scatter plot</a></li>
+<li class="chapter" data-level="3.6.4" data-path="describedata.html"><a href="describedata.html#quilt-plots"><i class="fa fa-check"></i><b>3.6.4</b> Quilt plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="describedata.html"><a href="describedata.html#handy-hints-when-including-tables-and-plots-into-reports"><i class="fa fa-check"></i><b>3.7</b> Handy hints when including tables and plots into reports</a></li>
+<li class="chapter" data-level="3.8" data-path="describedata.html"><a href="describedata.html#SUMdata"><i class="fa fa-check"></i><b>3.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="describedata.html"><a href="describedata.html#learning-outcomes"><i class="fa fa-check"></i><b>3.8.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="describedata.html"><a href="describedata.html#ANSdata"><i class="fa fa-check"></i><b>3.9</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>II Probability and Distributions</b></span></li>
+<li class="chapter" data-level="4" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>4</b> Probability</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="probability.html"><a href="probability.html#INTprob"><i class="fa fa-check"></i><b>4.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="probability.html"><a href="probability.html#random-phenomena-and-uncertain-outcomes"><i class="fa fa-check"></i><b>4.1.1</b> Random phenomena and uncertain outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="probability.html"><a href="probability.html#sample-spaces-and-events"><i class="fa fa-check"></i><b>4.2</b> Sample spaces and events</a></li>
+<li class="chapter" data-level="4.3" data-path="probability.html"><a href="probability.html#definition-of-probability-and-3-axioms"><i class="fa fa-check"></i><b>4.3</b> Definition of Probability and 3 Axioms</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="probability.html"><a href="probability.html#probability-1"><i class="fa fa-check"></i><b>4.3.1</b> Probability</a></li>
+<li class="chapter" data-level="4.3.2" data-path="probability.html"><a href="probability.html#three-axioms"><i class="fa fa-check"></i><b>4.3.2</b> Three Axioms</a></li>
+<li class="chapter" data-level="4.3.3" data-path="probability.html"><a href="probability.html#three-results-of-the-axioms"><i class="fa fa-check"></i><b>4.3.3</b> Three results of the Axioms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="probability.html"><a href="probability.html#independence-and-the-multiplication-rule"><i class="fa fa-check"></i><b>4.4</b> Independence and the Multiplication Rule</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="probability.html"><a href="probability.html#testing-for-independence"><i class="fa fa-check"></i><b>4.4.1</b> Testing for Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="probability.html"><a href="probability.html#conditional-probabilities"><i class="fa fa-check"></i><b>4.5</b> Conditional probabilities</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="probability.html"><a href="probability.html#independence-revisited"><i class="fa fa-check"></i><b>4.5.1</b> Independence revisited</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="probability.html"><a href="probability.html#tree-diagrams"><i class="fa fa-check"></i><b>4.6</b> Tree Diagrams</a></li>
+<li class="chapter" data-level="4.7" data-path="probability.html"><a href="probability.html#marginal-and-joint-probabilities"><i class="fa fa-check"></i><b>4.7</b> Marginal and joint probabilities</a></li>
+<li class="chapter" data-level="4.8" data-path="probability.html"><a href="probability.html#SUMprob"><i class="fa fa-check"></i><b>4.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="probability.html"><a href="probability.html#learning-outcomes-1"><i class="fa fa-check"></i><b>4.8.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="probability.html"><a href="probability.html#ANSprob"><i class="fa fa-check"></i><b>4.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="discreterv.html"><a href="discreterv.html"><i class="fa fa-check"></i><b>5</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="discreterv.html"><a href="discreterv.html#INTdiscrv"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="discreterv.html"><a href="discreterv.html#discrete-random-variables"><i class="fa fa-check"></i><b>5.2</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="discreterv.html"><a href="discreterv.html#probability-mass-function"><i class="fa fa-check"></i><b>5.2.1</b> Probability mass function</a></li>
+<li class="chapter" data-level="5.2.2" data-path="discreterv.html"><a href="discreterv.html#cumulative-distribution-function"><i class="fa fa-check"></i><b>5.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="5.2.3" data-path="discreterv.html"><a href="discreterv.html#expectation"><i class="fa fa-check"></i><b>5.2.3</b> Expectation</a></li>
+<li class="chapter" data-level="5.2.4" data-path="discreterv.html"><a href="discreterv.html#variance"><i class="fa fa-check"></i><b>5.2.4</b> Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="discreterv.html"><a href="discreterv.html#special-discrete-distributions"><i class="fa fa-check"></i><b>5.3</b> Special discrete distributions</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="discreterv.html"><a href="discreterv.html#bernoulli-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="5.3.2" data-path="discreterv.html"><a href="discreterv.html#binomial-distribution"><i class="fa fa-check"></i><b>5.3.2</b> Binomial distribution</a></li>
+<li class="chapter" data-level="5.3.3" data-path="discreterv.html"><a href="discreterv.html#poisdist"><i class="fa fa-check"></i><b>5.3.3</b> Poisson distribution</a></li>
+<li class="chapter" data-level="5.3.4" data-path="discreterv.html"><a href="discreterv.html#comparison-of-binomial-and-poisson-distributions"><i class="fa fa-check"></i><b>5.3.4</b> Comparison of binomial and Poisson distributions?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="discreterv.html"><a href="discreterv.html#SUMdiscrv"><i class="fa fa-check"></i><b>5.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="discreterv.html"><a href="discreterv.html#learning-outcomes-2"><i class="fa fa-check"></i><b>5.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="discreterv.html"><a href="discreterv.html#ANSdiscrv"><i class="fa fa-check"></i><b>5.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="contrv.html"><a href="contrv.html"><i class="fa fa-check"></i><b>6</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="contrv.html"><a href="contrv.html#INTcontrv"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="contrv.html"><a href="contrv.html#continuous-random-variables"><i class="fa fa-check"></i><b>6.2</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="contrv.html"><a href="contrv.html#probability-density-function"><i class="fa fa-check"></i><b>6.2.1</b> Probability density function</a></li>
+<li class="chapter" data-level="6.2.2" data-path="contrv.html"><a href="contrv.html#cumulative-distribution-function-1"><i class="fa fa-check"></i><b>6.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="6.2.3" data-path="contrv.html"><a href="contrv.html#expectation-and-variance-1"><i class="fa fa-check"></i><b>6.2.3</b> Expectation and variance</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="contrv.html"><a href="contrv.html#special-continuous-distributions"><i class="fa fa-check"></i><b>6.3</b> Special continuous distributions</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="contrv.html"><a href="contrv.html#normal-distribution"><i class="fa fa-check"></i><b>6.3.1</b> normal distribution</a></li>
+<li class="chapter" data-level="6.3.2" data-path="contrv.html"><a href="contrv.html#standard-normal-distribution"><i class="fa fa-check"></i><b>6.3.2</b> Standard normal distribution</a></li>
+<li class="chapter" data-level="6.3.3" data-path="contrv.html"><a href="contrv.html#simple-transformations-of-random-variables"><i class="fa fa-check"></i><b>6.3.3</b> Simple transformations of random variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="contrv.html"><a href="contrv.html#SUMcontrv"><i class="fa fa-check"></i><b>6.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="contrv.html"><a href="contrv.html#learning-outcomes-3"><i class="fa fa-check"></i><b>6.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="contrv.html"><a href="contrv.html#ANScontrv"><i class="fa fa-check"></i><b>6.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="CIformean.html"><a href="CIformean.html"><i class="fa fa-check"></i><b>7</b> Confidence intervals for sample means</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="CIformean.html"><a href="CIformean.html#INTci"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="CIformean.html"><a href="CIformean.html#uncertainty-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2</b> Uncertainty of the sample mean</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="CIformean.html"><a href="CIformean.html#precision-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2.1</b> Precision of the sample mean</a></li>
+<li class="chapter" data-level="7.2.2" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-known-sigma"><i class="fa fa-check"></i><b>7.2.2</b> Confidence interval with known <span class="math inline">\(\sigma\)</span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-unknown-sigma"><i class="fa fa-check"></i><b>7.2.3</b> Confidence interval with unknown <span class="math inline">\(\sigma\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="CIformean.html"><a href="CIformean.html#difference-between-two-group-means"><i class="fa fa-check"></i><b>7.3</b> Difference between two group means</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="CIformean.html"><a href="CIformean.html#assuming-equal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.1</b> Assuming equal standard deviations of the two groups</a></li>
+<li class="chapter" data-level="7.3.2" data-path="CIformean.html"><a href="CIformean.html#assuming-unequal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.2</b> Assuming unequal standard deviations of the two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="CIformean.html"><a href="CIformean.html#empirical-bootstrap-based-confidence-intervals"><i class="fa fa-check"></i><b>7.4</b> Empirical (bootstrap-based) confidence intervals</a></li>
+<li class="chapter" data-level="7.5" data-path="CIformean.html"><a href="CIformean.html#confidence-intervals-for-other-sample-statistics"><i class="fa fa-check"></i><b>7.5</b> Confidence intervals for other sample statistics</a></li>
+<li class="chapter" data-level="7.6" data-path="CIformean.html"><a href="CIformean.html#SUMci"><i class="fa fa-check"></i><b>7.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="CIformean.html"><a href="CIformean.html#learning-outcomes-4"><i class="fa fa-check"></i><b>7.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="CIformean.html"><a href="CIformean.html#ANSci"><i class="fa fa-check"></i><b>7.7</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>III Hypothesis Testing</b></span></li>
+<li class="chapter" data-level="8" data-path="hypothtests.html"><a href="hypothtests.html"><i class="fa fa-check"></i><b>8</b> Hypothesis Tests</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="hypothtests.html"><a href="hypothtests.html#INThyp"><i class="fa fa-check"></i><b>8.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="hypothtests.html"><a href="hypothtests.html#types-of-hypotheses"><i class="fa fa-check"></i><b>8.1.1</b> Types of hypotheses</a></li>
+<li class="chapter" data-level="8.1.2" data-path="hypothtests.html"><a href="hypothtests.html#how-do-hypothesis-tests-work"><i class="fa fa-check"></i><b>8.1.2</b> How do hypothesis tests work?</a></li>
+<li class="chapter" data-level="8.1.3" data-path="hypothtests.html"><a href="hypothtests.html#one-sample-t-test"><i class="fa fa-check"></i><b>8.1.3</b> One sample <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="hypothtests.html"><a href="hypothtests.html#two-sample-t-test"><i class="fa fa-check"></i><b>8.2</b> Two sample <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-13"><i class="fa fa-check"></i><b>8.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="hypothtests.html"><a href="hypothtests.html#paired-t-test"><i class="fa fa-check"></i><b>8.3</b> Paired <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-14"><i class="fa fa-check"></i><b>8.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="hypothtests.html"><a href="hypothtests.html#t-test-assumptions"><i class="fa fa-check"></i><b>8.4</b> <span class="math inline">\(t\)</span> test assumptions</a></li>
+<li class="chapter" data-level="8.5" data-path="hypothtests.html"><a href="hypothtests.html#non-parametric-alternative-to-t-tests"><i class="fa fa-check"></i><b>8.5</b> Non-parametric alternative to <span class="math inline">\(t\)</span> tests</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="hypothtests.html"><a href="hypothtests.html#mann-whitney-wilcoxon-test"><i class="fa fa-check"></i><b>8.5.1</b> Mann-Whitney-Wilcoxon test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="hypothtests.html"><a href="hypothtests.html#practical-significance-versus-statistical-significance"><i class="fa fa-check"></i><b>8.6</b> Practical significance versus statistical significance</a></li>
+<li class="chapter" data-level="8.7" data-path="hypothtests.html"><a href="hypothtests.html#SUMhyp"><i class="fa fa-check"></i><b>8.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="hypothtests.html"><a href="hypothtests.html#learning-outcomes-5"><i class="fa fa-check"></i><b>8.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="hypothtests.html"><a href="hypothtests.html#ANShyp"><i class="fa fa-check"></i><b>8.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>9</b> Analysis of Variance</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="anova.html"><a href="anova.html#INTanova"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="anova.html"><a href="anova.html#multiple-comparisons"><i class="fa fa-check"></i><b>9.2</b> Multiple comparisons</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="anova.html"><a href="anova.html#type-i-and-type-ii-error"><i class="fa fa-check"></i><b>9.2.1</b> Type I and Type II error</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="anova.html"><a href="anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.3</b> ANalysis Of VAriance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="anova.html"><a href="anova.html#f-test-statistic-for-anova"><i class="fa fa-check"></i><b>9.3.1</b> <span class="math inline">\(F\)</span> test statistic for ANOVA</a></li>
+<li class="chapter" data-level="9.3.2" data-path="anova.html"><a href="anova.html#calculating-an-anova-table"><i class="fa fa-check"></i><b>9.3.2</b> Calculating an ANOVA table</a></li>
+<li class="chapter" data-level="9.3.3" data-path="anova.html"><a href="anova.html#f-distribution"><i class="fa fa-check"></i><b>9.3.3</b> <span class="math inline">\(F\)</span> distribution</a></li>
+<li class="chapter" data-level="9.3.4" data-path="anova.html"><a href="anova.html#doing-this-in-r-16"><i class="fa fa-check"></i><b>9.3.4</b> Doing this in R</a></li>
+<li class="chapter" data-level="9.3.5" data-path="anova.html"><a href="anova.html#assumptions"><i class="fa fa-check"></i><b>9.3.5</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="anova.html"><a href="anova.html#identifying-differences-and-more-on-multiple-comparisons"><i class="fa fa-check"></i><b>9.4</b> Identifying differences (and more on multiple comparisons)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="anova.html"><a href="anova.html#bonferroni-correction"><i class="fa fa-check"></i><b>9.4.1</b> Bonferroni correction</a></li>
+<li class="chapter" data-level="9.4.2" data-path="anova.html"><a href="anova.html#sidak-adjustment"><i class="fa fa-check"></i><b>9.4.2</b> Sidak adjustment</a></li>
+<li class="chapter" data-level="9.4.3" data-path="anova.html"><a href="anova.html#tukeys-honest-significant-difference-hsd"><i class="fa fa-check"></i><b>9.4.3</b> Tukey’s Honest Significant Difference (HSD)</a></li>
+<li class="chapter" data-level="9.4.4" data-path="anova.html"><a href="anova.html#multiple-comparison-controversy"><i class="fa fa-check"></i><b>9.4.4</b> Multiple comparison controversy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="anova.html"><a href="anova.html#alternative-tests-to-anova"><i class="fa fa-check"></i><b>9.5</b> Alternative tests to ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="anova.html"><a href="anova.html#doing-this-in-r-18"><i class="fa fa-check"></i><b>9.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="anova.html"><a href="anova.html#SUManova"><i class="fa fa-check"></i><b>9.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="anova.html"><a href="anova.html#learning-outcomes-6"><i class="fa fa-check"></i><b>9.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="anova.html"><a href="anova.html#ANSanova"><i class="fa fa-check"></i><b>9.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="power.html"><a href="power.html"><i class="fa fa-check"></i><b>10</b> Statistical Power</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="power.html"><a href="power.html#INTpower"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="power.html"><a href="power.html#a-motivating-example---environmental-impact-assessment"><i class="fa fa-check"></i><b>10.2</b> A motivating example - Environmental impact assessment</a></li>
+<li class="chapter" data-level="10.3" data-path="power.html"><a href="power.html#calculating-power"><i class="fa fa-check"></i><b>10.3</b> Calculating power</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="power.html"><a href="power.html#increasing-the-power"><i class="fa fa-check"></i><b>10.3.1</b> Increasing the power</a></li>
+<li class="chapter" data-level="10.3.2" data-path="power.html"><a href="power.html#power-by-simulation"><i class="fa fa-check"></i><b>10.3.2</b> Power by simulation</a></li>
+<li class="chapter" data-level="10.3.3" data-path="power.html"><a href="power.html#multiple-comparisons-1"><i class="fa fa-check"></i><b>10.3.3</b> Multiple comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="power.html"><a href="power.html#SUMpower"><i class="fa fa-check"></i><b>10.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="power.html"><a href="power.html#learning-objectives-1"><i class="fa fa-check"></i><b>10.4.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="power.html"><a href="power.html#ANSpower"><i class="fa fa-check"></i><b>10.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="proportions.html"><a href="proportions.html"><i class="fa fa-check"></i><b>11</b> Proportions</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="proportions.html"><a href="proportions.html#INTprop"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals"><i class="fa fa-check"></i><b>11.2</b> Confidence intervals</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="proportions.html"><a href="proportions.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>11.2.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="11.2.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals-large-sample-sizes"><i class="fa fa-check"></i><b>11.2.2</b> Confidence intervals: large sample sizes</a></li>
+<li class="chapter" data-level="11.2.3" data-path="proportions.html"><a href="proportions.html#confidence-intervals-small-sample-sizes"><i class="fa fa-check"></i><b>11.2.3</b> Confidence intervals: small sample sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="proportions.html"><a href="proportions.html#comparing-two-proportions-the-z-test"><i class="fa fa-check"></i><b>11.3</b> Comparing two proportions: the <span class="math inline">\(z\)</span> test</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="proportions.html"><a href="proportions.html#testing-for-no-difference-between-groups"><i class="fa fa-check"></i><b>11.3.1</b> Testing for ‘no difference’ between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="proportions.html"><a href="proportions.html#ci-for-the-difference-between-population-proportions-p_1-p_2"><i class="fa fa-check"></i><b>11.4</b> CI for the difference between population proportions, (<span class="math inline">\(p_1-p_2\)</span>)</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="proportions.html"><a href="proportions.html#choosing-the-appropriate-standard-error-when-comparing-proportions"><i class="fa fa-check"></i><b>11.4.1</b> Choosing the appropriate standard error when comparing proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="proportions.html"><a href="proportions.html#odds-ratios"><i class="fa fa-check"></i><b>11.5</b> Odds ratios</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success"><i class="fa fa-check"></i><b>11.5.1</b> Calculating the odds of success</a></li>
+<li class="chapter" data-level="11.5.2" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success-for-2-x-2-tables"><i class="fa fa-check"></i><b>11.5.2</b> Calculating the odds of success for 2 x 2 tables</a></li>
+<li class="chapter" data-level="11.5.3" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-ratio"><i class="fa fa-check"></i><b>11.5.3</b> Calculating the odds ratio</a></li>
+<li class="chapter" data-level="11.5.4" data-path="proportions.html"><a href="proportions.html#confidence-intervals-for-odds-ratios"><i class="fa fa-check"></i><b>11.5.4</b> Confidence intervals for odds ratios</a></li>
+<li class="chapter" data-level="11.5.5" data-path="proportions.html"><a href="proportions.html#final-note-on-odds-ratios"><i class="fa fa-check"></i><b>11.5.5</b> Final note on odds ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="proportions.html"><a href="proportions.html#SUMprop"><i class="fa fa-check"></i><b>11.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="11.6.1" data-path="proportions.html"><a href="proportions.html#learning-outcomes-7"><i class="fa fa-check"></i><b>11.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="proportions.html"><a href="proportions.html#ANSprop"><i class="fa fa-check"></i><b>11.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="tableofcounts.html"><a href="tableofcounts.html"><i class="fa fa-check"></i><b>12</b> Tables of counts</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="tableofcounts.html"><a href="tableofcounts.html#introduction"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-goodness-of-fit-test"><i class="fa fa-check"></i><b>12.2</b> <span class="math inline">\(\chi^2\)</span> goodness-of-fit test</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-22"><i class="fa fa-check"></i><b>12.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-test-of-independence"><i class="fa fa-check"></i><b>12.3</b> <span class="math inline">\(\chi^2\)</span> test of independence</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-23"><i class="fa fa-check"></i><b>12.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="tableofcounts.html"><a href="tableofcounts.html#test-assumptions"><i class="fa fa-check"></i><b>12.4</b> Test assumptions</a></li>
+<li class="chapter" data-level="12.5" data-path="tableofcounts.html"><a href="tableofcounts.html#summary"><i class="fa fa-check"></i><b>12.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="tableofcounts.html"><a href="tableofcounts.html#learning-outcomes-8"><i class="fa fa-check"></i><b>12.5.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="tableofcounts.html"><a href="tableofcounts.html#answers"><i class="fa fa-check"></i><b>12.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>IV Regression and Linear Models</b></span></li>
+<li class="chapter" data-level="13" data-path="correg.html"><a href="correg.html"><i class="fa fa-check"></i><b>13</b> Correlation and Regression</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="correg.html"><a href="correg.html#introcorreg"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.2" data-path="correg.html"><a href="correg.html#correlation"><i class="fa fa-check"></i><b>13.2</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="correg.html"><a href="correg.html#significance-of-r"><i class="fa fa-check"></i><b>13.2.1</b> Significance of <span class="math inline">\(r\)</span></a></li>
+<li class="chapter" data-level="13.2.2" data-path="correg.html"><a href="correg.html#correlation-and-causation"><i class="fa fa-check"></i><b>13.2.2</b> Correlation and causation</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="correg.html"><a href="correg.html#regression"><i class="fa fa-check"></i><b>13.3</b> Regression</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="correg.html"><a href="correg.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>13.3.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="13.3.2" data-path="correg.html"><a href="correg.html#model-specification"><i class="fa fa-check"></i><b>13.3.2</b> Model specification</a></li>
+<li class="chapter" data-level="13.3.3" data-path="correg.html"><a href="correg.html#which-straight-line-to-choose"><i class="fa fa-check"></i><b>13.3.3</b> Which straight line to choose?</a></li>
+<li class="chapter" data-level="13.3.4" data-path="correg.html"><a href="correg.html#fitting-the-model-the-details"><i class="fa fa-check"></i><b>13.3.4</b> Fitting the model: the details</a></li>
+<li class="chapter" data-level="13.3.5" data-path="correg.html"><a href="correg.html#predictions"><i class="fa fa-check"></i><b>13.3.5</b> Predictions</a></li>
+<li class="chapter" data-level="13.3.6" data-path="correg.html"><a href="correg.html#the-variance-estimate"><i class="fa fa-check"></i><b>13.3.6</b> The variance estimate</a></li>
+<li class="chapter" data-level="13.3.7" data-path="correg.html"><a href="correg.html#introduction-to-the-matrix-form"><i class="fa fa-check"></i><b>13.3.7</b> Introduction to the matrix form</a></li>
+<li class="chapter" data-level="13.3.8" data-path="correg.html"><a href="correg.html#regression-in-practise"><i class="fa fa-check"></i><b>13.3.8</b> Regression in practise</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="correg.html"><a href="correg.html#SUMcorreg"><i class="fa fa-check"></i><b>13.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="correg.html"><a href="correg.html#learning-outcomes-9"><i class="fa fa-check"></i><b>13.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="correg.html"><a href="correg.html#ANScorreg"><i class="fa fa-check"></i><b>13.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="introlm.html"><a href="introlm.html"><i class="fa fa-check"></i><b>14</b> Introduction to the linear model</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="introlm.html"><a href="introlm.html#INTlm"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-a-t-test"><i class="fa fa-check"></i><b>14.2</b> The linear model as a <span class="math inline">\(t\)</span> test</a></li>
+<li class="chapter" data-level="14.3" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-analysis-of-variance"><i class="fa fa-check"></i><b>14.3</b> The linear model as analysis of variance</a></li>
+<li class="chapter" data-level="14.4" data-path="introlm.html"><a href="introlm.html#simple-linear-regression-again"><i class="fa fa-check"></i><b>14.4</b> Simple linear regression (again)</a></li>
+<li class="chapter" data-level="14.5" data-path="introlm.html"><a href="introlm.html#model-performance"><i class="fa fa-check"></i><b>14.5</b> Model performance</a></li>
+<li class="chapter" data-level="14.6" data-path="introlm.html"><a href="introlm.html#multiple-regression"><i class="fa fa-check"></i><b>14.6</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="introlm.html"><a href="introlm.html#the-eia-data-again"><i class="fa fa-check"></i><b>14.6.1</b> The EIA data again</a></li>
+<li class="chapter" data-level="14.6.2" data-path="introlm.html"><a href="introlm.html#model-specification-1"><i class="fa fa-check"></i><b>14.6.2</b> Model specification</a></li>
+<li class="chapter" data-level="14.6.3" data-path="introlm.html"><a href="introlm.html#types-of-covariates"><i class="fa fa-check"></i><b>14.6.3</b> Types of covariates</a></li>
+<li class="chapter" data-level="14.6.4" data-path="introlm.html"><a href="introlm.html#model-fitting"><i class="fa fa-check"></i><b>14.6.4</b> Model fitting</a></li>
+<li class="chapter" data-level="14.6.5" data-path="introlm.html"><a href="introlm.html#parameter-interpretation"><i class="fa fa-check"></i><b>14.6.5</b> Parameter Interpretation</a></li>
+<li class="chapter" data-level="14.6.6" data-path="introlm.html"><a href="introlm.html#parameter-uncertainty"><i class="fa fa-check"></i><b>14.6.6</b> Parameter uncertainty</a></li>
+<li class="chapter" data-level="14.6.7" data-path="introlm.html"><a href="introlm.html#confidence-intervals-cis-on-parameters"><i class="fa fa-check"></i><b>14.6.7</b> Confidence intervals (CIs) on parameters</a></li>
+<li class="chapter" data-level="14.6.8" data-path="introlm.html"><a href="introlm.html#hypothesis-testing"><i class="fa fa-check"></i><b>14.6.8</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="14.6.9" data-path="introlm.html"><a href="introlm.html#model-performance-1"><i class="fa fa-check"></i><b>14.6.9</b> Model performance</a></li>
+<li class="chapter" data-level="14.6.10" data-path="introlm.html"><a href="introlm.html#more-covariates-of-mixed-types"><i class="fa fa-check"></i><b>14.6.10</b> More covariates of mixed types</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="introlm.html"><a href="introlm.html#the-matrix-interpretation-of-a-linear-model"><i class="fa fa-check"></i><b>14.7</b> The matrix interpretation of a linear model</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="introlm.html"><a href="introlm.html#dummy-variables"><i class="fa fa-check"></i><b>14.7.1</b> Dummy variables</a></li>
+<li class="chapter" data-level="14.7.2" data-path="introlm.html"><a href="introlm.html#combining-factors-and-continuous-variables"><i class="fa fa-check"></i><b>14.7.2</b> Combining factors and continuous variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.8" data-path="introlm.html"><a href="introlm.html#SUMlm"><i class="fa fa-check"></i><b>14.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="14.8.1" data-path="introlm.html"><a href="introlm.html#learning-objectives-2"><i class="fa fa-check"></i><b>14.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="14.9" data-path="introlm.html"><a href="introlm.html#ANSlm"><i class="fa fa-check"></i><b>14.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="modelselection.html"><a href="modelselection.html"><i class="fa fa-check"></i><b>15</b> Model selection</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="modelselection.html"><a href="modelselection.html#INTmodsel"><i class="fa fa-check"></i><b>15.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="modelselection.html"><a href="modelselection.html#criteria-for-model-selection"><i class="fa fa-check"></i><b>15.1.1</b> Criteria for model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="modelselection.html"><a href="modelselection.html#collinearity"><i class="fa fa-check"></i><b>15.2</b> Collinearity</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="modelselection.html"><a href="modelselection.html#variance-inflation-factors"><i class="fa fa-check"></i><b>15.2.1</b> Variance inflation factors</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="modelselection.html"><a href="modelselection.html#p-value-based-model-selection-the-f-test"><i class="fa fa-check"></i><b>15.3</b> <span class="math inline">\(p\)</span>-value based model selection: the <span class="math inline">\(F\)</span>-test</a></li>
+<li class="chapter" data-level="15.4" data-path="modelselection.html"><a href="modelselection.html#relative-model-fit"><i class="fa fa-check"></i><b>15.4</b> Relative model fit</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="modelselection.html"><a href="modelselection.html#akaikes-information-criterion-aic"><i class="fa fa-check"></i><b>15.4.1</b> Akaike’s Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="modelselection.html"><a href="modelselection.html#other-methods-of-model-selection"><i class="fa fa-check"></i><b>15.5</b> Other methods of model selection</a></li>
+<li class="chapter" data-level="15.6" data-path="modelselection.html"><a href="modelselection.html#automated-variable-selection"><i class="fa fa-check"></i><b>15.6</b> Automated variable selection</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="modelselection.html"><a href="modelselection.html#stepwise-selection"><i class="fa fa-check"></i><b>15.6.1</b> Stepwise selection</a></li>
+<li class="chapter" data-level="15.6.2" data-path="modelselection.html"><a href="modelselection.html#all-possible-subsets-selection"><i class="fa fa-check"></i><b>15.6.2</b> All possible subsets selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="modelselection.html"><a href="modelselection.html#example-model-selection-with-the-medical-data"><i class="fa fa-check"></i><b>15.7</b> Example: model selection with the medical data</a>
+<ul>
+<li class="chapter" data-level="15.7.1" data-path="modelselection.html"><a href="modelselection.html#model-specification-3"><i class="fa fa-check"></i><b>15.7.1</b> Model specification</a></li>
+<li class="chapter" data-level="15.7.2" data-path="modelselection.html"><a href="modelselection.html#interpreting-the-parameter-estimates"><i class="fa fa-check"></i><b>15.7.2</b> Interpreting the parameter estimates</a></li>
+<li class="chapter" data-level="15.7.3" data-path="modelselection.html"><a href="modelselection.html#what-should-be-in-the-model"><i class="fa fa-check"></i><b>15.7.3</b> What ‘should’ be in the model?</a></li>
+<li class="chapter" data-level="15.7.4" data-path="modelselection.html"><a href="modelselection.html#what-terms-are-significant"><i class="fa fa-check"></i><b>15.7.4</b> What terms are significant?</a></li>
+<li class="chapter" data-level="15.7.5" data-path="modelselection.html"><a href="modelselection.html#more-automated-methods"><i class="fa fa-check"></i><b>15.7.5</b> More automated methods</a></li>
+</ul></li>
+<li class="chapter" data-level="15.8" data-path="modelselection.html"><a href="modelselection.html#SUMmodsel"><i class="fa fa-check"></i><b>15.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="15.8.1" data-path="modelselection.html"><a href="modelselection.html#learning-objectives-3"><i class="fa fa-check"></i><b>15.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="15.9" data-path="modelselection.html"><a href="modelselection.html#ANSmodsel"><i class="fa fa-check"></i><b>15.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="interac.html"><a href="interac.html"><i class="fa fa-check"></i><b>16</b> Interactions and the Linear Model</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="interac.html"><a href="interac.html#INTinterac"><i class="fa fa-check"></i><b>16.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="interac.html"><a href="interac.html#fitting-different-models"><i class="fa fa-check"></i><b>16.1.1</b> Fitting different models</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="interac.html"><a href="interac.html#fitting-interaction-terms"><i class="fa fa-check"></i><b>16.2</b> Fitting interaction terms</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="interac.html"><a href="interac.html#specifying-interactions-in-model-formulae"><i class="fa fa-check"></i><b>16.2.1</b> Specifying interactions in model formulae</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="interac.html"><a href="interac.html#interactions-in-practise"><i class="fa fa-check"></i><b>16.3</b> Interactions in practise</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="interac.html"><a href="interac.html#eia-data"><i class="fa fa-check"></i><b>16.3.1</b> EIA data</a></li>
+<li class="chapter" data-level="16.3.2" data-path="interac.html"><a href="interac.html#medical-data"><i class="fa fa-check"></i><b>16.3.2</b> Medical data</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="interac.html"><a href="interac.html#model-selection-and-interactions"><i class="fa fa-check"></i><b>16.4</b> Model selection and interactions</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-eia-data-set"><i class="fa fa-check"></i><b>16.4.1</b> Backwards selection in the EIA data set</a></li>
+<li class="chapter" data-level="16.4.2" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-medical-data-set"><i class="fa fa-check"></i><b>16.4.2</b> Backwards selection in the medical data set</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="interac.html"><a href="interac.html#SUMinterac"><i class="fa fa-check"></i><b>16.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="interac.html"><a href="interac.html#learning-objectives-4"><i class="fa fa-check"></i><b>16.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="interac.html"><a href="interac.html#ANSinterac"><i class="fa fa-check"></i><b>16.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>17</b> Prediction from the linear model</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="prediction.html"><a href="prediction.html#INTpred"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="prediction.html"><a href="prediction.html#prediction-1"><i class="fa fa-check"></i><b>17.2</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-27"><i class="fa fa-check"></i><b>17.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="prediction.html"><a href="prediction.html#uncertainty-in-the-prediction"><i class="fa fa-check"></i><b>17.3</b> Uncertainty in the prediction</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-28"><i class="fa fa-check"></i><b>17.3.1</b> Doing this in R</a></li>
+<li class="chapter" data-level="17.3.2" data-path="prediction.html"><a href="prediction.html#confidence-intervals-for-the-line"><i class="fa fa-check"></i><b>17.3.2</b> Confidence intervals for the line</a></li>
+<li class="chapter" data-level="17.3.3" data-path="prediction.html"><a href="prediction.html#prediction-intervals"><i class="fa fa-check"></i><b>17.3.3</b> Prediction intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="prediction.html"><a href="prediction.html#prediction-in-multiple-regression"><i class="fa fa-check"></i><b>17.4</b> Prediction in multiple regression</a></li>
+<li class="chapter" data-level="17.5" data-path="prediction.html"><a href="prediction.html#SUMpred"><i class="fa fa-check"></i><b>17.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="prediction.html"><a href="prediction.html#learning-objectives-5"><i class="fa fa-check"></i><b>17.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="prediction.html"><a href="prediction.html#ANSpred"><i class="fa fa-check"></i><b>17.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>18</b> Linear model diagnostics</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="diagnostics.html"><a href="diagnostics.html#INTdiag"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="diagnostics.html"><a href="diagnostics.html#predictive-power"><i class="fa fa-check"></i><b>18.2</b> Predictive power</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="diagnostics.html"><a href="diagnostics.html#signal-versus-noise"><i class="fa fa-check"></i><b>18.2.1</b> Signal versus noise</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="diagnostics.html"><a href="diagnostics.html#model-assumptions"><i class="fa fa-check"></i><b>18.3</b> Model assumptions</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="diagnostics.html"><a href="diagnostics.html#normality-assumption"><i class="fa fa-check"></i><b>18.3.1</b> Normality assumption</a></li>
+<li class="chapter" data-level="18.3.2" data-path="diagnostics.html"><a href="diagnostics.html#assessing-constant-error-variance"><i class="fa fa-check"></i><b>18.3.2</b> Assessing constant error variance</a></li>
+<li class="chapter" data-level="18.3.3" data-path="diagnostics.html"><a href="diagnostics.html#assessing-independence"><i class="fa fa-check"></i><b>18.3.3</b> Assessing independence</a></li>
+<li class="chapter" data-level="18.3.4" data-path="diagnostics.html"><a href="diagnostics.html#pseudoreplication"><i class="fa fa-check"></i><b>18.3.4</b> Pseudoreplication</a></li>
+<li class="chapter" data-level="18.3.5" data-path="diagnostics.html"><a href="diagnostics.html#linearity-in-the-model-for-the-signal"><i class="fa fa-check"></i><b>18.3.5</b> Linearity in the model for the signal</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="diagnostics.html"><a href="diagnostics.html#example-diagnostics-with-the-medical-data"><i class="fa fa-check"></i><b>18.4</b> Example: Diagnostics with the medical data</a></li>
+<li class="chapter" data-level="18.5" data-path="diagnostics.html"><a href="diagnostics.html#partial-residual-plots"><i class="fa fa-check"></i><b>18.5</b> Partial residual plots</a>
+<ul>
+<li class="chapter" data-level="18.5.1" data-path="diagnostics.html"><a href="diagnostics.html#doing-this-in-r-30"><i class="fa fa-check"></i><b>18.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="18.6" data-path="diagnostics.html"><a href="diagnostics.html#interaction-terms"><i class="fa fa-check"></i><b>18.6</b> Interaction Terms</a></li>
+<li class="chapter" data-level="18.7" data-path="diagnostics.html"><a href="diagnostics.html#SUMdiag"><i class="fa fa-check"></i><b>18.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="18.7.1" data-path="diagnostics.html"><a href="diagnostics.html#learning-outcomes-10"><i class="fa fa-check"></i><b>18.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="18.8" data-path="diagnostics.html"><a href="diagnostics.html#ANSdiag"><i class="fa fa-check"></i><b>18.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="nextsteps.html"><a href="nextsteps.html"><i class="fa fa-check"></i><b>19</b> The Next Steps</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="nextsteps.html"><a href="nextsteps.html#INTnext"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="nextsteps.html"><a href="nextsteps.html#solving-the-assumptional-problems"><i class="fa fa-check"></i><b>19.2</b> Solving the assumptional problems</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="nextsteps.html"><a href="nextsteps.html#example-the-eia-data"><i class="fa fa-check"></i><b>19.2.1</b> Example: The EIA data</a></li>
+<li class="chapter" data-level="19.2.2" data-path="nextsteps.html"><a href="nextsteps.html#oddly-distributed-residuals"><i class="fa fa-check"></i><b>19.2.2</b> Oddly distributed residuals</a></li>
+<li class="chapter" data-level="19.2.3" data-path="nextsteps.html"><a href="nextsteps.html#non-independence"><i class="fa fa-check"></i><b>19.2.3</b> Non-independence</a></li>
+<li class="chapter" data-level="19.2.4" data-path="nextsteps.html"><a href="nextsteps.html#non-linearity"><i class="fa fa-check"></i><b>19.2.4</b> Non-linearity</a></li>
+<li class="chapter" data-level="19.2.5" data-path="nextsteps.html"><a href="nextsteps.html#bootstrapping"><i class="fa fa-check"></i><b>19.2.5</b> Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="nextsteps.html"><a href="nextsteps.html#summary-1"><i class="fa fa-check"></i><b>19.3</b> Summary</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="nextsteps.html"><a href="nextsteps.html#learning-outcomes-11"><i class="fa fa-check"></i><b>19.3.1</b> Learning outcomes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="notation.html"><a href="notation.html"><i class="fa fa-check"></i><b>20</b> Notation {-}</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="notation.html"><a href="notation.html#summation"><i class="fa fa-check"></i><b>20.1</b> Summation</a></li>
+<li class="chapter" data-level="20.2" data-path="notation.html"><a href="notation.html#factorial"><i class="fa fa-check"></i><b>20.2</b> Factorial</a></li>
+<li class="chapter" data-level="20.3" data-path="notation.html"><a href="notation.html#combinations"><i class="fa fa-check"></i><b>20.3</b> Combinations</a></li>
+<li class="chapter" data-level="20.4" data-path="notation.html"><a href="notation.html#multiplication"><i class="fa fa-check"></i><b>20.4</b> Multiplication</a></li>
+<li class="chapter" data-level="20.5" data-path="notation.html"><a href="notation.html#integration"><i class="fa fa-check"></i><b>20.5</b> Integration</a></li>
+<li class="chapter" data-level="20.6" data-path="notation.html"><a href="notation.html#matrix-multiplication"><i class="fa fa-check"></i><b>20.6</b> Matrix multiplication</a></li>
+<li class="chapter" data-level="20.7" data-path="notation.html"><a href="notation.html#absolute-values"><i class="fa fa-check"></i><b>20.7</b> Absolute values</a></li>
+<li class="chapter" data-level="20.8" data-path="notation.html"><a href="notation.html#pi"><i class="fa fa-check"></i><b>20.8</b> <span class="math inline">\(\pi\)</span></a></li>
+<li class="chapter" data-level="20.9" data-path="notation.html"><a href="notation.html#exponential-function-e"><i class="fa fa-check"></i><b>20.9</b> Exponential function, <span class="math inline">\(e\)</span></a></li>
+<li class="chapter" data-level="20.10" data-path="notation.html"><a href="notation.html#intervals"><i class="fa fa-check"></i><b>20.10</b> Intervals</a></li>
+<li class="chapter" data-level="20.11" data-path="notation.html"><a href="notation.html#axes-on-plots"><i class="fa fa-check"></i><b>20.11</b> Axes on plots</a></li>
+<li class="chapter" data-level="20.12" data-path="notation.html"><a href="notation.html#probability-2"><i class="fa fa-check"></i><b>20.12</b> Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="diagnostics" class="section level1" number="18">
+<h1><span class="header-section-number">Chapter 18</span> Linear model diagnostics</h1>
+<div id="INTdiag" class="section level2" number="18.1">
+<h2><span class="header-section-number">18.1</span> Introduction</h2>
+<p>Linear models (simple linear regression and multiple regression models) come with assumptions that need to be considered in assessing whether a model is a “good” model in some sense. We have mentioned <span class="math inline">\(R^2\)</span> in part, which measures the proportion of variability explained by the model, but there are other considerations as well. Also, if the assumptions are not met, then any conclusions from the analysis may not be valid. In this chapter, we look at the model assumptions and how to check they are valid with data.</p>
+<!-- ```{r, echo=F, eval=T, warning=F, message=F, suppress.message=T} -->
+<!--   #load libraries and data -->
+<!--   library (car);library (stats) -->
+<!--   library(ggplot2, quietly=T) -->
+<!--   library(tidyr, quietly=T) -->
+<!--   library(dplyr, quietly=T) -->
+<!--   library (gridExtra, quietly=T) -->
+<!--   EIAData<- read.csv("data/EIA_dataset_for_lectures_V1.0.csv", header=T) -->
+<!--   # filter out near-shore data for our current purposes -->
+<!--   workingData<- EIAData%>%filter(DistCoast>100) -->
+<!--   options(digits=7) -->
+<!-- ``` -->
+<p>Fitting linear models is no problem - given a numeric response and some covariates,we can estimate parameters most of the time. Lots of different models may be possible and we want to select between them, or perhaps we have just one theoretical model we want to fit.</p>
+<p>How do we convince ourselves that the model is actually any good?</p>
+<ul>
+<li>Our linear models effectively consist of two parts - a mathematical description of the signal and another for the noise.</li>
+<li>We want to check these mathematical descriptions are reasonable given the data.</li>
+<li>We would have more confidence in our predictions, or descriptions, obtained from the model if these <em>assumptions</em> (based on the mathematical descriptions) are met.</li>
+</ul>
+</div>
+<div id="predictive-power" class="section level2" number="18.2">
+<h2><span class="header-section-number">18.2</span> Predictive power</h2>
+<p>We have previously seen the <span class="math inline">\(R^2\)</span> statistic:</p>
+<ul>
+<li><p>This can be calculated as the squared correlation between <span class="math inline">\(y\)</span> and <span class="math inline">\(\hat{y}\)</span> i.e. agreement between what we observed, <span class="math inline">\(y\)</span> and what the model predicts, <span class="math inline">\(\hat y\)</span>.</p></li>
+<li><p>It can be interpreted as the proportion of variance explained by the model:</p></li>
+</ul>
+<p><span class="math display">\[R^2 = 1-\frac{\sum_i (y_i-\hat{y}_i)^2}{\sum_i (y_i-\bar{y})^2} =1 - \frac{SS_{\rm error}}{SS_{\rm total}}\]</span>
+The <span class="math inline">\(R^2\)</span> is frequently touted as a measure of the predictive power of the model. Take this with a grain of salt:</p>
+<ul>
+<li>An over-fitted model can have a great <span class="math inline">\(R^2\)</span>, but will predict poorly (you explain your particular sample well, but little else).</li>
+<li>A really good <span class="math inline">\(R^2\)</span> might be suspicious - have you somehow effectively included the response on both sides of the equation?</li>
+</ul>
+<p>Nonetheless a good <span class="math inline">\(R^2\)</span> is reassuring, but what is a good <span class="math inline">\(R^2\)</span>?</p>
+<ul>
+<li><p>This is context specific - some things we model have inherently a very low signal-to-noise ratio.</p></li>
+<li><p>While <span class="math inline">\(R^2\)</span> scores may be <em>indicative</em> of predictive power, low values do not mean your model is wrong.</p></li>
+<li><p>It is easy to see that data with high variance could return a low score (since the data will be highly variable), even if we have the correct model for our data.</p></li>
+</ul>
+<p><strong>What is the <span class="math inline">\(R^2\)</span> for models fitted to EIA data?</strong></p>
+<p>Let’s fit a couple of models to the EIA data - one without interactions (<code>model1</code>), the other with interactions (<code>model2</code>) and look at the summaries, in particular the <code>Multiple R-squared</code> value:</p>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="diagnostics.html#cb518-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify month as a factor</span></span>
+<span id="cb518-2"><a href="diagnostics.html#cb518-2" aria-hidden="true" tabindex="-1"></a><span class="co">#wfdata$month &lt;- as.factor(wfdata$month)</span></span>
+<span id="cb518-3"><a href="diagnostics.html#cb518-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb518-4"><a href="diagnostics.html#cb518-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Model without interactions  </span></span>
+<span id="cb518-5"><a href="diagnostics.html#cb518-5" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Density <span class="sc">~</span> XPos <span class="sc">+</span> YPos <span class="sc">+</span> DistCoast <span class="sc">+</span> Depth <span class="sc">+</span> Month <span class="sc">+</span> Phase,</span>
+<span id="cb518-6"><a href="diagnostics.html#cb518-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">data=</span>wfdata)</span>
+<span id="cb518-7"><a href="diagnostics.html#cb518-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Model with XPos:Phase interaction</span></span>
+<span id="cb518-8"><a href="diagnostics.html#cb518-8" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Density <span class="sc">~</span> XPos <span class="sc">+</span> YPos <span class="sc">+</span> DistCoast <span class="sc">+</span> Depth <span class="sc">+</span> Month <span class="sc">+</span> Phase <span class="sc">+</span></span>
+<span id="cb518-9"><a href="diagnostics.html#cb518-9" aria-hidden="true" tabindex="-1"></a>               XPos<span class="sc">:</span>Phase, <span class="at">data=</span>wfdata)</span></code></pre></div>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="diagnostics.html#cb519-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary</span></span>
+<span id="cb519-2"><a href="diagnostics.html#cb519-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = Density ~ XPos + YPos + DistCoast + Depth + Month + 
+    Phase, data = wfdata)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+ -10.63   -5.17   -3.22   -0.17 1716.61 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 3269.33501  269.04550  12.152  &lt; 2e-16 ***
+XPos           0.11797    0.01197   9.854  &lt; 2e-16 ***
+YPos          -0.55219    0.04443 -12.427  &lt; 2e-16 ***
+DistCoast     -0.31312    0.06938  -4.513  6.4e-06 ***
+Depth         -0.45319    0.04080 -11.108  &lt; 2e-16 ***
+Month          0.32118    0.14594   2.201   0.0278 *  
+PhaseB         0.26627    0.35312   0.754   0.4508    
+PhaseC        -1.06083    0.45880  -2.312   0.0208 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 27.87 on 31494 degrees of freedom
+Multiple R-squared:  0.01293,   Adjusted R-squared:  0.01271 
+F-statistic: 58.93 on 7 and 31494 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="diagnostics.html#cb521-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary</span></span>
+<span id="cb521-2"><a href="diagnostics.html#cb521-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = Density ~ XPos + YPos + DistCoast + Depth + Month + 
+    Phase + XPos:Phase, data = wfdata)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+ -11.08   -5.11   -3.22   -0.15 1717.19 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  3.291e+03  2.694e+02  12.214  &lt; 2e-16 ***
+XPos         8.507e-02  1.944e-02   4.375 1.22e-05 ***
+YPos        -5.520e-01  4.444e-02 -12.422  &lt; 2e-16 ***
+DistCoast   -3.150e-01  6.937e-02  -4.542 5.60e-06 ***
+Depth       -4.528e-01  4.079e-02 -11.100  &lt; 2e-16 ***
+Month        3.218e-01  1.459e-01   2.205  0.02744 *  
+PhaseB      -4.927e+01  1.732e+01  -2.844  0.00446 ** 
+PhaseC      -3.923e+00  2.125e+01  -0.185  0.85349    
+XPos:PhaseB  7.276e-02  2.544e-02   2.860  0.00424 ** 
+XPos:PhaseC  4.195e-03  3.121e-02   0.134  0.89307    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 27.87 on 31492 degrees of freedom
+Multiple R-squared:  0.01324,   Adjusted R-squared:  0.01296 
+F-statistic: 46.95 on 9 and 31492 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ul>
+<li>We see the <code>model1</code> and <code>model2</code> describe 12.7% and 13.0% of the sample variance, respectively.</li>
+<li>The more complicated model (<code>model2</code>) describes more variability in the data, as we might expect (the simpler model is just the more complex one with some terms removed).</li>
+<li>13% may not sound a lot - but things in the natural world are complex - there is likely to always be a lot of stuff we can’t explain. (We would think <span class="math inline">\(\sim 20\%\)</span> is pretty good!)</li>
+<li>A <em>good</em> <span class="math inline">\(R^2\)</span> is context specific - it need not be large for the model to be good/useful.</li>
+</ul>
+<div id="signal-versus-noise" class="section level3" number="18.2.1">
+<h3><span class="header-section-number">18.2.1</span> Signal versus noise</h3>
+<p>Recall - we’re breaking our observed data down into two broad components: signal (explained by a model) and noise (see below). The example below is a linear model - despite being wiggly.</p>
+<p>In more mathematical terms, the data can be described as a signal plus noise which in turn can be considered as:</p>
+<p><span class="math display">\[{\rm outcome} = {\rm model} + \rm{noise}\]</span></p>
+<p>which we can think of as:</p>
+<p><span class="math display">\[y=f({\rm covariates}) + {\rm noise}\]</span></p>
+<p>where the model for the signal is all the bits we put in <span class="math inline">\(f(.)\)</span>. Things like</p>
+<p><span class="math display">\[f(x) = \beta_0 + \beta_1x_1 + \beta_2 x_2 + \beta_3(x_1 \times x_2) + ... \beta_p x_s\]</span></p>
+<p>The model for the noise captures all the bits left over after <span class="math inline">\(f(\textrm{covariates})\)</span> is subtracted from the response:
+<span class="math display">\[y - f(x) = {\rm noise}\]</span></p>
+<ul>
+<li>We model the noise using probability distributions (noise is supposed to be stochastic (random) after all).</li>
+<li>We will only use one distribution - the normal distribution but distributions are possible.</li>
+<li>Therefore, when we estimate and subtract the signal from the response, the stuff left over should look like (independent) draws from a single normal distribution.</li>
+</ul>
+</div>
+</div>
+<div id="model-assumptions" class="section level2" number="18.3">
+<h2><span class="header-section-number">18.3</span> Model assumptions</h2>
+<p>The commonly quoted list of assumptions for linear models relate mainly to the noise. We assume the <em>errors</em>:</p>
+<ol style="list-style-type: decimal">
+<li><p>are well described by a normal distribution, with a mean of zero.</p></li>
+<li><p>have constant variance (quantified by <span class="math inline">\(\sigma^2\)</span>) and are not related to the mean of the fitted values (or anything else),</p></li>
+<li><p>are independent of each other.</p></li>
+</ol>
+<p>We also assume our model for the signal is correct - but if it were not, this might be evidenced in the estimated errors.</p>
+<div id="normality-assumption" class="section level3" number="18.3.1">
+<h3><span class="header-section-number">18.3.1</span> Normality assumption</h3>
+<p>We assume one normal distribution provides the (independent) noise. This is the same assumption we encountered earlier so once the signal has been subtracted from the response, differences should be indistinguishable from random draws from a normal distribution. A normal distribution has two parameters - mean and variance (or standard deviation). The mean should be zero and there is only one variance governing it, hence the constant variance assumption.</p>
+<p>The noise is the response with the model for the signal subtracted i.e. <span class="math inline">\(y-\hat{y}\)</span>, the residuals. Therefore, to examine noise, we look at the distribution of the residuals. What do we expect to see?</p>
+<p>Once we remove <span class="math inline">\(\hat{y}\)</span> from our <span class="math inline">\(y\)</span>, the remains ought to look something like these shapes (variances, or spread, may vary) (Figure <a href="diagnostics.html#fig:normdraws1">18.1</a>).</p>
+<!--```{r normdraws1, echo=F, fig.cap='Draws from a standard normal distribution.', dev='png'}
+set.seed(2443)
+
+par(mfrow=c(1,2))
+
+ydat<- seq(-3, 3, length=100)
+
+plot(ydat, dnorm(ydat, 0, 1), type='l', ylab='density', xlab='Y', main='A normal distribution N(0,1)')
+
+hist(rnorm(1000, 0, 1), ylab='freq', xlab='Y', main='1000 draws from this normal')
+
+```-->
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:normdraws1"></span>
+<img src="IntroStats_files/figure-html/normdraws1-1.png" alt="Residuals plotted against explanatory variable X and show a broad band of scatter above and below the blue line. The histogram is the distribution of residuals and indicates that the mean is zero." width="480" />
+<p class="caption">
+Figure 18.1: Residuals plotted against explanatory variable X and show a broad band of scatter above and below the blue line. The histogram is the distribution of residuals and indicates that the mean is zero.
+</p>
+</div>
+<div id="assessing-normality" class="section level4" number="18.3.1.1">
+<h4><span class="header-section-number">18.3.1.1</span> Assessing Normality</h4>
+<p>There are two main approaches to assessing whether data are normally distributed:</p>
+<ul>
+<li><p>A somewhat, qualitative assessment from plotting either:</p>
+<ul>
+<li>a histogram of residuals, or</li>
+<li>a QQ-Norm plot of residuals</li>
+</ul></li>
+<li><p>A formal test of normality (there are several) e.g.</p>
+<ul>
+<li>Wilks-Shapiro test for normality</li>
+<li>Kolmogorov-Smirnov test for normality</li>
+</ul></li>
+</ul>
+<p><strong>Histogram of residuals</strong></p>
+<p>If we look at the residuals from <code>model1</code> fitted to the EIA data (Figure <a href="diagnostics.html#fig:normdraws2">18.2</a>), the residuals appear to be right skewed compared with what we would expect from a normal distribution.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:normdraws2"></span>
+<img src="IntroStats_files/figure-html/normdraws2-1.png" alt="EIA model residuals compared to a normal distribution" width="480" />
+<p class="caption">
+Figure 18.2: EIA model residuals compared to a normal distribution
+</p>
+</div>
+<p><strong>QQ-Norm plots</strong></p>
+<p>QQ (Quantile-Quantile)-Norm plots:</p>
+<ul>
+<li>display the quantiles of two sets of data (in essence their distributions) against one another.</li>
+<li>If their shapes are similar, then you tend to get a straight line.</li>
+<li>For a QQ-Norm plot, a normal distribution is the reference distribution.</li>
+<li>If your data is roughly normally distributed, the QQ-Norm plot should be a straight(-ish) line.</li>
+<li>Note: small samples can be a bit wiggly, even if normally distributed.</li>
+</ul>
+<p>For our <code>model1</code> the residuals are plotted in Figure <a href="diagnostics.html#fig:model1qq">18.3</a> in comparison to actual normal residuals (right).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:model1qq"></span>
+<img src="IntroStats_files/figure-html/model1qq-1.png" alt="Left. QQ-norm plot of the residuals from `model1`., Right. QQ-norm plot of normally distributed residuals" width="480" />
+<p class="caption">
+Figure 18.3: Left. QQ-norm plot of the residuals from <code>model1</code>., Right. QQ-norm plot of normally distributed residuals
+</p>
+</div>
+<p>A QQ-Norm plot is created by sorting the residuals in order and plotting against the <strong>standardised</strong> quantiles for the distribution of interest for a given range of probabilities. Typically the <span class="math inline">\(i\)</span>th point is given by:
+<span class="math display">\[p(i) = i/(n+1)\]</span></p>
+<p>If <span class="math inline">\(n\)</span> is 200 then the quantiles are 1/200, 2/201,3/201…200/201.</p>
+<p>The quantiles from a normal distribution can be obtained by <code>qnorm</code> in R. The code to illustrate a QQ-Norm plot is shown below. In the EIA data, we have <span class="math inline">\(n = 31502\)</span>.</p>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="diagnostics.html#cb523-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort residuals - smallest to largest</span></span>
+<span id="cb523-2"><a href="diagnostics.html#cb523-2" aria-hidden="true" tabindex="-1"></a>sortedresiduals <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">residuals</span>(model1))</span>
+<span id="cb523-3"><a href="diagnostics.html#cb523-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of residuals</span></span>
+<span id="cb523-4"><a href="diagnostics.html#cb523-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">length</span>(sortedresiduals))</span></code></pre></div>
+<pre><code>[1] 31502</code></pre>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="diagnostics.html#cb525-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain points </span></span>
+<span id="cb525-2"><a href="diagnostics.html#cb525-2" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">31503</span>, <span class="dv">31502</span><span class="sc">/</span><span class="dv">31503</span>, <span class="at">by =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">31503</span>)</span>
+<span id="cb525-3"><a href="diagnostics.html#cb525-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain theoretical quantiles (using standard normal)</span></span>
+<span id="cb525-4"><a href="diagnostics.html#cb525-4" aria-hidden="true" tabindex="-1"></a>stannorm <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(pts)</span>
+<span id="cb525-5"><a href="diagnostics.html#cb525-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check length</span></span>
+<span id="cb525-6"><a href="diagnostics.html#cb525-6" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(stannorm)</span></code></pre></div>
+<pre><code>[1] 31502</code></pre>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="diagnostics.html#cb527-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot theoretical quantils against sorted residuals</span></span>
+<span id="cb527-2"><a href="diagnostics.html#cb527-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(stannorm, sortedresiduals)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:handmade"></span>
+<img src="IntroStats_files/figure-html/handmade-1.png" alt="&quot;Handmade&quot; QQ-norm plot of the EIA model residuals" width="480" />
+<p class="caption">
+Figure 18.4: “Handmade” QQ-norm plot of the EIA model residuals
+</p>
+</div>
+<p><strong>Shapiro-Wilks test for normality</strong></p>
+<p>The research hypothesis for this test is in the title, i.e. is the data normally distributed? The Shapiro-Wilks (S-W) test is complicated but it <em>sort of</em> produces a statistic which relates to the straightness of the QQ-norm plot.</p>
+<p>The null hypothesis is <span class="math inline">\(H_0\)</span>: the data are normally distributed.</p>
+<ul>
+<li>If the <em>p</em>-value is large (e.g. <span class="math inline">\(&gt;0.05\)</span>) then we fail to reject <span class="math inline">\(H_0\)</span>, i.e. the data is plausibly normally distributed.</li>
+</ul>
+<p>The S-W test for <code>model1</code> is:</p>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="diagnostics.html#cb528-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">sample</span>(<span class="fu">residuals</span>(model1), <span class="at">size=</span><span class="dv">3000</span>, <span class="at">replace=</span><span class="cn">FALSE</span>))</span></code></pre></div>
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  sample(residuals(model1), size = 3000, replace = FALSE)
+W = 0.14597, p-value &lt; 2.2e-16</code></pre>
+<p>N.B. R allows only a maximum of 3000 points entered into the Shapiro-Wilks tests hence the use of the <code>sample</code> command to select a random sample of points.</p>
+<p>From the plots and output, we conclude that for <code>model1</code>:</p>
+<ul>
+<li><p>The data are not normally distributed</p>
+<ul>
+<li>The histogram is right skewed</li>
+<li>The points in the QQ-Norm plot do not lie on straight line</li>
+<li>The <em>p</em>-value for the S-W test is very small - we reject the null hypothesis that the data is normally distributed.</li>
+</ul></li>
+</ul>
+<p>The skewness could be affecting the inference about model parameters, and we would have to resort to a method which does not assume normality (e.g. a bootstrap-based method) for comparison.</p>
+<p>We advise using QQ-Norm plots for ascertaining if residuals are normally distributed (others may disagree):</p>
+<ul>
+<li>We only require the noise model is approximately normal (and there are <em>no</em> normal distributions in reality)</li>
+<li>Large samples tend to fail normality tests even though they are very close to normal.</li>
+</ul>
+</div>
+</div>
+<div id="assessing-constant-error-variance" class="section level3" number="18.3.2">
+<h3><span class="header-section-number">18.3.2</span> Assessing constant error variance</h3>
+<p>We assume the <em>errors</em> (our model for the noise) are well described by a normal distribution with mean zero and variance (<span class="math inline">\(\sigma^2\)</span>), i.e. <span class="math inline">\(\epsilon \sim N(0,\sigma^2)\)</span>. We can assess the assumptions about the errors using the estimates for these errors, the residuals (<span class="math inline">\(y-\hat{y}\)</span>).</p>
+<ul>
+<li><p>We assume error variance is a constant and does not increase or decrease with covariates or the fitted values. Of course - it’s only one normal distribution!</p></li>
+<li><p>If this assumption is violated then the standard errors and <span class="math inline">\(p\)</span>-values associated with each covariate will be the wrong size.</p></li>
+<li><p>We can check this assumption visually by plotting the fitted values (<span class="math inline">\(\hat{y}\)</span>) versus the residuals.</p></li>
+<li><p>We should see a pattern-less horizontal band if constant error variance is reasonable (e.g. see code below).</p></li>
+<li><p>We can also check this more formally using a <strong>Breusch-Pagan test</strong> (<span class="math inline">\(H_0\)</span>: constant error variance) and non-constant error variance is evidenced by a large test statistic and small <span class="math inline">\(p\)</span>-value.</p></li>
+</ul>
+<p>We compare these tests for residuals that are normally distributed and the residuals from <code>model1</code>. First, the ‘perfect’ data (Figure <a href="diagnostics.html#fig:perfect2">18.5</a>).</p>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="diagnostics.html#cb530-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate perfect data</span></span>
+<span id="cb530-2"><a href="diagnostics.html#cb530-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">101</span>)</span>
+<span id="cb530-3"><a href="diagnostics.html#cb530-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">1000</span>)</span>
+<span id="cb530-4"><a href="diagnostics.html#cb530-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>x<span class="sc">+</span><span class="fu">rnorm</span> (<span class="dv">1000</span>,<span class="dv">0</span>,<span class="dv">5</span>)</span>
+<span id="cb530-5"><a href="diagnostics.html#cb530-5" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span> (x,y)</span>
+<span id="cb530-6"><a href="diagnostics.html#cb530-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model to perfect data</span></span>
+<span id="cb530-7"><a href="diagnostics.html#cb530-7" aria-hidden="true" tabindex="-1"></a>modelperfect <span class="ot">&lt;-</span> <span class="fu">lm</span> (y<span class="sc">~</span>x)</span>
+<span id="cb530-8"><a href="diagnostics.html#cb530-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot fitted values against residuals</span></span>
+<span id="cb530-9"><a href="diagnostics.html#cb530-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (<span class="fu">fitted</span>(modelperfect), <span class="fu">residuals</span>(modelperfect))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:perfect2"></span>
+<img src="IntroStats_files/figure-html/perfect2-1.png" alt="Plot of fitted values against residuals - there is no pattern in the residuals." width="480" />
+<p class="caption">
+Figure 18.5: Plot of fitted values against residuals - there is no pattern in the residuals.
+</p>
+</div>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="diagnostics.html#cb531-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Formal test</span></span>
+<span id="cb531-2"><a href="diagnostics.html#cb531-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ncvTest</span>(modelperfect)</span></code></pre></div>
+<pre><code>Non-constant Variance Score Test 
+Variance formula: ~ fitted.values 
+Chisquare = 0.6569132, Df = 1, p = 0.41765</code></pre>
+<p>The <span class="math inline">\(p\)</span>-value associated with the test statistic for normally distributed data is 0.42 which suggests unsurprisingly, no problem.</p>
+<p>Compare this to the residuals from <code>model1</code> which show a very distinct pattern (Figure <a href="diagnostics.html#fig:model1fitsresr">18.6</a>):</p>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="diagnostics.html#cb533-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot fitted values against residuals</span></span>
+<span id="cb533-2"><a href="diagnostics.html#cb533-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (<span class="fu">fitted</span> (model1), <span class="fu">residuals</span> (model1))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:model1fitsresr"></span>
+<img src="IntroStats_files/figure-html/model1fitsresr-1.png" alt="Plot of fitted values against residuals from the EIA model1 showing a distinct pattern." width="480" />
+<p class="caption">
+Figure 18.6: Plot of fitted values against residuals from the EIA model1 showing a distinct pattern.
+</p>
+</div>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="diagnostics.html#cb534-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Formal test</span></span>
+<span id="cb534-2"><a href="diagnostics.html#cb534-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ncvTest</span>(model1)</span></code></pre></div>
+<pre><code>Non-constant Variance Score Test 
+Variance formula: ~ fitted.values 
+Chisquare = 26372.76, Df = 1, p = &lt; 2.22e-16</code></pre>
+<p>The residuals in Figure <a href="diagnostics.html#fig:model1fitsresr">18.6</a> appear to violate the constant error variance assumption;</p>
+<ul>
+<li>the variance of the residuals appears to increase with the fitted values, and</li>
+<li>there is also a boundary effect because the density cannot be less than one.</li>
+<li>The Breusch-Pagan test suggests strong evidence of non-constant error variance (<span class="math inline">\(p\)</span>-value&lt;0.0001).</li>
+</ul>
+<p>Figure <a href="diagnostics.html#fig:model1fitsresr">18.6</a> has many points and is therefore very difficult to interpret:</p>
+<ul>
+<li>For this reason, uncluttering this plot by dividing the fitted range into non-overlapping categories and calculating the variance of the residuals in each category is helpful, for example (Figure <a href="diagnostics.html#fig:unclutteredvarplot">18.7</a>).</li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unclutteredvarplot"></span>
+<img src="IntroStats_files/figure-html/unclutteredvarplot-1.png" alt="The fitted values against the variance of the residuals (simplified) for a model similar to the interaction based model. The variance assumed under the model is represented by the solid horizontal line." width="60%" />
+<p class="caption">
+Figure 18.7: The fitted values against the variance of the residuals (simplified) for a model similar to the interaction based model. The variance assumed under the model is represented by the solid horizontal line.
+</p>
+</div>
+<p>It can clearly be seen that the variance does increase with an increase in fitted values.</p>
+<p>In the models we have fitted to the EIA data, there is:</p>
+<ul>
+<li><p>An increasing mean-variance relationship:</p>
+<ul>
+<li>The residual variance clearly increases with the fitted values (Figure <a href="diagnostics.html#fig:model1fitsresr">18.6</a>) which violates a key assumption.</li>
+<li>At this point any model conclusions are purely speculative - we need to improve our model before we can reliably interpret any <span class="math inline">\(p\)</span>-values.</li>
+</ul></li>
+<li><p>We have not commented on the negative densities predicted by the model (Figure <a href="diagnostics.html#fig:model1fitsresr">18.6</a>, x-axis):</p>
+<ul>
+<li>We can also see the current model returns negative fitted values, while the input data (counts/area) are never negative.</li>
+<li>This is a common problem when fitting normal-errors based models to continuous data that is bounded by zero. We will address this problem in the next chapter.</li>
+</ul></li>
+</ul>
+</div>
+<div id="assessing-independence" class="section level3" number="18.3.3">
+<h3><span class="header-section-number">18.3.3</span> Assessing independence</h3>
+<p>A crucial model assumption is that the errors are independent and are not correlated in time/space. This assumption is really, really, important!</p>
+<ul>
+<li>Violation of this assumption means the standard errors and <span class="math inline">\(p\)</span>-values are systematically too small (or large) and we risk drawing the wrong conclusion about model covariates.</li>
+</ul>
+<p>We can visually check for correlation in the residuals by plotting the residuals in observation order (if observation order is relevant) and, if we have independence, there should be no systematic patterns (e.g. Figure <a href="diagnostics.html#fig:SimIndep">18.8</a>).</p>
+<p>The null hypothesis of uncorrelated errors can also be formally tested using a <strong>Durbin-Watson test</strong>:</p>
+<ul>
+<li>This test is based on the idea that if consecutive residuals are correlated then consecutive residuals will be related,</li>
+<li>The null hypothesis is that the residuals are uncorrelated, i.e. <span class="math inline">\(H_0: \rho=0\)</span> (e.g. Figure <a href="diagnostics.html#fig:SimIndep">18.8</a>), versus the alternative hypothesis that <span class="math inline">\(H_1: \rho \neq 0\)</span>,</li>
+<li>a test statistic is generated based on sequential differences in the residuals.</li>
+<li>The test statistic is then compared against a critical value and this determines the associated <span class="math inline">\(p\)</span>-value.</li>
+<li>As with other hypothesis tests, a small <span class="math inline">\(p\)</span>-value provides evidence against <span class="math inline">\(H_0\)</span> and would suggest correlated errors.</li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:SimIndep"></span>
+<img src="figures/simindep.png" alt="Residuals from a model fitted to data simulated under a linear model with normal errors, plotted in order.There is no systematic pattern in the residuals and they switch between positive and negative residuals at random." width="60%" />
+<p class="caption">
+Figure 18.8: Residuals from a model fitted to data simulated under a linear model with normal errors, plotted in order.There is no systematic pattern in the residuals and they switch between positive and negative residuals at random.
+</p>
+</div>
+<p>The residuals of <code>model1</code> appear to be correlated when plotted in observation order (Figure <a href="diagnostics.html#fig:mod1res">18.9</a>) and the Durbin Watson test (below) confirms this positive correlation:</p>
+<ul>
+<li>the correlation coefficient is <span class="math inline">\(0.15\)</span> and the <span class="math inline">\(p\)</span>-value is extremely small).</li>
+</ul>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="diagnostics.html#cb536-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb536-2"><a href="diagnostics.html#cb536-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot first 100 points </span></span>
+<span id="cb536-3"><a href="diagnostics.html#cb536-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (<span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">100</span>), <span class="fu">residuals</span>(model1)[<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Sequence&quot;</span>)</span>
+<span id="cb536-4"><a href="diagnostics.html#cb536-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">100</span>), <span class="fu">residuals</span>(model1)[<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>])</span>
+<span id="cb536-5"><a href="diagnostics.html#cb536-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span> (<span class="at">h=</span><span class="dv">0</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:mod1res"></span>
+<img src="IntroStats_files/figure-html/mod1res-1.png" alt="The first 100 residuals in model1" width="480" />
+<p class="caption">
+Figure 18.9: The first 100 residuals in model1
+</p>
+</div>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="diagnostics.html#cb537-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Formal test</span></span>
+<span id="cb537-2"><a href="diagnostics.html#cb537-2" aria-hidden="true" tabindex="-1"></a><span class="fu">durbinWatsonTest</span>(model1)</span></code></pre></div>
+<pre><code> lag Autocorrelation D-W Statistic p-value
+   1       0.1495375      1.700924       0
+ Alternative hypothesis: rho != 0</code></pre>
+<p>In this case, we could be falsely concluding that one, or more variables, are related to the response because the standard errors are underestimated because of the positive correlation.</p>
+</div>
+<div id="pseudoreplication" class="section level3" number="18.3.4">
+<h3><span class="header-section-number">18.3.4</span> Pseudoreplication</h3>
+<p>Independence may by violated in more philosophical ways which cannot be detected by a test e.g. pseudoreplication.</p>
+<p>Pseudoreplication is an inappropriate level of replication for the hypothesis under consideration. For example, if we were interested in the question “Does drinking a cup of coffee raise blood sugar?” a ‘control’ person could be given a glass of warm water and a ‘treatment’ person a cup of coffee. Twenty blood samples could be then be taken from each subject. However, it would be wrong to assume this was a sample size of 40 because the samples are not independent. In reality, we have two samples, one from each person. Treating the data points as 40 independent samples would be an example of pseudo replication.</p>
+<p>However, pseudoreplication can be difficult to spot. Imagine we were investigating the hypothesis that chimps change their activity when in zoos. It would be tempting to sample the behaviour (for example, frequency of face scratching per hour) of 20 chimps from say Edinburgh zoo and compare them to 20 chimps from a troop of chimps in the wild. But is this really 40 independent data points? Perhaps the appropriate sampling unit is “troop” so we really only have two data points (a mean from each chimp group).</p>
+</div>
+<div id="linearity-in-the-model-for-the-signal" class="section level3" number="18.3.5">
+<h3><span class="header-section-number">18.3.5</span> Linearity in the model for the signal</h3>
+<p>The signal in the simple linear model is assumed to be linear. Despite the name `linear’ model, this <em>does not</em> mean simple straight lines apply. For example, this is a linear model, but can be very curvaceous:</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4 x^4 + ... + \beta_p x^p + \epsilon
+\]</span></p>
+<p>However, this type of model is beyond this module.</p>
+<p>When fitting regression models it is useful to ask the questions:</p>
+<ul>
+<li>Have I fitted straight lines where curves should be used?</li>
+<li>Have I included the covariates that give rise to the signal?</li>
+<li>Have I fitted factors where appropriate?</li>
+</ul>
+<p><strong>Single variable case</strong></p>
+<p>With only one explanatory variable, non-linearity will be easy to spot by simply plotting the variables i.e. <span class="math inline">\(x\)</span> against <span class="math inline">\(y\)</span>. Examples are shown in Figure <a href="diagnostics.html#fig:nonlinplots">18.10</a>:</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:nonlinplots"></span>
+<img src="IntroStats_files/figure-html/nonlinplots-1.png" alt="Non-linear signals in the data. Two sets of data that show different non-linear signals between the response and explanatory variables." width="480" />
+<p class="caption">
+Figure 18.10: Non-linear signals in the data. Two sets of data that show different non-linear signals between the response and explanatory variables.
+</p>
+</div>
+<p>More formally, we typically plot a ‘fits-residual’ plot (i.e. fitted values on the <span class="math inline">\(x\)</span>-axis and residuals on the <span class="math inline">\(y\)</span>-axis) as previously used to check for non-constant error variance but it can also be used to check for nonlinearity.<br/>
+<strong>Example</strong> Consider the non-linear data in Figure <a href="diagnostics.html#fig:nonlinplots">18.10</a>. The corresponding fits-residual plots are shown in (Figure <a href="diagnostics.html#fig:fitsres2">18.11</a>) and these indicate distinct patterns.</p>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="diagnostics.html#cb539-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span> (<span class="at">mfrow =</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)))</span>
+<span id="cb539-2"><a href="diagnostics.html#cb539-2" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span> (y1<span class="sc">~</span>x1)</span>
+<span id="cb539-3"><a href="diagnostics.html#cb539-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (<span class="fu">fitted</span> (model1), <span class="fu">residuals</span> (model1))</span>
+<span id="cb539-4"><a href="diagnostics.html#cb539-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb539-5"><a href="diagnostics.html#cb539-5" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span> (y2<span class="sc">~</span>x2)</span>
+<span id="cb539-6"><a href="diagnostics.html#cb539-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (<span class="fu">fitted</span> (model2), <span class="fu">residuals</span> (model2))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fitsres2"></span>
+<img src="IntroStats_files/figure-html/fitsres2-1.png" alt="Non-linearity in the residuals." width="480" />
+<p class="caption">
+Figure 18.11: Non-linearity in the residuals.
+</p>
+</div>
+<p>In both these non-linear cases, a distinct pattern can be seen in the fits-residual plot implying some unaccounted for signal in the model. A linear model is <strong>not</strong> sufficient for these data.</p>
+<p>Any pattern in the fits-residual plot could be caused by error heterogeneity (non-constant variance) or by a mis-specified model.</p>
+</div>
+</div>
+<div id="example-diagnostics-with-the-medical-data" class="section level2" number="18.4">
+<h2><span class="header-section-number">18.4</span> Example: Diagnostics with the medical data</h2>
+<p>We now illustrate diagnostics for a simple linear model fitted to the medical data. We fit two simple regression models and check the diagnostics for each model; the first model does not fulfill all the assumptions of a linear model.</p>
+<p>As a reminder, let’s look at the data available in the TEON data set:</p>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="diagnostics.html#cb540-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(meddata, <span class="at">n=</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>    gend age vitdresul         vitdc vit.12  vitbc folate TEON teonpres ageTEON
+1 female  50     10.98 insufficiency    310 normal  19.17  Yes        1  YesOld
+2 female  39     13.46 insufficiency    238 normal   8.16  Yes        1  YesOld</code></pre>
+<p>Let us consider diagnostics for a linear model where a factor (presence/absence of <code>TEON</code>) is used as an explanatory variable to model vitamin D level (<code>vitdresul</code>). With two factor levels, this is like a two sample <span class="math inline">\(t\)</span> test.</p>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="diagnostics.html#cb542-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set No to be reference level for TEON</span></span>
+<span id="cb542-2"><a href="diagnostics.html#cb542-2" aria-hidden="true" tabindex="-1"></a>meddata<span class="sc">$</span>TEON <span class="ot">&lt;-</span> <span class="fu">relevel</span>(<span class="fu">as.factor</span>(meddata<span class="sc">$</span>TEON), <span class="at">ref=</span><span class="st">&#39;No&#39;</span>)</span>
+<span id="cb542-3"><a href="diagnostics.html#cb542-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model with factor</span></span>
+<span id="cb542-4"><a href="diagnostics.html#cb542-4" aria-hidden="true" tabindex="-1"></a>TEON_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(vitdresul <span class="sc">~</span> TEON, <span class="at">data=</span>meddata)</span>
+<span id="cb542-5"><a href="diagnostics.html#cb542-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of model</span></span>
+<span id="cb542-6"><a href="diagnostics.html#cb542-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(TEON_lm)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = vitdresul ~ TEON, data = meddata)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-10.1262  -3.7462  -0.2462   2.4929  20.3938 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  19.5862     0.8499  23.046  &lt; 2e-16 ***
+TEONYes      -8.8890     1.4365  -6.188 6.67e-08 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 5.307 on 58 degrees of freedom
+Multiple R-squared:  0.3976,    Adjusted R-squared:  0.3873 
+F-statistic: 38.29 on 1 and 58 DF,  p-value: 6.666e-08</code></pre>
+<p>We want to check the assumptions of normality, constant variance and independence.</p>
+<p>Each datum comes from a different patient/subject and so the independence assumption should be satisfied. We now check the constant variance assumption using a Breusch-Pagan test on the residuals.</p>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="diagnostics.html#cb544-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Non-constant variance test</span></span>
+<span id="cb544-2"><a href="diagnostics.html#cb544-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ncvTest</span>(TEON_lm)</span></code></pre></div>
+<pre><code>Non-constant Variance Score Test 
+Variance formula: ~ fitted.values 
+Chisquare = 2.056848, Df = 1, p = 0.15152</code></pre>
+<p>If the residuals were <em>heteroscadastic</em> (The property of the variances not being homogeneous) then these data could be analysed using a two sample <span class="math inline">\(t\)</span> test, specifying that the variances were unequal. However, all is well; we can now investigate normality of the residuals.</p>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="diagnostics.html#cb546-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save residuals</span></span>
+<span id="cb546-2"><a href="diagnostics.html#cb546-2" aria-hidden="true" tabindex="-1"></a>estNoise <span class="ot">&lt;-</span> <span class="fu">residuals</span>(TEON_lm) </span>
+<span id="cb546-3"><a href="diagnostics.html#cb546-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of residuals </span></span>
+<span id="cb546-4"><a href="diagnostics.html#cb546-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(estNoise) </span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:medhist2"></span>
+<img src="IntroStats_files/figure-html/medhist2-1.png" alt="Histogram of medical residuals" width="480" />
+<p class="caption">
+Figure 18.12: Histogram of medical residuals
+</p>
+</div>
+<p>This histogram looks roughly normal but it is wise to test further.</p>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="diagnostics.html#cb547-1" aria-hidden="true" tabindex="-1"></a><span class="co"># QQ plot</span></span>
+<span id="cb547-2"><a href="diagnostics.html#cb547-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(estNoise)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-285"></span>
+<img src="IntroStats_files/figure-html/unnamed-chunk-285-1.png" alt="QQ-Norm plot of the medical model residuals" width="480" />
+<p class="caption">
+Figure 18.13: QQ-Norm plot of the medical model residuals
+</p>
+</div>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="diagnostics.html#cb548-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test of normality</span></span>
+<span id="cb548-2"><a href="diagnostics.html#cb548-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(estNoise)</span></code></pre></div>
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  estNoise
+W = 0.93151, p-value = 0.002304</code></pre>
+<p>So the normality assumption has not been met.</p>
+<p>Now we consider a simple regression model from the medical data set:</p>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="diagnostics.html#cb550-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model with continuous variable</span></span>
+<span id="cb550-2"><a href="diagnostics.html#cb550-2" aria-hidden="true" tabindex="-1"></a>simpleReg <span class="ot">&lt;-</span> <span class="fu">lm</span>(vitdresul <span class="sc">~</span> folate, <span class="at">data=</span>meddata)</span>
+<span id="cb550-3"><a href="diagnostics.html#cb550-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary</span></span>
+<span id="cb550-4"><a href="diagnostics.html#cb550-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(simpleReg)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = vitdresul ~ folate, data = meddata)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-13.1034  -4.4947  -0.3768   3.8585  23.2495 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 15.44131    1.61776   9.545 1.69e-13 ***
+folate       0.09022    0.11856   0.761     0.45    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 6.805 on 58 degrees of freedom
+Multiple R-squared:  0.009884,  Adjusted R-squared:  -0.007187 
+F-statistic: 0.579 on 1 and 58 DF,  p-value: 0.4498</code></pre>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="diagnostics.html#cb552-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot of fitted v. residuals </span></span>
+<span id="cb552-2"><a href="diagnostics.html#cb552-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (<span class="fu">fitted</span> (simpleReg ), <span class="fu">residuals</span> (simpleReg))</span></code></pre></div>
+<p><img src="IntroStats_files/figure-html/unnamed-chunk-288-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>This is a tricky graph to interpret because the spread of residuals seems wider to the left, BUT this might be a feature of the larger amount of data in this range. To formally check, we can undertake a Breusch-Pagan test for non-constant variance.</p>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="diagnostics.html#cb553-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncvTest</span>(simpleReg)</span></code></pre></div>
+<pre><code>Non-constant Variance Score Test 
+Variance formula: ~ fitted.values 
+Chisquare = 0.04315852, Df = 1, p = 0.83543</code></pre>
+<p>Based on these results, there is no reason to reject <span class="math inline">\(H_0\)</span> that the residuals are homogeneous. The next step is to evaluate the normality of the residuals with a QQ-Norm plot and a formal test.</p>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="diagnostics.html#cb555-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">qqnorm</span>(<span class="fu">residuals</span> (simpleReg))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-290"></span>
+<img src="IntroStats_files/figure-html/unnamed-chunk-290-1.png" alt="QQ-Norm plot of the medical model residuals" width="480" />
+<p class="caption">
+Figure 18.14: QQ-Norm plot of the medical model residuals
+</p>
+</div>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="diagnostics.html#cb556-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">residuals</span>(simpleReg))</span></code></pre></div>
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  residuals(simpleReg)
+W = 0.96905, p-value = 0.1311</code></pre>
+<p>There is little evidence of non-normality from the QQ plot and the <span class="math inline">\(p\)</span>-value of the S-W test is <span class="math inline">\(&gt;0.1\)</span> so we fail to reject the null hypothesis that the data are normally distributed. In this case the assumption of normality seems justified.</p>
+</div>
+<div id="partial-residual-plots" class="section level2" number="18.5">
+<h2><span class="header-section-number">18.5</span> Partial residual plots</h2>
+<p>The assumptions for multiple linear regression models are the same as for a simple linear model. However, identifying unexplained patterns in the data when there are more explanatory variables is rather more difficult, as might be expected. We have an immediate problem in that one, or more, of the terms may be mis-specified.</p>
+<p><strong>Example</strong> Imagine the following situation: the (unknown) true relationship between two predictors, <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>, and a dependent <span class="math inline">\(y\)</span> variable is:</p>
+<p><span class="math display">\[y_i= sin (4x_1)+0.01x_2+\epsilon\]</span>
+An analyst fits the following model:</p>
+<p><span class="math display">\[y_i= \beta_0 +\beta_1x_1+\beta_2x_2+\epsilon\]</span>
+The analyst goes on to check the model diagnostics and plots the fitted values against the residuals (Figure <a href="diagnostics.html#fig:fitresplot1">18.15</a>).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fitresplot1"></span>
+<img src="IntroStats_files/figure-html/fitresplot1-1.png" alt="Fits-residual plot in multiple regression case." width="480" />
+<p class="caption">
+Figure 18.15: Fits-residual plot in multiple regression case.
+</p>
+</div>
+<p>Clearly there is a problem identifiable in the fits-residual plot (Figure <a href="diagnostics.html#fig:fitresplot1">18.15</a>), but the analyst does not know if the non-linearity is caused by <span class="math inline">\(x_1\)</span> or <span class="math inline">\(x_2\)</span> or both or even another variable not considered in the model.</p>
+<p>To address this problem, we use <em>partial (residual) plots</em>:</p>
+<ul>
+<li>These show residuals and relationships between <span class="math inline">\(y\)</span> and individual <span class="math inline">\(x\)</span>, with adjustment for the other <span class="math inline">\(x\)</span> variables in the model.</li>
+</ul>
+<p>The partial residuals (for the <span class="math inline">\(p\)</span>-th covariate/predictor) are found by adding the estimated relationship (for the <span class="math inline">\(p\)</span>-th predictor; <span class="math inline">\(\hat{\beta}_px_{pi}\)</span>) to the residuals for the model (<span class="math inline">\(r_{it}\)</span>):</p>
+<p><span class="math display">\[\begin{equation}
+r_{pi}=r_{i}+\hat{\beta}_px_{pi}
+\end{equation}\]</span></p>
+<p>and when the <span class="math inline">\(x\)</span>-variable (<span class="math inline">\(x_{pi}\)</span>) is plotted with the partial residuals (<span class="math inline">\(r_{pi}\)</span>) we have a partial residual plot.</p>
+<p>To return to the example, the analyst generates partial residuals plots along with a “best fit line,” actually just the slope of the relevant variable (Figure <a href="diagnostics.html#fig:pit">18.16</a>).</p>
+<pre><code>
+Call:
+lm(formula = y ~ x1 + x2)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.70373 -0.58648  0.08128  0.48741  2.02934 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.057617   0.355364   2.976  0.00368 ** 
+x1          -0.004944   0.015419  -0.321  0.74918    
+x2          -0.013618   0.002554  -5.333 6.22e-07 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.7473 on 98 degrees of freedom
+Multiple R-squared:  0.2249,    Adjusted R-squared:  0.2091 
+F-statistic: 14.22 on 2 and 98 DF,  p-value: 3.784e-06</code></pre>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:pit"></span>
+<img src="IntroStats_files/figure-html/pit-1.png" alt="Partial residual plots.No systematic pattern in the left hand plot but can see the 'sin' pattern in the right hand plot." width="480" />
+<p class="caption">
+Figure 18.16: Partial residual plots.No systematic pattern in the left hand plot but can see the ‘sin’ pattern in the right hand plot.
+</p>
+</div>
+<p>In this example, the problem lies with <span class="math inline">\(x_2\)</span> (in fact a <span class="math inline">\(sin\)</span> function was being treated as linear).</p>
+<hr />
+<p>Partial residuals have several useful diagnostic properties:</p>
+<ul>
+<li>the slope of the line is the regression coefficient,</li>
+<li>the extent of the scatter tells us about the support for the function,</li>
+<li>we can identify large residuals and</li>
+<li>curved plots signal non-linear relationships.</li>
+</ul>
+<div id="doing-this-in-r-30" class="section level3" number="18.5.1">
+<h3><span class="header-section-number">18.5.1</span> Doing this in R</h3>
+<p>As usual, a shortcut for making partial residuals in R is available. In the <code>car</code> library, the function <code>crPlots</code> provides a convenient function with a fit of the function as modelled and a ‘smooth’ function through the residuals to highlight any pattern (Figure <a href="diagnostics.html#fig:crplots">18.17</a>). ‘cr’ is shorthand for “component residual” which is another name for partial plots.</p>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="diagnostics.html#cb559-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Partial residual plots</span></span>
+<span id="cb559-2"><a href="diagnostics.html#cb559-2" aria-hidden="true" tabindex="-1"></a><span class="fu">crPlots</span>(modelboth)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:crplots"></span>
+<img src="IntroStats_files/figure-html/crplots-1.png" alt="Partial residual plots from the car library" width="480" />
+<p class="caption">
+Figure 18.17: Partial residual plots from the car library
+</p>
+</div>
+<p>Returning to the EIA data, the partial plots for <code>model1</code> are shown in Figure <a href="diagnostics.html#fig:y">18.18</a>.</p>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="diagnostics.html#cb560-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Density <span class="sc">~</span> XPos <span class="sc">+</span> YPos <span class="sc">+</span> DistCoast <span class="sc">+</span> Depth <span class="sc">+</span> </span>
+<span id="cb560-2"><a href="diagnostics.html#cb560-2" aria-hidden="true" tabindex="-1"></a>                Month <span class="sc">+</span> Phase, <span class="at">data=</span>wfdata)</span>
+<span id="cb560-3"><a href="diagnostics.html#cb560-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Partial residual plots</span></span>
+<span id="cb560-4"><a href="diagnostics.html#cb560-4" aria-hidden="true" tabindex="-1"></a><span class="fu">crPlots</span>(model1)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:y"></span>
+<img src="IntroStats_files/figure-html/y-1.png" alt="Partial residual plots in the EIA model" width="480" />
+<p class="caption">
+Figure 18.18: Partial residual plots in the EIA model
+</p>
+</div>
+<p>From these plots:</p>
+<ul>
+<li>It is hard to determine if linearity is reasonable for the continuous covariates due to the size of the partial residuals.</li>
+<li>The coefficients for each phase appear to be very similar (implying the relationship between density and phase may be weak) but there seems to be bigger differences across months.</li>
+<li>When the size of the partial residuals render this diagnostic ineffective, comparing the penalized fit for more complex models (e.g. with smoother based terms for each continuous covariate) with the current model is useful (Beyond the remit of this module).</li>
+</ul>
+</div>
+</div>
+<div id="interaction-terms" class="section level2" number="18.6">
+<h2><span class="header-section-number">18.6</span> Interaction Terms</h2>
+<p>Simple partial residual plots don’t work with interactions, so we need to do something slightly more complex:</p>
+<ul>
+<li>Recall that an interaction (<span class="math inline">\(\beta_s(x_1 \times x_2)\)</span>, say) means that the relationship between <span class="math inline">\(y\)</span> and <span class="math inline">\(x_1\)</span> is conditional on the values of <span class="math inline">\(x_2\)</span>.</li>
+<li>We condition on some values for one of the interaction <span class="math inline">\(x\)</span>s (we slice up the interaction).</li>
+<li>For factor variables this is relatively easy - we can look at each factor level in turn.</li>
+<li>We can use the <code>effect</code> command from the <code>effects</code> library. This collects the “effect” of a particular variable by predicting for the variable assuming all other terms in the model are held constant and the only thing that varies are the interaction and the terms marginal to it (Figures <a href="diagnostics.html#fig:interactionpres">18.19</a>) and <a href="#fig:interactionpres2"><strong>??</strong></a>.</li>
+</ul>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="diagnostics.html#cb561-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
+<span id="cb561-2"><a href="diagnostics.html#cb561-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(effects)</span>
+<span id="cb561-3"><a href="diagnostics.html#cb561-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggExtra)</span>
+<span id="cb561-4"><a href="diagnostics.html#cb561-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model with interactions</span></span>
+<span id="cb561-5"><a href="diagnostics.html#cb561-5" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Density <span class="sc">~</span> XPos <span class="sc">+</span> YPos <span class="sc">+</span> DistCoast <span class="sc">+</span> Depth <span class="sc">+</span> </span>
+<span id="cb561-6"><a href="diagnostics.html#cb561-6" aria-hidden="true" tabindex="-1"></a>                Month <span class="sc">+</span> Phase <span class="sc">+</span> XPos<span class="sc">:</span>Phase, <span class="at">data=</span>wfdata)</span>
+<span id="cb561-7"><a href="diagnostics.html#cb561-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot partial residuals</span></span>
+<span id="cb561-8"><a href="diagnostics.html#cb561-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">effect</span>(<span class="st">&quot;XPos:Phase&quot;</span>, model2, <span class="at">ylab=</span><span class="st">&quot;XPos&quot;</span>, <span class="at">rug=</span><span class="cn">TRUE</span>, <span class="at">partial.residuals=</span>T))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:interactionpres"></span>
+<img src="IntroStats_files/figure-html/interactionpres-1.png" alt="Partial residual plots for interactions" width="480" />
+<p class="caption">
+Figure 18.19: Partial residual plots for interactions
+</p>
+</div>
+<p>There may be something odd going on here, but the shear density of data makes it difficult to interpret; in each case there is are some peaks worthy of further investigation.</p>
+<hr />
+<p><strong>Q18.1</strong> Dr Teuthis was interested in the relationship of squid beak size (measured as a statistic called ‘lower rostral length’) to body (mantle) length Figure ( <a href="diagnostics.html#fig:squidfig">18.20</a> ) . It would be helpful to be able to predict mantle length from beak size in order to estimate the size of squid swallowed by sperm whales. Squid beaks are retained in the whales gut before being vomited out, when they then can be collected.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:squidfig"></span>
+<img src="IntroStats_files/figure-html/squidfig-1.png" alt="Regression of mantle length on lower rostral length" width="480" />
+<p class="caption">
+Figure 18.20: Regression of mantle length on lower rostral length
+</p>
+</div>
+<p>A simple linear regression model is fitted below.</p>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="diagnostics.html#cb562-1" aria-hidden="true" tabindex="-1"></a>modelBeaktoMantle <span class="ot">=</span>  <span class="fu">lm</span> (ML<span class="sc">~</span> LRL.beak, <span class="at">data=</span>squidtemp)</span></code></pre></div>
+<p><strong>Q18.1</strong> Write down the general equation of the model being fitted.</p>
+<p><strong>Q18.2</strong> The model generated the following diagnostics:</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:squiddiagnostics"></span>
+<img src="IntroStats_files/figure-html/squiddiagnostics-1.png" alt="Squid diagnostics" width="480" />
+<p class="caption">
+Figure 18.21: Squid diagnostics
+</p>
+</div>
+<p>What distribution are the residuals assumed to be from?</p>
+<p><strong>Q18.3</strong> Explain these diagnostic plots and what they are checking.</p>
+<p><strong>Q18.4</strong> An additional test was performed:</p>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="diagnostics.html#cb563-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncvTest</span>(modelBeaktoMantle)</span></code></pre></div>
+<pre><code>Non-constant Variance Score Test 
+Variance formula: ~ fitted.values 
+Chisquare = 0.6905414, Df = 1, p = 0.40598</code></pre>
+<p>Based on these test results and the residual plots, comment on the suitability of fitting a linear model to these data. What further testing could be
+undertaken?</p>
+<div style="page-break-after: always;"></div>
+<p><strong>Q18.5</strong> Troubled by the diagnostics above, Dr Teuthis elects to transform his dependent data (a method frequently used to ensure the variance of the residuals is constant, or, in other words, the same for all residuals) by calculating the log of mantle length. He then refits the model with log(ML) as the response variable and gets the following diagnostics.</p>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="diagnostics.html#cb565-1" aria-hidden="true" tabindex="-1"></a>modelBeaktolnMantle <span class="ot">=</span>  <span class="fu">lm</span>(<span class="fu">log</span>(ML) <span class="sc">~</span> LRL.beak,<span class="at">data=</span>squidtemp)</span>
+<span id="cb565-2"><a href="diagnostics.html#cb565-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (<span class="fu">fitted</span> (modelBeaktolnMantle), <span class="fu">residuals</span>(modelBeaktolnMantle))</span></code></pre></div>
+<p><img src="IntroStats_files/figure-html/unnamed-chunk-294-1.png" width="480" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="diagnostics.html#cb566-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(modelBeaktolnMantle))</span></code></pre></div>
+<p><img src="IntroStats_files/figure-html/unnamed-chunk-294-2.png" width="480" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="diagnostics.html#cb567-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncvTest</span> (modelBeaktolnMantle)</span></code></pre></div>
+<pre><code>Non-constant Variance Score Test 
+Variance formula: ~ fitted.values 
+Chisquare = 14.38298, Df = 1, p = 0.00014914</code></pre>
+<p>Comment on these diagnostics.</p>
+<p><strong>Q18.6</strong> Suggest an alternative approach to ensure the model assumptions are valid.</p>
+<p><strong>Q18.7</strong> Why has Dr Teuthis not considered a Durbin-Watson test here?</p>
+</div>
+<div id="SUMdiag" class="section level2" number="18.7">
+<h2><span class="header-section-number">18.7</span> Summary</h2>
+<p>Linear models allow us to fit complex models. However, they do come with certain conditions that need to be fulfilled for the results to be reliable. In essence the constraints are:</p>
+<ul>
+<li>A model for signal that is correct - we can make anything that is linear in its parameters</li>
+<li>The model for noise is that it be independent realisations of a single normal distribution</li>
+</ul>
+<p>If some of these assumptions are not valid for our data, then we can try to tackle the issue, however, it may require methods that are beyond this course. Nevertheless, being able to recognise this is useful.</p>
+<ul>
+<li><p>Non-normality can be tackled by bootstrapping, transformations, or alternative models beyond the level of this course</p></li>
+<li><p>Non-independence if present, is a real problem that needs alternative methods beyond this course.</p></li>
+<li><p>More complex or better models for the signal can use alternative models beyond this course.</p></li>
+</ul>
+<div id="learning-outcomes-10" class="section level3" number="18.7.1">
+<h3><span class="header-section-number">18.7.1</span> Learning outcomes</h3>
+<p>At this end of this chapter you should be able to:</p>
+<ol style="list-style-type: decimal">
+<li>recognise whether modelling assumptions have been been met.</li>
+<li>manipulate the models or data in such a way that the assumptions can be met</li>
+<li>recognise whether methods more complex than covered here may be required.</li>
+</ol>
+</div>
+</div>
+<div id="ANSdiag" class="section level2" number="18.8">
+<h2><span class="header-section-number">18.8</span> Answers</h2>
+<p><strong>Q18.1</strong></p>
+<p><span class="math inline">\(ML= \beta_0+\beta_1LRLbeak+ \epsilon\)</span></p>
+<p><strong>Q18.2</strong> Residuals are assumed to be from a normal distribution with a mean = 0 and a constant variance, i.e. <span class="math inline">\(N(0,\ {\sigma{}}^2)\)</span>.</p>
+<p><strong>Q18.3</strong> The top plot (residuals v fitted values) is a visual check that the variance is
+constant for all residuals (i.e. checking that the spread (a measure of the
+variation) of the residuals above and below zero is the same for all fitted
+values). An obvious pattern in the residuals would indicate a non-constant
+variance and potentially that residuals were not independent (because they would
+contain some unexplained pattern).
+The normal Q-Q plot is a plot of the quantiles of the (standardised) residuals
+against the quantiles from a reference normal distribution. If the residuals are
+normally distributed, the points should lie on, or close to, a straight line but
+there is often some deviation at the ends of the line. This provides a visual
+check of the normality of the residuals.</p>
+<p><strong>Q18.4</strong> This is a tricky one. It appears from the plot of residuals against fitted
+values (top plot) that there might be heterogeneity in the residuals (i.e.
+differences in the spread, above and below zero, of residuals along the
+<span class="math inline">\(x\)</span>-axis) suggesting a non-constant variance: however, the non-constant
+variance test result does not support this impression. The impression from the
+plot may occur because there are only a few points at low fitted values, although
+common sense would suggest that mantle length might vary rather more in big
+squids than in squids only a few cm long.<br />
+The distribution of the residuals does not seem to be perfectly normal. The gap
+in the lower rostral length (between 0.005m to 0.01m approx), whilst not fatal to
+the analysis, should make the analyst wary. A Shapiro-Wilks test could be
+undertaken on the residuals to further test for normality.</p>
+<p><strong>Q18.5</strong> Arguably, these plots are worse than the first set of diagnostics because there
+is an obvious pattern in the top plot. Transforming ML may have generated a curve
+in the residuals. The normal Q-Q plot appears to have improved (more points lying
+on a straight line) but there are also a few points at the ends of the line that
+are a long way from the line.</p>
+<p><strong>Q18.6</strong> There are three small values of lower rostral length (LRLbeak) and these might
+be regarded as problematic or outliers. Perhaps there is a different relationship
+of mantle length to LRLbeak at this size and so these three points could be
+excluded and the model refitted.</p>
+<p><strong>Q18.7</strong> The Durbin-Watson test is used to detect the presence of autocorrelation in the
+residuals. The data do not represent a time series or ordered in some systematic
+way and so there is no <em>a priori</em> reason to believe that there should be
+any autocorrelation in the data.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="prediction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="nextsteps.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="book_assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["IntroStats.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+h1:proportions Proportions
+h2:INTprop Introduction
+h2:confidence-intervals Confidence intervals
+h3:exploratory-data-analysis Exploratory data analysis
+fig:barplotfig2 Barplot showing the mean sightings probability for every year/month combination. N.B.Not all months are labelled
+h3:confidence-intervals-large-sample-sizes Confidence intervals: large sample sizes
+h4:how-large-is-large-enough How large is large enough?
+h4:doing-this-in-r Doing this in R
+h3:confidence-intervals-small-sample-sizes Confidence intervals: small sample sizes
+fig:barplotcifig Barplot showing the mean sightings probability for each of the three phases. The black lines are 95\\% Wilsons confidence intervals.
+h4:doing-this-in-r-1 Doing this in R
+h2:comparing-two-proportions-the-z-test Comparing two proportions: the  test
+h3:testing-for-no-difference-between-groups Testing for  between groups
+h4:how-does-our-estimate-compare-with-the-differences-we-might-expect How does our estimate compare with the differences we might expect?
+fig:ztestplot Reference distribution for the $z$ test: the  differences between proportions that would be expected if $p_1=p_2$. The dotted line indicates the test statistic.
+h2:ci-for-the-difference-between-population-proportions-p_1-p_2 CI for the difference between population proportions, ()
+h3:choosing-the-appropriate-standard-error-when-comparing-proportions Choosing the appropriate standard error when comparing proportions
+h4:situation-a-proportions-from-independent-samples Situation A: Proportions from independent samples
+h4:situation-b-one-sample-of-size-n-several-response-categories Situation B: One sample of size , several response categories
+h4:situation-c-one-sample-of-size-n-many-yesno-items Situation C: One sample of size , many  items
+h4:choosing-different-standard-errors Choosing different standard errors
+h2:odds-ratios Odds ratios
+h3:calculating-the-odds-of-success Calculating the odds of success
+h3:calculating-the-odds-of-success-for-2-x-2-tables Calculating the odds of success for 2 x 2 tables
+h3:calculating-the-odds-ratio Calculating the odds ratio
+h3:confidence-intervals-for-odds-ratios Confidence intervals for odds ratios
+h4:doing-this-in-r-2 Doing this in R
+h3:final-note-on-odds-ratios Final note on odds ratios
+h2:SUMprop Summary
+h3:learning-outcomes Learning outcomes
+h2:ANSprop Answers
+

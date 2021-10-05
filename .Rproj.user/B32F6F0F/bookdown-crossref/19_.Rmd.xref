@@ -1,0 +1,12 @@
+h1:nextsteps The Next Steps
+h2:INTnext Introduction
+h2:solving-the-assumptional-problems Solving the assumptional problems
+h3:example-the-eia-data Example: The EIA data
+h3:oddly-distributed-residuals Oddly distributed residuals
+h3:non-independence Non-independence
+h3:non-linearity Non-linearity
+h3:bootstrapping Bootstrapping
+fig:meddataboot Bootstrap confidence intervals for an analysis of the medical data set
+h2:summary Summary
+h3:learning-outcomes Learning outcomes
+

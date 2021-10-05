@@ -1,0 +1,25 @@
+h1:interac Interactions and the Linear Model
+h2:INTinterac Introduction
+h3:fitting-different-models Fitting different models
+fig:boxplotheight Boxplot of height by sex.
+fig:spheight Scatterplot of left leg length and total height by sex.
+fig:spheight2 Scatterplot of left leg length and total height by sex with best fit lines with different intercept terms.
+h2:fitting-interaction-terms Fitting interaction terms
+fig:plotheightint Scatterplot of left leg length and total height by sex with best fit lines from an interaction.
+fig:tallplot Scatterplot of total height in leg length in tall humans.
+fig:tallplot2 Scatterplot of total height on left leg length in tall humans.
+h3:specifying-interactions-in-model-formulae Specifying interactions in model formulae
+h2:interactions-in-practise Interactions in practise
+h3:eia-data EIA data
+h3:medical-data Medical data
+h2:model-selection-and-interactions Model selection and interactions
+h3:backwards-selection-in-the-eia-data-set Backwards selection in the EIA data set
+h4:using-p-values Using -values
+h4:using-aic Using AIC
+h3:backwards-selection-in-the-medical-data-set Backwards selection in the medical data set
+h4:using-p-values-1 Using -values
+h4:using-aic-1 Using AIC
+h2:SUMinterac Summary
+h3:learning-objectives Learning objectives
+h2:ANSinterac Answers
+

@@ -1,0 +1,17 @@
+h1:tableofcounts Tables of counts
+h2:introduction Introduction
+h2:chi2-goodness-of-fit-test  goodness-of-fit test
+(ref:chishiny) Exploring the  distribution. You can see a live version by clicking 
+fig:chishiny (ref:chishiny)
+(ref:chisq1) Reference distribution, . The red shaded area shows the critical region, testing at a 5% significance level. Note that only one tail is used.
+fig:chisq1 (ref:chisq1)
+h3:doing-this-in-r Doing this in R
+h2:chi2-test-of-independence  test of independence
+(ref:chisq2) Reference distribution, . The red shaded area shows the critical region, testing at a 5% significance level.
+fig:chisq2 (ref:chisq2)
+h3:doing-this-in-r-1 Doing this in R
+h2:test-assumptions Test assumptions
+h2:summary Summary
+h3:learning-outcomes Learning outcomes
+h2:answers Answers
+

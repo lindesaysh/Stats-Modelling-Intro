@@ -1,0 +1,19 @@
+h1:power Statistical Power
+h2:INTpower Introduction
+h2:a-motivating-example---environmental-impact-assessment A motivating example - Environmental impact assessment
+fig:MCT A current turbine
+h2:calculating-power Calculating power
+fig:fuelplot Probability density function of the reference distribution showing the Type I error region (red).
+fig:fuelplot2 Probability density function of reference distribution showing the Type I error region (red) and the Type II error region (purple).
+h3:increasing-the-power Increasing the power
+h4:increasing-the-sample-size Increasing the sample size
+h4:increasing-the-effect-size Increasing the effect size
+h4:accepting-a-higher-type-i-error-rate Accepting a higher Type I error rate
+h3:power-by-simulation Power by simulation
+(ref:powshiny) An example of simulation based power analysis. You can see a live version by clicking 
+fig:powshiny (ref:powshiny)
+h3:multiple-comparisons Multiple comparisons
+h2:SUMpower Summary
+h3:learning-objectives Learning Objectives
+h2:ANSpower Answers
+

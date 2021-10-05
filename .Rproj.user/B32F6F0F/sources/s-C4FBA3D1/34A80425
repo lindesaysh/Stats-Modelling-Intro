@@ -1,0 +1,26 @@
+{
+    "id": "34A80425",
+    "path": "~/GitHub/Stats-Modelling-Intro/07_CI_for_sample_means.Rmd",
+    "project_path": "07_CI_for_sample_means.Rmd",
+    "type": "r_markdown",
+    "hash": "3010013202",
+    "contents": "",
+    "dirty": false,
+    "created": 1633437714042.0,
+    "source_on_save": false,
+    "relative_order": 6,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "666,0",
+        "scrollLine": "661"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1633440074,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1633440074959,
+    "read_only": false,
+    "read_only_alternatives": []
+}

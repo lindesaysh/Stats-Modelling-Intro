@@ -1,0 +1,29 @@
+h1:part-data-collection-and-visualisation (PART) Data Collection and Visualisation
+h1:sampling Data collection and Sampling
+h2:INTsamp Introduction
+h3:terminology Terminology
+h2:what-is-sampling-and-why-do-it What is sampling and why do it?
+h3:precision-accuracy-and-bias Precision, accuracy and bias
+fig:targetplot The centre of the target indicates the true value of the parameter and the dots are sample statistics.
+h2:three-types-of-data-collection Three types of data collection
+h3:common-but-unwise-data-collection-strategies Common, but unwise, data collection strategies
+h2:simple-sampling-approaches Simple sampling approaches
+h3:simple-random-sample Simple random sample
+h4:doing-this-in-r Doing this in R
+h3:systematic-samples Systematic samples
+h4:doing-this-in-r-1 Doing this in R
+h3:stratified-random-samples Stratified random samples
+h2:sampling-biases Sampling biases
+h3:non-sampling-error Non-sampling error
+h2:experiments Experiments
+h3:randomised-experiments Randomised experiments
+h3:components-of-an-experimental-design Components of an experimental design
+fig:polio The number of polio cases from 1930 to 1955
+h3:controls Controls
+h2:observational-studies Observational Studies
+h3:types-of-observational-study Types of observational study
+h2:observational-studies-vs-experiments Observational studies vs experiments
+h2:SUMsamp Summary
+h3:learning-objectives Learning objectives
+h2:ANSsamp Answers
+

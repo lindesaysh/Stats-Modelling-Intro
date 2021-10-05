@@ -1,0 +1,23 @@
+h1:part-probability-and-distributions (PART) Probability and Distributions
+h1:probability Probability
+h2:INTprob Introduction
+h3:random-phenomena-and-uncertain-outcomes Random phenomena and uncertain outcomes
+h2:sample-spaces-and-events Sample spaces and events
+fig:Vennunion A Venn diagram of the union of events A and B
+fig:Vennintercept A Venn diagram of the intercept of events A and B
+h2:definition-of-probability-and-3-axioms Definition of Probability and 3 Axioms
+h3:probability-1 Probability
+h3:three-axioms Three Axioms
+h3:three-results-of-the-axioms Three results of the Axioms
+h2:independence-and-the-multiplication-rule Independence and the Multiplication Rule
+h3:testing-for-independence Testing for Independence
+h2:conditional-probabilities Conditional probabilities
+h3:independence-revisited Independence revisited
+h2:tree-diagrams Tree Diagrams
+fig:tree1 All possible outcomes for 100 women.
+fig:tree2 Tree for match outcomes.
+h2:marginal-and-joint-probabilities Marginal and joint probabilities
+h2:SUMprob Summary
+h3:learning-outcomes Learning outcomes
+h2:ANSprob Answers
+

@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 15 Model selection | An Introduction to Statistics</title>
+  <meta name="description" content="Chapter 15 Model selection | An Introduction to Statistics" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 15 Model selection | An Introduction to Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 15 Model selection | An Introduction to Statistics" />
+  
+  
+  
+
+<meta name="author" content="Drs C. Paxton, L. Burt, C. Donovan and L. Scott-Hayward" />
+
+
+<meta name="date" content="2021-10-05" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introlm.html"/>
+<link rel="next" href="interac.html"/>
+<script src="book_assets/header-attrs-2.11/header-attrs.js"></script>
+<script src="book_assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="book_assets/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="book_assets/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script language="javascript">
+    function toggle(id) {
+        var ele = document.getElementById("toggleText" + id);
+        var text = document.getElementById("displayText" + id);
+        var buttonText = text.innerHTML.replace("Show ", "");
+        buttonText = buttonText.replace("Hide ", "");
+        if(ele.style.display == "block") {
+            ele.style.display = "none";
+            text.innerHTML = "Show " + buttonText;
+        } else {
+            ele.style.display = "block";
+            text.innerHTML = "Hide " + buttonText;
+        }
+    }
+</script>
+
+<script language="javascript">
+    function openCode(evt, codeName, id) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent" + id);
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks" + id);
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(codeName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+<script language="javascript">
+    function hide(id){
+        document.getElementById(id).style.display = "none";
+    }
+</script>
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<a href="https://www.st-andrews.ac.uk/mathematics-statistics/"><img src="standard-vertical-black.png" width="180"></a>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#computer-practicals"><i class="fa fa-check"></i>Computer practicals</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introchapt.html"><a href="introchapt.html"><i class="fa fa-check"></i><b>1</b> Thinking About Numbers</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introchapt.html"><a href="introchapt.html#INTintro"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="introchapt.html"><a href="introchapt.html#why-use-statistics"><i class="fa fa-check"></i><b>1.2</b> Why use statistics?</a></li>
+<li class="chapter" data-level="1.3" data-path="introchapt.html"><a href="introchapt.html#why-model"><i class="fa fa-check"></i><b>1.3</b> Why model?</a></li>
+<li class="chapter" data-level="1.4" data-path="introchapt.html"><a href="introchapt.html#examples-of-statistical-claims"><i class="fa fa-check"></i><b>1.4</b> Examples of statistical claims</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="introchapt.html"><a href="introchapt.html#coffee-may-reverse-alzheimers"><i class="fa fa-check"></i><b>1.4.1</b> Coffee ‘may reverse Alzheimer’s’</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introchapt.html"><a href="introchapt.html#abundance-of-prized-sturgeon"><i class="fa fa-check"></i><b>1.4.2</b> Abundance of prized sturgeon</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introchapt.html"><a href="introchapt.html#extrapolating-sprinting-speed"><i class="fa fa-check"></i><b>1.4.3</b> Extrapolating sprinting speed</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introchapt.html"><a href="introchapt.html#mmr-innoculation-and-autism"><i class="fa fa-check"></i><b>1.4.4</b> MMR innoculation and autism</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introchapt.html"><a href="introchapt.html#two-sid-deaths-in-same-family"><i class="fa fa-check"></i><b>1.4.5</b> Two SID deaths in same family</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introchapt.html"><a href="introchapt.html#SUMintro"><i class="fa fa-check"></i><b>1.5</b> Summary</a></li>
+<li class="chapter" data-level="1.6" data-path="introchapt.html"><a href="introchapt.html#ANSintro"><i class="fa fa-check"></i><b>1.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>I Data Collection and Visualisation</b></span></li>
+<li class="chapter" data-level="2" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>2</b> Data collection and Sampling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="sampling.html"><a href="sampling.html#INTsamp"><i class="fa fa-check"></i><b>2.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="sampling.html"><a href="sampling.html#terminology"><i class="fa fa-check"></i><b>2.1.1</b> Terminology</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="sampling.html"><a href="sampling.html#what-is-sampling-and-why-do-it"><i class="fa fa-check"></i><b>2.2</b> What is sampling and why do it?</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="sampling.html"><a href="sampling.html#precision-accuracy-and-bias"><i class="fa fa-check"></i><b>2.2.1</b> Precision, accuracy and bias</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="sampling.html"><a href="sampling.html#three-types-of-data-collection"><i class="fa fa-check"></i><b>2.3</b> Three types of data collection</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="sampling.html"><a href="sampling.html#common-but-unwise-data-collection-strategies"><i class="fa fa-check"></i><b>2.3.1</b> Common, but unwise, data collection strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="sampling.html"><a href="sampling.html#simple-sampling-approaches"><i class="fa fa-check"></i><b>2.4</b> Simple sampling approaches</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="sampling.html"><a href="sampling.html#simple-random-sample"><i class="fa fa-check"></i><b>2.4.1</b> Simple random sample</a></li>
+<li class="chapter" data-level="2.4.2" data-path="sampling.html"><a href="sampling.html#systematic-samples"><i class="fa fa-check"></i><b>2.4.2</b> Systematic samples</a></li>
+<li class="chapter" data-level="2.4.3" data-path="sampling.html"><a href="sampling.html#stratified-random-samples"><i class="fa fa-check"></i><b>2.4.3</b> Stratified random samples</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="sampling.html"><a href="sampling.html#sampling-biases"><i class="fa fa-check"></i><b>2.5</b> Sampling biases</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="sampling.html"><a href="sampling.html#non-sampling-error"><i class="fa fa-check"></i><b>2.5.1</b> Non-sampling error</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="sampling.html"><a href="sampling.html#experiments"><i class="fa fa-check"></i><b>2.6</b> Experiments</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="sampling.html"><a href="sampling.html#randomised-experiments"><i class="fa fa-check"></i><b>2.6.1</b> Randomised experiments</a></li>
+<li class="chapter" data-level="2.6.2" data-path="sampling.html"><a href="sampling.html#components-of-an-experimental-design"><i class="fa fa-check"></i><b>2.6.2</b> Components of an experimental design</a></li>
+<li class="chapter" data-level="2.6.3" data-path="sampling.html"><a href="sampling.html#controls"><i class="fa fa-check"></i><b>2.6.3</b> Controls</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="sampling.html"><a href="sampling.html#observational-studies"><i class="fa fa-check"></i><b>2.7</b> Observational Studies</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="sampling.html"><a href="sampling.html#types-of-observational-study"><i class="fa fa-check"></i><b>2.7.1</b> Types of observational study</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="sampling.html"><a href="sampling.html#observational-studies-vs-experiments"><i class="fa fa-check"></i><b>2.8</b> Observational studies vs experiments</a></li>
+<li class="chapter" data-level="2.9" data-path="sampling.html"><a href="sampling.html#SUMsamp"><i class="fa fa-check"></i><b>2.9</b> Summary</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="sampling.html"><a href="sampling.html#learning-objectives"><i class="fa fa-check"></i><b>2.9.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="sampling.html"><a href="sampling.html#ANSsamp"><i class="fa fa-check"></i><b>2.10</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="describedata.html"><a href="describedata.html"><i class="fa fa-check"></i><b>3</b> Describing data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="describedata.html"><a href="describedata.html#INTdata"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="describedata.html"><a href="describedata.html#types-of-data"><i class="fa fa-check"></i><b>3.2</b> Types of data</a></li>
+<li class="chapter" data-level="3.3" data-path="describedata.html"><a href="describedata.html#frequency-distributions"><i class="fa fa-check"></i><b>3.3</b> Frequency distributions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="describedata.html"><a href="describedata.html#doing-this-in-r-2"><i class="fa fa-check"></i><b>3.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="describedata.html"><a href="describedata.html#numerical-summaries"><i class="fa fa-check"></i><b>3.4</b> Numerical summaries</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="describedata.html"><a href="describedata.html#population-mean"><i class="fa fa-check"></i><b>3.4.1</b> Population mean</a></li>
+<li class="chapter" data-level="3.4.2" data-path="describedata.html"><a href="describedata.html#sample-mean"><i class="fa fa-check"></i><b>3.4.2</b> Sample mean</a></li>
+<li class="chapter" data-level="3.4.3" data-path="describedata.html"><a href="describedata.html#sample-median"><i class="fa fa-check"></i><b>3.4.3</b> Sample median</a></li>
+<li class="chapter" data-level="3.4.4" data-path="describedata.html"><a href="describedata.html#range"><i class="fa fa-check"></i><b>3.4.4</b> Range</a></li>
+<li class="chapter" data-level="3.4.5" data-path="describedata.html"><a href="describedata.html#percentiles"><i class="fa fa-check"></i><b>3.4.5</b> Percentiles</a></li>
+<li class="chapter" data-level="3.4.6" data-path="describedata.html"><a href="describedata.html#population-variance"><i class="fa fa-check"></i><b>3.4.6</b> Population variance</a></li>
+<li class="chapter" data-level="3.4.7" data-path="describedata.html"><a href="describedata.html#sample-variance-and-standard-deviation"><i class="fa fa-check"></i><b>3.4.7</b> Sample variance and standard deviation</a></li>
+<li class="chapter" data-level="3.4.8" data-path="describedata.html"><a href="describedata.html#numerical-summaries-in-r"><i class="fa fa-check"></i><b>3.4.8</b> Numerical summaries in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="describedata.html"><a href="describedata.html#visual-summaries"><i class="fa fa-check"></i><b>3.5</b> Visual summaries</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="describedata.html"><a href="describedata.html#bar-charts"><i class="fa fa-check"></i><b>3.5.1</b> Bar charts</a></li>
+<li class="chapter" data-level="3.5.2" data-path="describedata.html"><a href="describedata.html#pie-charts"><i class="fa fa-check"></i><b>3.5.2</b> Pie charts</a></li>
+<li class="chapter" data-level="3.5.3" data-path="describedata.html"><a href="describedata.html#histograms"><i class="fa fa-check"></i><b>3.5.3</b> Histograms</a></li>
+<li class="chapter" data-level="3.5.4" data-path="describedata.html"><a href="describedata.html#boxplots"><i class="fa fa-check"></i><b>3.5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="3.5.5" data-path="describedata.html"><a href="describedata.html#basic-plots-in-r"><i class="fa fa-check"></i><b>3.5.5</b> Basic plots in R</a></li>
+<li class="chapter" data-level="3.5.6" data-path="describedata.html"><a href="describedata.html#other-plots"><i class="fa fa-check"></i><b>3.5.6</b> Other plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="describedata.html"><a href="describedata.html#summarising-the-relationship-between-two-variables"><i class="fa fa-check"></i><b>3.6</b> Summarising the relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="describedata.html"><a href="describedata.html#cross-tabulation"><i class="fa fa-check"></i><b>3.6.1</b> Cross-tabulation</a></li>
+<li class="chapter" data-level="3.6.2" data-path="describedata.html"><a href="describedata.html#side-by-side-boxplots"><i class="fa fa-check"></i><b>3.6.2</b> Side-by-side boxplots</a></li>
+<li class="chapter" data-level="3.6.3" data-path="describedata.html"><a href="describedata.html#scatter-plot"><i class="fa fa-check"></i><b>3.6.3</b> Scatter plot</a></li>
+<li class="chapter" data-level="3.6.4" data-path="describedata.html"><a href="describedata.html#quilt-plots"><i class="fa fa-check"></i><b>3.6.4</b> Quilt plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="describedata.html"><a href="describedata.html#handy-hints-when-including-tables-and-plots-into-reports"><i class="fa fa-check"></i><b>3.7</b> Handy hints when including tables and plots into reports</a></li>
+<li class="chapter" data-level="3.8" data-path="describedata.html"><a href="describedata.html#SUMdata"><i class="fa fa-check"></i><b>3.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="describedata.html"><a href="describedata.html#learning-outcomes"><i class="fa fa-check"></i><b>3.8.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="describedata.html"><a href="describedata.html#ANSdata"><i class="fa fa-check"></i><b>3.9</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>II Probability and Distributions</b></span></li>
+<li class="chapter" data-level="4" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>4</b> Probability</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="probability.html"><a href="probability.html#INTprob"><i class="fa fa-check"></i><b>4.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="probability.html"><a href="probability.html#random-phenomena-and-uncertain-outcomes"><i class="fa fa-check"></i><b>4.1.1</b> Random phenomena and uncertain outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="probability.html"><a href="probability.html#sample-spaces-and-events"><i class="fa fa-check"></i><b>4.2</b> Sample spaces and events</a></li>
+<li class="chapter" data-level="4.3" data-path="probability.html"><a href="probability.html#definition-of-probability-and-3-axioms"><i class="fa fa-check"></i><b>4.3</b> Definition of Probability and 3 Axioms</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="probability.html"><a href="probability.html#probability-1"><i class="fa fa-check"></i><b>4.3.1</b> Probability</a></li>
+<li class="chapter" data-level="4.3.2" data-path="probability.html"><a href="probability.html#three-axioms"><i class="fa fa-check"></i><b>4.3.2</b> Three Axioms</a></li>
+<li class="chapter" data-level="4.3.3" data-path="probability.html"><a href="probability.html#three-results-of-the-axioms"><i class="fa fa-check"></i><b>4.3.3</b> Three results of the Axioms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="probability.html"><a href="probability.html#independence-and-the-multiplication-rule"><i class="fa fa-check"></i><b>4.4</b> Independence and the Multiplication Rule</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="probability.html"><a href="probability.html#testing-for-independence"><i class="fa fa-check"></i><b>4.4.1</b> Testing for Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="probability.html"><a href="probability.html#conditional-probabilities"><i class="fa fa-check"></i><b>4.5</b> Conditional probabilities</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="probability.html"><a href="probability.html#independence-revisited"><i class="fa fa-check"></i><b>4.5.1</b> Independence revisited</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="probability.html"><a href="probability.html#tree-diagrams"><i class="fa fa-check"></i><b>4.6</b> Tree Diagrams</a></li>
+<li class="chapter" data-level="4.7" data-path="probability.html"><a href="probability.html#marginal-and-joint-probabilities"><i class="fa fa-check"></i><b>4.7</b> Marginal and joint probabilities</a></li>
+<li class="chapter" data-level="4.8" data-path="probability.html"><a href="probability.html#SUMprob"><i class="fa fa-check"></i><b>4.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="probability.html"><a href="probability.html#learning-outcomes-1"><i class="fa fa-check"></i><b>4.8.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="probability.html"><a href="probability.html#ANSprob"><i class="fa fa-check"></i><b>4.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="discreterv.html"><a href="discreterv.html"><i class="fa fa-check"></i><b>5</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="discreterv.html"><a href="discreterv.html#INTdiscrv"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="discreterv.html"><a href="discreterv.html#discrete-random-variables"><i class="fa fa-check"></i><b>5.2</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="discreterv.html"><a href="discreterv.html#probability-mass-function"><i class="fa fa-check"></i><b>5.2.1</b> Probability mass function</a></li>
+<li class="chapter" data-level="5.2.2" data-path="discreterv.html"><a href="discreterv.html#cumulative-distribution-function"><i class="fa fa-check"></i><b>5.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="5.2.3" data-path="discreterv.html"><a href="discreterv.html#expectation"><i class="fa fa-check"></i><b>5.2.3</b> Expectation</a></li>
+<li class="chapter" data-level="5.2.4" data-path="discreterv.html"><a href="discreterv.html#variance"><i class="fa fa-check"></i><b>5.2.4</b> Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="discreterv.html"><a href="discreterv.html#special-discrete-distributions"><i class="fa fa-check"></i><b>5.3</b> Special discrete distributions</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="discreterv.html"><a href="discreterv.html#bernoulli-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="5.3.2" data-path="discreterv.html"><a href="discreterv.html#binomial-distribution"><i class="fa fa-check"></i><b>5.3.2</b> Binomial distribution</a></li>
+<li class="chapter" data-level="5.3.3" data-path="discreterv.html"><a href="discreterv.html#poisdist"><i class="fa fa-check"></i><b>5.3.3</b> Poisson distribution</a></li>
+<li class="chapter" data-level="5.3.4" data-path="discreterv.html"><a href="discreterv.html#comparison-of-binomial-and-poisson-distributions"><i class="fa fa-check"></i><b>5.3.4</b> Comparison of binomial and Poisson distributions?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="discreterv.html"><a href="discreterv.html#SUMdiscrv"><i class="fa fa-check"></i><b>5.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="discreterv.html"><a href="discreterv.html#learning-outcomes-2"><i class="fa fa-check"></i><b>5.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="discreterv.html"><a href="discreterv.html#ANSdiscrv"><i class="fa fa-check"></i><b>5.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="contrv.html"><a href="contrv.html"><i class="fa fa-check"></i><b>6</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="contrv.html"><a href="contrv.html#INTcontrv"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="contrv.html"><a href="contrv.html#continuous-random-variables"><i class="fa fa-check"></i><b>6.2</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="contrv.html"><a href="contrv.html#probability-density-function"><i class="fa fa-check"></i><b>6.2.1</b> Probability density function</a></li>
+<li class="chapter" data-level="6.2.2" data-path="contrv.html"><a href="contrv.html#cumulative-distribution-function-1"><i class="fa fa-check"></i><b>6.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="6.2.3" data-path="contrv.html"><a href="contrv.html#expectation-and-variance-1"><i class="fa fa-check"></i><b>6.2.3</b> Expectation and variance</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="contrv.html"><a href="contrv.html#special-continuous-distributions"><i class="fa fa-check"></i><b>6.3</b> Special continuous distributions</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="contrv.html"><a href="contrv.html#normal-distribution"><i class="fa fa-check"></i><b>6.3.1</b> normal distribution</a></li>
+<li class="chapter" data-level="6.3.2" data-path="contrv.html"><a href="contrv.html#standard-normal-distribution"><i class="fa fa-check"></i><b>6.3.2</b> Standard normal distribution</a></li>
+<li class="chapter" data-level="6.3.3" data-path="contrv.html"><a href="contrv.html#simple-transformations-of-random-variables"><i class="fa fa-check"></i><b>6.3.3</b> Simple transformations of random variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="contrv.html"><a href="contrv.html#SUMcontrv"><i class="fa fa-check"></i><b>6.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="contrv.html"><a href="contrv.html#learning-outcomes-3"><i class="fa fa-check"></i><b>6.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="contrv.html"><a href="contrv.html#ANScontrv"><i class="fa fa-check"></i><b>6.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="CIformean.html"><a href="CIformean.html"><i class="fa fa-check"></i><b>7</b> Confidence intervals for sample means</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="CIformean.html"><a href="CIformean.html#INTci"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="CIformean.html"><a href="CIformean.html#uncertainty-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2</b> Uncertainty of the sample mean</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="CIformean.html"><a href="CIformean.html#precision-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2.1</b> Precision of the sample mean</a></li>
+<li class="chapter" data-level="7.2.2" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-known-sigma"><i class="fa fa-check"></i><b>7.2.2</b> Confidence interval with known <span class="math inline">\(\sigma\)</span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-unknown-sigma"><i class="fa fa-check"></i><b>7.2.3</b> Confidence interval with unknown <span class="math inline">\(\sigma\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="CIformean.html"><a href="CIformean.html#difference-between-two-group-means"><i class="fa fa-check"></i><b>7.3</b> Difference between two group means</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="CIformean.html"><a href="CIformean.html#assuming-equal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.1</b> Assuming equal standard deviations of the two groups</a></li>
+<li class="chapter" data-level="7.3.2" data-path="CIformean.html"><a href="CIformean.html#assuming-unequal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.2</b> Assuming unequal standard deviations of the two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="CIformean.html"><a href="CIformean.html#empirical-bootstrap-based-confidence-intervals"><i class="fa fa-check"></i><b>7.4</b> Empirical (bootstrap-based) confidence intervals</a></li>
+<li class="chapter" data-level="7.5" data-path="CIformean.html"><a href="CIformean.html#confidence-intervals-for-other-sample-statistics"><i class="fa fa-check"></i><b>7.5</b> Confidence intervals for other sample statistics</a></li>
+<li class="chapter" data-level="7.6" data-path="CIformean.html"><a href="CIformean.html#SUMci"><i class="fa fa-check"></i><b>7.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="CIformean.html"><a href="CIformean.html#learning-outcomes-4"><i class="fa fa-check"></i><b>7.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="CIformean.html"><a href="CIformean.html#ANSci"><i class="fa fa-check"></i><b>7.7</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>III Hypothesis Testing</b></span></li>
+<li class="chapter" data-level="8" data-path="hypothtests.html"><a href="hypothtests.html"><i class="fa fa-check"></i><b>8</b> Hypothesis Tests</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="hypothtests.html"><a href="hypothtests.html#INThyp"><i class="fa fa-check"></i><b>8.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="hypothtests.html"><a href="hypothtests.html#types-of-hypotheses"><i class="fa fa-check"></i><b>8.1.1</b> Types of hypotheses</a></li>
+<li class="chapter" data-level="8.1.2" data-path="hypothtests.html"><a href="hypothtests.html#how-do-hypothesis-tests-work"><i class="fa fa-check"></i><b>8.1.2</b> How do hypothesis tests work?</a></li>
+<li class="chapter" data-level="8.1.3" data-path="hypothtests.html"><a href="hypothtests.html#one-sample-t-test"><i class="fa fa-check"></i><b>8.1.3</b> One sample <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="hypothtests.html"><a href="hypothtests.html#two-sample-t-test"><i class="fa fa-check"></i><b>8.2</b> Two sample <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-13"><i class="fa fa-check"></i><b>8.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="hypothtests.html"><a href="hypothtests.html#paired-t-test"><i class="fa fa-check"></i><b>8.3</b> Paired <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-14"><i class="fa fa-check"></i><b>8.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="hypothtests.html"><a href="hypothtests.html#t-test-assumptions"><i class="fa fa-check"></i><b>8.4</b> <span class="math inline">\(t\)</span> test assumptions</a></li>
+<li class="chapter" data-level="8.5" data-path="hypothtests.html"><a href="hypothtests.html#non-parametric-alternative-to-t-tests"><i class="fa fa-check"></i><b>8.5</b> Non-parametric alternative to <span class="math inline">\(t\)</span> tests</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="hypothtests.html"><a href="hypothtests.html#mann-whitney-wilcoxon-test"><i class="fa fa-check"></i><b>8.5.1</b> Mann-Whitney-Wilcoxon test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="hypothtests.html"><a href="hypothtests.html#practical-significance-versus-statistical-significance"><i class="fa fa-check"></i><b>8.6</b> Practical significance versus statistical significance</a></li>
+<li class="chapter" data-level="8.7" data-path="hypothtests.html"><a href="hypothtests.html#SUMhyp"><i class="fa fa-check"></i><b>8.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="hypothtests.html"><a href="hypothtests.html#learning-outcomes-5"><i class="fa fa-check"></i><b>8.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="hypothtests.html"><a href="hypothtests.html#ANShyp"><i class="fa fa-check"></i><b>8.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>9</b> Analysis of Variance</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="anova.html"><a href="anova.html#INTanova"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="anova.html"><a href="anova.html#multiple-comparisons"><i class="fa fa-check"></i><b>9.2</b> Multiple comparisons</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="anova.html"><a href="anova.html#type-i-and-type-ii-error"><i class="fa fa-check"></i><b>9.2.1</b> Type I and Type II error</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="anova.html"><a href="anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.3</b> ANalysis Of VAriance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="anova.html"><a href="anova.html#f-test-statistic-for-anova"><i class="fa fa-check"></i><b>9.3.1</b> <span class="math inline">\(F\)</span> test statistic for ANOVA</a></li>
+<li class="chapter" data-level="9.3.2" data-path="anova.html"><a href="anova.html#calculating-an-anova-table"><i class="fa fa-check"></i><b>9.3.2</b> Calculating an ANOVA table</a></li>
+<li class="chapter" data-level="9.3.3" data-path="anova.html"><a href="anova.html#f-distribution"><i class="fa fa-check"></i><b>9.3.3</b> <span class="math inline">\(F\)</span> distribution</a></li>
+<li class="chapter" data-level="9.3.4" data-path="anova.html"><a href="anova.html#doing-this-in-r-16"><i class="fa fa-check"></i><b>9.3.4</b> Doing this in R</a></li>
+<li class="chapter" data-level="9.3.5" data-path="anova.html"><a href="anova.html#assumptions"><i class="fa fa-check"></i><b>9.3.5</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="anova.html"><a href="anova.html#identifying-differences-and-more-on-multiple-comparisons"><i class="fa fa-check"></i><b>9.4</b> Identifying differences (and more on multiple comparisons)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="anova.html"><a href="anova.html#bonferroni-correction"><i class="fa fa-check"></i><b>9.4.1</b> Bonferroni correction</a></li>
+<li class="chapter" data-level="9.4.2" data-path="anova.html"><a href="anova.html#sidak-adjustment"><i class="fa fa-check"></i><b>9.4.2</b> Sidak adjustment</a></li>
+<li class="chapter" data-level="9.4.3" data-path="anova.html"><a href="anova.html#tukeys-honest-significant-difference-hsd"><i class="fa fa-check"></i><b>9.4.3</b> Tukey’s Honest Significant Difference (HSD)</a></li>
+<li class="chapter" data-level="9.4.4" data-path="anova.html"><a href="anova.html#multiple-comparison-controversy"><i class="fa fa-check"></i><b>9.4.4</b> Multiple comparison controversy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="anova.html"><a href="anova.html#alternative-tests-to-anova"><i class="fa fa-check"></i><b>9.5</b> Alternative tests to ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="anova.html"><a href="anova.html#doing-this-in-r-18"><i class="fa fa-check"></i><b>9.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="anova.html"><a href="anova.html#SUManova"><i class="fa fa-check"></i><b>9.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="anova.html"><a href="anova.html#learning-outcomes-6"><i class="fa fa-check"></i><b>9.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="anova.html"><a href="anova.html#ANSanova"><i class="fa fa-check"></i><b>9.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="power.html"><a href="power.html"><i class="fa fa-check"></i><b>10</b> Statistical Power</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="power.html"><a href="power.html#INTpower"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="power.html"><a href="power.html#a-motivating-example---environmental-impact-assessment"><i class="fa fa-check"></i><b>10.2</b> A motivating example - Environmental impact assessment</a></li>
+<li class="chapter" data-level="10.3" data-path="power.html"><a href="power.html#calculating-power"><i class="fa fa-check"></i><b>10.3</b> Calculating power</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="power.html"><a href="power.html#increasing-the-power"><i class="fa fa-check"></i><b>10.3.1</b> Increasing the power</a></li>
+<li class="chapter" data-level="10.3.2" data-path="power.html"><a href="power.html#power-by-simulation"><i class="fa fa-check"></i><b>10.3.2</b> Power by simulation</a></li>
+<li class="chapter" data-level="10.3.3" data-path="power.html"><a href="power.html#multiple-comparisons-1"><i class="fa fa-check"></i><b>10.3.3</b> Multiple comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="power.html"><a href="power.html#SUMpower"><i class="fa fa-check"></i><b>10.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="power.html"><a href="power.html#learning-objectives-1"><i class="fa fa-check"></i><b>10.4.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="power.html"><a href="power.html#ANSpower"><i class="fa fa-check"></i><b>10.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="proportions.html"><a href="proportions.html"><i class="fa fa-check"></i><b>11</b> Proportions</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="proportions.html"><a href="proportions.html#INTprop"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals"><i class="fa fa-check"></i><b>11.2</b> Confidence intervals</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="proportions.html"><a href="proportions.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>11.2.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="11.2.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals-large-sample-sizes"><i class="fa fa-check"></i><b>11.2.2</b> Confidence intervals: large sample sizes</a></li>
+<li class="chapter" data-level="11.2.3" data-path="proportions.html"><a href="proportions.html#confidence-intervals-small-sample-sizes"><i class="fa fa-check"></i><b>11.2.3</b> Confidence intervals: small sample sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="proportions.html"><a href="proportions.html#comparing-two-proportions-the-z-test"><i class="fa fa-check"></i><b>11.3</b> Comparing two proportions: the <span class="math inline">\(z\)</span> test</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="proportions.html"><a href="proportions.html#testing-for-no-difference-between-groups"><i class="fa fa-check"></i><b>11.3.1</b> Testing for ‘no difference’ between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="proportions.html"><a href="proportions.html#ci-for-the-difference-between-population-proportions-p_1-p_2"><i class="fa fa-check"></i><b>11.4</b> CI for the difference between population proportions, (<span class="math inline">\(p_1-p_2\)</span>)</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="proportions.html"><a href="proportions.html#choosing-the-appropriate-standard-error-when-comparing-proportions"><i class="fa fa-check"></i><b>11.4.1</b> Choosing the appropriate standard error when comparing proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="proportions.html"><a href="proportions.html#odds-ratios"><i class="fa fa-check"></i><b>11.5</b> Odds ratios</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success"><i class="fa fa-check"></i><b>11.5.1</b> Calculating the odds of success</a></li>
+<li class="chapter" data-level="11.5.2" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success-for-2-x-2-tables"><i class="fa fa-check"></i><b>11.5.2</b> Calculating the odds of success for 2 x 2 tables</a></li>
+<li class="chapter" data-level="11.5.3" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-ratio"><i class="fa fa-check"></i><b>11.5.3</b> Calculating the odds ratio</a></li>
+<li class="chapter" data-level="11.5.4" data-path="proportions.html"><a href="proportions.html#confidence-intervals-for-odds-ratios"><i class="fa fa-check"></i><b>11.5.4</b> Confidence intervals for odds ratios</a></li>
+<li class="chapter" data-level="11.5.5" data-path="proportions.html"><a href="proportions.html#final-note-on-odds-ratios"><i class="fa fa-check"></i><b>11.5.5</b> Final note on odds ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="proportions.html"><a href="proportions.html#SUMprop"><i class="fa fa-check"></i><b>11.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="11.6.1" data-path="proportions.html"><a href="proportions.html#learning-outcomes-7"><i class="fa fa-check"></i><b>11.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="proportions.html"><a href="proportions.html#ANSprop"><i class="fa fa-check"></i><b>11.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="tableofcounts.html"><a href="tableofcounts.html"><i class="fa fa-check"></i><b>12</b> Tables of counts</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="tableofcounts.html"><a href="tableofcounts.html#introduction"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-goodness-of-fit-test"><i class="fa fa-check"></i><b>12.2</b> <span class="math inline">\(\chi^2\)</span> goodness-of-fit test</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-22"><i class="fa fa-check"></i><b>12.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-test-of-independence"><i class="fa fa-check"></i><b>12.3</b> <span class="math inline">\(\chi^2\)</span> test of independence</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-23"><i class="fa fa-check"></i><b>12.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="tableofcounts.html"><a href="tableofcounts.html#test-assumptions"><i class="fa fa-check"></i><b>12.4</b> Test assumptions</a></li>
+<li class="chapter" data-level="12.5" data-path="tableofcounts.html"><a href="tableofcounts.html#summary"><i class="fa fa-check"></i><b>12.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="tableofcounts.html"><a href="tableofcounts.html#learning-outcomes-8"><i class="fa fa-check"></i><b>12.5.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="tableofcounts.html"><a href="tableofcounts.html#answers"><i class="fa fa-check"></i><b>12.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>IV Regression and Linear Models</b></span></li>
+<li class="chapter" data-level="13" data-path="correg.html"><a href="correg.html"><i class="fa fa-check"></i><b>13</b> Correlation and Regression</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="correg.html"><a href="correg.html#introcorreg"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.2" data-path="correg.html"><a href="correg.html#correlation"><i class="fa fa-check"></i><b>13.2</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="correg.html"><a href="correg.html#significance-of-r"><i class="fa fa-check"></i><b>13.2.1</b> Significance of <span class="math inline">\(r\)</span></a></li>
+<li class="chapter" data-level="13.2.2" data-path="correg.html"><a href="correg.html#correlation-and-causation"><i class="fa fa-check"></i><b>13.2.2</b> Correlation and causation</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="correg.html"><a href="correg.html#regression"><i class="fa fa-check"></i><b>13.3</b> Regression</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="correg.html"><a href="correg.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>13.3.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="13.3.2" data-path="correg.html"><a href="correg.html#model-specification"><i class="fa fa-check"></i><b>13.3.2</b> Model specification</a></li>
+<li class="chapter" data-level="13.3.3" data-path="correg.html"><a href="correg.html#which-straight-line-to-choose"><i class="fa fa-check"></i><b>13.3.3</b> Which straight line to choose?</a></li>
+<li class="chapter" data-level="13.3.4" data-path="correg.html"><a href="correg.html#fitting-the-model-the-details"><i class="fa fa-check"></i><b>13.3.4</b> Fitting the model: the details</a></li>
+<li class="chapter" data-level="13.3.5" data-path="correg.html"><a href="correg.html#predictions"><i class="fa fa-check"></i><b>13.3.5</b> Predictions</a></li>
+<li class="chapter" data-level="13.3.6" data-path="correg.html"><a href="correg.html#the-variance-estimate"><i class="fa fa-check"></i><b>13.3.6</b> The variance estimate</a></li>
+<li class="chapter" data-level="13.3.7" data-path="correg.html"><a href="correg.html#introduction-to-the-matrix-form"><i class="fa fa-check"></i><b>13.3.7</b> Introduction to the matrix form</a></li>
+<li class="chapter" data-level="13.3.8" data-path="correg.html"><a href="correg.html#regression-in-practise"><i class="fa fa-check"></i><b>13.3.8</b> Regression in practise</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="correg.html"><a href="correg.html#SUMcorreg"><i class="fa fa-check"></i><b>13.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="correg.html"><a href="correg.html#learning-outcomes-9"><i class="fa fa-check"></i><b>13.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="correg.html"><a href="correg.html#ANScorreg"><i class="fa fa-check"></i><b>13.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="introlm.html"><a href="introlm.html"><i class="fa fa-check"></i><b>14</b> Introduction to the linear model</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="introlm.html"><a href="introlm.html#INTlm"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-a-t-test"><i class="fa fa-check"></i><b>14.2</b> The linear model as a <span class="math inline">\(t\)</span> test</a></li>
+<li class="chapter" data-level="14.3" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-analysis-of-variance"><i class="fa fa-check"></i><b>14.3</b> The linear model as analysis of variance</a></li>
+<li class="chapter" data-level="14.4" data-path="introlm.html"><a href="introlm.html#simple-linear-regression-again"><i class="fa fa-check"></i><b>14.4</b> Simple linear regression (again)</a></li>
+<li class="chapter" data-level="14.5" data-path="introlm.html"><a href="introlm.html#model-performance"><i class="fa fa-check"></i><b>14.5</b> Model performance</a></li>
+<li class="chapter" data-level="14.6" data-path="introlm.html"><a href="introlm.html#multiple-regression"><i class="fa fa-check"></i><b>14.6</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="introlm.html"><a href="introlm.html#the-eia-data-again"><i class="fa fa-check"></i><b>14.6.1</b> The EIA data again</a></li>
+<li class="chapter" data-level="14.6.2" data-path="introlm.html"><a href="introlm.html#model-specification-1"><i class="fa fa-check"></i><b>14.6.2</b> Model specification</a></li>
+<li class="chapter" data-level="14.6.3" data-path="introlm.html"><a href="introlm.html#types-of-covariates"><i class="fa fa-check"></i><b>14.6.3</b> Types of covariates</a></li>
+<li class="chapter" data-level="14.6.4" data-path="introlm.html"><a href="introlm.html#model-fitting"><i class="fa fa-check"></i><b>14.6.4</b> Model fitting</a></li>
+<li class="chapter" data-level="14.6.5" data-path="introlm.html"><a href="introlm.html#parameter-interpretation"><i class="fa fa-check"></i><b>14.6.5</b> Parameter Interpretation</a></li>
+<li class="chapter" data-level="14.6.6" data-path="introlm.html"><a href="introlm.html#parameter-uncertainty"><i class="fa fa-check"></i><b>14.6.6</b> Parameter uncertainty</a></li>
+<li class="chapter" data-level="14.6.7" data-path="introlm.html"><a href="introlm.html#confidence-intervals-cis-on-parameters"><i class="fa fa-check"></i><b>14.6.7</b> Confidence intervals (CIs) on parameters</a></li>
+<li class="chapter" data-level="14.6.8" data-path="introlm.html"><a href="introlm.html#hypothesis-testing"><i class="fa fa-check"></i><b>14.6.8</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="14.6.9" data-path="introlm.html"><a href="introlm.html#model-performance-1"><i class="fa fa-check"></i><b>14.6.9</b> Model performance</a></li>
+<li class="chapter" data-level="14.6.10" data-path="introlm.html"><a href="introlm.html#more-covariates-of-mixed-types"><i class="fa fa-check"></i><b>14.6.10</b> More covariates of mixed types</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="introlm.html"><a href="introlm.html#the-matrix-interpretation-of-a-linear-model"><i class="fa fa-check"></i><b>14.7</b> The matrix interpretation of a linear model</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="introlm.html"><a href="introlm.html#dummy-variables"><i class="fa fa-check"></i><b>14.7.1</b> Dummy variables</a></li>
+<li class="chapter" data-level="14.7.2" data-path="introlm.html"><a href="introlm.html#combining-factors-and-continuous-variables"><i class="fa fa-check"></i><b>14.7.2</b> Combining factors and continuous variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.8" data-path="introlm.html"><a href="introlm.html#SUMlm"><i class="fa fa-check"></i><b>14.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="14.8.1" data-path="introlm.html"><a href="introlm.html#learning-objectives-2"><i class="fa fa-check"></i><b>14.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="14.9" data-path="introlm.html"><a href="introlm.html#ANSlm"><i class="fa fa-check"></i><b>14.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="modelselection.html"><a href="modelselection.html"><i class="fa fa-check"></i><b>15</b> Model selection</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="modelselection.html"><a href="modelselection.html#INTmodsel"><i class="fa fa-check"></i><b>15.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="modelselection.html"><a href="modelselection.html#criteria-for-model-selection"><i class="fa fa-check"></i><b>15.1.1</b> Criteria for model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="modelselection.html"><a href="modelselection.html#collinearity"><i class="fa fa-check"></i><b>15.2</b> Collinearity</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="modelselection.html"><a href="modelselection.html#variance-inflation-factors"><i class="fa fa-check"></i><b>15.2.1</b> Variance inflation factors</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="modelselection.html"><a href="modelselection.html#p-value-based-model-selection-the-f-test"><i class="fa fa-check"></i><b>15.3</b> <span class="math inline">\(p\)</span>-value based model selection: the <span class="math inline">\(F\)</span>-test</a></li>
+<li class="chapter" data-level="15.4" data-path="modelselection.html"><a href="modelselection.html#relative-model-fit"><i class="fa fa-check"></i><b>15.4</b> Relative model fit</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="modelselection.html"><a href="modelselection.html#akaikes-information-criterion-aic"><i class="fa fa-check"></i><b>15.4.1</b> Akaike’s Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="modelselection.html"><a href="modelselection.html#other-methods-of-model-selection"><i class="fa fa-check"></i><b>15.5</b> Other methods of model selection</a></li>
+<li class="chapter" data-level="15.6" data-path="modelselection.html"><a href="modelselection.html#automated-variable-selection"><i class="fa fa-check"></i><b>15.6</b> Automated variable selection</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="modelselection.html"><a href="modelselection.html#stepwise-selection"><i class="fa fa-check"></i><b>15.6.1</b> Stepwise selection</a></li>
+<li class="chapter" data-level="15.6.2" data-path="modelselection.html"><a href="modelselection.html#all-possible-subsets-selection"><i class="fa fa-check"></i><b>15.6.2</b> All possible subsets selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="modelselection.html"><a href="modelselection.html#example-model-selection-with-the-medical-data"><i class="fa fa-check"></i><b>15.7</b> Example: model selection with the medical data</a>
+<ul>
+<li class="chapter" data-level="15.7.1" data-path="modelselection.html"><a href="modelselection.html#model-specification-3"><i class="fa fa-check"></i><b>15.7.1</b> Model specification</a></li>
+<li class="chapter" data-level="15.7.2" data-path="modelselection.html"><a href="modelselection.html#interpreting-the-parameter-estimates"><i class="fa fa-check"></i><b>15.7.2</b> Interpreting the parameter estimates</a></li>
+<li class="chapter" data-level="15.7.3" data-path="modelselection.html"><a href="modelselection.html#what-should-be-in-the-model"><i class="fa fa-check"></i><b>15.7.3</b> What ‘should’ be in the model?</a></li>
+<li class="chapter" data-level="15.7.4" data-path="modelselection.html"><a href="modelselection.html#what-terms-are-significant"><i class="fa fa-check"></i><b>15.7.4</b> What terms are significant?</a></li>
+<li class="chapter" data-level="15.7.5" data-path="modelselection.html"><a href="modelselection.html#more-automated-methods"><i class="fa fa-check"></i><b>15.7.5</b> More automated methods</a></li>
+</ul></li>
+<li class="chapter" data-level="15.8" data-path="modelselection.html"><a href="modelselection.html#SUMmodsel"><i class="fa fa-check"></i><b>15.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="15.8.1" data-path="modelselection.html"><a href="modelselection.html#learning-objectives-3"><i class="fa fa-check"></i><b>15.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="15.9" data-path="modelselection.html"><a href="modelselection.html#ANSmodsel"><i class="fa fa-check"></i><b>15.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="interac.html"><a href="interac.html"><i class="fa fa-check"></i><b>16</b> Interactions and the Linear Model</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="interac.html"><a href="interac.html#INTinterac"><i class="fa fa-check"></i><b>16.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="interac.html"><a href="interac.html#fitting-different-models"><i class="fa fa-check"></i><b>16.1.1</b> Fitting different models</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="interac.html"><a href="interac.html#fitting-interaction-terms"><i class="fa fa-check"></i><b>16.2</b> Fitting interaction terms</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="interac.html"><a href="interac.html#specifying-interactions-in-model-formulae"><i class="fa fa-check"></i><b>16.2.1</b> Specifying interactions in model formulae</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="interac.html"><a href="interac.html#interactions-in-practise"><i class="fa fa-check"></i><b>16.3</b> Interactions in practise</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="interac.html"><a href="interac.html#eia-data"><i class="fa fa-check"></i><b>16.3.1</b> EIA data</a></li>
+<li class="chapter" data-level="16.3.2" data-path="interac.html"><a href="interac.html#medical-data"><i class="fa fa-check"></i><b>16.3.2</b> Medical data</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="interac.html"><a href="interac.html#model-selection-and-interactions"><i class="fa fa-check"></i><b>16.4</b> Model selection and interactions</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-eia-data-set"><i class="fa fa-check"></i><b>16.4.1</b> Backwards selection in the EIA data set</a></li>
+<li class="chapter" data-level="16.4.2" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-medical-data-set"><i class="fa fa-check"></i><b>16.4.2</b> Backwards selection in the medical data set</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="interac.html"><a href="interac.html#SUMinterac"><i class="fa fa-check"></i><b>16.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="interac.html"><a href="interac.html#learning-objectives-4"><i class="fa fa-check"></i><b>16.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="interac.html"><a href="interac.html#ANSinterac"><i class="fa fa-check"></i><b>16.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>17</b> Prediction from the linear model</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="prediction.html"><a href="prediction.html#INTpred"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="prediction.html"><a href="prediction.html#prediction-1"><i class="fa fa-check"></i><b>17.2</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-27"><i class="fa fa-check"></i><b>17.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="prediction.html"><a href="prediction.html#uncertainty-in-the-prediction"><i class="fa fa-check"></i><b>17.3</b> Uncertainty in the prediction</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-28"><i class="fa fa-check"></i><b>17.3.1</b> Doing this in R</a></li>
+<li class="chapter" data-level="17.3.2" data-path="prediction.html"><a href="prediction.html#confidence-intervals-for-the-line"><i class="fa fa-check"></i><b>17.3.2</b> Confidence intervals for the line</a></li>
+<li class="chapter" data-level="17.3.3" data-path="prediction.html"><a href="prediction.html#prediction-intervals"><i class="fa fa-check"></i><b>17.3.3</b> Prediction intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="prediction.html"><a href="prediction.html#prediction-in-multiple-regression"><i class="fa fa-check"></i><b>17.4</b> Prediction in multiple regression</a></li>
+<li class="chapter" data-level="17.5" data-path="prediction.html"><a href="prediction.html#SUMpred"><i class="fa fa-check"></i><b>17.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="prediction.html"><a href="prediction.html#learning-objectives-5"><i class="fa fa-check"></i><b>17.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="prediction.html"><a href="prediction.html#ANSpred"><i class="fa fa-check"></i><b>17.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>18</b> Linear model diagnostics</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="diagnostics.html"><a href="diagnostics.html#INTdiag"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="diagnostics.html"><a href="diagnostics.html#predictive-power"><i class="fa fa-check"></i><b>18.2</b> Predictive power</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="diagnostics.html"><a href="diagnostics.html#signal-versus-noise"><i class="fa fa-check"></i><b>18.2.1</b> Signal versus noise</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="diagnostics.html"><a href="diagnostics.html#model-assumptions"><i class="fa fa-check"></i><b>18.3</b> Model assumptions</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="diagnostics.html"><a href="diagnostics.html#normality-assumption"><i class="fa fa-check"></i><b>18.3.1</b> Normality assumption</a></li>
+<li class="chapter" data-level="18.3.2" data-path="diagnostics.html"><a href="diagnostics.html#assessing-constant-error-variance"><i class="fa fa-check"></i><b>18.3.2</b> Assessing constant error variance</a></li>
+<li class="chapter" data-level="18.3.3" data-path="diagnostics.html"><a href="diagnostics.html#assessing-independence"><i class="fa fa-check"></i><b>18.3.3</b> Assessing independence</a></li>
+<li class="chapter" data-level="18.3.4" data-path="diagnostics.html"><a href="diagnostics.html#pseudoreplication"><i class="fa fa-check"></i><b>18.3.4</b> Pseudoreplication</a></li>
+<li class="chapter" data-level="18.3.5" data-path="diagnostics.html"><a href="diagnostics.html#linearity-in-the-model-for-the-signal"><i class="fa fa-check"></i><b>18.3.5</b> Linearity in the model for the signal</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="diagnostics.html"><a href="diagnostics.html#example-diagnostics-with-the-medical-data"><i class="fa fa-check"></i><b>18.4</b> Example: Diagnostics with the medical data</a></li>
+<li class="chapter" data-level="18.5" data-path="diagnostics.html"><a href="diagnostics.html#partial-residual-plots"><i class="fa fa-check"></i><b>18.5</b> Partial residual plots</a>
+<ul>
+<li class="chapter" data-level="18.5.1" data-path="diagnostics.html"><a href="diagnostics.html#doing-this-in-r-30"><i class="fa fa-check"></i><b>18.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="18.6" data-path="diagnostics.html"><a href="diagnostics.html#interaction-terms"><i class="fa fa-check"></i><b>18.6</b> Interaction Terms</a></li>
+<li class="chapter" data-level="18.7" data-path="diagnostics.html"><a href="diagnostics.html#SUMdiag"><i class="fa fa-check"></i><b>18.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="18.7.1" data-path="diagnostics.html"><a href="diagnostics.html#learning-outcomes-10"><i class="fa fa-check"></i><b>18.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="18.8" data-path="diagnostics.html"><a href="diagnostics.html#ANSdiag"><i class="fa fa-check"></i><b>18.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="nextsteps.html"><a href="nextsteps.html"><i class="fa fa-check"></i><b>19</b> The Next Steps</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="nextsteps.html"><a href="nextsteps.html#INTnext"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="nextsteps.html"><a href="nextsteps.html#solving-the-assumptional-problems"><i class="fa fa-check"></i><b>19.2</b> Solving the assumptional problems</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="nextsteps.html"><a href="nextsteps.html#example-the-eia-data"><i class="fa fa-check"></i><b>19.2.1</b> Example: The EIA data</a></li>
+<li class="chapter" data-level="19.2.2" data-path="nextsteps.html"><a href="nextsteps.html#oddly-distributed-residuals"><i class="fa fa-check"></i><b>19.2.2</b> Oddly distributed residuals</a></li>
+<li class="chapter" data-level="19.2.3" data-path="nextsteps.html"><a href="nextsteps.html#non-independence"><i class="fa fa-check"></i><b>19.2.3</b> Non-independence</a></li>
+<li class="chapter" data-level="19.2.4" data-path="nextsteps.html"><a href="nextsteps.html#non-linearity"><i class="fa fa-check"></i><b>19.2.4</b> Non-linearity</a></li>
+<li class="chapter" data-level="19.2.5" data-path="nextsteps.html"><a href="nextsteps.html#bootstrapping"><i class="fa fa-check"></i><b>19.2.5</b> Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="nextsteps.html"><a href="nextsteps.html#summary-1"><i class="fa fa-check"></i><b>19.3</b> Summary</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="nextsteps.html"><a href="nextsteps.html#learning-outcomes-11"><i class="fa fa-check"></i><b>19.3.1</b> Learning outcomes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="notation.html"><a href="notation.html"><i class="fa fa-check"></i><b>20</b> Notation {-}</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="notation.html"><a href="notation.html#summation"><i class="fa fa-check"></i><b>20.1</b> Summation</a></li>
+<li class="chapter" data-level="20.2" data-path="notation.html"><a href="notation.html#factorial"><i class="fa fa-check"></i><b>20.2</b> Factorial</a></li>
+<li class="chapter" data-level="20.3" data-path="notation.html"><a href="notation.html#combinations"><i class="fa fa-check"></i><b>20.3</b> Combinations</a></li>
+<li class="chapter" data-level="20.4" data-path="notation.html"><a href="notation.html#multiplication"><i class="fa fa-check"></i><b>20.4</b> Multiplication</a></li>
+<li class="chapter" data-level="20.5" data-path="notation.html"><a href="notation.html#integration"><i class="fa fa-check"></i><b>20.5</b> Integration</a></li>
+<li class="chapter" data-level="20.6" data-path="notation.html"><a href="notation.html#matrix-multiplication"><i class="fa fa-check"></i><b>20.6</b> Matrix multiplication</a></li>
+<li class="chapter" data-level="20.7" data-path="notation.html"><a href="notation.html#absolute-values"><i class="fa fa-check"></i><b>20.7</b> Absolute values</a></li>
+<li class="chapter" data-level="20.8" data-path="notation.html"><a href="notation.html#pi"><i class="fa fa-check"></i><b>20.8</b> <span class="math inline">\(\pi\)</span></a></li>
+<li class="chapter" data-level="20.9" data-path="notation.html"><a href="notation.html#exponential-function-e"><i class="fa fa-check"></i><b>20.9</b> Exponential function, <span class="math inline">\(e\)</span></a></li>
+<li class="chapter" data-level="20.10" data-path="notation.html"><a href="notation.html#intervals"><i class="fa fa-check"></i><b>20.10</b> Intervals</a></li>
+<li class="chapter" data-level="20.11" data-path="notation.html"><a href="notation.html#axes-on-plots"><i class="fa fa-check"></i><b>20.11</b> Axes on plots</a></li>
+<li class="chapter" data-level="20.12" data-path="notation.html"><a href="notation.html#probability-2"><i class="fa fa-check"></i><b>20.12</b> Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modelselection" class="section level1" number="15">
+<h1><span class="header-section-number">Chapter 15</span> Model selection</h1>
+<div id="INTmodsel" class="section level2" number="15.1">
+<h2><span class="header-section-number">15.1</span> Introduction</h2>
+<p>If there is only one, or a small number of possible explanatory variables (also known as covariates, predictors or independent variables) choosing a linear regression model can be straightforward. What happens when there are many explanatory variables? Some covariates may be more important/useful than others in explaining the response variable. Since conclusions depend, to some extent, on the covariates in the linear model, how do we decide which covariates to include? This chapter considers how to choose between competing models using different model selection procedures: <span class="math inline">\(p\)</span>-values, fit scores and automated methods. The concepts described in this chapter use examples introduced in Chapter <a href="introlm.html#introlm">14</a>.</p>
+<div id="criteria-for-model-selection" class="section level3" number="15.1.1">
+<h3><span class="header-section-number">15.1.1</span> Criteria for model selection</h3>
+<p>We want to have an <em>appropriate</em> set of covariates in our model:</p>
+<ul>
+<li>if we include too few variables we throw away valuable information, and</li>
+<li>if we include non-essential variables the standard errors and <span class="math inline">\(p\)</span>-values tend to be too large.</li>
+<li>if the models are too simple (<em>under-fitted</em>), or too complex (<em>over-fitted</em>), the models will have poor predictive abilities.</li>
+</ul>
+<p>We want to include variables which:</p>
+<ul>
+<li>have a genuine relationship with the response and</li>
+<li>offer a sufficient amount of new information about the response (given the variables already included)</li>
+</ul>
+<p>We want to exclude variables that:</p>
+<ul>
+<li>offer essentially the same information about the response; e.g., we want to avoid <strong>collinearity</strong>.</li>
+</ul>
+</div>
+</div>
+<div id="collinearity" class="section level2" number="15.2">
+<h2><span class="header-section-number">15.2</span> Collinearity</h2>
+<p>Collinearity is a <em>linear</em> association between two variables in a linear regression model. ‘Multicollinearity’ refers to linear associations between two or more variables in a multiple regression model.</p>
+<p>When ‘collinear’ variables are fitted together in a model,</p>
+<ul>
+<li>the resulting model is unstable (because we are trying to estimate two parameters when one will do) and,</li>
+<li>we obtain inflated standard errors for these estimates.</li>
+</ul>
+<p>We have methods to detect this however.</p>
+<div id="variance-inflation-factors" class="section level3" number="15.2.1">
+<h3><span class="header-section-number">15.2.1</span> Variance inflation factors</h3>
+<p>Collinearity can be detected using ‘variance inflation factors’ (VIFs). These are based on fitting linear models between each covariate (in turn) and the remaining covariates and assessing the predictive power of each:</p>
+<p><span class="math display">\[\begin{equation}
+VIF_p=\frac{1}{1-R_p^2}
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(R^2_p\)</span> is the squared correlation between the <span class="math inline">\(p\)</span>-th observed covariate value and those predicted by a linear model containing the other covariates. If any of the <span class="math inline">\(R^2_p\)</span> values are high, then the VIF will also be high.</p>
+<p>There are no firm rules about how large VIFs need to be before remedial action (e.g. removing a covariate) is required; some say VIFs <span class="math inline">\(&gt; 5\)</span>, some say VIFs <span class="math inline">\(&gt;10\)</span>.</p>
+<p>VIFs require adjustment if we estimate multiple parameters (i.e. regression coefficients) for a particular covariate, for example, the number of regression coefficients estimated for a factor is the ‘number of levels - 1.’ However, VIFs are easily calculated using software.</p>
+<div id="doing-this-in-r-25" class="section level4" number="15.2.1.1">
+<h4><span class="header-section-number">15.2.1.1</span> Doing this in R</h4>
+<p>We consider a regression of total height on left leg length (LLL) and right leg length (RLL) (seen in Chapter <a href="introlm.html#introlm">14</a>). The covariates LLL and RLL are strongly correlated but the variable length of hair (LOH) is not correlated with left leg length (see below) or indeed total height.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-198"></span>
+<img src="IntroStats_files/figure-html/unnamed-chunk-198-1.png" alt="Relationship between length of hair and left leg length." width="480" />
+<p class="caption">
+Figure 15.1: Relationship between length of hair and left leg length.
+</p>
+</div>
+<p>A function to obtain VIFs is available in the <code>car</code> package. To calculate the VIFs, we need to first fit a linear model with all the potential explanatory variables included.</p>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="modelselection.html#cb388-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit multiple regression model</span></span>
+<span id="cb388-2"><a href="modelselection.html#cb388-2" aria-hidden="true" tabindex="-1"></a>modelAll <span class="ot">&lt;-</span> <span class="fu">lm</span>(TotalHeight <span class="sc">~</span> LLL <span class="sc">+</span> RLL <span class="sc">+</span> LOH)</span>
+<span id="cb388-3"><a href="modelselection.html#cb388-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load package</span></span>
+<span id="cb388-4"><a href="modelselection.html#cb388-4" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(car)</span>
+<span id="cb388-5"><a href="modelselection.html#cb388-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate VIFs</span></span>
+<span id="cb388-6"><a href="modelselection.html#cb388-6" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(modelAll)</span></code></pre></div>
+<pre><code>        LLL         RLL         LOH 
+5636.487167 5637.364338    1.014372 </code></pre>
+<p>The large values of the VIFs for LLL and RLL indicate that they are (not surprisingly) highly correlated. This suggests removal of one of the leg length variables. The variable RLL is removed from the model and the process is repeated. The resulting VIFs indicate that the remaining variables are not collinear.</p>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="modelselection.html#cb390-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit multiple regression model</span></span>
+<span id="cb390-2"><a href="modelselection.html#cb390-2" aria-hidden="true" tabindex="-1"></a>model2vars <span class="ot">&lt;-</span> <span class="fu">lm</span>(TotalHeight <span class="sc">~</span> LLL <span class="sc">+</span> LOH)</span>
+<span id="cb390-3"><a href="modelselection.html#cb390-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate VIFs</span></span>
+<span id="cb390-4"><a href="modelselection.html#cb390-4" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model2vars)</span></code></pre></div>
+<pre><code>     LLL      LOH 
+1.011245 1.011245 </code></pre>
+<p>NOTE: Variables should be removed one at a time and everything retested.</p>
+</div>
+<div id="dealing-with-collinearity" class="section level4" number="15.2.1.2">
+<h4><span class="header-section-number">15.2.1.2</span> Dealing with collinearity</h4>
+<p>Collinearity can be addressed by removing one of the collinear variables, but alternative methods exist if it desirable to retain the full set of covariates.</p>
+<p>The removal of one, or more, collinear covariates may occur automatically if <span class="math inline">\(p\)</span>-values (see below) are used to drop terms from a model. This occurs since collinear terms are often unstable and thus highly uncertain, which means the associated <span class="math inline">\(p\)</span>-values are often large. A 5 minute clip about this issue can be found <a href="http://www.youtube.com/watch?v=O4jDva9B3fw">here</a>.
+A large <span class="math inline">\(p\)</span>-value could mean either the variable has no effect, or is correlated with another predictor.</p>
+<p>Alternatively, the analyst may use their judgement in which collinear covariate(s) are retained and which are omitted (but readers might be skeptical of such a subjective approach). This can be done, for instance, by comparing the relative predictive power of the model with and without each covariate and choosing the covariate which predicts the response `best’.</p>
+<p><strong>Q15.1</strong> Does a low VIF indicate that a variable should be in the final model?</p>
+</div>
+</div>
+</div>
+<div id="p-value-based-model-selection-the-f-test" class="section level2" number="15.3">
+<h2><span class="header-section-number">15.3</span> <span class="math inline">\(p\)</span>-value based model selection: the <span class="math inline">\(F\)</span>-test</h2>
+<p>Collinearity identifies correlated predictor variables, it does not necessarily generate a good model. The <span class="math inline">\(p\)</span>-value associated with an estimated regression coefficient can be used to decide whether to include a particular variable in the final model. Essentially, we perform a hypothesis test where the null hypothesis is that the regression coefficient is equal to zero; a regression coefficient equal to zero would have the effect of eliminating that variable from the model. The <span class="math inline">\(p\)</span>-value associated with a relevant test statistic is then interpreted in the usual way.</p>
+<ul>
+<li><p>For covariates with one associated coefficient, retention can be based on the value of the associated <span class="math inline">\(p\)</span>-value (i.e. large <span class="math inline">\(p\)</span>-values suggest omission, small <span class="math inline">\(p\)</span>-values (e.g. <span class="math inline">\(&lt;\)</span> 0.05) suggest retention).</p></li>
+<li><p>For variables with multiple coefficients (e.g. factors) we are interested in assessing a group of coefficients simultaneously. In chapter 14, a model was fitted which included <code>month</code> as a factor variable; it had four levels and so there were three regression coefficients associated with it - these were denoted in the model as <span class="math inline">\(\beta_5\)</span>, <span class="math inline">\(\beta_6\)</span>, <span class="math inline">\(\beta_7\)</span>. The test of interest is:</p></li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+H_0:~&amp; \beta_5=\beta_{6}=\beta_{7}=0\\
+H_1:~&amp; \textrm{ at least one of } \beta_5,\beta_{6},\beta_{7}  \neq
+0
+\end{align*}\]</span></p>
+<p>We look at an example of this now.</p>
+<div id="comparing-models-with-and-without-a-factor" class="section level4" number="15.3.0.1">
+<h4><span class="header-section-number">15.3.0.1</span> Comparing models with and without a factor</h4>
+<p>In fitting a linear model to the EIA data, <code>Month</code> was treated as a factor variable with four levels, therefore, models with and without <code>Month</code> differ by 3 parameters. We wish to compare a reduced model (without month) with the full model (with month) using a significance test. The idea is as follows:</p>
+<ul>
+<li>If month is an important predictor then a model with month should predict the response values considerably better than a model without month.</li>
+<li>If a model with and without month are equivalent then models with and without month will predict the response data similarly.</li>
+</ul>
+<p>We can use an <span class="math inline">\(F\)</span> test to formally test the hypothesis that the model without month (with <span class="math inline">\(q\)</span> parameters) is as good as the model with month (with <span class="math inline">\(P\)</span> parameters) and hence the smaller model is preferred (and month is not required).<br />
+</p>
+<pre><code>Analysis of Variance Table
+
+Response: Density
+                    Df   Sum Sq Mean Sq  F value    Pr(&gt;F)    
+XPos                 1    82435   82435 106.3265 &lt; 2.2e-16 ***
+YPos                 1     3545    3545   4.5719   0.03251 *  
+DistCoast            1   129640  129640 167.2118 &lt; 2.2e-16 ***
+Depth                1    95065   95065 122.6164 &lt; 2.2e-16 ***
+Phase                2     5956    2978   3.8413   0.02148 *  
+as.factor(Month)     3    49779   16593  21.4019 7.656e-14 ***
+Residuals        31492 24415800     775                       
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Note that the explained sum of squares produced by the <code>anova</code> command is <strong>sequential</strong> so if we want to test for <code>Month</code> given all the other terms in the model i.e <code>Month</code> must come last in the list of variables (as it is in this example).</p>
+<p><strong>Differences in average density across months</strong></p>
+<p>What can we conclude from these results?</p>
+<ul>
+<li>This test provides a large <span class="math inline">\(F\)</span>-test statistic (21.2102) and small associated <span class="math inline">\(p\)</span>-value (<span class="math inline">\(p&lt;0.0001\)</span>) for <code>Month</code>, which suggests a model with <code>Month</code> is significantly better than a model without <code>Month</code>.</li>
+<li>This indicates genuine month to month differences in average density and thus month information should be retained in the model.</li>
+</ul>
+<p><strong>Differences in average density across phases</strong></p>
+<p>Phase of construction was included as another factor variable in the model; this had three levels (denoted by A, B and C). If we re-order the model so <code>Phase</code> is last, we can consider whether <code>Phase</code> should be in the model.</p>
+<pre><code>Analysis of Variance Table
+
+Response: Density
+                    Df   Sum Sq Mean Sq  F value    Pr(&gt;F)    
+XPos                 1    82435   82435 106.3265 &lt; 2.2e-16 ***
+YPos                 1     3545    3545   4.5719  0.032509 *  
+DistCoast            1   129640  129640 167.2118 &lt; 2.2e-16 ***
+Depth                1    95065   95065 122.6164 &lt; 2.2e-16 ***
+as.factor(Month)     3    46310   15437  19.9105 6.894e-13 ***
+Phase                2     9425    4713   6.0784  0.002294 ** 
+Residuals        31492 24415800     775                       
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li><p>For phase, the <span class="math inline">\(F\)</span>-test results are quite the opposite to that for <code>Month</code>: <span class="math inline">\(F=0.2409\)</span> and <span class="math inline">\(p=0.7859\)</span>. This indicates no significant difference between models with and without <code>Phase</code> and, therefore, no genuine differences in average density across phases.</p></li>
+<li><p>This suggests phase should be omitted from the model given the presence of the other variables.</p></li>
+</ul>
+<p>In the above examples, we have written the model with the covariates in different orders to ascertain the appropriate <span class="math inline">\(p\)</span>-values. The R function <code>Anova</code> (as opposed to <code>anova</code>) gives the <span class="math inline">\(p\)</span>-values for all covariates assuming the term is the last in the model. Thus:</p>
+<pre><code>Anova Table (Type II tests)
+
+Response: Density
+                   Sum Sq    Df  F value    Pr(&gt;F)    
+XPos                74801     1  96.4802 &lt; 2.2e-16 ***
+YPos               121103     1 156.2012 &lt; 2.2e-16 ***
+DistCoast           16028     1  20.6738 5.466e-06 ***
+Depth               96320     1 124.2357 &lt; 2.2e-16 ***
+Phase                9425     2   6.0784  0.002294 ** 
+as.factor(Month)    49779     3  21.4019 7.656e-14 ***
+Residuals        24415800 31492                       
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The <span class="math inline">\(p\)</span>-values are now equivalent to having the relevant term as the last term in the model, even though <code>Depth</code> is the actual last term now. Note the brackets with the words <code>Type II tests</code> - this indicates the so called ‘Type II’ sum of square’s are being used (sums of squares that assume each term is the last in the model) as opposed to ‘Type I.’ Type I errors use the sequential sum of squares (which is affected by the order of the variables in the model specification) and are provided by the function <code>anova</code>.</p>
+</div>
+</div>
+<div id="relative-model-fit" class="section level2" number="15.4">
+<h2><span class="header-section-number">15.4</span> Relative model fit</h2>
+<p>While <span class="math inline">\(F\)</span>-tests (and associated <span class="math inline">\(p\)</span>-values) can be used to compare <strong>nested</strong> models (when one model is a special case of the other) they cannot be used to compare models which are not nested. In contrast, both nested and non-nested models can be compared using `information-based’ fit criteria such as the AIC or BIC statistic.</p>
+<div id="akaikes-information-criterion-aic" class="section level3" number="15.4.1">
+<h3><span class="header-section-number">15.4.1</span> Akaike’s Information Criterion (AIC)</h3>
+<p>Occam’s Razor is the very useful rule that when comparing models of equal explanatory power (i.e. models have the same <span class="math inline">\(R^2\)</span>), that one should choose the simplest (i.e. fewest parameters). But what if the models have different levels of complexity along with different levels of explanatory power? Is a simple model of low explanatory power better than a complicated model with high explanatory power?</p>
+<p>The AIC statistic is a fit measure which is penalized for the number of parameters estimated in a model;</p>
+<ul>
+<li>a smaller AIC value signals a better model.</li>
+</ul>
+<p>The AIC is calculated using:</p>
+<p><span class="math display">\[\textrm{AIC} =  \textrm{Fit to the data} +  \textrm{model complexity}\]</span></p>
+<p><span class="math display">\[\begin{equation}\label{eq:aic}
+AIC= -2 \textrm{ log-likelihood value} + 2P
+\end{equation}\]</span>
+Where</p>
+<ul>
+<li>‘Fit to the data’ is measured using the so-called `log-likelihood’ value calculated using the estimated parameters in the model,<br />
+</li>
+<li>‘model complexity’ is measured by <span class="math inline">\(2P\)</span> where <span class="math inline">\(P\)</span> is the number of covariates used to fit the model.</li>
+</ul>
+<div id="aicc" class="section level4" number="15.4.1.1">
+<h4><span class="header-section-number">15.4.1.1</span> AICc</h4>
+<p>When the sample size is not a great deal larger than the number of parameters in the model, the small sample corrected AICc is a better measure than AIC:</p>
+<p><span class="math display">\[\begin{equation}\label{eq:aicc}
+AICc=AIC+\frac{2P(P+1)}{n-P-1}
+\end{equation}\]</span></p>
+<p>This value gets very close to the AIC score when sample size, <span class="math inline">\(n\)</span>, is much larger than <span class="math inline">\(P\)</span>.</p>
+</div>
+<div id="bic" class="section level4" number="15.4.1.2">
+<h4><span class="header-section-number">15.4.1.2</span> BIC</h4>
+<p>The BIC score differs from the AIC score by employing a penalty that changes with the sample size (<span class="math inline">\(n\)</span>):</p>
+<p><span class="math display">\[\begin{equation}
+BIC=-2 \textrm{log-likelihood value}  + \log(n)P
+\end{equation}\]</span></p>
+<p>As for the AIC and AICc, smaller values signal `better’ models. BIC is more conservative than AIC and will produce models with fewer variables.</p>
+</div>
+</div>
+</div>
+<div id="other-methods-of-model-selection" class="section level2" number="15.5">
+<h2><span class="header-section-number">15.5</span> Other methods of model selection</h2>
+<p>Information criterion and p values represent two approaches to model selection both based on likelihood. However there are other methods. Cross-validation is a method used both by statisticians and data scientists, where a model is fitted to a subset (the “training set”) of the available data and then tested (“validated”) against the remainder of the dataset, the “validation set.” There a variety of forms of cross-validation.</p>
+</div>
+<div id="automated-variable-selection" class="section level2" number="15.6">
+<h2><span class="header-section-number">15.6</span> Automated variable selection</h2>
+<p>The number of possible combinations soon increases as the number of explanatory variables increases. There are various procedures described below which can be used to select the ‘best’ model. All of the procedures could be implemented manually (i.e. by fitting a model, obtaining a test statistic, fitting the next model, etc.) but this can be very time-consuming. Fortunately, there are R functions available which can be used to implement them.</p>
+<div id="stepwise-selection" class="section level3" number="15.6.1">
+<h3><span class="header-section-number">15.6.1</span> Stepwise selection</h3>
+<p><strong>Stepwise</strong> selection is a commonly used automated method which adds and drops covariates (from some start point) one at a time until no change occurs in the selected model.</p>
+<ul>
+<li>‘Importance’ of variables can be measured in a number of ways; the AIC/AICc and BIC statistics are commonly used, alternatively <span class="math inline">\(p\)</span>-values could be used.</li>
+</ul>
+<p>Selection proceeds either:</p>
+<ul>
+<li><strong>forwards</strong> from a simple model by addition of covariates, or</li>
+<li><strong>backwards</strong> from a complex model by dropping covariates.</li>
+<li>More elaborate algorithms are possible.</li>
+</ul>
+<p>In forward selection, one variable is added at a time and the AIC etc. is calculated. Then another variable is tried INSTEAD, until all the candidate variables have been tried. The model with the lowest AIC (if lower than the starting model) is selected. A new ‘round’ of selection then begins with the remaining candidate models considered. Modelling proceeds until no further reduction in AIC is found.</p>
+<p>In backward selection, starting from a model with all potential variables, one variable is removed and the AIC etc. is calculated. Then another variable is removed INSTEAD, until all the candidate variables have been tried. The model with the lowest AIC (if lower than the existing start model) is selected. A new ‘round’ then begins with the remaining candidate variables removed one at time then replaced as before. Modelling proceeds until no further reduction in AIC is found.</p>
+<p>These two methods will not necessarily select the same model because different combinations of variables are being included in the considered models.</p>
+</div>
+<div id="all-possible-subsets-selection" class="section level3" number="15.6.2">
+<h3><span class="header-section-number">15.6.2</span> All possible subsets selection</h3>
+<p>Rather than rely on an algorithm to determine the order in which variables are picked and dropped from a model (which can affect which covariates are retained), we can compare ‘fit scores’ for all possible models.</p>
+<p>For example, for a 4 covariate model we can compare the fit scores for:</p>
+<ul>
+<li>an intercept only model (1 model)</li>
+<li>all models containing one covariate (4 models)</li>
+<li>all models containing two covariates (6 models)</li>
+<li>all models containing three covariates (4 models)</li>
+<li>the full model with 4 covariates (1 model)</li>
+</ul>
+<p>However, this method becomes prohibitively time consuming when there are a lot of covariates.</p>
+<div id="doing-this-in-r-26" class="section level4" number="15.6.2.1">
+<h4><span class="header-section-number">15.6.2.1</span> Doing this in R</h4>
+<p>One way to fit all possible models is to use the <code>dredge</code> function inside the <code>MuMIn</code> library. The default score for ranking models is the AICc (but this can easily be changed) and the output includes all possible models which are ordered by AICc.</p>
+<p>As an example, we return to a model fitted to the EIA data with six potential explanatory variables. The <code>dredge</code> function has been used; the R code is shown (but not executed because it generates a lot of output). The regression coefficients for models with the four lowest AICc scores are shown below. :</p>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="modelselection.html#cb395-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MuMIn)</span></code></pre></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="modelselection.html#cb396-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</span>
+<span id="cb396-2"><a href="modelselection.html#cb396-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dredge</span>(modelEIAall)</span></code></pre></div>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="modelselection.html#cb397-1" aria-hidden="true" tabindex="-1"></a>Fixed term is <span class="st">&quot;(Intercept)&quot;</span></span>
+<span id="cb397-2"><a href="modelselection.html#cb397-2" aria-hidden="true" tabindex="-1"></a>Global model call<span class="sc">:</span> <span class="fu">lm</span>(<span class="at">formula =</span> Density <span class="sc">~</span> XPos <span class="sc">+</span> YPos <span class="sc">+</span> DistCoast <span class="sc">+</span> Depth <span class="sc">+</span> Phase <span class="sc">+</span> </span>
+<span id="cb397-3"><a href="modelselection.html#cb397-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.factor</span>(Month) <span class="sc">+</span> Depth, <span class="at">data =</span> wfdata)</span>
+<span id="cb397-4"><a href="modelselection.html#cb397-4" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb397-5"><a href="modelselection.html#cb397-5" aria-hidden="true" tabindex="-1"></a>Model selection table </span>
+<span id="cb397-6"><a href="modelselection.html#cb397-6" aria-hidden="true" tabindex="-1"></a>   (Int) <span class="fu">as.fct</span>(Mnt)     Dpt     DsC Phs    XPs     YPs df    logLik     AICc delta weight</span>
+<span id="cb397-7"><a href="modelselection.html#cb397-7" aria-hidden="true" tabindex="-1"></a><span class="dv">64</span>  <span class="dv">3286</span>           <span class="sc">+</span> <span class="sc">-</span><span class="fl">0.4544</span> <span class="sc">-</span><span class="fl">0.3152</span>   <span class="sc">+</span> <span class="fl">0.1175</span> <span class="sc">-</span><span class="fl">0.5549</span> <span class="dv">11</span> <span class="sc">-</span><span class="fl">149489.8</span> <span class="fl">299001.6</span>  <span class="fl">0.00</span>  <span class="fl">0.983</span></span>
+<span id="cb397-8"><a href="modelselection.html#cb397-8" aria-hidden="true" tabindex="-1"></a><span class="dv">56</span>  <span class="dv">3288</span>           <span class="sc">+</span> <span class="sc">-</span><span class="fl">0.4532</span> <span class="sc">-</span><span class="fl">0.3213</span>     <span class="fl">0.1185</span> <span class="sc">-</span><span class="fl">0.5553</span>  <span class="dv">9</span> <span class="sc">-</span><span class="fl">149495.9</span> <span class="fl">299009.7</span>  <span class="fl">8.16</span>  <span class="fl">0.017</span></span>
+<span id="cb397-9"><a href="modelselection.html#cb397-9" aria-hidden="true" tabindex="-1"></a><span class="dv">60</span>  <span class="dv">2702</span>           <span class="sc">+</span> <span class="sc">-</span><span class="fl">0.5575</span>           <span class="sc">+</span> <span class="fl">0.1009</span> <span class="sc">-</span><span class="fl">0.4567</span> <span class="dv">10</span> <span class="sc">-</span><span class="fl">149500.1</span> <span class="fl">299020.2</span> <span class="fl">18.67</span>  <span class="fl">0.000</span></span>
+<span id="cb397-10"><a href="modelselection.html#cb397-10" aria-hidden="true" tabindex="-1"></a><span class="dv">52</span>  <span class="dv">2692</span>           <span class="sc">+</span> <span class="sc">-</span><span class="fl">0.5583</span>             <span class="fl">0.1016</span> <span class="sc">-</span><span class="fl">0.4552</span>  <span class="dv">8</span> <span class="sc">-</span><span class="fl">149506.6</span> <span class="fl">299029.2</span> <span class="fl">27.65</span>  <span class="fl">0.000</span></span>
+<span id="cb397-11"><a href="modelselection.html#cb397-11" aria-hidden="true" tabindex="-1"></a><span class="dv">63</span>  <span class="dv">3260</span>             <span class="sc">-</span><span class="fl">0.4524</span> <span class="sc">-</span><span class="fl">0.3117</span>   <span class="sc">+</span> <span class="fl">0.1184</span> <span class="sc">-</span><span class="fl">0.5505</span>  <span class="dv">8</span> <span class="sc">-</span><span class="fl">149521.9</span> <span class="fl">299059.7</span> <span class="fl">58.16</span>  <span class="fl">0.000</span></span>
+<span id="cb397-12"><a href="modelselection.html#cb397-12" aria-hidden="true" tabindex="-1"></a><span class="dv">55</span>  <span class="dv">3264</span>             <span class="sc">-</span><span class="fl">0.4513</span> <span class="sc">-</span><span class="fl">0.3174</span>     <span class="fl">0.1193</span> <span class="sc">-</span><span class="fl">0.5513</span>  <span class="dv">6</span> <span class="sc">-</span><span class="fl">149525.7</span> <span class="fl">299063.4</span> <span class="fl">61.82</span>  <span class="fl">0.000</span></span>
+<span id="cb397-13"><a href="modelselection.html#cb397-13" aria-hidden="true" tabindex="-1"></a>Models ranked by <span class="fu">AICc</span>(x)</span></code></pre></div>
+<p>We observe:</p>
+<ul>
+<li>the best model (by AICc) is at the top,</li>
+<li>estimated regression coefficients are displayed for continuous variables and a <code>+</code> for factor variables; neither a coefficient or a <code>+</code> indicates the variable is excluded. For example, line 3 shows <code>DistCoast</code> omitted and line 5 shows <code>Month</code> omitted.</li>
+<li><code>delta</code> is the difference in AICc between the best (top) model and the listed model,</li>
+<li><code>weight</code> associated with fit score (described below).</li>
+</ul>
+<p>One thing to note is that records with any missing values need to be excluded before using <code>dredge</code> because models with different numbers of observations cannot be compared with information criteria..</p>
+</div>
+<div id="aic-weights" class="section level4" number="15.6.2.2">
+<h4><span class="header-section-number">15.6.2.2</span> AIC weights</h4>
+<p>It is always important to be sensible about the covariates considered for selection, but this method also allows model comparison using weights based on your chosen fit score (e.g. AIC/AICc/BIC).</p>
+<p>These weights are based on the relative size of the difference between the fit of each candidate model and the best model using your chosen fit score. For example, using the AIC, weights are given by:</p>
+<p><span class="math display">\[\begin{equation}\label{AICWeights}
+w_i(AIC)=\frac{\exp\{-\frac{1}{2}\Delta_i(AIC)\}}{\sum_{k=1}^K\exp\{-\frac{1}{2}\Delta_k(AIC)\}}
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(K\)</span> is the number of models considered and
+<span class="math display">\[ \Delta_i(AIC)=AIC_{i}- \textrm{minimum AIC} \]</span></p>
+<p>These weights sum to one over all candidate models and can be calculated using your chosen fit score e.g. AIC, AICC or BIC statistics.</p>
+</div>
+</div>
+</div>
+<div id="example-model-selection-with-the-medical-data" class="section level2" number="15.7">
+<h2><span class="header-section-number">15.7</span> Example: model selection with the medical data</h2>
+<p>We will now consider model selection in the medical data set. This data set has an interesting diversity of variable types.</p>
+<p>As a reminder, let’s look a the data available in the TEON data set:</p>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="modelselection.html#cb398-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(meddata)</span></code></pre></div>
+<pre><code>    gend age vitdresul         vitdc vit.12  vitbc folate TEON teonpres
+1 female  50     10.98 insufficiency  310.0 normal  19.17  Yes        1
+2 female  39     13.46 insufficiency  238.0 normal   8.16  Yes        1
+3 female  39     15.36 insufficiency  361.0 normal   5.55  Yes        1
+4   male  28     11.32           low  113.4    low   4.58  Yes        1
+5   male  17      5.88   defficiency  313.0 normal   3.18  Yes        1
+7   male  26     12.21 insufficiency  986.0   high  16.41  Yes        1</code></pre>
+<p>Let’s consider creating a linear model with some covariates of mixed types. Specifically, we’ll look at <code>folate</code> , <code>TEON</code> (presence/absence of TEON), and <code>gend</code> (gender) to explain <code>vitdresul</code> (vitamin D level). The data is shown in Figure <a href="modelselection.html#fig:prettierPlot">15.2</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:prettierPlot"></span>
+<img src="IntroStats_files/figure-html/prettierPlot-1.png" alt="Scatterplot showing the relationships between vitamin D level, folate, TEON and gender." width="480" />
+<p class="caption">
+Figure 15.2: Scatterplot showing the relationships between vitamin D level, folate, TEON and gender.
+</p>
+</div>
+<div id="model-specification-3" class="section level3" number="15.7.1">
+<h3><span class="header-section-number">15.7.1</span> Model specification</h3>
+<p>Fitting models with <code>lm</code> is straight-forward. We specify response, <span class="math inline">\(y\)</span>, as a function of several explanatory variables, <span class="math inline">\(x\)</span> - here <code>vitdresul</code> is a function of <code>gend</code>, <code>TEON</code>, (both categorical) and <code>folate</code> (numeric). Note, we may have causality the wrong way around here as TEON may be a consequence of vitamin deficiency (but this model serves to illustrate the methods).</p>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="modelselection.html#cb400-1" aria-hidden="true" tabindex="-1"></a>multiReg_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(vitdresul <span class="sc">~</span> TEON <span class="sc">+</span> gend <span class="sc">+</span> folate, <span class="at">data=</span>meddata)</span></code></pre></div>
+<p>We request a summary, as for other <code>lm</code></p>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="modelselection.html#cb401-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(multiReg_lm)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = vitdresul ~ TEON + gend + folate, data = meddata)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-10.3112  -3.4375  -0.5539   1.6053  20.0017 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 18.27764    1.46004  12.519  &lt; 2e-16 ***
+TEONYes     -8.95244    1.53647  -5.827 2.91e-07 ***
+gendmale    -0.10386    1.60546  -0.065    0.949    
+folate       0.11901    0.09539   1.248    0.217    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 5.322 on 56 degrees of freedom
+Multiple R-squared:  0.4153,    Adjusted R-squared:  0.3839 
+F-statistic: 13.26 on 3 and 56 DF,  p-value: 1.192e-06</code></pre>
+</div>
+<div id="interpreting-the-parameter-estimates" class="section level3" number="15.7.2">
+<h3><span class="header-section-number">15.7.2</span> Interpreting the parameter estimates</h3>
+<p>As we have factor covariates, we have to interpret the model coefficients with respect to some baseline level(s). Note <code>TEON</code> = no and <code>Gender</code> = Female are not listed in the estimates - this is the baseline (Table <a href="modelselection.html#tab:TEONfitted">15.1</a>).</p>
+<caption>
+<span id="tab:TEONfitted">Table 15.1: </span> Construction of the fitted equations for all combinations of factor levels.
+</caption>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="12%" />
+<col width="75%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> TEON</th>
+<th>Gender</th>
+<th>Fitted model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>No</td>
+<td>Female</td>
+<td><span class="math inline">\(\widehat{\textrm{vitdresul}} = 18.278 + 0.119\textrm{folate}\)</span></td>
+</tr>
+<tr class="even">
+<td>Yes</td>
+<td>Female</td>
+<td><span class="math inline">\(\widehat{\textrm{vitdresul}} = 18.278 -8.952 + 0.119\textrm{folate}\)</span></td>
+</tr>
+<tr class="odd">
+<td>No</td>
+<td>Male</td>
+<td><span class="math inline">\(\widehat{\textrm{vitdresul}} = 18.278 -0.104 + 0.119\textrm{folate}\)</span></td>
+</tr>
+<tr class="even">
+<td>Yes</td>
+<td>Male</td>
+<td><span class="math inline">\(\widehat{\textrm{vitdresul}} = 18.278 -8.952 -0.104 + 0.119\textrm{folate}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The intercept is 18.27:</p>
+<ul>
+<li><p>this is the estimated mean of <code>vitdresul</code> when</p>
+<ul>
+<li><code>TEON</code> = no</li>
+<li><code>gender</code> = female and</li>
+<li><code>folate</code> = 0</li>
+</ul></li>
+<li><p>Further, this is significantly different from zero (<span class="math inline">\(p\)</span>-value is <span class="math inline">\(&lt;2\times 10^{-16}\)</span> - effectively zero).</p></li>
+</ul>
+<p>The <code>TEONYes</code> parameter is -8.95:</p>
+<ul>
+<li>this is the difference from the intercept, moving from <code>TEON</code> = No to <code>TEON</code> = yes</li>
+<li>it is a decrease of 8.95 units which is statistically significant (<span class="math inline">\(p\)</span>-value = <span class="math inline">\(2\times 10^{-7}\)</span>).</li>
+</ul>
+<p>The <code>gendmale</code> parameter is -0.104:</p>
+<ul>
+<li>this is the difference from the intercept, moving from <code>gender</code> = Female to <code>gender</code> = Male</li>
+<li>it is a decrease of 0.104 units but is not statistically significant (<span class="math inline">\(p\)</span>-value = 0.949).</li>
+</ul>
+<p>The coefficient for <code>folate</code> is 0.119:</p>
+<ul>
+<li>this is the mean increase in <code>vitdresul</code> for a unit increase in <code>folate</code></li>
+<li>the increase is 0.119 units; not statistically significant (<span class="math inline">\(p\)</span>-value = 0.217).</li>
+</ul>
+<p>It is easy to get 95% CIs for the parameter estimates:</p>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="modelselection.html#cb403-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(multiReg_lm)</span></code></pre></div>
+<pre><code>                   2.5 %     97.5 %
+(Intercept)  15.35283815 21.2024493
+TEONYes     -12.03035966 -5.8745290
+gendmale     -3.31998297  3.1122594
+folate       -0.07208286  0.3101002</code></pre>
+<p>Consistent with the tests previously (because we’re using 0.05 as the <em>p</em>-value cutoff):</p>
+<ul>
+<li>zero is not a plausible value for the intercept, or for the <code>TEON</code> relationship</li>
+<li>zero <em>is</em> a plausible value for the <code>folate</code> and <code>gender</code> effects.</li>
+</ul>
+<p>Possibly we could remove some variables from the model.</p>
+</div>
+<div id="what-should-be-in-the-model" class="section level3" number="15.7.3">
+<h3><span class="header-section-number">15.7.3</span> What ‘should’ be in the model?</h3>
+<p>We’ll now look to select components from/for our model using the methods described previously:</p>
+<ul>
+<li>Selection by <em>p</em>-values</li>
+<li>Selection by AIC and similar measures</li>
+<li>Automated selection - forwards, backwards and all-possible-subsets</li>
+</ul>
+<p>First, let’s try including all variables that are available in the medical data set to explain <code>vitdresul</code>. The <code>.</code> in the model formula is shorthand for that.</p>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="modelselection.html#cb405-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First fit a model with mixed types and reiterate the interpretation component</span></span>
+<span id="cb405-2"><a href="modelselection.html#cb405-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb405-3"><a href="modelselection.html#cb405-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit everything</span></span>
+<span id="cb405-4"><a href="modelselection.html#cb405-4" aria-hidden="true" tabindex="-1"></a>bigReg <span class="ot">&lt;-</span> <span class="fu">lm</span>(vitdresul <span class="sc">~</span> ., <span class="at">data=</span>meddata)</span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="modelselection.html#cb406-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bigReg)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = vitdresul ~ ., data = meddata)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-6.604 -2.603  0.000  1.869 10.845 
+
+Coefficients: (1 not defined because of singularities)
+                    Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         8.415038   7.653793   1.099 0.276940    
+gendmale            0.561497   1.269939   0.442 0.660330    
+age                -0.011608   0.042999  -0.270 0.788315    
+vitdcinsufficiency  7.186854   1.814761   3.960 0.000242 ***
+vitdclow            6.451302   4.585442   1.407 0.165766    
+vitdcnormal        23.705316   3.405476   6.961 7.63e-09 ***
+vit.12              0.000514   0.005760   0.089 0.929249    
+vitbclow            1.036309   8.309493   0.125 0.901260    
+vitbcnormal         2.811365   5.600409   0.502 0.617921    
+folate              0.060777   0.078379   0.775 0.441811    
+TEONYes            -5.155763   1.494984  -3.449 0.001167 ** 
+teonpres                  NA         NA      NA       NA    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 3.963 on 49 degrees of freedom
+Multiple R-squared:  0.7162,    Adjusted R-squared:  0.6583 
+F-statistic: 12.37 on 10 and 49 DF,  p-value: 2.451e-10</code></pre>
+<p>In the summary output above, not all regression coefficients have been estimated (specified by NA) and there is a message about ‘singularities.’ What has happened?</p>
+<ul>
+<li>Specifying <code>y ~ .</code> should put everything in the data set as a covariate (except the response, obviously).</li>
+<li>The reason is that we effectively have two (same) covariates indicating the presence/absence of TEON - <code>TEON</code> and <code>teonpres</code>.</li>
+<li>This is like having perfectly collinear variables and we cannot estimate both.</li>
+<li>This is one possible source of errors saying <em>singular</em> somewhere in the error.</li>
+</ul>
+<p>Let’s try again, being a bit more conservative in the variables which are included:</p>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="modelselection.html#cb408-1" aria-hidden="true" tabindex="-1"></a>bigReg <span class="ot">&lt;-</span> <span class="fu">lm</span>(vitdresul <span class="sc">~</span> gend <span class="sc">+</span> age <span class="sc">+</span> vitdc <span class="sc">+</span> vit<span class="fl">.12</span> <span class="sc">+</span> </span>
+<span id="cb408-2"><a href="modelselection.html#cb408-2" aria-hidden="true" tabindex="-1"></a>               vitbc <span class="sc">+</span> folate <span class="sc">+</span> TEON, </span>
+<span id="cb408-3"><a href="modelselection.html#cb408-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">data=</span>meddata, <span class="at">na.action =</span> na.fail)</span>
+<span id="cb408-4"><a href="modelselection.html#cb408-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bigReg)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = vitdresul ~ gend + age + vitdc + vit.12 + vitbc + 
+    folate + TEON, data = meddata, na.action = na.fail)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-6.604 -2.603  0.000  1.869 10.845 
+
+Coefficients:
+                    Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         8.415038   7.653793   1.099 0.276940    
+gendmale            0.561497   1.269939   0.442 0.660330    
+age                -0.011608   0.042999  -0.270 0.788315    
+vitdcinsufficiency  7.186854   1.814761   3.960 0.000242 ***
+vitdclow            6.451302   4.585442   1.407 0.165766    
+vitdcnormal        23.705316   3.405476   6.961 7.63e-09 ***
+vit.12              0.000514   0.005760   0.089 0.929249    
+vitbclow            1.036309   8.309493   0.125 0.901260    
+vitbcnormal         2.811365   5.600409   0.502 0.617921    
+folate              0.060777   0.078379   0.775 0.441811    
+TEONYes            -5.155763   1.494984  -3.449 0.001167 ** 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 3.963 on 49 degrees of freedom
+Multiple R-squared:  0.7162,    Adjusted R-squared:  0.6583 
+F-statistic: 12.37 on 10 and 49 DF,  p-value: 2.451e-10</code></pre>
+</div>
+<div id="what-terms-are-significant" class="section level3" number="15.7.4">
+<h3><span class="header-section-number">15.7.4</span> What terms are significant?</h3>
+<p>We can look to get overall tests for the components (rather than examining the individual factor-level estimates).</p>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="modelselection.html#cb410-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(bigReg)</span></code></pre></div>
+<pre><code>Analysis of Variance Table
+
+Response: vitdresul
+          Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+gend       1  157.32  157.32 10.0155  0.002668 ** 
+age        1   38.42   38.42  2.4459  0.124270    
+vitdc      3 1515.01  505.00 32.1493 1.236e-11 ***
+vit.12     1   29.15   29.15  1.8556  0.179358    
+vitbc      2   11.43    5.72  0.3639  0.696845    
+folate     1    4.45    4.45  0.2834  0.596906    
+TEON       1  186.83  186.83 11.8936  0.001167 ** 
+Residuals 49  769.70   15.71                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li>As we have seen previously, with <code>anova</code> the order of the variables is important (technically we’d have to work from the bottom up in interpretation).</li>
+<li>A more practical version is the <code>Anova</code> command in the <code>car</code> library as mentioned previously.</li>
+</ul>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="modelselection.html#cb412-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(bigReg)</span></code></pre></div>
+<pre><code>Anova Table (Type II tests)
+
+Response: vitdresul
+          Sum Sq Df F value    Pr(&gt;F)    
+gend        3.07  1  0.1955  0.660330    
+age         1.14  1  0.0729  0.788315    
+vitdc     764.87  3 16.2310 1.857e-07 ***
+vit.12      0.13  1  0.0080  0.929249    
+vitbc       5.77  2  0.1836  0.832837    
+folate      9.45  1  0.6013  0.441811    
+TEON      186.83  1 11.8936  0.001167 ** 
+Residuals 769.70 49                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>So what to keep?</p>
+<ul>
+<li>Going backwards, we might drop the least significant - here <code>vit.12</code>, by the ‘-vit.12’ indicating remove vit.12 variable.</li>
+<li>We can use the <code>update</code> function to drop/add terms</li>
+</ul>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="modelselection.html#cb414-1" aria-hidden="true" tabindex="-1"></a>smallerReg <span class="ot">&lt;-</span> <span class="fu">update</span>(bigReg, .<span class="sc">~</span>.<span class="sc">-</span>vit<span class="fl">.12</span>)</span>
+<span id="cb414-2"><a href="modelselection.html#cb414-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(smallerReg)</span></code></pre></div>
+<pre><code>Anova Table (Type II tests)
+
+Response: vitdresul
+          Sum Sq Df F value    Pr(&gt;F)    
+gend        2.96  1  0.1924 0.6628101    
+age         1.15  1  0.0747 0.7858029    
+vitdc     769.37  3 16.6569 1.238e-07 ***
+vitbc       7.06  2  0.2293 0.7959354    
+folate     10.81  1  0.7023 0.4060049    
+TEON      197.87  1 12.8518 0.0007642 ***
+Residuals 769.82 50                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>So what to keep?</p>
+<ul>
+<li>Applying the same rationale - drop <code>vitbc</code></li>
+</ul>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="modelselection.html#cb416-1" aria-hidden="true" tabindex="-1"></a>smallerReg <span class="ot">&lt;-</span> <span class="fu">update</span>(smallerReg, .<span class="sc">~</span>.<span class="sc">-</span>vitbc)</span>
+<span id="cb416-2"><a href="modelselection.html#cb416-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(smallerReg)</span></code></pre></div>
+<p>So on and so forth …</p>
+<pre><code>Anova Table (Type II tests)
+
+Response: vitdresul
+          Sum Sq Df F value    Pr(&gt;F)    
+gend        1.86  1  0.1247  0.725381    
+age         1.08  1  0.0722  0.789277    
+vitdc     763.67  3 17.0384 7.787e-08 ***
+folate     12.12  1  0.8115  0.371830    
+TEON      223.66  1 14.9702  0.000306 ***
+Residuals 776.88 52                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li>Applying the same rationale - we now drop <code>age</code></li>
+</ul>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="modelselection.html#cb418-1" aria-hidden="true" tabindex="-1"></a>evensmallerReg <span class="ot">&lt;-</span> <span class="fu">update</span>(smallerReg, .<span class="sc">~</span>.<span class="sc">-</span>age)</span>
+<span id="cb418-2"><a href="modelselection.html#cb418-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(evensmallerReg)</span></code></pre></div>
+<pre><code>Anova Table (Type II tests)
+
+Response: vitdresul
+          Sum Sq Df F value    Pr(&gt;F)    
+gend        1.97  1  0.1340 0.7157421    
+vitdc     808.05  3 18.3499 2.713e-08 ***
+folate     13.25  1  0.9028 0.3463528    
+TEON      224.41  1 15.2881 0.0002641 ***
+Residuals 777.96 53                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li>Applying the same rationale again - we now drop <code>gend</code></li>
+</ul>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="modelselection.html#cb420-1" aria-hidden="true" tabindex="-1"></a>evenevensmallerReg <span class="ot">&lt;-</span> <span class="fu">update</span>(evensmallerReg, .<span class="sc">~</span>.<span class="sc">-</span>gend)</span>
+<span id="cb420-2"><a href="modelselection.html#cb420-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(evenevensmallerReg)</span></code></pre></div>
+<pre><code>Anova Table (Type II tests)
+
+Response: vitdresul
+          Sum Sq Df F value    Pr(&gt;F)    
+vitdc     806.20  3 18.6062 2.046e-08 ***
+folate     11.59  1  0.8027 0.3742660    
+TEON      226.59  1 15.6885 0.0002204 ***
+Residuals 779.93 54                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li>Applying the same rationale again - we now drop <code>folate</code></li>
+</ul>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="modelselection.html#cb422-1" aria-hidden="true" tabindex="-1"></a>evenevenevensmallerReg <span class="ot">&lt;-</span> <span class="fu">update</span>(evenevensmallerReg, .<span class="sc">~</span>.<span class="sc">-</span>folate)</span>
+<span id="cb422-2"><a href="modelselection.html#cb422-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(evenevenevensmallerReg)</span></code></pre></div>
+<pre><code>Anova Table (Type II tests)
+
+Response: vitdresul
+          Sum Sq Df F value    Pr(&gt;F)    
+vitdc     842.24  3  19.508 9.686e-09 ***
+TEON      216.55  1  15.047 0.0002825 ***
+Residuals 791.52 55                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>All the terms in this model are associated with a <span class="math inline">\(p\)</span>-value &lt;0.05 and so are retained.</p>
+</div>
+<div id="more-automated-methods" class="section level3" number="15.7.5">
+<h3><span class="header-section-number">15.7.5</span> More automated methods</h3>
+<p>Rather than fitting models, examining output, changing the model and refitting etc. procedures exist that do all this automatically.</p>
+<div id="stepwise-selection-by-aic" class="section level4" number="15.7.5.1">
+<h4><span class="header-section-number">15.7.5.1</span> Stepwise selection by AIC</h4>
+<p>Rather than using the <span class="math inline">\(p\)</span>-value for model selection, we saw other criteria such as AIC might be used. We can use the <code>step</code> function to apply these automatically:</p>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="modelselection.html#cb424-1" aria-hidden="true" tabindex="-1"></a>smallerReg <span class="ot">&lt;-</span> <span class="fu">step</span>(bigReg)</span></code></pre></div>
+<pre><code>Start:  AIC=175.1
+vitdresul ~ gend + age + vitdc + vit.12 + vitbc + folate + TEON
+
+         Df Sum of Sq     RSS    AIC
+- vitbc   2      5.77  775.47 171.55
+- vit.12  1      0.13  769.82 173.11
+- age     1      1.14  770.84 173.19
+- gend    1      3.07  772.77 173.34
+- folate  1      9.45  779.14 173.83
+&lt;none&gt;                 769.70 175.10
+- TEON    1    186.83  956.52 186.14
+- vitdc   3    764.87 1534.57 210.50
+
+Step:  AIC=171.55
+vitdresul ~ gend + age + vitdc + vit.12 + folate + TEON
+
+         Df Sum of Sq     RSS    AIC
+- age     1      1.17  776.64 169.64
+- vit.12  1      1.42  776.88 169.66
+- gend    1      1.97  777.43 169.70
+- folate  1     13.50  788.97 170.58
+&lt;none&gt;                 775.47 171.55
+- TEON    1    188.92  964.39 182.63
+- vitdc   3    763.04 1538.50 206.65
+
+Step:  AIC=169.64
+vitdresul ~ gend + vitdc + vit.12 + folate + TEON
+
+         Df Sum of Sq     RSS    AIC
+- vit.12  1      1.32  777.96 167.74
+- gend    1      2.07  778.71 167.80
+- folate  1     14.57  791.20 168.75
+&lt;none&gt;                 776.64 169.64
+- TEON    1    188.42  965.06 180.67
+- vitdc   3    806.87 1583.50 206.38
+
+Step:  AIC=167.74
+vitdresul ~ gend + vitdc + folate + TEON
+
+         Df Sum of Sq     RSS    AIC
+- gend    1      1.97  779.93 165.89
+- folate  1     13.25  791.21 166.75
+&lt;none&gt;                 777.96 167.74
+- TEON    1    224.41 1002.37 180.95
+- vitdc   3    808.05 1586.01 204.48
+
+Step:  AIC=165.89
+vitdresul ~ vitdc + folate + TEON
+
+         Df Sum of Sq     RSS    AIC
+- folate  1     11.59  791.52 164.78
+&lt;none&gt;                 779.93 165.89
+- TEON    1    226.59 1006.52 179.19
+- vitdc   3    806.20 1586.12 202.48
+
+Step:  AIC=164.78
+vitdresul ~ vitdc + TEON
+
+        Df Sum of Sq     RSS    AIC
+&lt;none&gt;                791.52 164.78
+- TEON   1    216.55 1008.07 177.29
+- vitdc  3    842.24 1633.76 202.26</code></pre>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="modelselection.html#cb426-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(smallerReg)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = vitdresul ~ vitdc + TEON, data = meddata, na.action = na.fail)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-6.9430 -2.5992 -0.2422  1.9645 10.5070 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)          11.583      1.666   6.954 4.49e-09 ***
+vitdcinsufficiency    7.350      1.588   4.629 2.28e-05 ***
+vitdclow              6.253      2.941   2.126 0.038009 *  
+vitdcnormal          23.762      3.158   7.525 5.20e-10 ***
+TEONYes              -4.982      1.284  -3.879 0.000282 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 3.794 on 55 degrees of freedom
+Multiple R-squared:  0.7082,    Adjusted R-squared:  0.687 
+F-statistic: 33.37 on 4 and 55 DF,  p-value: 4e-14</code></pre>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="modelselection.html#cb428-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(smallerReg)</span></code></pre></div>
+<pre><code>Anova Table (Type II tests)
+
+Response: vitdresul
+          Sum Sq Df F value    Pr(&gt;F)    
+vitdc     842.24  3  19.508 9.686e-09 ***
+TEON      216.55  1  15.047 0.0002825 ***
+Residuals 791.52 55                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li>We can see at each step all the covariates are considered for exclusion</li>
+<li>The exclusion that gives the lowest AIC is favoured</li>
+<li>The process repeats on this reduced model</li>
+<li>The process terminates when deletions no longer improve the AIC</li>
+<li>We don’t necessarily get the same model as other methods e.g. <span class="math inline">\(p\)</span>-value deletion. AIC is a different model selection criterion.</li>
+</ul>
+</div>
+<div id="all-possible-subsets" class="section level4" number="15.7.5.2">
+<h4><span class="header-section-number">15.7.5.2</span> All possible subsets</h4>
+<p>The previous method was an incomplete search - not all models considered. The best model at any point, depends on the previous step, and although efficient is not guaranteed to find our best collection of covariates within our big model specified at the start.</p>
+<p>We can try <em>all</em> possible models (combining up to say 60 terms).</p>
+<ul>
+<li>Remember the <code>dredge</code> command for this in the <code>MuMIn</code> package:</li>
+</ul>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="modelselection.html#cb430-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MuMIn)</span>
+<span id="cb430-2"><a href="modelselection.html#cb430-2" aria-hidden="true" tabindex="-1"></a>dredgedReg<span class="ot">&lt;-</span> <span class="fu">dredge</span>(bigReg)</span>
+<span id="cb430-3"><a href="modelselection.html#cb430-3" aria-hidden="true" tabindex="-1"></a>dredgedReg</span></code></pre></div>
+<pre><code>Global model call: lm(formula = vitdresul ~ gend + age + vitdc + vit.12 + vitbc + 
+    folate + TEON, data = meddata, na.action = na.fail)
+---
+Model selection table 
+     (Intr)       age    folt gend TEON     vit.12 vtbc vtdc df   logLik  AICc delta weight
+73  11.5800                           +                    +  6 -162.525 338.6  0.00  0.305
+75  11.1900           0.06068         +                    +  7 -162.082 340.3  1.68  0.131
+74  12.3700 -0.015980                 +                    +  7 -162.441 341.0  2.40  0.092
+77  11.5300                      +    +                    +  7 -162.513 341.2  2.55  0.085
+89  11.6100                           + -1.121e-04         +  7 -162.524 341.2  2.57  0.084
+79  11.0100           0.06677    +    +                    +  8 -162.006 342.8  4.20  0.037
+91  11.4700           0.06642         + -1.215e-03         +  8 -162.035 342.9  4.26  0.036
+76  11.7800 -0.011760 0.05834         +                    +  8 -162.037 342.9  4.26  0.036
+105  9.5110                           +               +    +  8 -162.218 343.3  4.63  0.030
+78  12.3200 -0.015940            +    +                    +  8 -162.429 343.7  5.05  0.024
+90  12.4400 -0.016140                 + -2.239e-04         +  8 -162.439 343.7  5.07  0.024
+93  11.5600                      +    + -9.141e-05         +  8 -162.513 343.8  5.21  0.022
+107  8.9870           0.05632         +               +    +  9 -161.854 345.3  6.67  0.011
+95  11.3100           0.07292    +    + -1.268e-03         +  9 -161.955 345.5  6.88  0.010
+80  11.5900 -0.011230 0.06437    +    +                    +  9 -161.965 345.5  6.90  0.010
+92  12.1000 -0.012230 0.06421         + -1.263e-03         +  9 -161.986 345.6  6.94  0.009
+106 10.1800 -0.015300                 +               +    +  9 -162.141 345.9  7.25  0.008
+121  8.1360                           +  1.464e-03    +    +  9 -162.174 345.9  7.31  0.008
+109  9.2390                      +    +               +    +  9 -162.187 346.0  7.34  0.008
+94  12.3800 -0.016090            +    + -2.033e-04         +  9 -162.428 346.5  7.82  0.006
+111  8.3630           0.06478    +    +               +    + 10 -161.736 348.0  9.33  0.003
+108  9.5290 -0.012040 0.05424         +               +    + 10 -161.806 348.1  9.47  0.003
+123  8.8150           0.05554         +  1.910e-04    +    + 10 -161.853 348.2  9.56  0.003
+96  11.9200 -0.011720 0.07064    +    + -1.313e-03         + 10 -161.910 348.3  9.68  0.002
+122  8.8450 -0.014930                 +  1.399e-03    +    + 10 -162.101 348.7 10.06  0.002
+110  9.9030 -0.015350            +    +               +    + 10 -162.109 348.7 10.07  0.002
+125  7.4940                      +    +  1.776e-03    +    + 10 -162.125 348.7 10.11  0.002
+65   7.1000                                                +  5 -169.780 350.7 12.04  0.001
+112  8.8960 -0.011630 0.06265    +    +               +    + 11 -161.691 350.9 12.25  0.001
+127  7.8750           0.06287    +    +  5.232e-04    +    + 11 -161.730 351.0 12.33  0.001
+124  9.3610 -0.012040 0.05348         +  1.862e-04    +    + 11 -161.805 351.1 12.48  0.001
+81   9.1860                             -5.486e-03         +  6 -168.834 351.3 12.62  0.001
+126  8.2030 -0.014900            +    +  1.711e-03    +    + 11 -162.052 351.6 12.97  0.000
+69   7.4330                      +                         +  6 -169.629 352.8 14.21  0.000
+66   6.4960  0.013720                                      +  6 -169.729 353.0 14.41  0.000
+67   6.9020           0.02198                              +  6 -169.734 353.1 14.42  0.000
+83   9.0430           0.05829           -6.494e-03         +  7 -168.529 353.2 14.58  0.000
+97   1.3350                                           +    +  7 -168.651 353.5 14.82  0.000
+85   9.4590                      +      -5.409e-03         +  7 -168.706 353.6 14.93  0.000
+82   8.8980  0.005911                   -5.412e-03         +  7 -168.824 353.8 15.17  0.000
+128  8.4150 -0.011610 0.06078    +    +  5.140e-04    +    + 12 -161.686 354.0 15.38  0.000
+70   6.8640  0.012770            +                         +  7 -169.585 355.3 16.69  0.000
+71   7.2770           0.01454    +                         +  7 -169.610 355.4 16.74  0.000
+68   6.1660  0.015940 0.02581                              +  7 -169.667 355.5 16.85  0.000
+113  5.1540                             -3.592e-03    +    +  8 -168.421 355.7 17.03  0.000
+87   9.2450           0.05244    +      -6.340e-03         +  8 -168.472 355.8 17.13  0.000
+84   8.5690  0.009647 0.06011           -6.405e-03         +  8 -168.504 355.8 17.20  0.000
+99   1.0250           0.02272                         +    +  8 -168.603 356.0 17.39  0.000
+101  1.7200                      +                    +    +  8 -168.619 356.1 17.43  0.000
+98   1.0110  0.009511                                 +    +  8 -168.626 356.1 17.44  0.000
+86   9.2060  0.005134            +      -5.345e-03         +  8 -168.699 356.2 17.59  0.000
+72   6.5920  0.014440 0.01837    +                         +  8 -169.555 357.9 19.30  0.000
+115  5.6640           0.04361           -4.630e-03    +    +  9 -168.260 358.1 19.49  0.000
+117  6.0100                      +      -3.877e-03    +    +  9 -168.357 358.3 19.68  0.000
+114  4.8310  0.007293                   -3.521e-03    +    +  9 -168.407 358.4 19.78  0.000
+88   8.8050  0.008769 0.05432    +      -6.265e-03         +  9 -168.451 358.5 19.87  0.000
+100  0.6089  0.011300 0.02507                         +    +  9 -168.568 358.7 20.10  0.000
+103  1.3590           0.01951    +                    +    +  9 -168.586 358.8 20.14  0.000
+102  1.3970  0.009314            +                    +    +  9 -168.596 358.8 20.16  0.000
+119  6.2320           0.03973    +      -4.742e-03    +    + 10 -168.229 360.9 22.31  0.000
+116  5.2480  0.009862 0.04542           -4.578e-03    +    + 10 -168.234 361.0 22.32  0.000
+118  5.6960  0.006830            +      -3.807e-03    +    + 10 -168.344 361.2 22.54  0.000
+104  0.9333  0.010940 0.02200    +                    +    + 10 -168.553 361.6 22.96  0.000
+120  5.8130  0.009326 0.04162    +      -4.688e-03    +    + 11 -168.205 363.9 25.28  0.000
+9   19.5900                           +                       3 -184.265 375.0 36.32  0.000
+10  22.5100 -0.078460                 +                       4 -183.121 375.0 36.33  0.000
+11  18.2400           0.12040         +                       4 -183.377 375.5 36.85  0.000
+12  21.0300 -0.068340 0.09939         +                       5 -182.515 376.1 37.51  0.000
+13  19.7000                      +    +                       4 -184.198 377.1 38.49  0.000
+14  22.6600 -0.078980            +    +                       5 -183.036 377.2 38.55  0.000
+25  19.5000                           +  2.853e-04            4 -184.264 377.3 38.62  0.000
+26  22.4800 -0.078440                 +  1.128e-04            5 -183.121 377.4 38.72  0.000
+27  18.6300           0.12780         + -1.628e-03            5 -183.331 377.8 39.14  0.000
+15  18.2800           0.11900    +    +                       5 -183.375 377.9 39.23  0.000
+28  21.3600 -0.067980 0.10610         + -1.453e-03            6 -182.477 378.5 39.91  0.000
+16  21.1300 -0.068900 0.09592    +    +                       6 -182.503 378.6 39.96  0.000
+29  19.6700                      +    +  9.175e-05            5 -184.197 379.5 40.87  0.000
+41  21.2100                           +               +       5 -184.212 379.5 40.90  0.000
+30  22.6900 -0.079000            +    + -1.033e-04            6 -183.036 379.7 41.02  0.000
+42  23.3000 -0.077620                 +               +       6 -183.109 379.8 41.17  0.000
+43  19.3200           0.12270         +               +       6 -183.309 380.2 41.57  0.000
+31  18.6800           0.12620    +    + -1.647e-03            6 -183.328 380.2 41.61  0.000
+32  21.4800 -0.068570 0.10250    +    + -1.491e-03            7 -182.463 381.1 42.45  0.000
+44  21.4500 -0.066970 0.10130         +               +       7 -182.496 381.1 42.51  0.000
+45  21.7200                      +    +               +       6 -184.114 381.8 43.18  0.000
+57  22.0300                           + -8.985e-04    +       6 -184.203 382.0 43.36  0.000
+46  23.8000 -0.077570            +    +               +       7 -183.010 382.2 43.54  0.000
+58  23.8800 -0.077500                 + -6.457e-04    +       7 -183.105 382.4 43.73  0.000
+59  22.2200           0.13340         + -3.377e-03    +       7 -183.197 382.5 43.91  0.000
+47  19.5300           0.11970    +    +               +       7 -183.299 382.8 44.12  0.000
+60  23.7500 -0.065500 0.11040         + -2.736e-03    +       8 -182.421 383.7 45.03  0.000
+48  21.7500 -0.067400 0.09698    +    +               +       8 -182.476 383.8 45.14  0.000
+61  23.2400                      +    + -1.615e-03    +       7 -184.089 384.3 45.70  0.000
+62  25.0600 -0.077310            +    + -1.346e-03    +       8 -182.991 384.8 46.17  0.000
+63  22.7700           0.12950    +    + -3.636e-03    +       8 -183.173 385.2 46.53  0.000
+64  24.4100 -0.065920 0.10570    +    + -3.035e-03    +       9 -182.386 386.4 47.74  0.000
+21  20.7700                      +      -9.925e-03            4 -196.362 401.5 62.82  0.000
+5   17.5800                      +                            3 -197.680 401.8 63.15  0.000
+22  23.3200 -0.066640            +      -1.019e-02            5 -195.816 402.7 64.11  0.000
+17  19.7500                             -1.015e-02            3 -198.174 402.8 64.14  0.000
+23  19.9300           0.10710    +      -1.147e-02            5 -195.947 403.0 64.37  0.000
+1   16.4700                                                   2 -199.473 403.2 64.52  0.000
+6   19.8800 -0.062120            +                            4 -197.225 403.2 64.54  0.000
+19  18.7300           0.14950           -1.228e-02            4 -197.371 403.5 64.84  0.000
+7   16.9700           0.04860    +                            4 -197.592 403.9 65.28  0.000
+18  22.0800 -0.061120                   -1.040e-02            4 -197.741 404.2 65.57  0.000
+53  32.0400                      +      -1.652e-02    +       6 -195.456 404.5 65.86  0.000
+2   18.5400 -0.056420                                         3 -199.119 404.7 66.03  0.000
+24  22.3000 -0.057730 0.08705    +      -1.141e-02            6 -195.547 404.7 66.04  0.000
+3   15.4400           0.09022                                 3 -199.175 404.8 66.14  0.000
+20  20.6600 -0.048080 0.13430           -1.226e-02            5 -197.105 405.3 66.69  0.000
+8   19.4100 -0.059040 0.02842    +                            5 -197.196 405.5 66.87  0.000
+49  27.1200                             -1.512e-02    +       5 -197.294 405.7 67.06  0.000
+54  33.6900 -0.066420            +      -1.642e-02    +       7 -194.906 406.0 67.33  0.000
+55  31.7100           0.11170    +      -1.837e-02    +       7 -194.992 406.1 67.50  0.000
+37  15.4200                      +                    +       5 -197.532 406.2 67.54  0.000
+51  27.2900           0.14940           -1.778e-02    +       6 -196.480 406.5 67.91  0.000
+4   17.4000 -0.048670 0.07498                                 4 -198.918 406.6 67.93  0.000
+33  12.2100                                           +       4 -198.956 406.6 68.01  0.000
+50  28.7400 -0.065720                   -1.503e-02    +       6 -196.787 407.2 68.53  0.000
+38  17.1900 -0.067870            +                    +       6 -196.996 407.6 68.94  0.000
+34  13.9500 -0.067110                                 +       5 -198.456 408.0 69.39  0.000
+56  33.1700 -0.056540 0.09117    +      -1.795e-02    +       8 -194.604 408.0 69.40  0.000
+35  10.7700           0.08768                         +       5 -198.676 408.5 69.83  0.000
+39  14.4300           0.05008    +                    +       6 -197.441 408.5 69.83  0.000
+52  28.5400 -0.051550 0.13140           -1.739e-02    +       7 -196.173 408.5 69.87  0.000
+40  16.5600 -0.064860 0.02813    +                    +       7 -196.968 410.1 71.46  0.000
+36  12.6400 -0.059850 0.06840                         +       6 -198.289 410.2 71.53  0.000
+Models ranked by AICc(x) </code></pre>
+<p>This produces a lot of output. We see:</p>
+<ul>
+<li>The models are ranked on the basis of AICc</li>
+<li>We have coefficients for some covariates, not others - these are the excluded covariates</li>
+<li>We have a <span class="math inline">\(\Delta\)</span> AICc which shows how much the AICc has changed</li>
+<li>We could choose the best model and use it or</li>
+<li>[For a predictive model, we could average a number of these, weighted by AIC - but that is for another course.]</li>
+</ul>
+<p>Let’s only consider the ‘best’ models from the set of all possible models, i.e. select the best model and all models with a <span class="math inline">\(\Delta\)</span> AICc &lt; 5 of the best model.</p>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="modelselection.html#cb432-1" aria-hidden="true" tabindex="-1"></a>topMods <span class="ot">&lt;-</span> <span class="fu">get.models</span>(dredgedReg, <span class="at">subset=</span>delta<span class="sc">&lt;</span><span class="dv">5</span>)</span>
+<span id="cb432-2"><a href="modelselection.html#cb432-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(topMods[[<span class="dv">1</span>]])</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = vitdresul ~ TEON + vitdc + 1, data = meddata, na.action = na.fail)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-6.9430 -2.5992 -0.2422  1.9645 10.5070 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)          11.583      1.666   6.954 4.49e-09 ***
+TEONYes              -4.982      1.284  -3.879 0.000282 ***
+vitdcinsufficiency    7.350      1.588   4.629 2.28e-05 ***
+vitdclow              6.253      2.941   2.126 0.038009 *  
+vitdcnormal          23.762      3.158   7.525 5.20e-10 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 3.794 on 55 degrees of freedom
+Multiple R-squared:  0.7082,    Adjusted R-squared:  0.687 
+F-statistic: 33.37 on 4 and 55 DF,  p-value: 4e-14</code></pre>
+<p>The object <code>topMods</code> is a list of models. Items in a list are specified by two square brackets. The best model is in position 1.
+The use of <code>+1</code> in the model formula here refers to a normally unstated default in R. <code>+1</code> one just means an intercept should be calculated.</p>
+<p><strong>Q15.2</strong> Dr X is investigating whether human height can be predicted from measured leg length (again!) and, in addition, index finger length. The data collected are as follows: left leg length (LLL), right leg length (RLL), right finger length (finger), total height (height) and sex at birth (Sex). All length measurements are in cm. Dr X fits the following model.</p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="modelselection.html#cb434-1" aria-hidden="true" tabindex="-1"></a>Model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> LLL <span class="sc">+</span> RLL <span class="sc">+</span> finger <span class="sc">+</span> Sex, <span class="at">data=</span>df1)</span></code></pre></div>
+<p>Write down the general equation for this model.</p>
+<p><strong>Q15.3</strong> The summary of the model fitted in Q15.2 is shown below. State the null and alternative hypotheses for testing each regression coefficient.</p>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="modelselection.html#cb435-1" aria-hidden="true" tabindex="-1"></a>Call<span class="sc">:</span></span>
+<span id="cb435-2"><a href="modelselection.html#cb435-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(<span class="at">formula =</span> height <span class="sc">~</span> LLL <span class="sc">+</span> RLL <span class="sc">+</span> finger <span class="sc">+</span> Sex)</span>
+<span id="cb435-3"><a href="modelselection.html#cb435-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb435-4"><a href="modelselection.html#cb435-4" aria-hidden="true" tabindex="-1"></a>Residuals<span class="sc">:</span></span>
+<span id="cb435-5"><a href="modelselection.html#cb435-5" aria-hidden="true" tabindex="-1"></a>    Min      1Q  Median      3Q     Max </span>
+<span id="cb435-6"><a href="modelselection.html#cb435-6" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">4.2560</span> <span class="sc">-</span><span class="fl">0.9569</span> <span class="sc">-</span><span class="fl">0.1777</span>  <span class="fl">1.2501</span>  <span class="fl">4.7053</span> </span>
+<span id="cb435-7"><a href="modelselection.html#cb435-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb435-8"><a href="modelselection.html#cb435-8" aria-hidden="true" tabindex="-1"></a>Coefficients<span class="sc">:</span></span>
+<span id="cb435-9"><a href="modelselection.html#cb435-9" aria-hidden="true" tabindex="-1"></a>            Estimate Std. Error t value <span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>t<span class="sc">|</span>)</span>
+<span id="cb435-10"><a href="modelselection.html#cb435-10" aria-hidden="true" tabindex="-1"></a>(Intercept) <span class="sc">-</span><span class="fl">2.54854</span>    <span class="fl">4.69342</span>  <span class="sc">-</span><span class="fl">0.543</span>    <span class="fl">0.588</span></span>
+<span id="cb435-11"><a href="modelselection.html#cb435-11" aria-hidden="true" tabindex="-1"></a>LLL          <span class="fl">0.49232</span>    <span class="fl">0.35872</span>   <span class="fl">1.372</span>    <span class="fl">0.173</span></span>
+<span id="cb435-12"><a href="modelselection.html#cb435-12" aria-hidden="true" tabindex="-1"></a>RLL          <span class="fl">0.47476</span>    <span class="fl">0.36618</span>   <span class="fl">1.297</span>    <span class="fl">0.198</span></span>
+<span id="cb435-13"><a href="modelselection.html#cb435-13" aria-hidden="true" tabindex="-1"></a>finger       <span class="fl">0.08138</span>    <span class="fl">0.17294</span>   <span class="fl">0.471</span>    <span class="fl">0.639</span></span>
+<span id="cb435-14"><a href="modelselection.html#cb435-14" aria-hidden="true" tabindex="-1"></a>Sex         <span class="sc">-</span><span class="fl">0.81689</span>    <span class="fl">0.61429</span>  <span class="sc">-</span><span class="fl">1.330</span>    <span class="fl">0.187</span></span>
+<span id="cb435-15"><a href="modelselection.html#cb435-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb435-16"><a href="modelselection.html#cb435-16" aria-hidden="true" tabindex="-1"></a>Residual standard error<span class="sc">:</span> <span class="fl">1.743</span> on <span class="dv">95</span> degrees of freedom</span>
+<span id="cb435-17"><a href="modelselection.html#cb435-17" aria-hidden="true" tabindex="-1"></a>Multiple R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.877</span>,     Adjusted R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.8718</span> </span>
+<span id="cb435-18"><a href="modelselection.html#cb435-18" aria-hidden="true" tabindex="-1"></a>F<span class="sc">-</span>statistic<span class="sc">:</span> <span class="fl">169.3</span> on <span class="dv">4</span> and <span class="dv">95</span> DF,  p<span class="sc">-</span>value<span class="sc">:</span> <span class="er">&lt;</span> <span class="fl">2.2e-16</span></span></code></pre></div>
+<p><strong>15.4</strong> Are any of the explanatory variables significant, testing at a 5% fixed significance level, based on the t-statistics?</p>
+<p><strong>15.5</strong> The VIF analysis associated with the model is below.</p>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="modelselection.html#cb436-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model1)</span>
+<span id="cb436-2"><a href="modelselection.html#cb436-2" aria-hidden="true" tabindex="-1"></a>      LLL       RLL    finger       Sex </span>
+<span id="cb436-3"><a href="modelselection.html#cb436-3" aria-hidden="true" tabindex="-1"></a><span class="fl">94.606522</span> <span class="fl">95.274197</span>  <span class="fl">1.077881</span>  <span class="fl">1.016933</span></span></code></pre></div>
+<p>What do you conclude from this VIF analysis and model summary above?</p>
+<p><strong>Q15.6</strong> How could you further investigate relationships between explanatory variables?</p>
+<p><strong>Q15.7</strong> Independently of Dr X, Prof Y is also analysing the data. Prof Y’s modelling philosophy is to use AIC for model selection and obtains the following information.</p>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="modelselection.html#cb437-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span> (height <span class="sc">~</span> LLL <span class="sc">+</span> RLL <span class="sc">+</span> finger <span class="sc">+</span> Sex)</span>
+<span id="cb437-2"><a href="modelselection.html#cb437-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">AIC</span> (model1)</span>
+<span id="cb437-3"><a href="modelselection.html#cb437-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">401.5684</span></span>
+<span id="cb437-4"><a href="modelselection.html#cb437-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb437-5"><a href="modelselection.html#cb437-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> model2a <span class="ot">&lt;-</span> <span class="fu">lm</span> (height <span class="sc">~</span> RLL <span class="sc">+</span> finger <span class="sc">+</span> Sex)</span>
+<span id="cb437-6"><a href="modelselection.html#cb437-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">AIC</span> (model2a)</span>
+<span id="cb437-7"><a href="modelselection.html#cb437-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">401.7778</span></span>
+<span id="cb437-8"><a href="modelselection.html#cb437-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb437-9"><a href="modelselection.html#cb437-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> model2b <span class="ot">&lt;-</span> <span class="fu">lm</span> (height <span class="sc">~</span> LLL <span class="sc">+</span> finger <span class="sc">+</span> Sex)</span>
+<span id="cb437-10"><a href="modelselection.html#cb437-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">AIC</span> (model2b)</span>
+<span id="cb437-11"><a href="modelselection.html#cb437-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">401.5684</span></span>
+<span id="cb437-12"><a href="modelselection.html#cb437-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb437-13"><a href="modelselection.html#cb437-13" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> model2c <span class="ot">&lt;-</span> <span class="fu">lm</span> (height <span class="sc">~</span> LLL <span class="sc">+</span> RLL <span class="sc">+</span> Sex)</span>
+<span id="cb437-14"><a href="modelselection.html#cb437-14" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">AIC</span> (model2c)</span>
+<span id="cb437-15"><a href="modelselection.html#cb437-15" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">400.0473</span></span>
+<span id="cb437-16"><a href="modelselection.html#cb437-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb437-17"><a href="modelselection.html#cb437-17" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> model2d <span class="ot">&lt;-</span> <span class="fu">lm</span> (height <span class="sc">~</span> LLL <span class="sc">+</span> RLL <span class="sc">+</span> finger)</span>
+<span id="cb437-18"><a href="modelselection.html#cb437-18" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">AIC</span> (model2d)</span>
+<span id="cb437-19"><a href="modelselection.html#cb437-19" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">401.6588</span></span></code></pre></div>
+<p>Using this information, what would you do next in the modelling process?</p>
+</div>
+</div>
+</div>
+<div id="SUMmodsel" class="section level2" number="15.8">
+<h2><span class="header-section-number">15.8</span> Summary</h2>
+<p>A final note on model selection:</p>
+<ul>
+<li>Be very cautious of automatic model selection tools if you intend to describe/interpret your model because the retention of the variables in an automatic process is really directed towards prediction (rather than explanation) of the observed data.</li>
+<li>Small perturbations in the data (or indeed another sample) can produce a wildly different <em>model structure</em> although the predictions themselves might be quite similar.</li>
+</ul>
+<p>Note that implicit in this chapter, is that we want a model for prediction or understanding. In contrast, it may be the whole purpose of the model is to test a particular hypothesis. In this case, model reduction may not be necessary. What needs to be obtained is the probability associated with particular variable of interest as its significance is what is reported. However, we still may want to eliminate extraneous variables to make that particular test as efficient as possible.</p>
+<div id="learning-objectives-3" class="section level3" number="15.8.1">
+<h3><span class="header-section-number">15.8.1</span> Learning objectives</h3>
+<p>At the end of this chapter you should understand</p>
+<ol style="list-style-type: decimal">
+<li>why model selection can be important,<br />
+</li>
+<li>how model selection is undertaken.</li>
+</ol>
+</div>
+</div>
+<div id="ANSmodsel" class="section level2" number="15.9">
+<h2><span class="header-section-number">15.9</span> Answers</h2>
+<p><strong>Q15.1</strong> A low VIF does not indicate a variable should be <em>in</em> the model, merely that it is not correlated with another predictor. Its inclusion in the model should still be tested.</p>
+<p><strong>Q15.2</strong> <span class="math display">\[
+height=\ {\beta{}}_0+\ {\beta{}}_1LLL+\ {\beta{}}_2RLL+\ {\beta{}}_3finger+\
+{\beta{}}_4Sex+\ \epsilon{}
+\]</span></p>
+<p><strong>Q15.3</strong><br />
+
+<span class="math inline">\(H_{0}\)</span>: <span class="math inline">\({\beta{}}_p=0\)</span> (i.e. no relationship between explanatory variable <span class="math inline">\(p\)</span> and the response variable, height) and
+
+<span class="math inline">\(H_{1}\)</span>: <span class="math inline">\({\beta{}}_p\not=0\)</span> (i.e. there is a relationship between variable <span class="math inline">\(p\)</span> and the response and hence, variable is a useful explanatory variable)</p>
+<p><strong>Q15.4</strong> No! All probabilities (Pr(&gt;|t|)) are greater than 0.05.</p>
+<p><strong>Q15.5</strong> The VIF scores (and common sense) imply that LLL and RLL are collinear and this correlation leads to a failure to detect a significant leg length effect. Therefore, one of the leg lengths should be removed from the model.</p>
+<p><strong>Q15.6</strong> Plotting the explanatory variables against each other would indicate the relationships between them. The pairs function is a useful function for doing this.</p>
+<p><strong>Q15.7</strong> The better fitting models are the ones with the lowest AIC. Therefore, reject finger as an explanatory variable because the model without finger (i.e. model2c) has the lowest AIC; refit the models using the reduced set of explanatory variables, check the AIC values for the new models.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introlm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="interac.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="book_assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["IntroStats.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

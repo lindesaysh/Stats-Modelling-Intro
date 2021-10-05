@@ -1,0 +1,4 @@
+"0","include_graphics(""figures/MCT.png"")"
+"2","Error in include_graphics(""figures/MCT.png"") : 
+  could not find function ""include_graphics""
+"

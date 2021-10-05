@@ -1,0 +1,29 @@
+h1:anova Analysis of Variance
+h2:INTanova Introduction
+h2:multiple-comparisons Multiple comparisons
+fig:plantbox Distributions of titanium levels in three groups.
+h3:type-i-and-type-ii-error Type I and Type II error
+h2:analysis-of-variance-anova ANalysis Of VAriance (ANOVA)
+fig:groupbox2 Illustration of between and within group variability: the mean for groups 1 and 2 is 30 and the mean for group 3 is 20. The standard deviation is 2.5 on the left and 8 on the right.
+h3:f-test-statistic-for-anova  test statistic for ANOVA
+h3:calculating-an-anova-table Calculating an ANOVA table
+h3:f-distribution  distribution
+fig:fdist The probability density function of $F_{df1,df2}$ distribution for different values of the parameters $df1$ and $df2$.
+(ref:fshiny) Visualising the F-distribution. You can see a live version by clicking 
+fig:fshiny (ref:fshiny)
+fig:fdist2and4 Reference distribution, $F_{2,43}$ distribution.
+h3:doing-this-in-r Doing this in R
+h3:assumptions Assumptions
+fig:qqnorm1 Quantile-quantile plot of residuals.
+h2:identifying-differences-and-more-on-multiple-comparisons Identifying differences (and more on multiple comparisons)
+h3:bonferroni-correction Bonferroni correction
+h3:sidak-adjustment Sidak adjustment
+h3:tukeys-honest-significant-difference-hsd Tukey’s Honest Significant Difference (HSD)
+h4:doing-this-in-r-1 Doing this in R
+h3:multiple-comparison-controversy Multiple comparison controversy
+h2:alternative-tests-to-anova Alternative tests to ANOVA
+h3:doing-this-in-r-2 Doing this in R
+h2:SUManova Summary
+h3:learning-outcomes Learning outcomes
+h2:ANSanova Answers
+
