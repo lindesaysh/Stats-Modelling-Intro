@@ -154,7 +154,7 @@ __Q1.3__ Presumably CITES and the Wildlife Conservation Society are using differ
 
 __Q1.4__ There could be a variety of ways to tackle a problem like this. The fish population could be estimated by seeing how many are captured by fishermen over a given area of ocean. Alternatively perhaps fishes could be marked and released and then recaptured which would allow an estimate of the population size. 
 
-__Q1.5__ Requiring fishermen to report their catch accurately might be the cheapest method, otherwise, a dedicated mark recapture approach asin the question above might be necessary. 
+__Q1.5__ Requiring fishermen to report their catch accurately might be the cheapest method, otherwise, a dedicated mark recapture approach as in the question above might be necessary. 
 
 __Q1.6__ It is a massive extrapolation into the future which assumes a linear trend. There must be a limit to the improvement in sprinter speed. A sprint could not be undertaken in zero seconds!
 

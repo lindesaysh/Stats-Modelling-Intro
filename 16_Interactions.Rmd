@@ -1,3 +1,4 @@
+<!-- LB - update - 12/01/2022 -->
 # Interactions and the Linear Model {#interac}
 
 *To bring this back to a non-metaphorical level, I am suggesting that Black women can experience discrimination in ways that are both similar to and different from those experienced by
@@ -110,8 +111,8 @@ plot (heightdata$LLL, heightdata$TotalHeight, col=heightdata$SexNumeric,
       pch=heightdata$SexNumeric, xlab="LLL (cm)", ylab= "Total Height (cm)")
 # Add legend
 legend(101, 192, legend=c("M","F"), col=1:2, pch=1:2)
-# Red line for females
-abline (a=-0.6919, b=1.5507, col=2)
+# Red dashes for females
+abline (a=-0.6919, b=1.5507, col=2, lty=2)
 # Black line for males
 abline (a=(-0.6919 + 10.1102), b=1.5507)
 ```
@@ -145,8 +146,8 @@ The best fit line for males is
 plot (heightdata$LLL, heightdata$TotalHeight, col=heightdata$SexNumeric, 
       pch=heightdata$SexNumeric, xlab="LLL (cm)", ylab= "Total Height (cm)")
 legend(101, 192, legend=c("M","F"), col=1:2, pch=1:2)
-# Red line for females
-abline (a=8.3556, b=1.4683, col=2)
+# Red dashes for females
+abline (a=8.3556, b=1.4683, col=2, lty=2)
 # Black line for males
 abline (a=0.3706, b=1.633)
 ```
@@ -202,8 +203,8 @@ which can then be plotted (Figure \@ref(fig:tallplot2)).
 plot (heightdata2$LLL, heightdata2$TotalHeight, col=heightdata2$SexNumeric, 
       pch=heightdata2$SexNumeric, xlab="LLL (cm)", ylab= "Total Height (cm)")
 legend(101, 192, legend=c("M","F"), col=1:2, pch=1:2)
-# Red line for females
-abline(a=78.4027, b=0.8842, col=2 )
+# Red dashes for females
+abline(a=78.4027, b=0.8842, col=2, lty=2)
 # Black line for males
 abline(a=0.3682, b=1.6634)
 ```
@@ -276,12 +277,10 @@ We can actually also have interactions of 3, or more, variables but the interpre
 
 In this section, we return to two data sets that we have introduced in previous chapters and look at including interactions. 
 
-### EIA data
-
 ```{r, eval=T, echo=F}
 wfdata<- read.csv("data/NystedFarmsAnalysis.csv", header=T)
 ```
-We can implement an interaction(s) in our model to explain density by including `phase:X` and `phase:Y` terms:
+__Example__ We can implement an interaction(s) in our model to explain density by including `phase:X` and `phase:Y` terms:
 
 \scriptsize
 
@@ -427,8 +426,9 @@ If forwards selection is being undertaken, main effects should be added first an
 Backwards selection is illustrated using different selection criterion for the following model. 
 
 ```{r}
-modelcomplex <- lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +  
-                     Phase + XPos:Phase + YPos:Phase, data=wfdata)
+modelcomplex <- lm(Density ~ XPos + YPos + DistCoast + Depth + 
+                     as.factor(Month) +  Phase + XPos:Phase + 
+                     YPos:Phase, data=wfdata)
 ```
 
 #### Using $p$-values
@@ -439,21 +439,22 @@ Using `Anova` (Type II sum of squares) we can simultaneously consider both inter
 Anova(modelcomplex)
 ```
 
-If we are using a significance level ($\alpha$) of 0.05, `YPos:Phase` has the highest $p$-value and it is >0.05 so we reject the `YPos:Phase` term and refit. 
+If we are using a significance level ($\alpha$) of 0.05, `YPos:Phase` has the highest $p$-value and it is >0.05 so we remove the `YPos:Phase` term and refit. 
 
 ```{r}
-modelcomplex2 <- lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +  
-                     Phase + XPos:Phase, data=wfdata)
+modelcomplex2 <- lm(Density ~ XPos + YPos + DistCoast + Depth + 
+                    as.factor(Month) + Phase + XPos:Phase, 
+                    data=wfdata)
 Anova(modelcomplex2)
 ```
 
-All other terms are significant except for `Phase` but that is covered by the interaction term so is retained, so we stop there. Hence, the best fit model using p-values is:
+All other terms are significant, so we stop there. Hence, the best fit model using $p$-values is:
 
-`Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +  Phase + XPos:Phase`.
+`Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) + Phase + XPos:Phase`.
 
 #### Using AIC
 
-In this case, we have to consider the AIC of the original model above and the AICs of the model without the `XPos:Phase` term and then the starting model without the `YPos:Phase` term.
+To illustrate model selection with AIC, we start again with the full model above (i.e. including two interaction terms) and consider the AIC of this model and the AICs of the model without the `XPos:Phase` term and the model without the `YPos:Phase` term.
 
 \small
 ```{r, eval=T, echo=T}
@@ -467,9 +468,7 @@ AIC(lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +
 ```
 \normalsize
 
-The AICs are 298998.8,  298995.7 and  299003.9, respectively. 
-
-OK, we should now consider the AICs of the main effects (except `XPos`, `YPos` and `Phase`) and see if any of these are less than 298995.7 
+The AICs are 298998.8,  298995.7 and  299003.9, respectively; the smallest AIC is for the model without the the `YPos:Phase` term (perhaps not surprisingly given the model chosen using $p$-values). We now use this model and consider how removing the other covariates (e.g. `DistCoast`, `Depth` and `Month`) affect the AIC. 
 
 \small
 ```{r, eval=T, echo=T}
@@ -489,7 +488,7 @@ The AICs are 299014.4, 299117.4 and  299053.6, so we have no grounds to reduce t
 
 `Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) + Phase + XPos:Phase`. 
 
-One thing to note from this analysis:
+One thing to note:
 
 + **$p$-value model selection and AIC (or similar score) selection do not necessarily produce the same answers!**
 
@@ -629,21 +628,19 @@ $$
 **Q16.4** This model contains an interaction term and so the interaction term should be considered first (because of the principle of marginality) before individual terms in the interaction can be excluded as main effect terms. In this case, the interaction should be excluded because it is not significant ($p$-value=0.44). Note, if an interaction was not included in the model, then remove the variable with the highest probability if it is greater than the significance level used for testing (i.e. if the term is not significant). 
 
 **Q16.5** Female is used as the reference level.
-\raggedright
-Females:\hspace{15pt} $\hat{EL}=1.9844+3.6121\times{}ML\ $
-\raggedright
-Males:\hspace{15pt}\hspace{15pt}
-$\hat{EL}=1.9844-0.9284+\left(3.6121+1.1386\right)\times{}ML=1.056+4.7507\times{}ML\
-$
-\raggedright
-Not known:\hspace{15pt}
-$\hat{EL}=1.9844-0.8995+\left(3.6121+0.3224\right)\times{}ML=1.0849+3.9345\times{}ML\
-${\raggedright
-Hence  
-Female:\hspace{15pt}\hspace{15pt}1.9844 + 3.6121 * 2 = 9.209 m  
-\raggedright    
-Male:\hspace{15pt}\hspace{15pt}1.056 + 4.7507 * 2 = 10.56 m  
-\raggedright  
-Not known:\hspace{15pt}1.0849 + 3.9345 * 2 = 8.95 m
+
+Females: $\hat{EL}=1.9844+3.6121 \times ML$
+
+Males: $\hat{EL}=1.9844-0.9284+\left(3.6121+1.1386\right)\times ML=1.056+4.7507\times ML$
+
+Not known:$\hat{EL}=1.9844-0.8995+\left(3.6121+0.3224\right)\times ML=1.0849+3.9345\times ML$
+
+Hence,
+
+Female: $1.9844 + 3.6121 * 2 = 9.209$ m  
+
+Male: $1.056 + 4.7507 * 2 = 10.56$ m  
+
+Not known: $1.0849 + 3.9345 * 2 = 8.95$ m
 
 <!-- # Bibliography -->

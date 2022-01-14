@@ -197,7 +197,7 @@ vote <- data.frame(Gender=c("Female","Male"),
 pander::pander(vote, caption="(#tab:voters1) Numbers of supporters for each political party by gender.")
 ```
 
-In total there are 2,757 individuals in the sample. A question that might arise is whether there  is more female support for Democrats than Republicans, for example. Indeed there are more female supporters for Democrats than Republicans in our sample, but there were also more Democrats in the sample. Even adjusting for this, another sample would give different frequencies and so is the difference explicable by sampling variability or is there a relationship between political support and gender? We wish to determine whether there is a relationship, or association, between political support and gender or whether gender and political support independent of one another. 
+In total there are 2,757 individuals in the sample. A question that might arise is whether there  is more female support for Democrats than Republicans, for example. Indeed there are more female supporters for Democrats than Republicans in our sample, but there were also more Democrats in the sample. Even adjusting for this, another sample would give different frequencies and so is the difference explicable by sampling variability or is there a relationship between political support and gender? We wish to determine whether there is a relationship, or association, between political support and gender or whether gender and political support are independent of one another. 
 
 The null hypothesis we test assumes that the two variables are independent (hence a test of independence). In this example, the null hypothesis is: 
 
@@ -205,7 +205,7 @@ $$H_0: \textrm{gender and voting intention are independent}$$
 
 The alternative hypothesis states the opposite view. 
 
-$$H_1: \textrm{gender and voting intention are not independent, i.e. there is an association between gender and political support.}$$
+$$H_1: \textrm{gender and voting intention are not independent, i.e. there is an association}$$
 
 As before, we calculate expected counts assuming that $H_0$ is true. In this case, the probability of being in a particular cell, is the probability of being in the particular row, multiplied by the probability of being in the particular column (remember $P(A \cap B) = P(A) \times P(B)$ for independent events). Thus, the expected count for each cell in the table is given by
 
@@ -340,7 +340,7 @@ Although discrete data are summarised and treated differently to continuous data
 
 In this chapter you have seen how to undertake a:
 
-1. test for goodness of fit to some a priori distribution, and
+1. test for goodness of fit to some \textit{a priori} distribution, and
 
 2. test for independence/association. 
 

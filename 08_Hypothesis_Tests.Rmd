@@ -1,4 +1,5 @@
 <!-- LB update - 04/08/2020 -->
+<!-- LB update - 12/01/2022 -->
 
 # (PART) Hypothesis Testing {-}
 
@@ -21,7 +22,7 @@ This chapter describes
 
 + the different types of hypotheses
 + a one sample, two sample and paired $t$ tests
-+ the differences between one and two-tailed tests
++ the differences between one- and two-tailed tests
 + using a $p$-value or fixed significance level to make conclusions,
 + non-parametric alternatives to $t$ tests and 
 + statistical and practical significance. 
@@ -76,7 +77,7 @@ $$H_1: \mu_A < \mu_B$$
 
 $$H_1: \mu_A > \mu_B$$ 
 
-Having defined the test hypotheses, a test statistic is calculated and the strength of evidence for this statistic, given the null hypothesis is true, is quantified.  
+Having defined the test hypotheses, a test statistic is calculated and the strength of evidence for this statistic, assuming the null hypothesis is true, is quantified.  
 
 ### How do hypothesis tests work? 
 
@@ -113,7 +114,7 @@ boxplot(x2, x3, ylim=c(0,65), main='High variability',xlab="Group",
 axis(side=1, at=1:2, labels=1:2)
 ```
 
-We use the 'test statistic' to quantify how much our data-estimate differs from the value in the null hypothesis taking into account the variability in the data. The formula for calculating the test statistic varies across data types and the nature of the test. In this chapter we consider one and two sample tests $t$ to compare sample means; proportions are considered in a later chapter. 
+We use the 'test statistic' to quantify how much our data-estimate differs from the value in the null hypothesis taking into account the variability in the data. The formula for calculating the test statistic varies across data types and the nature of the test. In this chapter we consider one and two sample $t$ tests to compare sample means; proportions are considered in a later chapter. 
 
 ### One sample $t$ test
 
@@ -121,7 +122,8 @@ In a one sample $t$ test we compare the data-estimate to the hypothesised value;
 
 $$t_{stat}=\frac{\hat \mu - \mu_0}{se(\hat \mu)}$$
 where $\hat \mu$ is the sample mean and $se(\hat \mu)$ is the standard error of the sample mean.  
-Let's return to the example where we want to determine whether sample of baby weights could have been generated from a population with a mean of 120 ounces. As a reminder, the null hypothesis is:
+
+Let's return to the example where we want to determine whether the sample of baby weights could have been generated from a population with a mean of 120 ounces. As a reminder, the null hypothesis is:
 
 $H_0$: ${\mu} = 120$ 
 
@@ -222,7 +224,7 @@ We compare this to a reference distribution - since the sample size is 1236, the
 
 #### Using a fixed significance level
 
-Some studies used a (pre-determined) fixed significance level; the evidence for the null hypothesis is determined with a 5\% significance level, for example. We find a 'critical value' from the reference distribution based on the significance level and compare the test statistic to this critical value. Let's return to the reference distribution for the baby weights and assume a fixed significance level of 5\%; this is a two-tailed test (as specified in the alternative hypothesis) and so we want to find the quantile (the critical value, $t_{crit}$) such that:
+Some studies use a (pre-determined) fixed significance level; the evidence for the null hypothesis is determined with a 5\% significance level, for example. We find a 'critical value' from the reference distribution based on the significance level and compare the test statistic to this critical value. Let's return to the reference distribution for the baby weights and assume a fixed significance level of 5\%; this is a two-tailed test (as specified in the alternative hypothesis) and so we want to find the quantile (the critical value, $t_{crit}$) such that:
 
 $$Pr(T \le -|t_{crit}|) + Pr(T \ge |t_{crit}|) = 0.05$$
 
@@ -230,7 +232,7 @@ In Figure \@ref(fig:tdist1235ex2), the critical value, $t_{crit}$ is 1.96 (i.e. 
 
 A test statistic falling within the red shaded region would be sufficiently unlikely (based on the significance level) to have occurred if the null hypothesis was true, hence, providing evidence to reject the null hypothesis. 
 
-```{r tdist1235ex2, echo=F, eval=T, fig.cap="Reference t distribution for one sample example, $t_{df=1235}$. The red shaded region indicates areas more extreme than the critical value. The blue dashed line indicates the test statistic.", fig.pos="!htb"}
+```{r tdist1235ex2, echo=F, eval=T, fig.cap="Reference $t$ distribution for one sample example, $t_{df=1235}$. The red shaded region indicates areas more extreme than the critical value. The blue dashed line indicates the test statistic.", fig.pos="!htb"}
 xval <- seq(-4, 4, by=0.01)
 dfval <- 1235
 tval <- dt(xval, df=dfval)
@@ -350,7 +352,7 @@ $$df = Min(n_N-1, n_S-1) = Min(741, 483) = 483$$
 
 Hence, the reference distribution is $t_{df=483}$ and, because we are conducting a one-tail test, we are only interested in the probability associated with $Pr(T \ge 8.583)$. Figure \@ref(fig:tdist483) shows that this probability is going to be very small because the test statistic is in the extreme right hand tail, i.e. the $p$-value is going to be close to zero. Hence, there is strong evidence to reject the null hypothesis and conclude that the babies from non-smoking mothers are heavier from smoking mothers.  
 
-```{r tdist483, echo=F, eval=T, fig.cap="Reference $t$ distribution for two sample test example, $t_{df=483}$. The red shaded region indicates areas more extreme than the critical value.", fig.pos="!htb"}
+```{r tdist483, echo=F, eval=T, fig.cap="Reference $t$ distribution for two sample test example, $t_{df=483}$. The red shaded region indicates areas more extreme than the critical value for a one-tailed test.", fig.pos="!htb"}
 xval <- seq(-5, 5, by=0.05)
 dfval <- 483
 tval <- dt(xval, df=dfval)
@@ -441,7 +443,7 @@ __c.__ Interpret the test results.
 
 ## Paired $t$ test
 
-A paired $t$ test is used to compare the population means of two groups where the observations in one sample can be paired with an observation in the other sample. An example would be a study where participants are measured before and after a treatment and so the two measurments are not independent since the measurements were taken from the same participants. These types of study can be very useful because using the same participants can eliminate any variation other than the treatment between the two groups. 
+A paired $t$ test is used to compare the population means of two groups where the observations in one sample can be paired with an observation in the other sample. An example would be a study where participants are measured before and after a treatment and so the two measurements are not independent since the measurements were taken from the same participants. These types of study can be very useful because using the same participants can eliminate any variation other than the treatment between the two groups. 
 
 Let $x$ be a measurement before treatment, or some intervention, and $y$ be a measurement after treatment. The difference between the two measurements on each participant $i$ is given by:
 
@@ -637,7 +639,7 @@ This chapter has covered the underlying concepts of hypothesis testing; a test s
 
 The $t$ tests rely on data being normally distributed; if this is not a valid assumption, non-parametric tests can be used. 
 
-In chapter 11, we consider hypothesis tests for when there are more than two groups. For more information about hypothesis testing in general [see](https://www.khanacademy.org/math/probability/statistics-inferential/hypothesis-testing/v/hypothesis-testing-and-p-values).
+In chapter \@ref(anova), we consider hypothesis tests for when there are more than two groups. For more information about hypothesis testing in general [see](https://www.khanacademy.org/math/probability/statistics-inferential/hypothesis-testing/v/hypothesis-testing-and-p-values).
 
 ### Learning outcomes
 
@@ -704,7 +706,7 @@ qt(p=0.05, df=59, lower.tail=FALSE)
 
 This value is less than the test statistic and so there is evidence to reject the null hypothesis, testing at a 5\% significance level, and conclude that brand A lasts longer than brand B.  
 
-The $p$-value is found using the `pt` function: 
+The exact $p$-value is found using the `pt` function: 
 
 ```{r, echo=T}
 pt(q=4.2956, df=59, lower.tail=FALSE)

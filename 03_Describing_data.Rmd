@@ -1,4 +1,5 @@
 <!-- LB update - 04/08/2020 -->
+<!-- LB update - 11/01/2022 -->
 
 # Describing data {#describedata}
 
@@ -9,7 +10,7 @@
 
 In chapter \@ref(sampling), different data collection methods were discussed. Having obtained some data, the first stage of any analysis is to perform an exploratory investigation to extract summaries of the data, such as the number of observations and average values and to plot it. In this chapter we consider methods to summarise data both visually and numerically. First, we consider types of data because the methods used for both simple, and more complex, analyses will depend on the type of data; for example, eye colour (e.g. blue, brown) cannot be described by a numerical average which could be used to describe a variable like height.
 
-By the end of this unit you should be able to 
+By the end of this unit you should be able to:
 
 + distinguish between the different types of data
 
@@ -250,7 +251,7 @@ Bar charts, or bar plots, are essentially visual representations of frequency di
 barplot(fd$Frequency, names.arg=fd$z, ylab="Frequency", xlab="Possible values")
 ```
 
-In Figure \@ref(fig:barplot1), the bars are vertical but they could also be horizontal. The gaps between the bars are a useful reminder that the values are discrete (ane we look at histograms where there are no gaps later). 
+In Figure \@ref(fig:barplot1), the bars are vertical but they could also be horizontal. The gaps between the bars are a useful reminder that the values are discrete (and we look at histograms where there are no gaps later). 
 
 ### Pie charts
 
@@ -283,7 +284,7 @@ __Skewness__ is a measure of asymmetry about the mean and this feature is swiftl
 
 + Right, or positively, skewed data has a relatively long right tail compared to the left and the mean is greater than the median
 
-+ Left, or negatively, skewed data has a relatively long left tail compared to the left and the mean is less than the median. 
++ Left, or negatively, skewed data has a relatively long left tail compared to the right and the mean is less than the median. 
 
 + For symmetric data, the mean and median are equal. 
 
@@ -581,7 +582,7 @@ Numerical summaries provide:
 
 + a measure of the centre of the distribution (mean, median, mode),
 
-+ a measure of the spead (range, IQR, standard deviation).
++ a measure of the spread (range, IQR, standard deviation).
 
 Histograms and box plots show overall features in the data such as the:
 
@@ -601,7 +602,7 @@ Scatter plots show
 
 ### Learning outcomes
 
-You should be able to 
+You should be able to: 
 
 1. recognise different types of data
 
@@ -644,7 +645,7 @@ $$  = \frac{(5 \times 2.5) + (52 \times 7.5) + (45 \times 12.5) + ... + (12 \tim
 Don't forget that there were 200 values and so 
 
 $$\sum_{i=1}^B n_i = 200 $$
-__Q3.4__ __a.__ From the five number summary, the range is given by `r t1[5]` $-$ `r t1[1]` = `r t1[5]- t1[5]`. The IQR is given by `r t1[4]` $-$ `r t1[2]` = `r t1[4]- t1[2]`.
+__Q3.4__ __a.__ From the five number summary, the range is given by `r t1[5]` $-$ `r t1[1]` = `r t1[5]- t1[1]`. The IQR is given by `r t1[4]` $-$ `r t1[2]` = `r t1[4]- t1[2]`.
 
 __Q3.4__ __b.__ There are various measures that indicate differences between the plot and the summary:
 

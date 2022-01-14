@@ -1,6 +1,6 @@
 <!-- Changed 25/08/20 LB -->
 
-# Notation {-} {#notation}
+# Notation {#notation}
 
 Throughout the course standard notation is used in order to express the ideas and concepts in a precise and concise mathematical representation. This section describes the notation which is used and provides a reference as you work through the module. The R functions associated with some of the mathematical operators are listed. 
 
@@ -35,6 +35,8 @@ __Example__ How many ways are there to choose 2 objects from a set of 4 objects.
 $${4 \choose 2} = \frac{4!}{(4-2)!2!} = 6$$
 
 __Usage__ This notation is used when calculating the possible numbers of combinations of samples (when order does not matter).
+
+__R function__ `choose`
 
 ## Multiplication
 
@@ -108,7 +110,7 @@ __Usage__ Used to describe a quantity that increases, or decreases, at a rate th
 
 __R function__ `exp`
 
-__Scientific notation__
+## Scientific notation
 
 Scientific notation is a way of expressing numbers that are too large or too small to conveniently write in decimal form. In R, a number is expressed as a decimal and an exponent, separated by `e` (not to be confused with the exponential function). Some examples are given below. 
 

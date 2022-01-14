@@ -1,3 +1,4 @@
+<!-- LB - update - 12/01/2022 -->
 
 # Prediction from the linear model {#prediction}
 
@@ -131,7 +132,8 @@ As usual this can be done simply in R, by adding the `interval` argument to the 
 
 ```{r, echo=T, eval=T}
 # Prediction with CI 
-predict(modelIQ, newdata=df2, se.fit=TRUE, interval="confidence", level=0.99)
+predict(modelIQ, newdata=df2, se.fit=TRUE, interval="confidence", 
+        level=0.99)
 ```
 
 The "residual scale" here is, confusingly, the square of the mean square error. 
@@ -147,8 +149,8 @@ Height[1:5]
 # Create dataframe
 df3 <- data.frame(Height)
 # Prediction with CI
-bounds.ci <- predict(modelIQ, newdata=df3, se.fit=T, interval="confidence", 
-                     level=0.99)
+bounds.ci <- predict(modelIQ, newdata=df3, se.fit=T, 
+                     interval="confidence", level=0.99)
 # Plot data
 plot (df1$Height, df1$IQ, xlab="Height", ylab="IQ")
 # Add regression line
@@ -184,14 +186,15 @@ As before, we can use R to do things easily:
 
 ```{r, echo=T, eval=T}
 # Prediction CI
-predict(modelIQ, newdata=df2, se.fit=TRUE, interval="prediction", level=0.99)
+predict(modelIQ, newdata=df2, se.fit=TRUE, interval="prediction", 
+        level=0.99)
 ```
 **NB** R still gives the confidence standard error. 
 
 And as before we can also construct a prediction interval over the entire range of heights. However this does not reflect the uncertainty in the mean response but the uncertainty in individual responses.   
 
 \newpage
-```{r plotallCI, echo=T, eval=T, fig.cap='Scatterplot of Height (m) and IQ with confidence and prediction intervals.', dev='png'}
+```{r plotallCI, echo=T, eval=T, fig.cap='Scatterplot of Height (m) and IQ with confidence (dashes) and prediction intervals (dots) around the best fit line (solid line).', dev='png'}
 # Plot data
 plot (df1$Height, df1$IQ, xlab="Height", ylab="IQ", ylim=c(105.9,107.6))
 # Add regression line
@@ -200,16 +203,18 @@ abline (modelIQ)
 lines (Height, bounds.ci$fit[,3], lty=2)
 lines (Height, bounds.ci$fit[,2], lty=2)
 # Obtain prediction interval and add to plot
-bounds.pi <- predict(modelIQ, newdata=df3, se.fit=TRUE, interval="prediction", 
-                     level=0.99)
+bounds.pi <- predict(modelIQ, newdata=df3, se.fit=TRUE,  
+                     interval="prediction", level=0.99)
 lines (Height, bounds.pi$fit[,3], lty=3)
 lines (Height, bounds.pi$fit[,2], lty=3)
 ```
 
-Notice that the prediction interval is much wider than the confidence interval (Figure \@ref(fig:plotallCI)). The prediction interval is considering the uncertainty in the individual predictions. The confidence interval considers the uncertainty in the mean response. 
+Notice that the prediction interval is much wider than the confidence interval (Figure \@ref(fig:plotallCI)):
 
++ The confidence interval considers the uncertainty in the mean response, which essentially relates to the uncertainty in the estimated regression coefficients (i.e. $\hat \beta$'s). 
++ The prediction interval considers the uncertainty in the individual prediction which includes the uncertainty in the estimated regression coefficients (i.e. $\hat \beta$'s) plus the uncertainty in the prediction (i.e. the variance of the error).
+ 
 __Example__ An interesting application of regression, using a slightly more complicated regression technique that allowed curved fits is shown in Figure (Figure \@ref(fig:LRLtoML)). Of interest was the relationship of jaw size to body length in giant squid. If we know this, undigested squid jaws found in sperm whales can be used to predict the size of squid sperm whales feed on. Here the uncertainty in the actual individual squid was of interest and so prediction intervals were calculated as well as a confidence interval. The prediction interval for body length of the longest jaw actually found in a sperm whale is given by the vertical green line. The longest mantle length measured is given by the horizontal green line. Statistics suggests some giant squid grow rather large!! Although this is based on an extrapolation [@Paxton2016].
-
 
 
 ```{r LRLtoML, echo=FALSE, fig.cap="Regression of mantle length of lower rostral length in squid. The black line is the best fit line", out.width = '100%'}
@@ -263,22 +268,21 @@ Given a fitted equation, obtaining a point estimate from a linear model is strai
 
 ### Learning objectives
 
-At the end of this chapter you should be able to
+At the end of this chapter you should be able to:
 
 1. predict from a given fitted  model
 2. understand when to use confidence or prediction intervals. 
-
 
 ## Answers {#ANSpred}
 
 **Q17.1** Whether confidence intervals or prediction intervals are more appropriate is very contextual.  
 
-__a.__ Here the emphasis is on the rate of change estimated by the gradient of a regression. So here a confidence interval on the gradient would be most appropriate. 
+**Q17.1** __a.__ Here the emphasis is on the rate of change estimated by the gradient of a regression. So here a confidence interval on the gradient would be most appropriate. 
 
-__b.__ In this case presumably safety is an issue so a plausible range of values for individuals is a primary concern so a prediction interval would be most appropriate.    
+**Q17.1** __b.__ In this case presumably safety is an issue so a plausible range of values for individuals is a primary concern so a prediction interval would be most appropriate.    
 
-__c.__ If the interest was conservation then perhaps a prediction interval would be more appropriate, as that relates to the actual numbers of individuals. This is seldom done in practice however.   
+**Q17.1** __c.__ If the interest was conservation then perhaps a prediction interval would be more appropriate, as that relates to the actual numbers of individuals. This is seldom done in practice however.   
 
-__d.__ Here presumably the relationship is of more theoretical interest than practical policy so probably confidence intervals are relevant. 
+**Q17.1** __d.__ Here presumably the relationship is of more theoretical interest than practical policy so probably confidence intervals are relevant. 
 
 <!-- # Bibliography -->

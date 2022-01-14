@@ -1,4 +1,5 @@
 <!-- CP - update 05/08/2020 -->
+<!-- LB update - 11/01/2022 -->
 
 
 # (PART) Probability and Distributions {-}
@@ -14,13 +15,14 @@ library(ggplot2)
 <span style="background-color: white"> *Probability: as a measurable quantity: the extent to which a particular event is likely to occur, or a particular situation be the case, as measured by the relative frequency of occurrence of events of the same kind in the whole course of experience, and expressed by a number between 0 and 1.*
 <br/>Oxford English Dictionary [-@dictionary1989oxford]</span>
 
-Here we define probability, consider how to represent it mathematically, present some axioms and basic results, and work through some example probability calculations. By the end of the this chapter, you should be able to   
+Here we define probability, consider how to represent it mathematically, present some axioms and basic results, and work through some example probability calculations.
+
+By the end of the this chapter, you should be able to: 
 
 1. distinguish the different definitions of probability
-2. understand the basic axioms of probability.
-3. understand Bayes' theorem and its simple applications 
+2. understand the basic axioms of probability
+3. be aware of Bayes' theorem.  
  
-
 In 2006, the polling organisation, Populus Limited, randomly sampled 1,509 adults, age 18 and older, by telephone between January 6$^{th}$ and 8$^{th}$ and asked each adult their voting intention (Labour, Conservative, Liberal Democrat, and Other).  The resulting percentages were:
 
 <caption> (\#tab:Votint) Voting intention in Populus survey. </caption>
@@ -38,7 +40,7 @@ Other            |  9
 
 
 
-How close are these sample __statistics__ to the population __parameters__? A different sample would have got a different answer , so there must be uncertainty associated with these sample statistics.
+How close are these sample __statistics__ to the population __parameters__? A different sample would have got a different answer, so there must be uncertainty associated with these sample statistics.
 
 Sampled value =  Parameter + Chance Error 
 
@@ -49,7 +51,7 @@ The parameter(s) in this case are the unknown population proportions.
 * So what is the magnitude of the error?
 * Ideas from probability will help with this.
 
-Througout statistics, we consider the evaluation of hypotheses where we attach a probability to a particular event given a particular set of results.  This allows us to decide whether to accept or reject the hypotheses. Therefore, this chapter will consider the concept of probability in some detail. 
+Throughout statistics, we consider the evaluation of hypotheses where we attach a probability to a particular event given a particular set of results.  This allows us to decide whether to accept or reject the hypotheses. Therefore, this chapter will consider the concept of probability in some detail. 
 
 ### Random phenomena and uncertain outcomes
 
@@ -97,17 +99,17 @@ For example The set of all possible outcomes occurring: $A$ alone, $B$ alone, or
 
 + union of $A$ and $B$, $A \cup B$ or  $A ~\mbox{or}~ B$ (Figure \@ref(fig:Vennunion)).
 
-```{r Vennunion, echo=FALSE, fig.cap="A Venn diagram of the union of events A and B", out.width = '100%'}
+```{r Vennunion, echo=FALSE, fig.cap="A Venn diagram of the union of events $A$ and $B$.", out.width = '100%'}
 knitr::include_graphics("./figures/AunionB.jpg")
 ```
 <!--<caption> (\#figure:Vennunion)</caption>
 ![*A Venn diagram of the union of events A and B* ](./figures/AunionB.jpg)-->
 
-+ The set of all events in $\mathcal{S}$ that do not occur in A is: complement of $A$ or $\overline{A}$ or $A^c$.
++ The set of all events in $\mathcal{S}$ that do not occur in $A$ is: complement of $A$ or $\overline{A}$ or $A^c$.
 
 + When $A$ and $B$ have no outcomes in common, they are mutually exclusive or disjoint, i.e., $A \cap B$ = $\emptyset$. $\emptyset$ means empty set. 
 
-If there is just one outcome in an event A, the event is called simple or elementary, otherwise it is called compound.
+If there is just one outcome in an event $A$, the event is called simple or elementary, otherwise it is called compound.
 
 When $A$ and $B$ have no outcomes in common, they are __mutually exclusive__ or __disjoint__, i.e., $A \cap B$ = $\emptyset$
 
@@ -118,7 +120,7 @@ The set of all outcomes occurring only in both $A$ and $B$ is
 + intersection of $A$ and $B$, $A \cap B$, or  $A ~\mbox{and}~ B$ (Figure \@ref(fig:Vennintercept)).
 
 
-```{r Vennintercept, echo=FALSE, fig.cap="A Venn diagram of the intercept of events A and B", out.width = '100%'}
+```{r Vennintercept, echo=FALSE, fig.cap="A Venn diagram of the intercept of events $A$ and $B$.", out.width = '100%'}
 knitr::include_graphics("./figures/AinterceptB.jpg")
 ```
 
@@ -128,7 +130,7 @@ knitr::include_graphics("./figures/AinterceptB.jpg")
 This is called the __law of complementary probability__.
 
 
-**Example** Roll 2 dice and count the total number of dots face up. Define the two events $A$ and $B$ as follows:
+**Example** Roll 2 dice and count the total number of dots face up. Define two events $A$ and $B$ as follows:
 
   $A$ = get an even number
   $B$ = get a number that is divisible by 3
@@ -162,9 +164,9 @@ How does the above definition compare to probability in the following contexts?
 
 Formally probability can be described by 3 axioms.
        
-* (Axiom 1) The probability of an event $A \in S$, denoted $\Pr(A)$ is a number between 0 and 1, inclusive.
+* (Axiom 1) The probability of an event $A \in \mathcal{S}$, denoted $\Pr(A)$ is a number between 0 and 1, inclusive.
 
-* (Axiom 2) $\Pr(S)$ = 1
+* (Axiom 2) $\Pr(\mathcal{S})$ = 1
 
 * (Axiom 3) If $A_1$, $A_2$, $\ldots$, $A_k$ are a finite collection of mutually exclusive events, then 
 
@@ -172,7 +174,7 @@ $$
 \Pr(A_1 \cup A_2 \cup \ldots \cup A_k)  =  \sum_{i=1}^k \Pr(A_i)
 $$
 
-Informally, this is called the Addition Rule. Applies if $k$ is infinite too.
+Informally, this is called the Addition Rule and applies if $k$ is infinite too.
 
 These mean practically:
 
@@ -182,7 +184,7 @@ These mean practically:
 * We need to know all possible outcomes to assign probabilities.
 * You can add probabilities of mutually exclusive things to get the probability one of them happens.
 
-*Example* The outcomes of a single die roll are 1, 2, 3, 4, 5, 6. The probabiity of getting any number at all is one from the second axion. What is the probability of getting an even number?
+*Example* The outcomes of a single die roll are 1, 2, 3, 4, 5, 6. The probability of getting any number at all is one from the second axiom. What is the probability of getting an even number?
 
 $$
 \begin{aligned}
@@ -204,12 +206,12 @@ All the other rules of probability come from these axioms
 
 $\Pr(A \cup B) = \Pr(A) + \Pr(B) - \Pr(A \cap B)$.
   
-  We have to remove $\Pr(A \cap B)$ otherwise we would be counting that event space twice. Therefore, we adjust the sum of the two probabilities by subtracting the probability of the two events occurring together.This is called the __general addition rule__. 
+We have to subtract $\Pr(A \cap B)$ otherwise we would be counting that event space twice. Therefore, we adjust the sum of the two probabilities by subtracting the probability of the two events occurring together.This is called the __general addition rule__. 
 
 
 * Intersection of 2 mutually exclusive events:
 
-  * If $A$ and $B$ are __mutually exclusive__, then $\Pr(A \cap B) = 0$.(i.e. they cannot occur together and the addition formula reduces to: 
+  * If $A$ and $B$ are __mutually exclusive__, then $\Pr(A \cap B) = 0$ (i.e. they cannot occur together) and the addition formula reduces to: 
 
 $$Pr(A \cup B) = Pr(A) + Pr(B)$$
 
@@ -221,7 +223,7 @@ Remember to think of $\cap$ as __AND__ and $\cup$ as __OR__
 
 Formally, if two events $A$ and $B$ are independent, then  
 
-$$\Pr(A ~and~ B) = \Pr(A) \times \Pr(B)$$
+$$\Pr(A \cap B) = \Pr(A) \times \Pr(B)$$
 
 Thus when two events are independent, the probability of __both__ happening is the product of the two individual probabilities. 
 
@@ -241,15 +243,14 @@ a Head on the first toss and $B$ be the event of a Tail on the second toss.
 The outcomes for two different flips should be  independent (since the coin has no memory).
 
 
-Thus,  $\Pr(A ~and~ B)$ = $\Pr(A) \times \Pr(B)$ = 0.5 $\times$ 0.5 = 0.25. 
+Thus,  $\Pr(A \cap B)$ = $\Pr(A) \times \Pr(B)$ = 0.5 $\times$ 0.5 = 0.25. 
 
 This could be tested by tossing the coin numerous times and seeing if the long run frequency matched 0.25. 
 
-
-<br /> **Q4.6.** In an ordinary card deck there are 52 cards: 4 suits (diamonds, hearts,
+__Q4.6__ In an ordinary card deck there are 52 cards: 4 suits (diamonds, hearts,
  clubs, spades) of 13 cards (Ace,2,3,$\ldots$,10,J,Q,K).  A deck is shuffled 
 and one card is drawn and removed, and a second card is drawn.  Let $A$ = first
-card = 2 of Spades and $B$=second card is 3 of spades. What is $\Pr(A ~and~ B)$?  
+card = 2 of Spades and $B$=second card is 3 of spades. What is $\Pr(A \cap B)$?  
 
 
 ## Conditional probabilities
@@ -264,15 +265,17 @@ information can be used to calculate conditional probabilities for particular ev
     + $D$ = a randomly chosen sampling location was in a desert. 
 
 
-+ We are now interested in the probability of $S$ occurring __given__ that $D$ has occurred. What is the probability of seeing an animal if you are are looking in a desert.  This probability is written as $Pr (S|D)$, and is called the __conditional probability__ of $S$ given $D$:
++ We are now interested in the probability of $S$ occurring __given__ that $D$ has occurred. What is the probability of seeing an animal if you are are looking in a desert?  This probability is written as $Pr (S|D)$, and is called the __conditional probability__ of $S$ given $D$:
 
 $$Pr(S|D) = \frac{Pr(S \cap D)}{Pr(D)}$$
 
-This equation can be rewritten: we know that $Pr(S \cap D) = Pr(D \cap S)$ and  $Pr(D \cap S) = Pr(D|S)P(S)$ (if $Pr(S) \ne 0$). Hence,
+This equation can be rewritten as a well-known theorem. First rearrange the above equation, such that $Pr(S \cap D) = Pr(S|D)P(D)$. 
 
+We know that $Pr(S \cap D) = Pr(D \cap S)$ and so $Pr(D \cap S) = Pr(D|S)P(S)$ (if $Pr(S) \ne 0$). Hence,
+ 
 $$Pr(S|D) = \frac{Pr(D|S)P(S)}{Pr(D)}$$
 
-This equation is named after Reverend Thomas Bayes and known as __Bayes' theorem__. For more information see [here](
+This equation is named after an 18th century mathematician, Reverend Thomas Bayes, and known as __Bayes' theorem__. This probability expresses a degree of belief in an event, where the degree of belief may be based on prior knowledge about the event; prior knowledge may be gained from the results of previous experiments, for example. Bayesian statistics is a branch of statistics in which methods use Bayes' theorem to calculate and update probabilities based on new data, or information. For more information see [here](
 https://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/).
 
 If $S$ and $D$ are __independent__ then whether $D$ occurred or not will not affect $Pr(S)$, so that  $Pr(S|D) = Pr(S)$.
@@ -303,8 +306,6 @@ Other   |  9,034 | 3,536 | 12,570
 Total   | 25,415 | 6,095 | 31,510 
 
 
-
-
  * We convert the table into a relative frequency table with 4 categories by dividing throughout by the grand total 31,510, e.g. the total proportion of males is $25415/31510 = 0.807$:
 
 |       | Male  | Female | Total 
@@ -316,7 +317,7 @@ Total   | 0.807 | 0.193  | 1.000
 
 Let $G$ be the event that a firearm was used then $\Pr(G)$ = 0.601. If $F$ is the event that a victim is female then $\Pr(F)$ = 0.193.
 
-* If you know the victim was Female (i.e. __Given__ Female), what is the probability a firearm was used? We need the values from the table that represent the probability that the victim was Female **and** used a firearm (0.081) and the probability the victim was Female (0.193): 
+* If you know the victim was Female (i.e. __Given__ Female), what is the probability a firearm was used? We can use Bayes theorem - we need the values from the table that represent the probability that the victim was Female **and** used a firearm (0.081) and the probability the victim was Female (0.193): 
 
 $$Pr(G|F) = \frac{Pr(G \cap F)} {Pr(F)} = \frac{0.081}{0.193} = 0.420$$
 
@@ -331,7 +332,7 @@ One definition of independence is that two events $A$ and $B$ are independent wh
 In words, knowing that $B$ occurred tells one nothing about the probability of $A$.  The general multiplication rule reduces to ``the'' multiplication rule: 
 
 $$
-    \Pr(A ~and~ B)  =  \Pr(A|B) \times \Pr(B) = \Pr(A) \times \Pr(B) 
+    \Pr(A \cap B)  =  \Pr(A|B) \times \Pr(B) = \Pr(A) \times \Pr(B) 
 $$
 
 
@@ -347,7 +348,7 @@ of random processes is to draw a tree diagram.
 
 This approach can be used as a simple way of considering problems that might involve complex probabilities.<br/>  
 
-**Example** Let us suppose that the probability a woman age 40 has breast cancer is 1%. If she has breast cancer the probability she tests positive on a screening mammogram is 99 %. If she does not have breast cancer the probability that she nonetheless tests positive is 9%. 
+**Example** Let us suppose that the probability a woman aged 40 has breast cancer is 1\%. If a woman has breast cancer, the probability she tests positive on a screening mammogram is 99\%. If she does not have breast cancer the probability that she nonetheless tests positive is 9\%. 
 
 What are the chances that a woman who tests positive actually has breast cancer?
 
@@ -369,15 +370,13 @@ But it is not immediately obvious what $\Pr(Cancer \cap positive)$ and $\Pr(posi
 
 Considering this as a tree diagram things (Figure \@ref(fig:tree1)) become a little more obvious. 
 
-
 ```{r tree1, fig.cap='All possible outcomes for 100 women.', echo=FALSE, out.width='95%'}
 knitr::include_graphics('figures/treediagram.png')
 ```
 
-Of 100 women, 1 has cancer and tests positive, 99 do not have cancer of whom 
-9/100 x 99  = 8.9 will test positive. 
+Of 100 women, 1 has cancer and tests positive, 99 do not have cancer of whom 9 will test positive. 
 
-It now becomes easy to see that the $Pr(Cancer|positive)$ = 1/(1+8.9) = 10.1%
+It now becomes easy to see that the $Pr(Cancer|positive)$ = 1/(1+9) = 0.1 (i.e. 10%)
 
 See Gigerenzer [ -@Gigerenzer2003] for more on this. 
 
@@ -391,7 +390,7 @@ We can tackle something simple like this by complete enumeration of outcomes. Th
 knitr::include_graphics('figures/treediagramdrago.png')
 ```
 
-The probablity of Dragos winning is
+The probability of Dragos winning is
 $$0.6 \times 0.6 + 0.6 \times 0.4 \times 0.6 \times 0.6 + 0.6 \times 0.4 \times 0.6 \times 0.4 \times 0.6 + 0.4 \times 0.6 \times 0.6 +0.4 \times 0.6 \times 0.4 \times 0.6 \times 0.6$$
  $$= 0.360 + 0.086 + 0.035 + 0.144 +0.035 = 0.660$$
 
@@ -402,7 +401,7 @@ In _reality_, what confidence is associated with my assessment? What influences 
 
 ## Marginal and joint probabilities
 
-When considering data that can be classified in a variety of ways it is often useful to consider the probabilities that can be generated from such data. When considering just one factor then the probabilities are **marginal** (for reasons that will become clear in a moment). If two or more factors are considered then the derived probabilites are **joint**. 
+When considering data that can be classified in a variety of ways it is often useful to consider the probabilities that can be generated from such data. When considering just one factor then the probabilities are **marginal** (for reasons that will become clear in a moment). If two or more factors are considered then the derived probabilities are **joint**. 
 
 For example, passengers of the Titanic can be viewed in terms of two ``random'' processes, living or dying after the ship hit the iceberg, and what class ticket they purchased.  
 
@@ -450,11 +449,11 @@ If you want to learn more about the philosophical aspects of probability then co
 
 ### Learning outcomes 
 
-You should now be able to   
+You should now be able to:  
 
 1. distinguish the different definitions of probability
 2. understand the basic axioms of probability.
-3. understand Bayes' theorem and its simple applications 
+3. seen Bayes' theorem and simple applications. 
 
 ## Answers {#ANSprob}
 

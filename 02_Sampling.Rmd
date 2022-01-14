@@ -313,7 +313,7 @@ __Q2.4__ In 1936, a magazine in the USA called the \textit{Literary Digest} sent
 
 __Q2.5__ A psychologist was interested in understanding the motivation of serial killers and in estimating the mean number of victims per serial killer. The psychologist discovered there were 261 serial killers incarcerated worldwide. 
 
-__a.__ The psychologist initially planned to interview all imprisoned serial killer about various aspects of their personality. Describe the approach being used.
+__a.__ The psychologist initially planned to interview all imprisoned serial killers about various aspects of their personality. Describe the approach being used.
 
 __b.__ This initial approach proved to be too costly, therefore, the psychologist randomly choose 80 killers to contact and ask if they were prepared to be interviewed. Thirty-nine agreed to be interviewed. Comment on the representativeness of the sample to the whole population of worldwide serial killers and what type of bias this may result in, if any. 
 
@@ -407,7 +407,7 @@ __Example__ A famous and large-scale designed experiment that is still relevant 
 
 Polio (poliomyelitis) is a serious viral infection that used to be common worldwide. It caused muscle weakness from which a small percentage of people did not recover and even died. The number of cases in the US during the mid 20th century are shown in Figure \@ref(fig:polio). 
 
-```{r polio, fig.cap='The number of polio cases from 1930 to 1955', echo=FALSE, fig.pos='!htbp'}
+```{r polio, fig.cap='The number of polio cases from 1930 to 1955.', echo=FALSE, fig.pos='!htbp'}
 # Read in data - from https://ourworldindata.org/polio
 polio <- read.csv("data/reported_polio_cases_in_the_US.csv", header=T)
 plot(polio$Year[20:45], polio$Polio.Cases[20:45], pch=19, type="b", xlab="Year", ylab="Number of polio cases")
@@ -417,7 +417,7 @@ plot(polio$Year[20:45], polio$Polio.Cases[20:45], pch=19, type="b", xlab="Year",
 + In general, the incidence of polio was increasing over this time period. 
 + However, the incidence of disease also fluctuates from year to year, with high and low incident years sometimes alternating.
 
-Jonas Salk created a vaccine and a large-scale trial of this vaccine was conducted in the US in 1954 to determine how effective it was in protecting children from paralysis or death due to polio. Snedecor and Cochran ([-@Snedecor&Cochran1980]) describe the study in detail; a summary is provided here. School children were divided into two groups; one group received the vaccine (the treatment group) and the other group received no vaccine (control group). The comparison of the numbers of paralytic cases in each group were used to judge the effectiveness of the vaccine. Since severe symptoms are rare, large numbers of children were required and more than 200,000 children were recruited to each group. Within each participating school, children were randomised such that there were about equal numbers of children in each group. This stratified approach ensured that schools in high risk and low risk regions had about equal numbers of children in each group. A simple randomisation of children to the groups would mean that overall the numbers in the two groups were equal but would not take account of high and low risk regions.   
+Jonas Salk created a vaccine and a large-scale trial of this vaccine was conducted in the US in 1954 to determine how effective it was in protecting children from paralysis or death due to polio. Snedecor and Cochran [-@Snedecor&Cochran1980] describe the study in detail; a summary is provided here. School children were divided into two groups; one group received the vaccine (the treatment group) and the other group received no vaccine (control group). The comparison of the numbers of paralytic cases in each group were used to judge the effectiveness of the vaccine. Since severe symptoms are rare, large numbers of children were required and more than 200,000 children were recruited to each group. Within each participating school, children were randomised such that there were about equal numbers of children in each group. This stratified approach ensured that schools in high risk and low risk regions had about equal numbers of children in each group. A simple randomisation of children to the groups would mean that overall the numbers in the two groups were equal but would not take account of high and low risk regions.   
 
 The children in the vaccine group received three injections of the vaccine and the children in the comparison, or control, group received three injections of a saline solution. They were given at the same time and in the same manner. 
 A crucial aspect of the study was that neither parents, children, medics administering the vaccine or the doctors diagnosing illness knew which treatment group the children were in - this was a __double-blind trial__.
@@ -430,8 +430,6 @@ Vaccinated | 200,745 | 16
 Control | 201,229 | 57
 
 The trials provided good evidence for the effectiveness of the vaccine. Regular use of polio vaccine since the Salk trial has reduced the incidence of the disease dramatically.
-
-***
 
 To summarise, in an experiment we often try to determine whether a 'treatment' (or intervention of some kind) has a significant effect. 
 
@@ -508,7 +506,7 @@ https://cls.ucl.ac.uk/cls-studies/millennium-cohort-study/)
 
 __Example__ A retrospective, case control observational study on smokers 
 
-To determine the death rate of men with different smoking habits, large studies were undertaken between 1951 and 1959 ([-@Snedecor&Cochran1980]). A questionnaire was sent to the selected group of men asking about current and past smoking habits and other information, such as age. The study compared different groups whose death rates could be compared (e.g. different types of smokers - nonsmokers, cigarettes, cigars, pipes, mixed).  
+To determine the death rate of men with different smoking habits, large studies were undertaken between 1951 and 1959 [-@Snedecor&Cochran1980]. A questionnaire was sent to the selected group of men asking about current and past smoking habits and other information, such as age. The study compared different groups whose death rates could be compared (e.g. different types of smokers - nonsmokers, cigarettes, cigars, pipes, mixed).  
 
 If death rates were found to be different between the groups it would still be difficult to conclude this was due to the smoking habits. The subjects assigned themselves to groups by their smoking habits and the groups may differ in other ways apart from their smoking habits (e.g. age, income, lifestyle).  
 
@@ -518,7 +516,6 @@ __Example__ A retrospective, case control study on sudden infant death syndrome 
 
 A large study on SIDS cases in Scotland were investigated from 1992 to 1995. When a case of SIDS occurred, the parents were interviewed to find out about methods of infant care and socioeconomic factors. Two controls were chosen for each case by identifying babies born in the same maternity unit and just before/after the SIDS baby, thus controlling for time of year and age and maternity unit. More details [here](http://www.sids-network.org/experts/scottish.htm)
 
-***
 
 To summarise, there are two main types of observational study, __cohort__ and __case control__ studies. 
 
@@ -535,14 +532,12 @@ To summarise, there are two main types of observational study, __cohort__ and __
 Observation studies have advantages in that they:
 
  + can often be cheaper, the results are collected from observation rather than requiring active intervention. 
- + effects can be investigated that would be unethical to manipulate e.g. the action of living near nuclear waste depositories on the risk of cancer. One could not force people live near nuclear power stations. 
+ + effects can be investigated that would be unethical to manipulate e.g. the action of living near nuclear waste depositories on the risk of cancer - people cannot be foreced to live near nuclear power stations. 
  
 Experiments have advantages in that they:
 
- + allow the investigation of variables that might not occur in naturally
+ + allow the investigation of variables that might not occur naturally
  + causation can be easier to infer if there has been a direct manipulation.
-
-***
 
 __Q2.8__ An evil industrialist has deliberately created an oil spill to prevent an area being recognised as a conservation zone. You as a statistical ecologist are conducting a survey of species diversity to compare to an earlier survey done prior to the oil spill? Is this an experiment or observational study? 
 
@@ -556,15 +551,15 @@ Further reading on the subject can be found in [@richard2006veaux] or [@wildgaf]
 
 ### Learning objectives 
 
-This unit has covered 
+This unit has covered:
 
 1. the basic forms of data collection 
 
 2. the basic principles of sampling and illustrated different sampling strategies,
 
-3. illustrated the difference between accuracy and precision, and 
+3. illustrated the difference between accuracy and precision,
 
-4. highlighted the sorts of biases that may occur
+4. highlighted the sorts of biases that may occur and
 
 5. described the differences between designed experiments and observational studies.
 
@@ -586,7 +581,7 @@ __Q2.3__ __a.__ Calculate the total population size
 $$ N = 7221 + 1763 + 1426 + 1174 = 11584$$
 The probability of an individual being selected is 
 
-$$ \frac{n}{N} = \frac{500}{11584} = 0.043$$.
+$$ \frac{n}{N} = \frac{500}{11584} = 0.043$$
 
 Each member of the university has a 0.043 chance of being selected in the sample. 
 

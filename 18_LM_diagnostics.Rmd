@@ -1,3 +1,4 @@
+<!-- LB - update - 12/01/2022 -->
 #  Linear model diagnostics {#diagnostics}
 
 ## Introduction {#INTdiag}
@@ -117,7 +118,7 @@ Recall - we're breaking our observed data down into two broad components: signal
 \begin{figure}[h!]
 \centering
 \includegraphics[angle=0,width=10cm]{figures/noisyData_poly20}
-\caption{Some noisy data}
+\caption{Some noisy data with the underlying pattern shown as a solid line.}
 \end{figure}
 
 \begin{figure}[h!]
@@ -233,7 +234,7 @@ QQ (Quantile-Quantile)-Norm plots:
 
 For our `model1` the residuals are plotted in Figure \@ref(fig:model1qq) in comparison to actual normal residuals (right). 
 
-```{r model1qq, echo=F, eval=T, fig.cap='Left. QQ-norm plot of the residuals from `model1`., Right. QQ-norm plot of normally distributed residuals'}
+```{r model1qq, echo=F, eval=T, fig.cap='Left. QQ-Norm plot of the residuals from `model1`., Right. QQ-Norm plot of normally distributed residuals.'}
 par (mfrow =c(1,2))
 qqnorm(residuals(model1))
 qqnorm(rnorm(2000))
@@ -246,7 +247,7 @@ If $n$ is 200 then the quantiles are 1/200, 2/201,3/201...200/201.
 
 The quantiles from a normal distribution can be obtained by `qnorm` in R. The code to illustrate a QQ-Norm plot is shown below. In the EIA data, we have $n = 31502$. 
 
-```{r handmade, echo=T, eval=T,fig.cap='"Handmade" QQ-norm plot of the EIA model residuals'}
+```{r handmade, echo=T, eval=T,fig.cap='"Handmade" QQ-Norm plot of the EIA model residuals'}
 # Sort residuals - smallest to largest
 sortedresiduals <- sort(residuals(model1))
 # Number of residuals
@@ -388,7 +389,7 @@ The null hypothesis of uncorrelated errors can also be formally tested using a _
 knitr::include_graphics("figures/simindep.png")
 ```
 
-The residuals of `model1` appear to be correlated when plotted in observation order (Figure \@ref(fig:mod1res)) and the Durbin  Watson test (below) confirms this positive correlation:
+The residuals of `model1` appear to be correlated when plotted in observation order (Figure \@ref(fig:mod1res)) and the Durbin-Watson test (below) confirms this positive correlation:
 
 + the correlation coefficient is $0.15$ and the $p$-value is extremely small).
 
@@ -442,7 +443,8 @@ y2 <- sin (x2*4/360*2*pi)+rnorm (101,0,0.5)
 plot (x2,y2)
 ```
 
-More formally, we typically plot a 'fits-residual' plot (i.e. fitted values on the $x$-axis and residuals on the $y$-axis) as previously used to check for non-constant error variance but it can also be used to check for nonlinearity.<br/> 
+More formally, we typically plot a 'fits-residual' plot (i.e. fitted values on the $x$-axis and residuals on the $y$-axis) as previously used to check for non-constant error variance but it can also be used to check for nonlinearity.
+
 __Example__ Consider the non-linear data in Figure \@ref(fig:nonlinplots). The corresponding fits-residual plots are shown in (Figure \@ref(fig:fitsres2)) and these indicate distinct patterns.
 
 ```{r fitsres2, echo=T, eval=T, fig.cap="Non-linearity in the residuals."}
@@ -515,8 +517,8 @@ hist(estNoise)
 
 This histogram looks roughly normal but it is wise to test further. 
 
-```{r, fig.cap='QQ-Norm plot of the medical model residuals'}
-# QQ plot
+```{r, fig.cap='QQ-Norm plot of the medical model residuals.'}
+# QQ-Norm plot
 qqnorm(estNoise)
 ```
 
@@ -529,7 +531,7 @@ So the normality assumption has not been met.
  
 Now we consider a simple regression model from the medical data set: 
 
-```{r, echo=T,eval=T, fig.cap='Fits residual plot of the regression of vitdresul on folate'}
+```{r, echo=T,eval=T, fig.cap='Fits residual plot of the regression of vitdresul on folate.'}
 # Fit model with continuous variable
 simpleReg <- lm(vitdresul ~ folate, data=meddata)
 # Summary
@@ -611,8 +613,6 @@ abline (0, coef (modelboth)[3])
 
 In this example, the problem lies with $x_2$ (in fact a $sin$ function was being treated as linear).
 
-***
-
 Partial residuals have several useful diagnostic properties: 
 
 * the slope of the line is the regression coefficient, 
@@ -666,8 +666,6 @@ plot(effect("XPos:Phase", model2, ylab="XPos", rug=TRUE, partial.residuals=T))
 
 There may be something odd going on here, but the shear density of data makes it difficult to interpret; in each case there is are some peaks worthy of further investigation.  
 
-
-***
 **Q18.1** Dr Teuthis was interested in the relationship of squid beak size (measured as a statistic called 'lower rostral length') to body (mantle) length Figure ( \@ref(fig:squidfig) )  . It would be helpful to be able to predict mantle length from beak size in order to estimate the size of squid swallowed by sperm whales. Squid beaks are retained in the whales gut before being vomited out, when they then can be collected. 
 
 ```{r squidfig, eval=T, echo=F, fig.cap='Regression of mantle length on lower rostral length'}
@@ -755,9 +753,9 @@ At this end of this chapter you should be able to:
 
 ## Answers {#ANSdiag}
 
-**Q18.1**
+**Q18.1** The general equation is:
 
-$ML= \beta_0+\beta_1LRLbeak+ \epsilon$
+$$ML= \beta_0+\beta_1LRLbeak+ \epsilon$$
 
 **Q18.2** Residuals are assumed to be from a normal distribution with a mean = 0 and a constant variance, i.e. $N(0,\ {\sigma{}}^2)$.
 

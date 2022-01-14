@@ -1,6 +1,7 @@
 <!-- LB update - 03/09/2020 -->
 <!-- LB update - 31/07/2020 -->
 <!-- Equation numbering needs sorting -->
+<!-- LB update including eqn numbers- 12/01/2022 -->
 
 # Continuous random variables {#contrv}
 
@@ -26,9 +27,10 @@ A continuous random variable is a random variable where the number of events in 
 
 If $X$ is a continuous random variable, the probability density function (PDF) of $X$ is a function $f(x)$ such that for any two numbers $a$ and $b$, where $a \leq b$,
 
-\begin{align}
+\begin{equation}
+\label{contrvpdf}
 Pr(a \le X \le b) = \int_a^b f(x)dx
-\end{align}
+\end{equation}
 
 This equation can be translated into plain English as 'the probability of $X$ being in the interval $[a, b]$ is given by the area under the curve $f(x)$ between the values $a$ and $b$'. Integrating a function provides the area under the function.
 
@@ -38,20 +40,20 @@ Two conditions that $f(x)$ must satisfy are:
 
 2. $$\int _{- \infty}^{\infty} f(x)dx = 1 $$
 
-What do these conditions mean? Condition 1 states that all values of $f(x)$ must be greater than, or equal to, zero for all possible values of $x$, i.e. $f(x)$ cannot be negative. Condition 2 states that if we integrate $f(x)$ (i.e. find the area) between the minimum and maximum values of $x$, the value will be one. In condition 2, the minimum and maximum values are $\-intfy$ and $\infty$, respectively, but in practice are generally different to this (as we see below). 
+What do these conditions mean? Condition 1 states that all values of $f(x)$ must be greater than, or equal to, zero for all possible values of $x$, i.e. $f(x)$ cannot be negative. Condition 2 states that if we integrate $f(x)$ (i.e. find the area) between the minimum and maximum values of $x$, the value will be one. In condition 2, the minimum and maximum values are -$\infty$ and $\infty$, respectively, but in practice are generally different to this (as we see below). 
 
 Note that the value of the function for a particular value of $x$ is not a probability (see below).
 
-As seen in Equation 1, calculating probabilities for a continuous random variables involves integration. In this course, R will be used for integration and the example given below is to illustrate the use of the method.  
+As seen in equation \@ref(contrvpdf), calculating probabilities for a continuous random variables involves integration. In this course, R will be used for integration and the example given below is to illustrate the use of the method.  
 
 __Example__ Consider a chemical process that has a certain reaction. The temperature ($X$) caused by the reaction has a particular distribution on the interval [-5, 5]. The values that $X$ can take are plotted on the $x$-axis and the density $f(x)$ on the $y$-axis (Figure \@ref(fig:pdfex1)). From this figure, we can see that the $f(x)=0.1$ on the interval [-5, 5] and is zero elsewhere. This is described as a uniform distribution and can be written $X \sim \textrm{Uniform} (-5, 5)$.  
 
 ```{r pdfex1, echo=F, fig.cap="Probability density function for the temperature of a chemical reaction."}
 x <- seq(-6, 6, by=0.005)
 y <- dunif(x, -5, 5)
-plot(x,y, xlim=c(-6,6), type="l", xlab="X", ylab="Density")
+plot(x,y, xlim=c(-6,6), type="l", ylab="Density", xlab="Temperature (X)", lwd=2)
 # Create polygon
-polygon(c(-5,-5,5,5,-5), c(0,0.1,0.1,0,0), density=3)
+#polygon(c(-5,-5,5,5,-5), c(0,0.1,0.1,0,0), fillOddEven=T)
 
 ```
 
@@ -61,7 +63,7 @@ $$\int _{-5}^{5} f(x)dx = \int _{-5}^{5} 0.1 dx = 0.1[x ]_{-5}^5 = 0.1(5 - -5) =
 
 Thus the area under the curve equals 1 and thus satisfies condition 2. 
 
-For a discrete random variable, the PMF defined the probability associated with a certain outcome and the sum of the probabilities for all outcomes equalled one. We have just seen that for a continuous random variable, integration of the PDF over all possible values also equals one (condition 2). Therefore, to obtain the probability associated with a range of specified values, we integrate the PDF over the range of the specified values - hence, equation 7.1.  
+For a discrete random variable, the PMF defined the probability associated with a certain outcome and the sum of the probabilities for all outcomes equaled one. We have just seen that for a continuous random variable, integration of the PDF over all possible values also equals one (condition 2). Therefore, to obtain the probability associated with a range of specified values, we integrate the PDF over the range of the specified values - hence, equation \@ref(contrvpdf).  
 
 For example, the probability that $X$ is between -2.5 and 2.5 is given by:
 
@@ -111,21 +113,21 @@ plot(results$x, results$CDF, type="l", xlab="x", ylab="CDF")
 
 Similar to a discrete random variable, the expectation for a continuous random variable is like a weighted sum, but this time integration is required.
 
-\begin{align}
+\begin{equation}
 E(X) = \int_{-\infty}^{\infty}xf(x)dx
-\end{align}
+\end{equation}
 
 Likewise the variance is given by,
 
-\begin{align}
+\begin{equation}
 Var(X) = \int_{-\infty}^{\infty}(x - E(X))^2f(x)dx
-\end{align}
+\end{equation}
 
 which is equivalent to 
 
-\begin{align}
+\begin{equation}
 Var(X) = E(X^2) - [E(X)]^2
-\end{align}
+\end{equation}
 
 __Example__ In the chemical reaction, the expected value is given by 
 
@@ -139,7 +141,7 @@ An example of a uniform distribution has just been introduced. There are several
 
 These theoretical distributions are characterised by parameters which describe the location, scale and shape of the curve. In general, the properties of these parameters are as follows:
 
-+ location fixes the lower, or mid, point of the distribution on the number scale or $x$-axis (e.g. is the midpoint of the distribution at 10 or 100 etc.),
++ location fixes the mid point of the distribution (or the lower point, depending on the distribution) on the number scale or $x$-axis (e.g. is the midpoint of the distribution at 10 or 100 etc.),
 
 + scale determines length of the $x$-axis (e.g. how spread out the distribution is along the $x$-axis),  
 
@@ -147,13 +149,13 @@ These theoretical distributions are characterised by parameters which describe t
 
 Not all distributions have all these parameters and the distributions described in this document are characterised by only one or two parameters. The normal distribution is used for many applications and so we look at this distribution in detail. 
 
-### normal distribution
+### Normal distribution
 
 A normally distributed random variable $X$ is defined by two parameters, $\mu$ and $\sigma^2$, where $\mu=E(X)$ and $\sigma^2=Var(X)$. This can be written more concisely as $X \sim N(\mu, \sigma^2)$. The normal distribution is symmetrical and the parameter $\mu$ defines the centre of the distribution and $\sigma^2$ defines the spread.  
 
 How different values of $\mu$ and $\sigma^2$ affect the shape of the distribution can be seen in Figure \@ref(fig:pdfnormex1). Note that, because of condition 2, the area under all the curves is one and so there is a trade-off between the maximum density of the distribution and how spread out the distribution is along the $x$-axis. 
 
-(ref:pdfnormex1) Examples of normal distributions with different values of $\mu$ and $\sigma^2$; $N(0,4)$ (black), $N(0,25)$ (blue), $N(10, 25)$ (purple).
+(ref:pdfnormex1) Examples of normal distributions with different values of $\mu$ and $\sigma^2$; $N(0,4)$ (black line), $N(0,25)$ (blue dashes), $N(10, 25)$ (black dots).
 
 ```{r pdfnormex1, echo=F, fig.cap="(ref:pdfnormex1)"}
 # A few distributions with different parameters
@@ -163,15 +165,15 @@ y_0_5 <- dnorm(x, 0, 5)
 y_2_5 <- dnorm(x, 10, 5)
  
 plot(x, y_0_2, lwd = 2, type ='l', ylab="Density")
-lines(x, y_0_5, lwd = 2, col = 'blue')
-lines(x, y_2_5, lwd = 2, col = 'purple')
+lines(x, y_0_5, lwd = 2, col = 'blue', lty=2)
+lines(x, y_2_5, lwd = 2, lty=3)
 ``` 
 
 The probability distribution function for the normal distribution is given by:
 
-\begin{align}
+\begin{equation}
 f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{[\frac{-1}{2\sigma^2}(x-\mu)^2]}
-\end{align}
+\end{equation}
 
 Normal distributions have some useful properties (which we make use of in future chapters):
 
@@ -187,7 +189,7 @@ This can be seen in Figure \@ref(fig:pdfnormex2).
 
 (ref:pdfnormex2) Normal distribution, $N(\mu, \sigma^2)$; 68\% of the values are within 1 standard deviation of $\mu$ (dashed lines), 95\% of the values are within 1.96 standard deviations (dotted line) and 99\% within 2.58 standard deviations.
 
-```{r pdfnormex2, echo=F, fig.cap="(ref:pdfnormex2"}
+```{r pdfnormex2, echo=F, fig.cap="(ref:pdfnormex2)"}
 mu <- 20
 sigma <- 5
 xval <- seq(0, 40, by=0.005)
@@ -225,11 +227,11 @@ segments(mu+2.58*sigma,0, mu+2.58*sigma, ud, lty=4, lwd=2)
 
 Many measurements will have empirical frequency distributions that are normal, or nearly normal. This can be helpful in that we can then use this information to find out about the population, given knowledge of $\mu$ and $\sigma$. Remember that condition 2 specifies that the area under $f(x)$ for all possible values of $X$ is equal to one (there is an equivalent condition for discrete random variables), hence the area of different intervals can inform us about the probability of these intervals. 
 
-For example, assume the distribution of women's heights ($X$) is approximately normal with a mean 160cm and standard deviation 6cm (i.e. $X \sim N(160, 6^2)$). We want to find the probability that a randomly chosen woman is smaller than 150cm ($Pr(X \le 150)$) and this is given by the area under the curve less than 150 cm (Figure \@ref(fig:pdfnormex3)). 
+For example, assume the distribution of womens heights ($X$) is approximately normal with a mean 160cm and standard deviation 6cm (i.e. $X \sim N(160, 6^2)$). We want to find the probability that a randomly chosen woman is smaller than 150cm ($Pr(X \le 150)$) and this is given by the area under the curve less than 150 cm (Figure \@ref(fig:pdfnormex3)). 
 
 (ref:pdfnormex3) Plot of the distribution for womens height, $N(160, 6^2)$. The dashed line is at 150 cm and the red line is at 175 cm.
 
-```{r pdfnormex3, echo=F, fig.height=4, fig.cap="ref:pdfnormex3"}
+```{r pdfnormex3, echo=F, fig.height=4, fig.cap="(ref:pdfnormex3)"}
 # Specify parameters
 xval <- seq(135, 185, by=0.5 )
 mu <- 160 # Mean
@@ -297,19 +299,19 @@ The interval 148 to 172 is $\mu \pm 2 \sigma$ and we know that for a normal dist
 
 A special case of the normal distribution is the __standard normal distribution__ where $\mu=0$ and $\sigma^2=1$.  The PDF is simpler:
 
-\begin{align}
+\begin{equation}
 f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}}e^{\frac{(x - \mu)^2}{2}}
-\end{align}
+\end{equation}
 
 The standard normal distribution is very useful because any given normal distribution can be transformed to a standard normal PDF by converting the normal random variables to standard units. This process, called standardization, is simply 
 
-\begin{align}
+\begin{equation}
 Z = \frac{X - \mu}{\sigma}
-\end{align}
+\end{equation}
 
 A random variable from a standard normal distribution is often denoted by $Z$, i.e $Z \sim N(0, 1)$. Sometimes the term 'normalisation' is used instead of standardisation but they refer to different transformations: normalisation usually means to scale the data values so they they lie between 0 and 1; standardisation transforms the data to have a mean 0 and standard deviation of one.
 
-__Example__ Assume that IQ (intellgent quotient) is distributed as $N(100,15^2)$. What is the IQ for someone at the 99th percentile i.e. what is $q$ such that $Pr(X \le X q)=0.99$?
+__Example__ Assume that IQ (intelligent quotient) is distributed as $N(100,15^2)$. What is the IQ for someone at the 99th percentile i.e. what is $q$ such that $Pr(X \le X q)=0.99$?
 
 We can find this value using the CDF function in R. 
 
@@ -336,7 +338,7 @@ There are some simple rules that we can apply in these cases which apply for bot
 
 #### Adding and multipling by a constant
 
-Let $X$ be a random variable and let $Y$ be some function of $X$ that involves either the  addition of some constant $a$, the multiplication of a constant $b$ or indeed both. The expected value of $Y$, $E(Y)$ can then be found using these simple rules:
+Let $X$ be a random variable and let $Y$ be some function of $X$ that involves either the multiplication of a constant $a$, the addition of some constant $b$ or indeed both. The expected value of $Y$, $E(Y)$, can then be found using these simple rules:
 
 + $Y = aX$ and $E(Y) = aE(X)$.  
 
@@ -400,36 +402,37 @@ The same values were obtained as before; the other rules can be similarly demons
 
 Sometimes we may wish to consider a transformation including two random variables, $X$ and $Y$. In this case, the expected value for adding the variables, ($X + Y$), is given by: 
 
-\begin{align}
+\begin{equation}
 E(X + Y) = E(X) + E(Y)
-\end{align}
+\end{equation}
 
 Similarly, the expected value for subtracting the variables, $(X-Y)$, is given by:
 
-\begin{align}
+\begin{equation}
 E(X - Y) = E(X) - E(Y)
-\end{align}
+\end{equation}
 
 If we assume that $X$ and $Y$ are independent,  the variances can simply be added to obtain both $Var(X+Y)$ and $Var(X-Y)$:
 
-\begin{align}
+\begin{equation}
 Var(X+Y) = Var(X-Y) = Var(X) + Var(Y)
-\end{align}
+\end{equation}
 
 More complicated transformations can be considered using previous rules, for example,
 
 $$Z = a + bX + cY$$
 Hence, 
 
-\begin{align}
+\begin{equation}
 E(Z) = a + bE(X) + cE(Y)
-\end{align}
+\label{rvtransexp}
+\end{equation}
 
 and, similarly if $X$ and $Y$ are independent, the variance is given by
 
-\begin{align}
+\begin{equation}
 Var(Z) = b^2Var(X) + c^2Var(Y)
-\end{align}
+\end{equation}
 
 __Example__ A time-and-motion study measures the time required for an assembly line worker to perform two successive repetitive tasks. The data showed that the time required to position a part on an automobile chassis varied from car to car with mean 11 seconds and standard deviation 2 seconds. The time required to attach the part to the chassis also varied, with mean 20 seconds and standard deviation 4 seconds. What is the expected combined time for positioning and attaching the part?
 
@@ -458,9 +461,9 @@ The covariance is explored further but first another useful rule theorem is requ
 
 If two independent random variables are multiplied, the expected value of the product is the product of the expected values, or more succinctly: 
 
-\begin{align}
+\begin{equation}
 E(XY) = E(X)E(Y)
-\end{align}
+\end{equation}
 
 The covariance between two random variables $X$ and $Y$ is:
 
@@ -473,13 +476,14 @@ Independent random variables have zero covariance.
 
 A related measure is the correlation coefficient, $\rho$, which measures the linear relationship between two variables:
 
-\begin{align}
+\begin{equation}
+\label{corcoeffeqn}
 \rho = \frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}
-\end{align}
+\end{equation}
 
 Correlation is explored further in Chapter \@ref(correlation) and so it is not expanded on here, except to say that $\rho$ (or denoted by $r$ for a sample) can take values between -1 and 1 (inclusive) and when $\rho=1$, there is a positive linear relationship between $X$ and $Y$, when $\rho=-1$, there is a negative relationship between $X$ and $Y$ and when $\rho=0$, there is no relationship between $X$ and $Y$.  
 
-We can rearrange equation 17 so that 
+We can rearrange equation \@ref(corcoeffeqn) so that 
 
 $$Cov(X,Y) = \rho \sqrt{Var(X)Var(Y)}$$
 
@@ -564,7 +568,7 @@ The variance will be the same for the difference in profits.
 
 __Q6.3__ Let $X$ represent the short planks and $Y$ represent the long planks and so a floorboard is made up of $F = X + Y1 + Y2$. 
 
-__Q6.3__ __a.__  Using equation 11, let $a=0$, $b=1$ and $c=2$,
+__Q6.3__ __a.__  Using equation \@ref(rvtransexp), let $a=0$, $b=1$ and $c=2$,
 $$E(F) = 1 \times E(X) + E(Y1) + E(Y2) = 0.5 + 1.5 + 1.5 = 3.5$$
 The expected length of a floorboard is 3.5m. 
 

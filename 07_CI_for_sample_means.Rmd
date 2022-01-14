@@ -1,4 +1,5 @@
 <!-- LB update - 04/08/2020 -->
+<!-- LB update - 12/01/2022 -->
 
 # Confidence intervals for sample means {#CIformean}
 
@@ -19,7 +20,7 @@ In this chapter we are mainly concerned with sample means but similar uncertaint
 
 ## Uncertainty of the sample mean
 
-To illustrate the variability in the sample, we consider the distribution of women's heights. Assume that height is normally distributed with a mean of 160 cm and a standard deviation of 6 cm, i.e. Height $\sim N(\mu=160, \sigma^2=6^2)$.
+To illustrate the variability in the sample, we consider the distribution of womens heights. Assume that height is normally distributed with a mean of 160 cm and a standard deviation of 6 cm, i.e. Height $\sim N(\mu=160, \sigma^2=6^2)$.
 
 ```{r heighthist, echo=F, fig.cap="Distribution of 50 random draws from a "}
 # heights
@@ -260,7 +261,7 @@ t.test(x=hgt, conf.level=0.99)$conf.int
 ```
 
 
-__Q7.1__ A researcher was interested in the typical size of trees (measured as diameter at breast height, `dbh`) of a particular species in a forest. Data on `dbh` (in cm) had been collected on a sample of 50 trees. The mean `dbh` was 15.3 cm and the standard deviation was 3.
+__Q7.1__ A researcher was interested in the typical size of trees (measured as diameter at breast height, `dbh`) of a particular species in a forest. Data on `dbh` (in cm) had been collected on a sample of 50 trees. The mean `dbh` was 15.3 cm and the standard deviation was 30 cm.
 
 __a.__ What is the standard error of the mean? 
 
@@ -323,7 +324,7 @@ The pooled degrees of freedom are given by $df=(n_A + n_B - 2)$. These degrees o
 
 This specification for the standard error and degrees of freedom are only appropriate when the two groups have equal standard deviations.  
 
-__Example__ We continue to look at data collected from the observational study of birth weights introduced in Q7.1. In total, 1236 women were enrolled in the study and the participants came from a wide range of economic, social and educational backgrounds. We want to calculate a 95\% confidence interval for the difference between the means for the mothers who smoked and mothers who did not smoke. The summary data are provided in Table \@ref(tab:babywgttab). 
+__Example__ We continue to look at data collected from the observational study of birth weights introduced in Q7.2. In total, 1236 women were enrolled in the study and the participants came from a wide range of economic, social and educational backgrounds. We want to calculate a 95\% confidence interval for the difference between the means for the mothers who smoked and mothers who did not smoke. The summary data are provided in Table \@ref(tab:babywgttab). 
 
 ```{r babywgttab, echo=F}
 # Read in baby weights
@@ -465,7 +466,7 @@ However,
 + this approach can be computationally intensive,
 + and because of the random nature it may not always provide the desired coverage (e.g. the intervals may be too small or too large and may not capture the parameter of interest with the desired confidence).
 
-To illustrate this approach we will use it to find a confidence interval for the mean weights of babies described in Q7.1. To discover more about the bootstrap then see [@Davison1997]. 
+To illustrate this approach we will use it to find a confidence interval for the mean weights of babies described in Q7.2. To discover more about the bootstrap then see [@Davison1997]. 
 
 #### Doing this in R
 
@@ -642,7 +643,7 @@ This chapter has illustrated that sample estimates, such as the sample mean, fol
 
 ### Learning outcomes
 
-In this chapter you have seen
+In this chapter you have seen:
 
 + that the sampling distribution of a sample estimate is normally distributed which has led to the Central Limit Theorem,
 + the calculation of confidence intervals, for both a sample mean and the difference between two sample means, relying on the CLT, and 
@@ -651,17 +652,17 @@ In this chapter you have seen
 
 ## Answers {#ANSci}
 
-__Q7.1__ __a.__ The standard error is 0.424 cm. 
+__Q7.1__ __a.__ The standard error is 4.2426 cm from 
 
-$$se(\hat \mu) = \frac{s}{\sqrt{n}} = \frac{3}{\sqrt{50}} = 0.424$$
+$$se(\hat \mu) = \frac{s}{\sqrt{n}} = \frac{30}{\sqrt{50}} = 4.2426$$
 
 __Q7.1__ __b.__ The correct multiplier for a 90\% confidence interval when using the sample standard deviation is `qt(p=0.95, df=49) = 1.6765`
 
-__Q7.1__ __c.__ The 90\% confidence interval is 14.6 to 16.0 cm, calculated from
+__Q7.1__ __c.__ The 90\% confidence interval is 757.9 to 772.1 cm, calculated from
 
-$$15.3 \pm 1.6766 \times 0.424$$ 
+$$765 \pm 1.6766 \times 4.2426$$ 
 
-__Q7.1__ __d.__ We can be 90\% confident that the mean diameter at breast height is between 14.6 cm and 16 cm.  
+__Q7.1__ __d.__ We can be 90\% confident that the mean diameter at breast height is between 757.9 to 772.1 cm.  
 
 __Q7.2__ The 95\% confidence interval is given by 
 

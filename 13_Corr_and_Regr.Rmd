@@ -1,3 +1,5 @@
+<!-- LB - update - 12/01/2022 -->
+
 # (PART) Regression and Linear Models {-}
 
 # Correlation and Regression {#correg}
@@ -31,7 +33,7 @@ hgt <- data.frame(LLL=LLL, LRL=LRL, TotalHeight=TotalHeight)
 
 Does Figure \@ref(fig:scatplot1) provide evidence that there is an association or __correlation__, as we say with continuous variables?
 
-If you think that plot provided evidence of correlation, what about this data set (Figure \@ref(fig:scatplot2))? 
+If you think that plot provided evidence of correlation, what about the data set in Figure \@ref(fig:scatplot2)? 
 
 ```{r scatplot2, echo=F, eval=T,fig.cap='Scatterplot of total height and left leg length.' }
 set.seed (102)
@@ -43,7 +45,7 @@ plot (LLL, TotalHeight, xlab="LLL (cm)", ylab="Total Height (cm)", pch=20)
 
 ```
 
-Or this one Figure \@ref(fig:scatplot3)? 
+What about the data in Figure \@ref(fig:scatplot3)? 
 
 ```{r scatplot3, echo=F, eval=T, fig.cap='Scatterplot of total height and left leg length.'}
 set.seed (103)
@@ -74,14 +76,13 @@ where
 + $x_i$ and $y_i$ are values for observation $i$,
 + $\bar x$ and $\bar y$ are sample means for each variable.
 
-For example, consider the contribution of left leg length to human height in a sample of men (using the data in Figure \@ref(fig:scatplot1)), we can use R to do the calculation; the variables `LLL` and `TotalHeight` are stored in a data frame `hgt`. 
+__Example__ Consider the contribution of left leg length to human height in a sample of men (using the data in Figure \@ref(fig:scatplot1)), we can use R to do the calculation; the variables `LLL` and `TotalHeight` are stored in a data frame `hgt`. 
 
 ```{r , echo=F, eval=F, fig.cap = 'Scatterplot of total height and left leg length.'}
 set.seed (101)
 LLL <- rnorm (100,110,4)
 LRL <- rnorm(100, LLL,0.05)
 TotalHeight <- (LLL+LRL)/2*1.8/1.1 +rnorm (100,0,4)
-
 
 plot (LLL, TotalHeight, xlab="LLL (cm)", ylab="Total Height (cm)", pch=20)
 
@@ -106,19 +107,18 @@ The value can also be obtained by using the command `cor` where you supply it th
 cor(hgt$TotalHeight, hgt$LLL)
 ```
 
-Another alternative  formula for the sample product-moment correlation coefficient is
+An alternative  formula for the sample product-moment correlation coefficient is
 
 $$r= \frac{\frac{\sum (x-\bar{x})(y-\bar{y})}{n-1}}{s_xs_y}$$
 
 Or assuming the population correlation coefficient is of interest
+
 $$\rho= \frac{\frac{\sum (x-\bar{x})(y-\bar{y}}{N}}{\sigma_x\sigma_y}$$
 
 
 The numerator here is called the __covariance__ of $x$ and $y$ and so an alternative way to describe the formula is: 
 
 $$r = \frac{Cov(xy)}{\sqrt{Var(x)Var(y)}}$$ 
-
-***
 
 **Q13.1** I have two random variables $X$ and $Y$. The variances of these variables are 2.5 and 4, respectively, and their covariance is -2.5. What is the correlation between these two variables?
 
@@ -164,20 +164,20 @@ a) chance
 b) another third variable which affects them both. 
 c) genuine causation.
  
-Figure \@ref(fig:quartet) shows "Anscombe's quartet", a series of famous data sets that show identical correlation coefficients but probably negligible causation! The summary values of each variable are shown below. 
+Figure \@ref(fig:quartet) shows "Anscombe's quartet", a series of famous data sets that show identical correlation coefficients but probably negligible causation! The correlation of the first pair of variables, $x_1$ and $x_2$, is shown below.
 
 ```{r, echo=F, eval=T}
 require(stats); require(graphics)
 #summary(anscombe)
 with(cor.test (x1, y1), data = anscombe)
-with(cor.test (x2, y2), data = anscombe)
-with(cor.test (x3, y3), data = anscombe)
-with(cor.test (x4, y4), data = anscombe)
+#with(cor.test (x2, y2), data = anscombe)
+#with(cor.test (x3, y3), data = anscombe)
+#with(cor.test (x4, y4), data = anscombe)
 ```
 
-Each pair of variables (i.e.$x_1$ and $y_1$, $x_2$ and $y_2$, etc.) have identical $r$ values!  
+In fact, each pair of variables (i.e.$x_1$ and $y_1$, $x_2$ and $y_2$, etc.) have identical $r$ values (where $r=0.816$) but the relationships are very different!  
 
-```{r quartet, echo=F, eval=T, fig.cap = "Anscombe's four regressions"}
+```{r quartet, echo=F, eval=T, fig.cap = "Anscombe's four regressions; the correlation coefficient is the same in each plot."}
 ##-- now some "magic" to do the 4 regressions in a loop:
 ff <- y ~ x
 mods <- setNames(as.list(1:4), paste0("lm", 1:4))
@@ -206,30 +206,38 @@ for(i in 1:4) {
 par(op)
 ```
 
-Here is a slightly more modern version from the R library `datasauRus`. All the following data have an approximately identical albeit low $r$. 
+Figure \@ref(fig:datasaurus) shows a slightly more modern version from the R library `datasauRus`. All the following data have an approximately identical albeit low $r$ (Table \@ref(tab:datasaurustab)). 
 
-```{r datasaurus, echo=F, fig.cap = "Datasaurus regressions"}
+```{r datasaurus, echo=F, fig.cap = "Scatterplots for variables in the DatasauRus package."}
 
 library(ggplot2)
 library(datasauRus)
 
 par (mfrow=c(3,4))
 
-
 names1 <- unique (datasaurus_dozen$dataset)
+cor1 <- rep(NA, 12)
+
 for (i in 1:12){
   temp <- datasaurus_dozen[datasaurus_dozen$dataset==names1[i],]
+  temp <- as.data.frame (temp)
+  x <- temp$x
+  y <- temp$y
 
-temp<- as.data.frame (temp)
-x<- temp$x
-y <- temp$y
-
- print (names1[i])
- print ( cor.test (x,y))
- plot (x,y, main=names1[i], pch=20)
+# print (names1[i])
+# print ( cor.test (x,y))
+  cor1[i] <- cor(x,y)
+  plot (x,y, main=names1[i], pch=20)
 }
+tab <- data.frame(Dataset=names1[1:12], Correlation=cor1)
 
 ```
+
+```{r datasaurustab, echo=F}
+pander::pander(tab, caption="(#tab:datasaurustab) Correlations for the datasauRus datasets. ")
+```
+
+
 
 **Q13.3** A television advert for _Booster_ breakfast cereal claims "that people who start their day with a healthy breakfast like _Booster_ actually lose more weight than those who skip breakfast."
 
@@ -291,7 +299,7 @@ p
 The scatterplot (Figure \@ref(fig:depthdistscatter)) tells us:
 
 +  waters nearer the shore are shallower
-+  there is a  positive relationship is apparent (i.e. as distance to coast increases so does the depth)
++  there is a positive relationship (i.e. as distance to coast increases so does the depth)
 + (there are also stripes, which is interesting)
 
 How can we formalise this relationship?
@@ -372,7 +380,7 @@ A linear regression model might summarise the relationship between $X$ and $Y$, 
 
 + In the simplest version of regression described here (i.e. one explanatory variable) the error is assumed to be distributed normally in the $y$ dimension i.e. the uncertainty is in the dependent variable not the x variable.
 +  The normal distribution has two parameters that describe it, the mean ($\mu$) and variance ($\sigma^2$).
-+  Since we are modelling the mean response, there is __zero__ mean difference\footnote{nothing left over on average} between the line and the observations; 
++  Since we are modelling the mean response, the mean of the differences between the fitted values (line) and the observations is __zero__ \footnote{nothing left over on average}. 
 +  The variance of the errors  ($\sigma_e^2$) is estimated as a part of the linear model fitting process.
 
 This can be summarised as $\epsilon_i \sim N(0, \sigma_e^2)$. 
@@ -390,7 +398,7 @@ We can use least-squares to find the best fitting regression line.
 
 #### The Least Squares (LS) criterion
 
-A variety of criteria could be used to fit a "best fit" line. One often used criterion is the leat squares criterion. We want to choose values for the parameters that minimise the sum of the squared differences between the observed data ($y_i$) and the predictions under the model ($\hat{y}_i$). The LS criterion finds parameter estimates which minimise this: 
+A variety of criteria could be used to fit a "best fit" line. One often used criterion is the least squares criterion. We want to choose values for the parameters that minimise the sum of the squared differences between the observed data ($y_i$) and the predictions under the model ($\hat{y}_i$). The LS criterion finds parameter estimates which minimise this: 
 
 $$\sum_{i=1}^n (data-model)^2=\sum_{i=1}^n (y_i-\hat{y}_i)^2 = SS_{Res} $$
 
@@ -400,7 +408,7 @@ $$\sum_{i=1}^n (data-model)^2=\sum_{i=1}^n (y_i-\hat{y}_i)^2 = SS_{Res} $$
 
 + The vertical distances between the observed data and the best fit line are called __"residuals"__.  The least square criterion obtains a line that minimises the summed squares of the residuals, typically abbreviated to __"the sum of squares"__.  
 
-```{r bestline, echo=FALSE, eval=TRUE, fig.cap="A simple *X-Y* scatterplot with different regression lines; best fit line (black), less optimal line (red). The vertical difference (shown by the arrows) between the observations and the best fit line are the residuals."}
+```{r bestline, echo=FALSE, eval=TRUE, fig.cap="A simple *X-Y* scatterplot with different regression lines; best fit line (black line), less optimal line (red dashes). The vertical differences (shown by the arrows) between the observations and the best fit line are the residuals."}
 set.seed(101)
 x <-seq (1,100,2)
 y <- 10+ 2*x+rnorm (50,0,20)
@@ -626,7 +634,7 @@ to the fitted values:
 fitted(smallLM)
 ```
 
-### Regression in practise
+### Fitting a simple regression model
 
 We can now return to the EIA example and use `DistCoast` to explain/predict `Depth`:
 
@@ -719,11 +727,11 @@ We will return to the `anova` table later.
 
 ## Summary {#SUMcorreg}
 
-When we have two continuous variables, we are oftn interested in whether there is a relationship between them. A correlation coefficient measures the strength of a linear relationship. A simple linear regression describes the linear relationship when we want to use one variable to explain the other variable. Regression is a useful tool in statistics and can be extended to include many explanatory variables but first we consider the general framework of the linear model.    
+When we have two continuous variables, we are often interested in whether there is a relationship between them. A correlation coefficient measures the strength of a linear relationship. A simple linear regression describes the linear relationship when we want to use one variable to explain the other variable. Regression is a useful tool in statistics and can be extended to include many explanatory variables but first we consider the general framework of the linear model.    
 
 ### Learning outcomes 
 
-At the end of this chapter you should understand
+At the end of this chapter you should understand:
 
 1. correlation and its constraints 
 2. the need to be cautious in assigning causation, and

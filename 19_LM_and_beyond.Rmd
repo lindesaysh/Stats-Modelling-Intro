@@ -1,3 +1,4 @@
+<!-- LB - update - 12/01/2022 -->
 # The Next Steps {#nextsteps}
 
 ```{r, echo=F, eval=T, warning=F, message=F, suppress.message=T}
@@ -55,7 +56,7 @@ While this may be indicative of the true situation, in practise we need to do mo
   
 * The model for noise is wrong:
      + The residuals are not normal in shape (with the implied constant variance).
-* The estimated errors don't appear independent (not surprisingly because density was measured at locations along lines and density at locations which are close together may be similar).
+     + The estimated errors don't appear independent (not surprisingly because density was measured at locations along lines and density at locations which are close together may be similar).
 
 Therefore, the conclusions from the model are unsafe and cannot be relied upon. This is a very common situation in practise. 
 
@@ -64,9 +65,10 @@ What can be done?
 ### Oddly distributed residuals
 
 One important assumption of the linear models discussed so far is that the residuals are normally distributed with the same variance i.e. $\epsilon_i \sim N(0, \sigma^2)$; this assumption is not always met in practise. If the residuals are not normally distributed, then various options are available to account for this:
-* the dependent data (response) can be transformed (e.g. by taking the logarithm or square root) to address the distributional shape problems. This is effective but the consequence is that:
-    + the geometric mean is modelled rather than the arithmetic mean if for example a log transformation is used, 
-    + interactions found in the untransformed data may disappear (this may not be a problem, a multiplicative relationship has just become a additive one).
+the dependent data (response) can be transformed (e.g. by taking the logarithm or square root) to address the distributional shape problems. This is effective but the consequence is that:
+
++ the geometric mean is modelled rather than the arithmetic mean if for example a log transformation is used, 
++ interactions found in the untransformed data may disappear (this may not be a problem, a multiplicative relationship has just become a additive one).
     
 *  _Generalised_ linear models (GLMs) allow different shaped distributions for noise. These models are covered in another course.
 
@@ -82,8 +84,6 @@ We have four options if the data are not independent. We can:
 + investigate other key variables that can account for the dependence.
 + try to remove the correlation in model residuals by sub-setting the data (for example, re-run analysis using every 20th observation; this reduces the sample size and wastes information)
 +  account for the correlation using, for example, a Generalized Least Squares (GLS)  or Generalized Estimating Equation (GEE) model - this is another course.
-
-
 
 ### Non-linearity
 
@@ -116,7 +116,7 @@ The advantage of a bootstrap is that if the residual distribution is very skewed
 __Example__ In the code below a simple linear regression model is fitted to the EIA data with `Depth` as the response and `DistCoast` as the explanatory variable. A bootstrap procedure is then implemented to obtain CI for the regression coefficients. For ease of producing the plots, the process was repeated only a 100 times, but properly it should be at least 1000.
 
 \small
-```{r, echo=T, eval=T, fig.cap='Bootstrap replicate best fit curves'}
+```{r, echo=T, eval=T, fig.cap='The best fit line (black) with bootstrap replicate best fit lines (purple).'}
 library(dplyr)
 
 # Create an object to store results
@@ -147,16 +147,16 @@ bootCI <- apply(bootCoefs, 2, quantile, probs = c(0.025, 0.975))
 colnames(bootCI) <- c('Intercept', 'Slope')
 
 # Use these to define a colour with some transparancy (alpha)
-myCol <- rgb(160, 32, 240, alpha = 30, max=255)
+myCol <- rgb(160, 32, 240, alpha=30, max=255)
 
 # Plot data and all bootstrap regression lines
-plot(workingData$DistCoast, workingData$Depth, cex=1.5, xlab='Distance from coast', ylab = "depth", 
-       bg = 'orange', pch = 21,
-       main = '', sub = '')
-# Original regression line
+plot(workingData$DistCoast, workingData$Depth, cex=1.5, xlab='Distance from coast',  
+       ylab="depth", bg='orange', pch = 21,
+       main='', sub='')
+# Original regression line (black)
 abline (model1, lwd=2)
-# add bootstrap regression lines
-apply(bootCoefs, 1, abline, col = myCol, lwd=1.5)
+# Add bootstrap regression lines
+apply(bootCoefs, 1, abline, col=myCol, lwd=1.5)
 ```
 
 \normalsize
@@ -206,7 +206,7 @@ bootCI
 
 The bootstrapped regression lines are shown in Figure \@ref(fig:meddataboot). 
 
-```{r meddataboot, echo=F, fig.cap='Bootstrap confidence intervals for an analysis of the medical data set', dev='png' }
+```{r meddataboot, echo=F, fig.cap='Bootstrap replicate best fit lines for an analysis of the medical data set.', dev='png' }
 
 plot(meddata$folate, meddata$vitdresul, cex=1.5, xlab='Folate', ylab = "Vit D", bg = 'orange', pch = 21, main = '', sub = '')
 apply(bootCoefs, 1, abline, col=2 , lwd=1.5, lty=2) 

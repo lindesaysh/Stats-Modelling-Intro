@@ -1,4 +1,5 @@
 <!-- CP - update 05/08/2020 -->
+<!-- LB - update - 12/01/2022 -->
 
 # Proportions {#proportions}
 
@@ -51,7 +52,7 @@ Recall, there are 4 conditions of the binomial distribution:
 
 **Q11.1** How realistic are these conditions for the wind farm data?
 
-### Exploratory data analysis
+### Motivating example
 
 Trained observers recorded the presence or absence of birds at each spatial location: 
 
@@ -65,13 +66,14 @@ $$\hat{p}=\frac{\text{number of successes}}{\text{number of trials}} $$
 which in the wind farm data, as mentioned in the introduction, translates to:
 
 $$\hat p = \frac{\textrm{number of observations where one or more birds were seen}}{\textrm{total number of observations}}$$
-For each phase we have the number of successful observations and the number of observations in total (Table \@ref(tab:phasetab)). <br/>  
-<caption> (\#tab:phasetab) Number of presence (1) or absence (0) observations in phases A, B and C in the building of a windfarm. </caption>
+For each phase we have the number of successful observations and the number of observations in total (Table \@ref(tab:phasetab)). 
+
 ```{r phasetab, echo=FALSE}
 presabsphase<-table(data$pres, data$phase)
 presabsphase<-rbind(presabsphase, apply(presabsphase, 2, sum))
 rownames(presabsphase)<-c( rownames(presabsphase)[1:2], "Total")
-pander::pander(presabsphase, caption="")
+pander::pander(presabsphase, caption="(#tab:phasetab) Number of presence (1) or absence (0) locations in phases A, B and C in the building of a windfarm.")
+
 ```  
 <br/> 
 From this summary information we estimate the sighting probabilities in each phase as follows:
@@ -95,7 +97,7 @@ While some patterns are apparent, it is difficult to tell if the observed differ
 
 ### Confidence intervals: large sample sizes
 
-While the number of successes from the number of trials is assumed to be a binomial random variable, the sample proportions (estimates for $p$; $\hat{p}$) are normally distributed about the true (underlying) population proportion if the number of trials is __large__. Therefore, confidence intervals (CIs) for proportions are constructed in a similar way to CIs for large samples of normal data. For large samples, the sample porportion is approximately normally distributed: 
+While the number of successes from the number of trials is assumed to be a binomial random variable, the sample proportions (estimates for $p$; $\hat{p}$) are normally distributed about the true (underlying) population proportion if the number of trials is __large__. Therefore, confidence intervals (CIs) for proportions are constructed in a similar way to CIs for large samples of normal data. For large samples, the sample proportion is approximately normally distributed: 
 
 $$\hat{p} \sim normal \left(p, se({p})\right)$$
 However, since we never know $p$, we use the sample proportion $\hat p$, thus, the standard deviation of the sample proportion (the standard error) can be found using:
@@ -187,33 +189,34 @@ This approach ensures that the confidence interval limits never extend below zer
 
 For example, Table \@ref(tab:compwilson) the asymptotic (i.e. using the normal distribution) and Wilson confidence intervals are calculated when we have one success and 10 trials (i.e. $p=0.1$):
 
-<caption> (\#tab:compwilson) Comparison of Wilson and asymptotic confidence intervals </caption>
 ```{r compwilson, echo=FALSE, message=FALSE, warning=FALSE}
 require(Hmisc)
-pander::pander(binconf(1,10, method='all')[-1,])
+pander::pander(binconf(1,10, method='all')[-1,], caption="(#tab:compwilson) Comparison of Wilson and asymptotic confidence intervals with $p$=0.1 and $n$=10.")
+
 ```
 
-The lower limit for the confidence interval based on the normal distribution is negative - an inplausible value for a proportion.
+The lower limit for the confidence interval based on the normal distribution is negative - an implausible value for a proportion.
 
 According to our table of 'what is large', when $\hat{p} = 0.1$, we should have a sample size of more than 400 to use the method based on the normal distribution. 
 
-If we increase the number of trials to 1000, (and the number of success to 100 so that $\hat{p}=0.1$), then the asymptotic normal distribution-based interval no longer gives impossible values.  
+If we increase the number of trials to 1000, (and the number of success to 100 so that $\hat{p}=0.1$), then the asymptotic normal distribution-based interval no longer gives impossible values (Table \@ref(tab:compwil1000)).  
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-pander::pander(binconf(100, 1000,method='all')[-1,])
+```{r compwil1000, echo=FALSE, message=FALSE, warning=FALSE}
+pander::pander(binconf(100, 1000,method='all')[-1,], caption="(#tab:compwil1000) Comparison of Wilson and asymptotic confidence intervals with $p$=0.1 and $n$=1000.")
+
 ```
 
 However, note that for very small estimates of $p$, Wilson intervals are still preferred even if the number of trials is large.
 
-For our wind farm data, the Wilson intervals for the proportions of locations are givein in Table \@ref(tab:compphases):
+For our wind farm data, the Wilson intervals for the proportions of locations are given in in Table \@ref(tab:compphases):
 
-<caption> (\#tab:compphases) Comparison of Wilson confidence intervals for the windfarm phases</caption>
 ```{r compphases, echo=FALSE}
 a<-binconf(sum(data$pres[data$phase=="A"]), length(data$pres[data$phase=="A"]), method="wilson")
 b<-binconf(sum(data$pres[data$phase=="B"]), length(data$pres[data$phase=="B"]), method="wilson")
 c<-binconf(sum(data$pres[data$phase=="C"]), length(data$pres[data$phase=="C"]), method="wilson")
 tab<-data.frame(Phase=c('A', 'B', 'C'), rbind(a, b, c))
-pander::pander(tab, row.names=F)
+pander::pander(tab, row.names=F, caption="(#tab:compphases) Wilson confidence intervals for the windfarm development  phases.")
+
 ```
 
 These are very similar to the CI we calculated earlier; this is not surprising since the numbers of trials are so large. 
@@ -246,7 +249,7 @@ While there appears to be some differences across phases based on the results ob
 
 Rather than use confidence intervals, which give a range of likely values for each parameter, we test for **no difference** between the two parameter values and evaluate the strength of evidence against this null hypothesis. We **formally** compare two proportions with a hypothesis test, which uses the normal distribution as the reference distribution (known as a $z$ test). 
 
-So for example, we examine if there have been changes between phases in the wndfarm data by comparing the differences we have observed between phases with the sorts of differences we would expect to see even if no genuine changes have occurred. 
+So for example, we examine if there have been changes between phases in the windfarm data by comparing the differences we have observed between phases with the sorts of differences we would expect to see even if no genuine changes have occurred. 
 
 ### Testing for 'no difference' between groups
 
@@ -420,7 +423,7 @@ The following graphics from Wild & Seber[-@wildgaf] may help visualise these sit
 
 As an illustration of which standard error to choose, we consider the data from an international study carried out in 1998. The study was designed to measure people's reactions to their health care system. A summary of the results are shown in Table \@ref(tab:choosingsamplesit):
 
-<caption> (\#tab:choosingsamplesit) esults from a 1998 study which surveyed 1000 people each from 5 countries
+<caption> (\#tab:choosingsamplesit) Results from a 1998 study which surveyed 1000 people each from 5 countries
 about their health care system. Table entry is the percentage (\%) agreeing to the statement. </caption>
 | Statement |  Australia | Canada | N.Z. | U.K. |U.S.|
 | :-------------: |:-------------:| :-------------:| :-------------:| :-------------:| :-------------:| 
@@ -428,6 +431,7 @@ about their health care system. Table entry is the percentage (\%) agreeing to t
 | Recent changes will harm quality |28| 46| 38 |12 |18|
 | System should be rebuilt| 30 |23 |32 |14| 33|
 | No bills not covered by insurance| 7 |27| 12| 44| 8|
+| | 
 | Sample size |1000|1000 |1000 |1000 |1000|
 | Health care expenditure (USD per person) |1805 |2095| 1352 |1347| 4090|
 
@@ -437,16 +441,16 @@ __1.__ We want to compare the 30\% of Australians agreeing to the "System should
 
 + __Situation A__ is appropriate; we have two independent samples of people from different countries.
 
-+ Using the percentages, the proportions of interest are $\hat p_1 = \frac{300}{1000} = 0.3$; $\hat p_2 = \frac{230}{1000} = 0.23$
++ Using the percentages, the proportions of interest are $\hat p_1 = 0.3 = \frac{300}{1000}$; $\hat p_2 = 0.23 = \frac{230}{1000}$ (with sample sizes of 1000)
 
 + The standard error for the difference between these proportions is obtained using the formula
 
 $$se(p_1-p_2) = \sqrt{\frac{p_1(1-p_1)}{n_1}+\frac{p_2(1-p_2)}{n_2}}$$
 $$se(\hat p_1-\hat p_2) = \sqrt{\frac{0.30(1-0.30)}{1000}+\frac{0.23(1-0.23)}{1000}}=0.0197$$
 
-__2.__ The respondents could choose: 'agree' 'disagree' or 'don't know' to the statements in the table above. If we compared the proportion of Canadians who agreed "Recent changes will harm quality" with those Canadians who disagreed with that statement (which was 15\%), which sampling situation applies A, B or C?
+__2.__ The respondents could choose: 'agree' 'disagree' or 'don't know' to the statements in the table above. If we compared the proportion of Canadians who agreed "Recent changes will harm quality" with those Canadians who disagreed with that statement (the percentage disagreeing was 15\%), which sampling situation applies A, B or C?
 
-+ __Situation B__ is appropriate. We have one sample of Canadians who either agree or disagree (or don't know) with this statement.
++ __Situation B__ is appropriate. We have one sample of Canadians who either agree or disagree with this statement.
 
 + $\hat p_1 = \frac{460}{1000} = 0.46$; $\hat p_2 = 0.15$
 
@@ -506,8 +510,6 @@ A few points to note about odds:
 + When the odds of success=4 (for example), success is four times as likely as a failure; we expect 4 successes for every one failure.
 + When the odds of success is $\frac{1}{4}=0.25$, failure is four times as likely as a success; we expect to see one success for every 4 failures.
 
-Note: Statistical odds are not quite the same as betting odds. Betting odds are the probability of an event taking place which allow the prospective winnings to be calculated if the event happens. Statistical odds express relative probabilities.
-
 We can rearrange the formula above to obtain the probability of success from the odds:
 
 $$p=\frac{\textrm{odds}}{\textrm{odds+1}}$$
@@ -553,7 +555,7 @@ The odds for phase C are also less than 1 which means that the probability of bi
 
 ### Calculating the odds ratio
 
-The the relevant odds known, the odds ratio can then be calculated:
+The relevant odds known, the odds ratio can then be calculated:
 
 + the numerator is the odds in the intervention arm/group 1
 
@@ -739,7 +741,8 @@ resulting in values of 2.7812 and 7.0195 which, exponentiated, gives a 95\% conf
 These calculations can easily be done in R.
 
 ```{r, echo=T, eval=T}
-matrixasbestos <- matrix (c(1,31,39,9), nrow=2, ncol=2, byrow=T) ###note order changed of variables
+matrixasbestos <- matrix (c(1,31,39,9), nrow=2, ncol=2, byrow=T) 
+###note order changed of variables
 OR <- oddsratio(matrixasbestos, method='wald', rev='rows')
 # Print out odds ratio and CI
 OR$measure
@@ -755,7 +758,7 @@ tab<- t(addmargins(matrix(c(49, 80,52,18),2,2, byrow=F)))
 pander::pander(tab)
 ```
  
-Using the above table, calculate the probability of being bald given cancer (i.e. Pr(bald|cancer) and the probability of being bald given no cancer.  
+Using the above table, calculate the probability of being bald given cancer (i.e. $Pr(\textrm{bald|cancer})$ and the probability of being bald given no cancer.  
 
 **Q11.6** What about the probability of cancer given baldness and the probability of cancer given no baldness? Is it legitimate to compare these proportions? Hint: think about the independence of individuals within the groups being compared.  
 
@@ -767,11 +770,12 @@ Proportions are often incorrectly treated in the scientific literature so it is 
 
 ### Learning outcomes 
 
-At the end of this chapter you should be able to   
-1)  recognise that a problem involves proportions,    
-2) construct an appropriate confidence interval for a proportion and a difference between proportions,    
-3)  construct a significance test testing the difference between proportions, and 
-4)  have a basic understanding of odds ratios. 
+At the end of this chapter you should be able to:
+
+1. recognise that a problem involves proportions,    
+2. construct an appropriate confidence interval for a proportion and a difference between proportions,    
+3. construct a significance test testing the difference between proportions, and 
+4. have a basic understanding of odds ratios. 
 
 ## Answers{#ANSprop}
 

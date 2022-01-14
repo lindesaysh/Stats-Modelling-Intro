@@ -239,9 +239,7 @@ Let's look at the fitted model - we assume a simple straight line relationship b
 
 + We can plot the data (it's a simple case) and overlay the fitted model (Figure \@ref(fig:VitD)).
 
-```{r VitD, eval =T, fig.cap="Scatterplot of vitamin D against folate levels and fitted regression line (blue). "}
-
-#coefficients(simpleReg)
+```{r VitD, eval =T, fig.cap="Scatterplot of vitamin D against folate levels and fitted regression line (blue line). "}
 
 plot(meddata$folate, meddata$vitdresul, xlab="Folate", ylab="Vit. D level")
 # Add a fitted line using the correlation coefficients
@@ -452,7 +450,7 @@ $$
 
 where 
 
-+ $y_{i}$ is the response (density for time point $i$ in teh EIA case), 
++ $y_{i}$ is the response (density for time point $i$ in the EIA case), 
 + $\beta_0$, is the intercept 	parameter, 
 + $\beta_1,\beta_2$,...,$\beta_p$ are  slope coefficients and 
 + $x_{1i}, x_{2i},...,x_{pi}$ 	are the explanatory variables for each time point ($i$)
@@ -751,7 +749,7 @@ Similar hypothesis tests can be done for all regression coefficients and that is
 
 Based on the `linearAll` model, we have no evidence that average density is different in phase B (or phase C) compared with phase A, but this result depends on the other covariates included in the model.
 
-In this case, if we consider `Phase` alone in the model (see below), the average density is still not significantly higher in phase B comparet with phase A.  
+In this case, if we consider `Phase` alone in the model (see below), the average density is still not significantly higher in phase B compared with phase A.  
 
 \small
 ```{r}
@@ -773,15 +771,13 @@ par (mfrow=c(3,1))
 ```
 As one might expect there appears to be a relationship between all 3 variables (Figure  \@ref(fig:anothergraph)) and as might be expected, there appears to be a significant contribution of leg length to human height. 
 
-```{r anothergraph, echo=F, eval=T, fig.cap="Scatter plots of LLL, RLL and total height. "}
+```{r anothergraph, echo=F, eval=T, fig.cap="Scatterplots of LLL, RLL and total height. "}
 par (mfrow=c(1,3))
 plot (LLL, TotalHeight, xlab="LLL (cm)", ylab="Total Height (cm)", pch=20)
 plot (RLL, TotalHeight, xlab="RLL (cm)", ylab="Total Height (cm)", pch=20)
 plot (LLL,RLL,  xlab="LLL (cm)", ylab="RLL (cm)",pch=20)
 
 ```
-
-
 
 LLL is included in a simple regression model:
 
@@ -978,8 +974,7 @@ The first matrix on the right hand side is called a _design matrix_ and consists
 We have already hinted at the form that the categorical variables must take. 
 We just need to augment  the design matrix. 
 We create a binary matrix made up of zeros and ones. The 0/1 codings indicate which level of the factor variable (our categorical covariate) each observation belongs to.  Each level therefore gets a parameter in the parameter vector.
-So, say X has 3 levels, with the first 9 values being A,A,A, B,B,B, C,C,C, we might encode the design matrix as:
-
+So, say $X$ has 3 levels, with the first 9 values being A,A,A, B,B,B, C,C,C, we might encode the design matrix as:
 
 $$
 \left[\begin{array}
@@ -1082,18 +1077,21 @@ $$
 
 With an appropriate fitting object, we now estimate a straight line relationship between $x_2$ and some adjustment for each factor level of $x_2$ just as we did in the cases above. 
 
-Here is a linear model equivalent to the above using some generated data:
+Here is a linear model equivalent to the above using some randomly generated data:
 
 ```{r}
 set.seed (101)
 X1 <- c("A","A", "A", "B","B","B","C","C","C")
-X2  <- rpois (9,7) ####
-y <- 3*X2+rnorm (9)
-y <- ifelse (X1=="A", y+1, y) ###The baseline level A is on average 1 unit higher than levels B & C
+X2 <- rpois (9,7) 
+y <- 3*X2 + rnorm (9)
+### The baseline level A is on average 1 unit higher than levels B & C
+y <- ifelse (X1=="A", y+1, y) 
 df1 <- data.frame (y, X1, X2)
 print (df1)
+
 # Fit model 
 modeldemo <- lm(y ~ X1+X2, data=df1)
+
 # Extract coefficients
 coeffs <- coefficients (modeldemo)
 coeffs
@@ -1101,8 +1099,8 @@ coeffs
 
 We need to make the design matrix. 
 ```{r}
-design.matrix <- cbind(matrix (c(1,0,0,1,0,0,1,0,0,1,1,0,1,1,0,1,1,0,1,0,1,1,0,1,1,0,1),9,3, 
-                               byrow=TRUE), X2)
+design.matrix <- cbind(matrix (c(1,0,0,1,0,0,1,0,0,1,1,0,1,1,0,1,1,0,1,0,1,1,0,1,1,0,1),
+                               nrow=9, ncol=3, byrow=TRUE), X2)
 design.matrix
 ```
 
@@ -1135,7 +1133,8 @@ The linear model can be extended to include multiple explanatory variables:
 
 Goodness of fit of a fitted model can be measured as the proportion of variation explained and its predicted power...but by itself there may be a flaw in using this solely as the index of model quality (see further chapters).  
 
-The linear model is a fantastic tool for exploring variation in univariate data (that is a single vector of dependent data) potentially influenced by ther variables that can be expanded on in lots of ways. However, with great power comes great responsibility and it is important to make sure linear models are used appropriately. We have not yet considered the assumptions of linear models, nor uncertainty in the predictions, nor what to do when explanatory variables are correlated (which can cause problems in interpretation). These issues are covered in following chapters. 
+The linear model is a useful tool for exploring variation in univariate data (that is, a single vector of dependent data) potentially influenced by other variables and can be extended in lots of ways. However, with great power comes great responsibility and it is important to make sure linear models are used appropriately. We have not yet considered the assumptions of linear models, nor uncertainty in the predictions, nor what to do when explanatory variables are correlated (which can cause problems in interpretation). These issues are covered in following chapters. 
+<!-- LB - update - 12/01/2022 -->
 
 ### Learning objectives
 
@@ -1180,26 +1179,29 @@ Pr(>|t|) - Probability associated with the $t$ test statistics for each term in 
 Blank 0.1 - 1.0 
 In this example, the $p$-values for both the intercept and slope are small (between 0 and 0.001) and so there are three asterisks.  
 
-**Q14.8** TEON=NO: = 19.5862, TEON Yes: 19.5862-8.889 = 10.6972. 
+**Q14.8** TEON = No: = 19.5862; TEON = Yes: 19.5862-8.889 = 10.6972. 
 
-**Q14.9** TEON = Yes, therefore estimated VitD  is 19.5862 -8.8890
+**Q14.9** TEON = Yes, therefore estimated VitD  is 19.5862 - 8.8890
 = 10.6972 units.  
   
 **Q14.10** The degrees of freedom of the residuals are given by $n - P - 1 = 58$, where $n$ = number of observations, $P$ = number of coefficients in the model (excluding the intercept). Therefore, $n =  58 + P + 1$. In this model, there is only one explanatory variable and so $P = 1$, hence $n = 60$.
 
 **Q14.11** The confidence interval for the TEON=Yes parameter is given by:
 
-$$\beta_1 +/- \alpha_0.025 \times s.e.$$   
-$$ -8.889 +/-  2.001717 \times 1.4365$$ 
-$$ -8.889 +/- 2.875467$$ 
+$$\beta_1 \pm \alpha_0.025 \times s.e.$$   
+$$ -8.889 \pm  2.001717 \times 1.4365$$ 
+$$ -8.889 \pm 2.875467$$ 
 (-11.7645,-6.0135)   
 
-**Q14.13**   There are several options:   
+**Q14.13**   There are several options:
+
+We need to obtain the probability associated with values less than -6.188 (i.e. left hand tail of the distribution) and values greater than 6.188 (i.e. right hand tail).   
 `pt(q=-6.188, df=58) +  pt(q=6.188, df=58, lower.tail=FALSE)`  
-We need to obtain the probability associated with values less than -6.188 (i.e. left hand tail of the distribution) and values greater than 6.188 (i.e. right hand tail). Alternatively, the area in each tail could just be multiplied by two because the t-distribution is symmetric.   
+Alternatively, the area in each tail could just be multiplied by two because the t-distribution is symmetric.   
 `2*pt(q=-6.188, df=58)` or `2*pt(q=6.188, df=58, lower.tail=FALSE`
 
-**Q14.14** TEON = No: $$-18.24054 + 0.12042.\textrm{TEON}$$  
+**Q14.14** The fitted equations are:
+TEON = No: $$-18.24054 + 0.12042.\textrm{TEON}$$  
 TEON = Yes: $$-18.24054 -8.98669 + 0.12042.\textrm{TEON}  = 
 - 9.25385 + 0.12042.\textrm{TEON} $$
 

@@ -23,7 +23,7 @@ rmd_files:
   "16_Interactions.Rmd",
   "17_LM_Prediction.Rmd",
   "18_LM_diagnostics.Rmd",
-  "19_.Rmd",
+  "19_LM_and_beyond.Rmd",
   "20-notation.Rmd",
   "21-references.Rmd"]
   latex: ["index.Rmd", 
@@ -45,7 +45,7 @@ rmd_files:
   "16_Interactions.Rmd",
   "17_LM_Prediction.Rmd",
   "18_LM_diagnostics.Rmd",
-  "19_.Rmd",        
+  "19_LM_and_beyond.Rmd",        
   "20-notation.Rmd",
   "21-references.Rmd",
   "22-ch_appendix.Rmd"]
