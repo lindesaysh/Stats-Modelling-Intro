@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Discrete random variables | An Introduction to Statistics</title>
+  <meta name="description" content="Chapter 5 Discrete random variables | An Introduction to Statistics" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Discrete random variables | An Introduction to Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Discrete random variables | An Introduction to Statistics" />
+  
+  
+  
+
+<meta name="author" content="Drs C. Paxton, L. Burt, C. Donovan and L. Scott-Hayward" />
+
+
+<meta name="date" content="2022-01-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="probability.html"/>
+<link rel="next" href="contrv.html"/>
+<script src="book_assets/header-attrs-2.11/header-attrs.js"></script>
+<script src="book_assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="book_assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="book_assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="book_assets/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="book_assets/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script language="javascript">
+    function toggle(id) {
+        var ele = document.getElementById("toggleText" + id);
+        var text = document.getElementById("displayText" + id);
+        var buttonText = text.innerHTML.replace("Show ", "");
+        buttonText = buttonText.replace("Hide ", "");
+        if(ele.style.display == "block") {
+            ele.style.display = "none";
+            text.innerHTML = "Show " + buttonText;
+        } else {
+            ele.style.display = "block";
+            text.innerHTML = "Hide " + buttonText;
+        }
+    }
+</script>
+
+<script language="javascript">
+    function openCode(evt, codeName, id) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent" + id);
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks" + id);
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(codeName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+<script language="javascript">
+    function hide(id){
+        document.getElementById(id).style.display = "none";
+    }
+</script>
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<a href="https://www.st-andrews.ac.uk/mathematics-statistics/"><img src="standard-vertical-black.png" width="180"></a>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#computer-practicals"><i class="fa fa-check"></i>Computer practicals</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introchapt.html"><a href="introchapt.html"><i class="fa fa-check"></i><b>1</b> Thinking About Numbers</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introchapt.html"><a href="introchapt.html#INTintro"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="introchapt.html"><a href="introchapt.html#why-use-statistics"><i class="fa fa-check"></i><b>1.2</b> Why use statistics?</a></li>
+<li class="chapter" data-level="1.3" data-path="introchapt.html"><a href="introchapt.html#why-model"><i class="fa fa-check"></i><b>1.3</b> Why model?</a></li>
+<li class="chapter" data-level="1.4" data-path="introchapt.html"><a href="introchapt.html#examples-of-statistical-claims"><i class="fa fa-check"></i><b>1.4</b> Examples of statistical claims</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="introchapt.html"><a href="introchapt.html#coffee-may-reverse-alzheimers"><i class="fa fa-check"></i><b>1.4.1</b> Coffee ‘may reverse Alzheimer’s’</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introchapt.html"><a href="introchapt.html#abundance-of-prized-sturgeon"><i class="fa fa-check"></i><b>1.4.2</b> Abundance of prized sturgeon</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introchapt.html"><a href="introchapt.html#extrapolating-sprinting-speed"><i class="fa fa-check"></i><b>1.4.3</b> Extrapolating sprinting speed</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introchapt.html"><a href="introchapt.html#mmr-innoculation-and-autism"><i class="fa fa-check"></i><b>1.4.4</b> MMR innoculation and autism</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introchapt.html"><a href="introchapt.html#two-sid-deaths-in-same-family"><i class="fa fa-check"></i><b>1.4.5</b> Two SID deaths in same family</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introchapt.html"><a href="introchapt.html#SUMintro"><i class="fa fa-check"></i><b>1.5</b> Summary</a></li>
+<li class="chapter" data-level="1.6" data-path="introchapt.html"><a href="introchapt.html#ANSintro"><i class="fa fa-check"></i><b>1.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>I Data Collection and Visualisation</b></span></li>
+<li class="chapter" data-level="2" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>2</b> Data collection and Sampling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="sampling.html"><a href="sampling.html#INTsamp"><i class="fa fa-check"></i><b>2.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="sampling.html"><a href="sampling.html#terminology"><i class="fa fa-check"></i><b>2.1.1</b> Terminology</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="sampling.html"><a href="sampling.html#what-is-sampling-and-why-do-it"><i class="fa fa-check"></i><b>2.2</b> What is sampling and why do it?</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="sampling.html"><a href="sampling.html#precision-accuracy-and-bias"><i class="fa fa-check"></i><b>2.2.1</b> Precision, accuracy and bias</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="sampling.html"><a href="sampling.html#three-types-of-data-collection"><i class="fa fa-check"></i><b>2.3</b> Three types of data collection</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="sampling.html"><a href="sampling.html#common-but-unwise-data-collection-strategies"><i class="fa fa-check"></i><b>2.3.1</b> Common, but unwise, data collection strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="sampling.html"><a href="sampling.html#simple-sampling-approaches"><i class="fa fa-check"></i><b>2.4</b> Simple sampling approaches</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="sampling.html"><a href="sampling.html#simple-random-sample"><i class="fa fa-check"></i><b>2.4.1</b> Simple random sample</a></li>
+<li class="chapter" data-level="2.4.2" data-path="sampling.html"><a href="sampling.html#systematic-samples"><i class="fa fa-check"></i><b>2.4.2</b> Systematic samples</a></li>
+<li class="chapter" data-level="2.4.3" data-path="sampling.html"><a href="sampling.html#stratified-random-samples"><i class="fa fa-check"></i><b>2.4.3</b> Stratified random samples</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="sampling.html"><a href="sampling.html#sampling-biases"><i class="fa fa-check"></i><b>2.5</b> Sampling biases</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="sampling.html"><a href="sampling.html#non-sampling-error"><i class="fa fa-check"></i><b>2.5.1</b> Non-sampling error</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="sampling.html"><a href="sampling.html#experiments"><i class="fa fa-check"></i><b>2.6</b> Experiments</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="sampling.html"><a href="sampling.html#randomised-experiments"><i class="fa fa-check"></i><b>2.6.1</b> Randomised experiments</a></li>
+<li class="chapter" data-level="2.6.2" data-path="sampling.html"><a href="sampling.html#components-of-an-experimental-design"><i class="fa fa-check"></i><b>2.6.2</b> Components of an experimental design</a></li>
+<li class="chapter" data-level="2.6.3" data-path="sampling.html"><a href="sampling.html#controls"><i class="fa fa-check"></i><b>2.6.3</b> Controls</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="sampling.html"><a href="sampling.html#observational-studies"><i class="fa fa-check"></i><b>2.7</b> Observational Studies</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="sampling.html"><a href="sampling.html#types-of-observational-study"><i class="fa fa-check"></i><b>2.7.1</b> Types of observational study</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="sampling.html"><a href="sampling.html#observational-studies-vs-experiments"><i class="fa fa-check"></i><b>2.8</b> Observational studies vs experiments</a></li>
+<li class="chapter" data-level="2.9" data-path="sampling.html"><a href="sampling.html#SUMsamp"><i class="fa fa-check"></i><b>2.9</b> Summary</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="sampling.html"><a href="sampling.html#learning-objectives"><i class="fa fa-check"></i><b>2.9.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="sampling.html"><a href="sampling.html#ANSsamp"><i class="fa fa-check"></i><b>2.10</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="describedata.html"><a href="describedata.html"><i class="fa fa-check"></i><b>3</b> Describing data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="describedata.html"><a href="describedata.html#INTdata"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="describedata.html"><a href="describedata.html#types-of-data"><i class="fa fa-check"></i><b>3.2</b> Types of data</a></li>
+<li class="chapter" data-level="3.3" data-path="describedata.html"><a href="describedata.html#frequency-distributions"><i class="fa fa-check"></i><b>3.3</b> Frequency distributions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="describedata.html"><a href="describedata.html#doing-this-in-r-2"><i class="fa fa-check"></i><b>3.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="describedata.html"><a href="describedata.html#numerical-summaries"><i class="fa fa-check"></i><b>3.4</b> Numerical summaries</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="describedata.html"><a href="describedata.html#population-mean"><i class="fa fa-check"></i><b>3.4.1</b> Population mean</a></li>
+<li class="chapter" data-level="3.4.2" data-path="describedata.html"><a href="describedata.html#sample-mean"><i class="fa fa-check"></i><b>3.4.2</b> Sample mean</a></li>
+<li class="chapter" data-level="3.4.3" data-path="describedata.html"><a href="describedata.html#sample-median"><i class="fa fa-check"></i><b>3.4.3</b> Sample median</a></li>
+<li class="chapter" data-level="3.4.4" data-path="describedata.html"><a href="describedata.html#range"><i class="fa fa-check"></i><b>3.4.4</b> Range</a></li>
+<li class="chapter" data-level="3.4.5" data-path="describedata.html"><a href="describedata.html#percentiles"><i class="fa fa-check"></i><b>3.4.5</b> Percentiles</a></li>
+<li class="chapter" data-level="3.4.6" data-path="describedata.html"><a href="describedata.html#population-variance"><i class="fa fa-check"></i><b>3.4.6</b> Population variance</a></li>
+<li class="chapter" data-level="3.4.7" data-path="describedata.html"><a href="describedata.html#sample-variance-and-standard-deviation"><i class="fa fa-check"></i><b>3.4.7</b> Sample variance and standard deviation</a></li>
+<li class="chapter" data-level="3.4.8" data-path="describedata.html"><a href="describedata.html#numerical-summaries-in-r"><i class="fa fa-check"></i><b>3.4.8</b> Numerical summaries in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="describedata.html"><a href="describedata.html#visual-summaries"><i class="fa fa-check"></i><b>3.5</b> Visual summaries</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="describedata.html"><a href="describedata.html#bar-charts"><i class="fa fa-check"></i><b>3.5.1</b> Bar charts</a></li>
+<li class="chapter" data-level="3.5.2" data-path="describedata.html"><a href="describedata.html#pie-charts"><i class="fa fa-check"></i><b>3.5.2</b> Pie charts</a></li>
+<li class="chapter" data-level="3.5.3" data-path="describedata.html"><a href="describedata.html#histograms"><i class="fa fa-check"></i><b>3.5.3</b> Histograms</a></li>
+<li class="chapter" data-level="3.5.4" data-path="describedata.html"><a href="describedata.html#boxplots"><i class="fa fa-check"></i><b>3.5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="3.5.5" data-path="describedata.html"><a href="describedata.html#basic-plots-in-r"><i class="fa fa-check"></i><b>3.5.5</b> Basic plots in R</a></li>
+<li class="chapter" data-level="3.5.6" data-path="describedata.html"><a href="describedata.html#other-plots"><i class="fa fa-check"></i><b>3.5.6</b> Other plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="describedata.html"><a href="describedata.html#summarising-the-relationship-between-two-variables"><i class="fa fa-check"></i><b>3.6</b> Summarising the relationship between two variables</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="describedata.html"><a href="describedata.html#cross-tabulation"><i class="fa fa-check"></i><b>3.6.1</b> Cross-tabulation</a></li>
+<li class="chapter" data-level="3.6.2" data-path="describedata.html"><a href="describedata.html#side-by-side-boxplots"><i class="fa fa-check"></i><b>3.6.2</b> Side-by-side boxplots</a></li>
+<li class="chapter" data-level="3.6.3" data-path="describedata.html"><a href="describedata.html#scatter-plot"><i class="fa fa-check"></i><b>3.6.3</b> Scatter plot</a></li>
+<li class="chapter" data-level="3.6.4" data-path="describedata.html"><a href="describedata.html#quilt-plots"><i class="fa fa-check"></i><b>3.6.4</b> Quilt plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="describedata.html"><a href="describedata.html#handy-hints-when-including-tables-and-plots-into-reports"><i class="fa fa-check"></i><b>3.7</b> Handy hints when including tables and plots into reports</a></li>
+<li class="chapter" data-level="3.8" data-path="describedata.html"><a href="describedata.html#SUMdata"><i class="fa fa-check"></i><b>3.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="describedata.html"><a href="describedata.html#learning-outcomes"><i class="fa fa-check"></i><b>3.8.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="describedata.html"><a href="describedata.html#ANSdata"><i class="fa fa-check"></i><b>3.9</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>II Probability and Distributions</b></span></li>
+<li class="chapter" data-level="4" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>4</b> Probability</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="probability.html"><a href="probability.html#INTprob"><i class="fa fa-check"></i><b>4.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="probability.html"><a href="probability.html#random-phenomena-and-uncertain-outcomes"><i class="fa fa-check"></i><b>4.1.1</b> Random phenomena and uncertain outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="probability.html"><a href="probability.html#sample-spaces-and-events"><i class="fa fa-check"></i><b>4.2</b> Sample spaces and events</a></li>
+<li class="chapter" data-level="4.3" data-path="probability.html"><a href="probability.html#definition-of-probability-and-3-axioms"><i class="fa fa-check"></i><b>4.3</b> Definition of Probability and 3 Axioms</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="probability.html"><a href="probability.html#probability-1"><i class="fa fa-check"></i><b>4.3.1</b> Probability</a></li>
+<li class="chapter" data-level="4.3.2" data-path="probability.html"><a href="probability.html#three-axioms"><i class="fa fa-check"></i><b>4.3.2</b> Three Axioms</a></li>
+<li class="chapter" data-level="4.3.3" data-path="probability.html"><a href="probability.html#three-results-of-the-axioms"><i class="fa fa-check"></i><b>4.3.3</b> Three results of the Axioms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="probability.html"><a href="probability.html#independence-and-the-multiplication-rule"><i class="fa fa-check"></i><b>4.4</b> Independence and the Multiplication Rule</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="probability.html"><a href="probability.html#testing-for-independence"><i class="fa fa-check"></i><b>4.4.1</b> Testing for Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="probability.html"><a href="probability.html#conditional-probabilities"><i class="fa fa-check"></i><b>4.5</b> Conditional probabilities</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="probability.html"><a href="probability.html#independence-revisited"><i class="fa fa-check"></i><b>4.5.1</b> Independence revisited</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="probability.html"><a href="probability.html#tree-diagrams"><i class="fa fa-check"></i><b>4.6</b> Tree Diagrams</a></li>
+<li class="chapter" data-level="4.7" data-path="probability.html"><a href="probability.html#marginal-and-joint-probabilities"><i class="fa fa-check"></i><b>4.7</b> Marginal and joint probabilities</a></li>
+<li class="chapter" data-level="4.8" data-path="probability.html"><a href="probability.html#SUMprob"><i class="fa fa-check"></i><b>4.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="probability.html"><a href="probability.html#learning-outcomes-1"><i class="fa fa-check"></i><b>4.8.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="probability.html"><a href="probability.html#ANSprob"><i class="fa fa-check"></i><b>4.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="discreterv.html"><a href="discreterv.html"><i class="fa fa-check"></i><b>5</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="discreterv.html"><a href="discreterv.html#INTdiscrv"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="discreterv.html"><a href="discreterv.html#discrete-random-variables"><i class="fa fa-check"></i><b>5.2</b> Discrete random variables</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="discreterv.html"><a href="discreterv.html#probability-mass-function"><i class="fa fa-check"></i><b>5.2.1</b> Probability mass function</a></li>
+<li class="chapter" data-level="5.2.2" data-path="discreterv.html"><a href="discreterv.html#cumulative-distribution-function"><i class="fa fa-check"></i><b>5.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="5.2.3" data-path="discreterv.html"><a href="discreterv.html#expectation"><i class="fa fa-check"></i><b>5.2.3</b> Expectation</a></li>
+<li class="chapter" data-level="5.2.4" data-path="discreterv.html"><a href="discreterv.html#variance"><i class="fa fa-check"></i><b>5.2.4</b> Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="discreterv.html"><a href="discreterv.html#special-discrete-distributions"><i class="fa fa-check"></i><b>5.3</b> Special discrete distributions</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="discreterv.html"><a href="discreterv.html#bernoulli-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="5.3.2" data-path="discreterv.html"><a href="discreterv.html#binomial-distribution"><i class="fa fa-check"></i><b>5.3.2</b> Binomial distribution</a></li>
+<li class="chapter" data-level="5.3.3" data-path="discreterv.html"><a href="discreterv.html#poisdist"><i class="fa fa-check"></i><b>5.3.3</b> Poisson distribution</a></li>
+<li class="chapter" data-level="5.3.4" data-path="discreterv.html"><a href="discreterv.html#comparison-of-binomial-and-poisson-distributions"><i class="fa fa-check"></i><b>5.3.4</b> Comparison of binomial and Poisson distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="discreterv.html"><a href="discreterv.html#SUMdiscrv"><i class="fa fa-check"></i><b>5.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="discreterv.html"><a href="discreterv.html#learning-outcomes-2"><i class="fa fa-check"></i><b>5.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="discreterv.html"><a href="discreterv.html#ANSdiscrv"><i class="fa fa-check"></i><b>5.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="contrv.html"><a href="contrv.html"><i class="fa fa-check"></i><b>6</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="contrv.html"><a href="contrv.html#INTcontrv"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="contrv.html"><a href="contrv.html#continuous-random-variables"><i class="fa fa-check"></i><b>6.2</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="contrv.html"><a href="contrv.html#probability-density-function"><i class="fa fa-check"></i><b>6.2.1</b> Probability density function</a></li>
+<li class="chapter" data-level="6.2.2" data-path="contrv.html"><a href="contrv.html#cumulative-distribution-function-1"><i class="fa fa-check"></i><b>6.2.2</b> Cumulative distribution function</a></li>
+<li class="chapter" data-level="6.2.3" data-path="contrv.html"><a href="contrv.html#expectation-and-variance-1"><i class="fa fa-check"></i><b>6.2.3</b> Expectation and variance</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="contrv.html"><a href="contrv.html#special-continuous-distributions"><i class="fa fa-check"></i><b>6.3</b> Special continuous distributions</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="contrv.html"><a href="contrv.html#normal-distribution"><i class="fa fa-check"></i><b>6.3.1</b> Normal distribution</a></li>
+<li class="chapter" data-level="6.3.2" data-path="contrv.html"><a href="contrv.html#standard-normal-distribution"><i class="fa fa-check"></i><b>6.3.2</b> Standard normal distribution</a></li>
+<li class="chapter" data-level="6.3.3" data-path="contrv.html"><a href="contrv.html#simple-transformations-of-random-variables"><i class="fa fa-check"></i><b>6.3.3</b> Simple transformations of random variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="contrv.html"><a href="contrv.html#SUMcontrv"><i class="fa fa-check"></i><b>6.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="contrv.html"><a href="contrv.html#learning-outcomes-3"><i class="fa fa-check"></i><b>6.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="contrv.html"><a href="contrv.html#ANScontrv"><i class="fa fa-check"></i><b>6.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="CIformean.html"><a href="CIformean.html"><i class="fa fa-check"></i><b>7</b> Confidence intervals for sample means</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="CIformean.html"><a href="CIformean.html#INTci"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="CIformean.html"><a href="CIformean.html#uncertainty-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2</b> Uncertainty of the sample mean</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="CIformean.html"><a href="CIformean.html#precision-of-the-sample-mean"><i class="fa fa-check"></i><b>7.2.1</b> Precision of the sample mean</a></li>
+<li class="chapter" data-level="7.2.2" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-known-sigma"><i class="fa fa-check"></i><b>7.2.2</b> Confidence interval with known <span class="math inline">\(\sigma\)</span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="CIformean.html"><a href="CIformean.html#confidence-interval-with-unknown-sigma"><i class="fa fa-check"></i><b>7.2.3</b> Confidence interval with unknown <span class="math inline">\(\sigma\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="CIformean.html"><a href="CIformean.html#difference-between-two-group-means"><i class="fa fa-check"></i><b>7.3</b> Difference between two group means</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="CIformean.html"><a href="CIformean.html#assuming-equal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.1</b> Assuming equal standard deviations of the two groups</a></li>
+<li class="chapter" data-level="7.3.2" data-path="CIformean.html"><a href="CIformean.html#assuming-unequal-standard-deviations-of-the-two-groups"><i class="fa fa-check"></i><b>7.3.2</b> Assuming unequal standard deviations of the two groups</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="CIformean.html"><a href="CIformean.html#empirical-bootstrap-based-confidence-intervals"><i class="fa fa-check"></i><b>7.4</b> Empirical (bootstrap-based) confidence intervals</a></li>
+<li class="chapter" data-level="7.5" data-path="CIformean.html"><a href="CIformean.html#confidence-intervals-for-other-sample-statistics"><i class="fa fa-check"></i><b>7.5</b> Confidence intervals for other sample statistics</a></li>
+<li class="chapter" data-level="7.6" data-path="CIformean.html"><a href="CIformean.html#SUMci"><i class="fa fa-check"></i><b>7.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="CIformean.html"><a href="CIformean.html#learning-outcomes-4"><i class="fa fa-check"></i><b>7.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="CIformean.html"><a href="CIformean.html#ANSci"><i class="fa fa-check"></i><b>7.7</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>III Hypothesis Testing</b></span></li>
+<li class="chapter" data-level="8" data-path="hypothtests.html"><a href="hypothtests.html"><i class="fa fa-check"></i><b>8</b> Hypothesis Tests</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="hypothtests.html"><a href="hypothtests.html#INThyp"><i class="fa fa-check"></i><b>8.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="hypothtests.html"><a href="hypothtests.html#types-of-hypotheses"><i class="fa fa-check"></i><b>8.1.1</b> Types of hypotheses</a></li>
+<li class="chapter" data-level="8.1.2" data-path="hypothtests.html"><a href="hypothtests.html#how-do-hypothesis-tests-work"><i class="fa fa-check"></i><b>8.1.2</b> How do hypothesis tests work?</a></li>
+<li class="chapter" data-level="8.1.3" data-path="hypothtests.html"><a href="hypothtests.html#one-sample-t-test"><i class="fa fa-check"></i><b>8.1.3</b> One sample <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="hypothtests.html"><a href="hypothtests.html#two-sample-t-test"><i class="fa fa-check"></i><b>8.2</b> Two sample <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-13"><i class="fa fa-check"></i><b>8.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="hypothtests.html"><a href="hypothtests.html#paired-t-test"><i class="fa fa-check"></i><b>8.3</b> Paired <span class="math inline">\(t\)</span> test</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="hypothtests.html"><a href="hypothtests.html#doing-this-in-r-14"><i class="fa fa-check"></i><b>8.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="hypothtests.html"><a href="hypothtests.html#t-test-assumptions"><i class="fa fa-check"></i><b>8.4</b> <span class="math inline">\(t\)</span> test assumptions</a></li>
+<li class="chapter" data-level="8.5" data-path="hypothtests.html"><a href="hypothtests.html#non-parametric-alternative-to-t-tests"><i class="fa fa-check"></i><b>8.5</b> Non-parametric alternative to <span class="math inline">\(t\)</span> tests</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="hypothtests.html"><a href="hypothtests.html#mann-whitney-wilcoxon-test"><i class="fa fa-check"></i><b>8.5.1</b> Mann-Whitney-Wilcoxon test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="hypothtests.html"><a href="hypothtests.html#practical-significance-versus-statistical-significance"><i class="fa fa-check"></i><b>8.6</b> Practical significance versus statistical significance</a></li>
+<li class="chapter" data-level="8.7" data-path="hypothtests.html"><a href="hypothtests.html#SUMhyp"><i class="fa fa-check"></i><b>8.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="hypothtests.html"><a href="hypothtests.html#learning-outcomes-5"><i class="fa fa-check"></i><b>8.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="hypothtests.html"><a href="hypothtests.html#ANShyp"><i class="fa fa-check"></i><b>8.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>9</b> Analysis of Variance</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="anova.html"><a href="anova.html#INTanova"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="anova.html"><a href="anova.html#multiple-comparisons"><i class="fa fa-check"></i><b>9.2</b> Multiple comparisons</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="anova.html"><a href="anova.html#type-i-and-type-ii-error"><i class="fa fa-check"></i><b>9.2.1</b> Type I and Type II error</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="anova.html"><a href="anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.3</b> ANalysis Of VAriance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="anova.html"><a href="anova.html#f-test-statistic-for-anova"><i class="fa fa-check"></i><b>9.3.1</b> <span class="math inline">\(F\)</span> test statistic for ANOVA</a></li>
+<li class="chapter" data-level="9.3.2" data-path="anova.html"><a href="anova.html#calculating-an-anova-table"><i class="fa fa-check"></i><b>9.3.2</b> Calculating an ANOVA table</a></li>
+<li class="chapter" data-level="9.3.3" data-path="anova.html"><a href="anova.html#f-distribution"><i class="fa fa-check"></i><b>9.3.3</b> <span class="math inline">\(F\)</span> distribution</a></li>
+<li class="chapter" data-level="9.3.4" data-path="anova.html"><a href="anova.html#doing-this-in-r-16"><i class="fa fa-check"></i><b>9.3.4</b> Doing this in R</a></li>
+<li class="chapter" data-level="9.3.5" data-path="anova.html"><a href="anova.html#assumptions"><i class="fa fa-check"></i><b>9.3.5</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="anova.html"><a href="anova.html#identifying-differences-and-more-on-multiple-comparisons"><i class="fa fa-check"></i><b>9.4</b> Identifying differences (and more on multiple comparisons)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="anova.html"><a href="anova.html#sidak-correction"><i class="fa fa-check"></i><b>9.4.1</b> Sidak correction</a></li>
+<li class="chapter" data-level="9.4.2" data-path="anova.html"><a href="anova.html#bonferroni-correction"><i class="fa fa-check"></i><b>9.4.2</b> Bonferroni correction</a></li>
+<li class="chapter" data-level="9.4.3" data-path="anova.html"><a href="anova.html#tukeys-honest-significant-difference-hsd"><i class="fa fa-check"></i><b>9.4.3</b> Tukey’s Honest Significant Difference (HSD)</a></li>
+<li class="chapter" data-level="9.4.4" data-path="anova.html"><a href="anova.html#multiple-comparison-dilema"><i class="fa fa-check"></i><b>9.4.4</b> Multiple comparison dilema</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="anova.html"><a href="anova.html#two-way-anova"><i class="fa fa-check"></i><b>9.5</b> Two-way ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="anova.html"><a href="anova.html#calculating-a-two-way-anova-table"><i class="fa fa-check"></i><b>9.5.1</b> Calculating a two-way ANOVA table</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="anova.html"><a href="anova.html#alternative-tests-to-anova"><i class="fa fa-check"></i><b>9.6</b> Alternative tests to ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="anova.html"><a href="anova.html#doing-this-in-r-18"><i class="fa fa-check"></i><b>9.6.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="anova.html"><a href="anova.html#SUManova"><i class="fa fa-check"></i><b>9.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="anova.html"><a href="anova.html#learning-outcomes-6"><i class="fa fa-check"></i><b>9.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="anova.html"><a href="anova.html#ANSanova"><i class="fa fa-check"></i><b>9.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="power.html"><a href="power.html"><i class="fa fa-check"></i><b>10</b> Statistical Power</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="power.html"><a href="power.html#INTpower"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="power.html"><a href="power.html#a-motivating-example---environmental-impact-assessment"><i class="fa fa-check"></i><b>10.2</b> A motivating example - Environmental impact assessment</a></li>
+<li class="chapter" data-level="10.3" data-path="power.html"><a href="power.html#calculating-power"><i class="fa fa-check"></i><b>10.3</b> Calculating power</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="power.html"><a href="power.html#increasing-the-power"><i class="fa fa-check"></i><b>10.3.1</b> Increasing the power</a></li>
+<li class="chapter" data-level="10.3.2" data-path="power.html"><a href="power.html#power-by-simulation"><i class="fa fa-check"></i><b>10.3.2</b> Power by simulation</a></li>
+<li class="chapter" data-level="10.3.3" data-path="power.html"><a href="power.html#multiple-comparisons-1"><i class="fa fa-check"></i><b>10.3.3</b> Multiple comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="power.html"><a href="power.html#SUMpower"><i class="fa fa-check"></i><b>10.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="power.html"><a href="power.html#learning-objectives-1"><i class="fa fa-check"></i><b>10.4.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="power.html"><a href="power.html#ANSpower"><i class="fa fa-check"></i><b>10.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="proportions.html"><a href="proportions.html"><i class="fa fa-check"></i><b>11</b> Proportions</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="proportions.html"><a href="proportions.html#INTprop"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals"><i class="fa fa-check"></i><b>11.2</b> Confidence intervals</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="proportions.html"><a href="proportions.html#motivating-example"><i class="fa fa-check"></i><b>11.2.1</b> Motivating example</a></li>
+<li class="chapter" data-level="11.2.2" data-path="proportions.html"><a href="proportions.html#confidence-intervals-large-sample-sizes"><i class="fa fa-check"></i><b>11.2.2</b> Confidence intervals: large sample sizes</a></li>
+<li class="chapter" data-level="11.2.3" data-path="proportions.html"><a href="proportions.html#confidence-intervals-small-sample-sizes"><i class="fa fa-check"></i><b>11.2.3</b> Confidence intervals: small sample sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="proportions.html"><a href="proportions.html#comparing-two-proportions-the-z-test"><i class="fa fa-check"></i><b>11.3</b> Comparing two proportions: the <span class="math inline">\(z\)</span> test</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="proportions.html"><a href="proportions.html#testing-for-no-difference-between-groups"><i class="fa fa-check"></i><b>11.3.1</b> Testing for ‘no difference’ between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="proportions.html"><a href="proportions.html#ci-for-the-difference-between-population-proportions-p_1-p_2"><i class="fa fa-check"></i><b>11.4</b> CI for the difference between population proportions, (<span class="math inline">\(p_1-p_2\)</span>)</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="proportions.html"><a href="proportions.html#choosing-the-appropriate-standard-error-when-comparing-proportions"><i class="fa fa-check"></i><b>11.4.1</b> Choosing the appropriate standard error when comparing proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="proportions.html"><a href="proportions.html#odds-ratios"><i class="fa fa-check"></i><b>11.5</b> Odds ratios</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success"><i class="fa fa-check"></i><b>11.5.1</b> Calculating the odds of success</a></li>
+<li class="chapter" data-level="11.5.2" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-of-success-for-2-x-2-tables"><i class="fa fa-check"></i><b>11.5.2</b> Calculating the odds of success for 2 x 2 tables</a></li>
+<li class="chapter" data-level="11.5.3" data-path="proportions.html"><a href="proportions.html#calculating-the-odds-ratio"><i class="fa fa-check"></i><b>11.5.3</b> Calculating the odds ratio</a></li>
+<li class="chapter" data-level="11.5.4" data-path="proportions.html"><a href="proportions.html#confidence-intervals-for-odds-ratios"><i class="fa fa-check"></i><b>11.5.4</b> Confidence intervals for odds ratios</a></li>
+<li class="chapter" data-level="11.5.5" data-path="proportions.html"><a href="proportions.html#final-note-on-odds-ratios"><i class="fa fa-check"></i><b>11.5.5</b> Final note on odds ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="proportions.html"><a href="proportions.html#SUMprop"><i class="fa fa-check"></i><b>11.6</b> Summary</a>
+<ul>
+<li class="chapter" data-level="11.6.1" data-path="proportions.html"><a href="proportions.html#learning-outcomes-7"><i class="fa fa-check"></i><b>11.6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="proportions.html"><a href="proportions.html#ANSprop"><i class="fa fa-check"></i><b>11.7</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="tableofcounts.html"><a href="tableofcounts.html"><i class="fa fa-check"></i><b>12</b> Tables of counts</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="tableofcounts.html"><a href="tableofcounts.html#introduction"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-goodness-of-fit-test"><i class="fa fa-check"></i><b>12.2</b> <span class="math inline">\(\chi^2\)</span> goodness-of-fit test</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-22"><i class="fa fa-check"></i><b>12.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="tableofcounts.html"><a href="tableofcounts.html#chi2-test-of-independence"><i class="fa fa-check"></i><b>12.3</b> <span class="math inline">\(\chi^2\)</span> test of independence</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="tableofcounts.html"><a href="tableofcounts.html#doing-this-in-r-23"><i class="fa fa-check"></i><b>12.3.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="tableofcounts.html"><a href="tableofcounts.html#test-assumptions"><i class="fa fa-check"></i><b>12.4</b> Test assumptions</a></li>
+<li class="chapter" data-level="12.5" data-path="tableofcounts.html"><a href="tableofcounts.html#summary"><i class="fa fa-check"></i><b>12.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="tableofcounts.html"><a href="tableofcounts.html#learning-outcomes-8"><i class="fa fa-check"></i><b>12.5.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="tableofcounts.html"><a href="tableofcounts.html#answers"><i class="fa fa-check"></i><b>12.6</b> Answers</a></li>
+</ul></li>
+<li class="part"><span><b>IV Regression and Linear Models</b></span></li>
+<li class="chapter" data-level="13" data-path="correg.html"><a href="correg.html"><i class="fa fa-check"></i><b>13</b> Correlation and Regression</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="correg.html"><a href="correg.html#introcorreg"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.2" data-path="correg.html"><a href="correg.html#correlation"><i class="fa fa-check"></i><b>13.2</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="correg.html"><a href="correg.html#significance-of-r"><i class="fa fa-check"></i><b>13.2.1</b> Significance of <span class="math inline">\(r\)</span></a></li>
+<li class="chapter" data-level="13.2.2" data-path="correg.html"><a href="correg.html#correlation-and-causation"><i class="fa fa-check"></i><b>13.2.2</b> Correlation and causation</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="correg.html"><a href="correg.html#regression"><i class="fa fa-check"></i><b>13.3</b> Regression</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="correg.html"><a href="correg.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>13.3.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="13.3.2" data-path="correg.html"><a href="correg.html#model-specification"><i class="fa fa-check"></i><b>13.3.2</b> Model specification</a></li>
+<li class="chapter" data-level="13.3.3" data-path="correg.html"><a href="correg.html#which-straight-line-to-choose"><i class="fa fa-check"></i><b>13.3.3</b> Which straight line to choose?</a></li>
+<li class="chapter" data-level="13.3.4" data-path="correg.html"><a href="correg.html#fitting-the-model-the-details"><i class="fa fa-check"></i><b>13.3.4</b> Fitting the model: the details</a></li>
+<li class="chapter" data-level="13.3.5" data-path="correg.html"><a href="correg.html#predictions"><i class="fa fa-check"></i><b>13.3.5</b> Predictions</a></li>
+<li class="chapter" data-level="13.3.6" data-path="correg.html"><a href="correg.html#the-variance-estimate"><i class="fa fa-check"></i><b>13.3.6</b> The variance estimate</a></li>
+<li class="chapter" data-level="13.3.7" data-path="correg.html"><a href="correg.html#introduction-to-the-matrix-form"><i class="fa fa-check"></i><b>13.3.7</b> Introduction to the matrix form</a></li>
+<li class="chapter" data-level="13.3.8" data-path="correg.html"><a href="correg.html#fitting-a-simple-regression-model"><i class="fa fa-check"></i><b>13.3.8</b> Fitting a simple regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="correg.html"><a href="correg.html#SUMcorreg"><i class="fa fa-check"></i><b>13.4</b> Summary</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="correg.html"><a href="correg.html#learning-outcomes-9"><i class="fa fa-check"></i><b>13.4.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="correg.html"><a href="correg.html#ANScorreg"><i class="fa fa-check"></i><b>13.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="introlm.html"><a href="introlm.html"><i class="fa fa-check"></i><b>14</b> Introduction to the linear model</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="introlm.html"><a href="introlm.html#INTlm"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-a-t-test"><i class="fa fa-check"></i><b>14.2</b> The linear model as a <span class="math inline">\(t\)</span> test</a></li>
+<li class="chapter" data-level="14.3" data-path="introlm.html"><a href="introlm.html#the-linear-model-as-analysis-of-variance"><i class="fa fa-check"></i><b>14.3</b> The linear model as analysis of variance</a></li>
+<li class="chapter" data-level="14.4" data-path="introlm.html"><a href="introlm.html#simple-linear-regression-again"><i class="fa fa-check"></i><b>14.4</b> Simple linear regression (again)</a></li>
+<li class="chapter" data-level="14.5" data-path="introlm.html"><a href="introlm.html#model-performance"><i class="fa fa-check"></i><b>14.5</b> Model performance</a></li>
+<li class="chapter" data-level="14.6" data-path="introlm.html"><a href="introlm.html#multiple-regression"><i class="fa fa-check"></i><b>14.6</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="introlm.html"><a href="introlm.html#the-eia-data-again"><i class="fa fa-check"></i><b>14.6.1</b> The EIA data again</a></li>
+<li class="chapter" data-level="14.6.2" data-path="introlm.html"><a href="introlm.html#model-specification-1"><i class="fa fa-check"></i><b>14.6.2</b> Model specification</a></li>
+<li class="chapter" data-level="14.6.3" data-path="introlm.html"><a href="introlm.html#types-of-covariates"><i class="fa fa-check"></i><b>14.6.3</b> Types of covariates</a></li>
+<li class="chapter" data-level="14.6.4" data-path="introlm.html"><a href="introlm.html#model-fitting"><i class="fa fa-check"></i><b>14.6.4</b> Model fitting</a></li>
+<li class="chapter" data-level="14.6.5" data-path="introlm.html"><a href="introlm.html#parameter-interpretation"><i class="fa fa-check"></i><b>14.6.5</b> Parameter Interpretation</a></li>
+<li class="chapter" data-level="14.6.6" data-path="introlm.html"><a href="introlm.html#parameter-uncertainty"><i class="fa fa-check"></i><b>14.6.6</b> Parameter uncertainty</a></li>
+<li class="chapter" data-level="14.6.7" data-path="introlm.html"><a href="introlm.html#confidence-intervals-cis-on-parameters"><i class="fa fa-check"></i><b>14.6.7</b> Confidence intervals (CIs) on parameters</a></li>
+<li class="chapter" data-level="14.6.8" data-path="introlm.html"><a href="introlm.html#hypothesis-testing"><i class="fa fa-check"></i><b>14.6.8</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="14.6.9" data-path="introlm.html"><a href="introlm.html#model-performance-1"><i class="fa fa-check"></i><b>14.6.9</b> Model performance</a></li>
+<li class="chapter" data-level="14.6.10" data-path="introlm.html"><a href="introlm.html#more-covariates-of-mixed-types"><i class="fa fa-check"></i><b>14.6.10</b> More covariates of mixed types</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="introlm.html"><a href="introlm.html#the-matrix-interpretation-of-a-linear-model"><i class="fa fa-check"></i><b>14.7</b> The matrix interpretation of a linear model</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="introlm.html"><a href="introlm.html#dummy-variables"><i class="fa fa-check"></i><b>14.7.1</b> Dummy variables</a></li>
+<li class="chapter" data-level="14.7.2" data-path="introlm.html"><a href="introlm.html#combining-factors-and-continuous-variables"><i class="fa fa-check"></i><b>14.7.2</b> Combining factors and continuous variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.8" data-path="introlm.html"><a href="introlm.html#SUMlm"><i class="fa fa-check"></i><b>14.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="14.8.1" data-path="introlm.html"><a href="introlm.html#learning-objectives-2"><i class="fa fa-check"></i><b>14.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="14.9" data-path="introlm.html"><a href="introlm.html#ANSlm"><i class="fa fa-check"></i><b>14.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="modelselection.html"><a href="modelselection.html"><i class="fa fa-check"></i><b>15</b> Model selection</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="modelselection.html"><a href="modelselection.html#INTmodsel"><i class="fa fa-check"></i><b>15.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="modelselection.html"><a href="modelselection.html#criteria-for-model-selection"><i class="fa fa-check"></i><b>15.1.1</b> Criteria for model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="modelselection.html"><a href="modelselection.html#collinearity"><i class="fa fa-check"></i><b>15.2</b> Collinearity</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="modelselection.html"><a href="modelselection.html#variance-inflation-factors"><i class="fa fa-check"></i><b>15.2.1</b> Variance inflation factors</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="modelselection.html"><a href="modelselection.html#p-value-based-model-selection-the-f-test"><i class="fa fa-check"></i><b>15.3</b> <span class="math inline">\(p\)</span>-value based model selection: the <span class="math inline">\(F\)</span> test</a></li>
+<li class="chapter" data-level="15.4" data-path="modelselection.html"><a href="modelselection.html#relative-model-fit"><i class="fa fa-check"></i><b>15.4</b> Relative model fit</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="modelselection.html"><a href="modelselection.html#akaikes-information-criterion-aic"><i class="fa fa-check"></i><b>15.4.1</b> Akaike’s Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="modelselection.html"><a href="modelselection.html#other-methods-of-model-selection"><i class="fa fa-check"></i><b>15.5</b> Other methods of model selection</a></li>
+<li class="chapter" data-level="15.6" data-path="modelselection.html"><a href="modelselection.html#automated-variable-selection"><i class="fa fa-check"></i><b>15.6</b> Automated variable selection</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="modelselection.html"><a href="modelselection.html#stepwise-selection"><i class="fa fa-check"></i><b>15.6.1</b> Stepwise selection</a></li>
+<li class="chapter" data-level="15.6.2" data-path="modelselection.html"><a href="modelselection.html#all-possible-subsets-selection"><i class="fa fa-check"></i><b>15.6.2</b> All possible subsets selection</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="modelselection.html"><a href="modelselection.html#example-model-selection-with-the-medical-data"><i class="fa fa-check"></i><b>15.7</b> Example: model selection with the medical data</a>
+<ul>
+<li class="chapter" data-level="15.7.1" data-path="modelselection.html"><a href="modelselection.html#model-specification-3"><i class="fa fa-check"></i><b>15.7.1</b> Model specification</a></li>
+<li class="chapter" data-level="15.7.2" data-path="modelselection.html"><a href="modelselection.html#interpreting-the-parameter-estimates"><i class="fa fa-check"></i><b>15.7.2</b> Interpreting the parameter estimates</a></li>
+<li class="chapter" data-level="15.7.3" data-path="modelselection.html"><a href="modelselection.html#what-should-be-in-the-model"><i class="fa fa-check"></i><b>15.7.3</b> What ‘should’ be in the model?</a></li>
+<li class="chapter" data-level="15.7.4" data-path="modelselection.html"><a href="modelselection.html#what-terms-are-significant"><i class="fa fa-check"></i><b>15.7.4</b> What terms are significant?</a></li>
+<li class="chapter" data-level="15.7.5" data-path="modelselection.html"><a href="modelselection.html#more-automated-methods"><i class="fa fa-check"></i><b>15.7.5</b> More automated methods</a></li>
+</ul></li>
+<li class="chapter" data-level="15.8" data-path="modelselection.html"><a href="modelselection.html#SUMmodsel"><i class="fa fa-check"></i><b>15.8</b> Summary</a>
+<ul>
+<li class="chapter" data-level="15.8.1" data-path="modelselection.html"><a href="modelselection.html#learning-objectives-3"><i class="fa fa-check"></i><b>15.8.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="15.9" data-path="modelselection.html"><a href="modelselection.html#ANSmodsel"><i class="fa fa-check"></i><b>15.9</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="interac.html"><a href="interac.html"><i class="fa fa-check"></i><b>16</b> Interactions and the Linear Model</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="interac.html"><a href="interac.html#INTinterac"><i class="fa fa-check"></i><b>16.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="interac.html"><a href="interac.html#fitting-different-models"><i class="fa fa-check"></i><b>16.1.1</b> Fitting different models</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="interac.html"><a href="interac.html#fitting-interaction-terms"><i class="fa fa-check"></i><b>16.2</b> Fitting interaction terms</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="interac.html"><a href="interac.html#specifying-interactions-in-model-formulae"><i class="fa fa-check"></i><b>16.2.1</b> Specifying interactions in model formulae</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="interac.html"><a href="interac.html#interactions-in-practise"><i class="fa fa-check"></i><b>16.3</b> Interactions in practise</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="interac.html"><a href="interac.html#medical-data"><i class="fa fa-check"></i><b>16.3.1</b> Medical data</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="interac.html"><a href="interac.html#model-selection-and-interactions"><i class="fa fa-check"></i><b>16.4</b> Model selection and interactions</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-eia-data-set"><i class="fa fa-check"></i><b>16.4.1</b> Backwards selection in the EIA data set</a></li>
+<li class="chapter" data-level="16.4.2" data-path="interac.html"><a href="interac.html#backwards-selection-in-the-medical-data-set"><i class="fa fa-check"></i><b>16.4.2</b> Backwards selection in the medical data set</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="interac.html"><a href="interac.html#SUMinterac"><i class="fa fa-check"></i><b>16.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="interac.html"><a href="interac.html#learning-objectives-4"><i class="fa fa-check"></i><b>16.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="interac.html"><a href="interac.html#ANSinterac"><i class="fa fa-check"></i><b>16.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>17</b> Prediction from the linear model</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="prediction.html"><a href="prediction.html#INTpred"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="prediction.html"><a href="prediction.html#prediction-1"><i class="fa fa-check"></i><b>17.2</b> Prediction</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-27"><i class="fa fa-check"></i><b>17.2.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="prediction.html"><a href="prediction.html#uncertainty-in-the-prediction"><i class="fa fa-check"></i><b>17.3</b> Uncertainty in the prediction</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="prediction.html"><a href="prediction.html#doing-this-in-r-28"><i class="fa fa-check"></i><b>17.3.1</b> Doing this in R</a></li>
+<li class="chapter" data-level="17.3.2" data-path="prediction.html"><a href="prediction.html#confidence-intervals-for-the-line"><i class="fa fa-check"></i><b>17.3.2</b> Confidence intervals for the line</a></li>
+<li class="chapter" data-level="17.3.3" data-path="prediction.html"><a href="prediction.html#prediction-intervals"><i class="fa fa-check"></i><b>17.3.3</b> Prediction intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="prediction.html"><a href="prediction.html#prediction-in-multiple-regression"><i class="fa fa-check"></i><b>17.4</b> Prediction in multiple regression</a></li>
+<li class="chapter" data-level="17.5" data-path="prediction.html"><a href="prediction.html#SUMpred"><i class="fa fa-check"></i><b>17.5</b> Summary</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="prediction.html"><a href="prediction.html#learning-objectives-5"><i class="fa fa-check"></i><b>17.5.1</b> Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="prediction.html"><a href="prediction.html#ANSpred"><i class="fa fa-check"></i><b>17.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="diagnostics.html"><a href="diagnostics.html"><i class="fa fa-check"></i><b>18</b> Linear model diagnostics</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="diagnostics.html"><a href="diagnostics.html#INTdiag"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="diagnostics.html"><a href="diagnostics.html#predictive-power"><i class="fa fa-check"></i><b>18.2</b> Predictive power</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="diagnostics.html"><a href="diagnostics.html#signal-versus-noise"><i class="fa fa-check"></i><b>18.2.1</b> Signal versus noise</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="diagnostics.html"><a href="diagnostics.html#model-assumptions"><i class="fa fa-check"></i><b>18.3</b> Model assumptions</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="diagnostics.html"><a href="diagnostics.html#normality-assumption"><i class="fa fa-check"></i><b>18.3.1</b> Normality assumption</a></li>
+<li class="chapter" data-level="18.3.2" data-path="diagnostics.html"><a href="diagnostics.html#assessing-constant-error-variance"><i class="fa fa-check"></i><b>18.3.2</b> Assessing constant error variance</a></li>
+<li class="chapter" data-level="18.3.3" data-path="diagnostics.html"><a href="diagnostics.html#assessing-independence"><i class="fa fa-check"></i><b>18.3.3</b> Assessing independence</a></li>
+<li class="chapter" data-level="18.3.4" data-path="diagnostics.html"><a href="diagnostics.html#pseudoreplication"><i class="fa fa-check"></i><b>18.3.4</b> Pseudoreplication</a></li>
+<li class="chapter" data-level="18.3.5" data-path="diagnostics.html"><a href="diagnostics.html#linearity-in-the-model-for-the-signal"><i class="fa fa-check"></i><b>18.3.5</b> Linearity in the model for the signal</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="diagnostics.html"><a href="diagnostics.html#example-diagnostics-with-the-medical-data"><i class="fa fa-check"></i><b>18.4</b> Example: Diagnostics with the medical data</a></li>
+<li class="chapter" data-level="18.5" data-path="diagnostics.html"><a href="diagnostics.html#partial-residual-plots"><i class="fa fa-check"></i><b>18.5</b> Partial residual plots</a>
+<ul>
+<li class="chapter" data-level="18.5.1" data-path="diagnostics.html"><a href="diagnostics.html#doing-this-in-r-30"><i class="fa fa-check"></i><b>18.5.1</b> Doing this in R</a></li>
+</ul></li>
+<li class="chapter" data-level="18.6" data-path="diagnostics.html"><a href="diagnostics.html#interaction-terms"><i class="fa fa-check"></i><b>18.6</b> Interaction Terms</a></li>
+<li class="chapter" data-level="18.7" data-path="diagnostics.html"><a href="diagnostics.html#SUMdiag"><i class="fa fa-check"></i><b>18.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="18.7.1" data-path="diagnostics.html"><a href="diagnostics.html#learning-outcomes-10"><i class="fa fa-check"></i><b>18.7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="18.8" data-path="diagnostics.html"><a href="diagnostics.html#ANSdiag"><i class="fa fa-check"></i><b>18.8</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="nextsteps.html"><a href="nextsteps.html"><i class="fa fa-check"></i><b>19</b> The Next Steps</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="nextsteps.html"><a href="nextsteps.html#INTnext"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="nextsteps.html"><a href="nextsteps.html#solving-the-assumptional-problems"><i class="fa fa-check"></i><b>19.2</b> Solving the assumptional problems</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="nextsteps.html"><a href="nextsteps.html#example-the-eia-data"><i class="fa fa-check"></i><b>19.2.1</b> Example: The EIA data</a></li>
+<li class="chapter" data-level="19.2.2" data-path="nextsteps.html"><a href="nextsteps.html#oddly-distributed-residuals"><i class="fa fa-check"></i><b>19.2.2</b> Oddly distributed residuals</a></li>
+<li class="chapter" data-level="19.2.3" data-path="nextsteps.html"><a href="nextsteps.html#non-independence"><i class="fa fa-check"></i><b>19.2.3</b> Non-independence</a></li>
+<li class="chapter" data-level="19.2.4" data-path="nextsteps.html"><a href="nextsteps.html#non-linearity"><i class="fa fa-check"></i><b>19.2.4</b> Non-linearity</a></li>
+<li class="chapter" data-level="19.2.5" data-path="nextsteps.html"><a href="nextsteps.html#bootstrapping"><i class="fa fa-check"></i><b>19.2.5</b> Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="nextsteps.html"><a href="nextsteps.html#summary-1"><i class="fa fa-check"></i><b>19.3</b> Summary</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="nextsteps.html"><a href="nextsteps.html#learning-outcomes-11"><i class="fa fa-check"></i><b>19.3.1</b> Learning outcomes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="notation.html"><a href="notation.html"><i class="fa fa-check"></i><b>20</b> Notation</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="notation.html"><a href="notation.html#summation"><i class="fa fa-check"></i><b>20.1</b> Summation</a></li>
+<li class="chapter" data-level="20.2" data-path="notation.html"><a href="notation.html#factorial"><i class="fa fa-check"></i><b>20.2</b> Factorial</a></li>
+<li class="chapter" data-level="20.3" data-path="notation.html"><a href="notation.html#combinations"><i class="fa fa-check"></i><b>20.3</b> Combinations</a></li>
+<li class="chapter" data-level="20.4" data-path="notation.html"><a href="notation.html#multiplication"><i class="fa fa-check"></i><b>20.4</b> Multiplication</a></li>
+<li class="chapter" data-level="20.5" data-path="notation.html"><a href="notation.html#integration"><i class="fa fa-check"></i><b>20.5</b> Integration</a></li>
+<li class="chapter" data-level="20.6" data-path="notation.html"><a href="notation.html#matrix-multiplication"><i class="fa fa-check"></i><b>20.6</b> Matrix multiplication</a></li>
+<li class="chapter" data-level="20.7" data-path="notation.html"><a href="notation.html#absolute-values"><i class="fa fa-check"></i><b>20.7</b> Absolute values</a></li>
+<li class="chapter" data-level="20.8" data-path="notation.html"><a href="notation.html#pi"><i class="fa fa-check"></i><b>20.8</b> <span class="math inline">\(\pi\)</span></a></li>
+<li class="chapter" data-level="20.9" data-path="notation.html"><a href="notation.html#exponential-function-e"><i class="fa fa-check"></i><b>20.9</b> Exponential function, <span class="math inline">\(e\)</span></a></li>
+<li class="chapter" data-level="20.10" data-path="notation.html"><a href="notation.html#scientific-notation"><i class="fa fa-check"></i><b>20.10</b> Scientific notation</a></li>
+<li class="chapter" data-level="20.11" data-path="notation.html"><a href="notation.html#intervals"><i class="fa fa-check"></i><b>20.11</b> Intervals</a></li>
+<li class="chapter" data-level="20.12" data-path="notation.html"><a href="notation.html#axes-on-plots"><i class="fa fa-check"></i><b>20.12</b> Axes on plots</a></li>
+<li class="chapter" data-level="20.13" data-path="notation.html"><a href="notation.html#probability-2"><i class="fa fa-check"></i><b>20.13</b> Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="discreterv" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Discrete random variables</h1>
+<p><em>[Professor Moriarty] is a man of good birth and excellent education, endowed by nature with a phenomenal mathematical faculty. At the age of twenty-one, he wrote a treatise upon the binomial theorem, which has had a European vogue. On the strength of it he won the mathematical chair at one of our smaller universities, and had, to all appearances, a most brilliant career before him.</em> <br/> Sir Arthur Conan Doyle <span class="citation">(<a href="#ref-Doyle1894" role="doc-biblioref">1894</a>)</span></p>
+<div id="INTdiscrv" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Introduction</h2>
+<p>A <strong>random variable</strong> is a quantity that can take a range of values that cannot be predicted with certainty but only described probabilistically (<span class="citation"><a href="#ref-BorowskiBorwein" role="doc-biblioref">Borowski and Borwein</a> (<a href="#ref-BorowskiBorwein" role="doc-biblioref">1989</a>)</span>). The values can either be discrete or continuous. In this unit, discrete random values are considered; continuous random values are considered in the following chapter.</p>
+<p>In this unit, we define:</p>
+<ul>
+<li><p>discrete random variables,</p></li>
+<li><p>probability mass functions,</p></li>
+<li><p>cumulative distribution functions</p></li>
+<li><p>expected values and expected variation of discrete random variables,</p></li>
+<li><p>and three specific and useful random variables, Bernoulli, binomial and Poisson random variables.</p></li>
+</ul>
+<p>Note that this chapter contains a lot of notation and many equations; please refer to the notation guide.</p>
+</div>
+<div id="discrete-random-variables" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Discrete random variables</h2>
+<p>A discrete random variable is random variable which can only take a countable number of values.</p>
+<p>As an example, consider tossing a fair coin twice; the possible outcomes are head-head, head-tail, tail-head and tail-tail. Assume that the variable of interest is the number of heads (denoted by <span class="math inline">\(Y\)</span>) and so the resulting values, or sample space, for <span class="math inline">\(Y\)</span> are either 0, 1 or 2 heads (Table <a href="discreterv.html#tab:coinoutcometab">5.1</a>).</p>
+<table style="width:47%;">
+<caption><span id="tab:coinoutcometab">Table 5.1: </span> The possible outcomes (H=head, T=tail) for tossing a coin twice and the resulting combinations of heads (<span class="math inline">\(Y\)</span>).</caption>
+<colgroup>
+<col width="19%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>Outcome</strong></td>
+<td align="center">HH</td>
+<td align="center">HT</td>
+<td align="center">TH</td>
+<td align="center">TT</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Y</strong></td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<p>The variable <span class="math inline">\(Y\)</span> is a discrete random variable; the outcome can only be a discrete value and we cannot predict the outcome with certainty but we can describe the outcome probabilistically.</p>
+<div id="probability-mass-function" class="section level3" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Probability mass function</h3>
+<p>The probability mass function (PMF) is simply a mathematical description of the probabilities of outcomes in the sample space. We can construct the PMF for <span class="math inline">\(Y\)</span>, the number of heads when tossing a coin twice by considering the possible outcomes (Table <a href="discreterv.html#tab:coinoutcometab">5.1</a>). The sample space is either no heads, one head or two heads (i.e. <span class="math inline">\(S\)</span>={0, 1, 2}). The probability of two heads, written <span class="math inline">\(Pr(Y=2)\)</span>, will be 1 out of 4 possible outcomes, thus <span class="math inline">\(Pr(Y=2)=0.25\)</span>. Similar calculations can be used to obtain the probability of no heads and one head (Table <a href="discreterv.html#tab:pmfex1tab">5.2</a>).</p>
+<table style="width:47%;">
+<caption><span id="tab:pmfex1tab">Table 5.2: </span> Probability mass function for <span class="math inline">\(Y\)</span>, the number of heads when a coin is tossed twice.</caption>
+<colgroup>
+<col width="19%" />
+<col width="9%" />
+<col width="8%" />
+<col width="9%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>y</strong></td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">2</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Pr(Y=y)</strong></td>
+<td align="center">0.25</td>
+<td align="center">0.5</td>
+<td align="center">0.25</td>
+</tr>
+</tbody>
+</table>
+<p>The PMF tells us everything about the random variable <span class="math inline">\(Y\)</span>. It also has a special property in that if we sum <span class="math inline">\(Pr(Y=y)\)</span> over all possible values in the sample space, we get 1.</p>
+<p>If the sample space of a random variable denoted by <span class="math inline">\(X\)</span> can be written as {<span class="math inline">\({k, k+1, ... , n}\)</span>} then</p>
+<p><span class="math display">\[\begin{align}
+\sum_{x=k}^{n} Pr(X=x) = Pr(X=k) + Pr(X=k+1) + ... + Pr(X=n) = 1
+\end{align}\]</span></p>
+<p>This property is easy to verify for the PMF of <span class="math inline">\(Y\)</span>, the number of heads:</p>
+<p><span class="math display">\[\sum_{y=0}^{2} Pr(Y=y) = Pr(Y=0) + Pr(Y=1) + Pr(Y=2) = 0.25 + 0.5 + 0.25 = 1\]</span></p>
+<p><strong>Q5.1</strong> Let event <span class="math inline">\(Y\)</span> be the sum of the numbers resulting from throwing two fair, six-sided die. Calculate the probability mass function of <span class="math inline">\(Y\)</span>.</p>
+</div>
+<div id="cumulative-distribution-function" class="section level3" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Cumulative distribution function</h3>
+<p>The cumulative distribution function (CDF) is derived from the PMF. For a discrete random variable called <span class="math inline">\(X\)</span>, the CDF provides the probability that <span class="math inline">\(Pr(X \le x)\)</span>. Thus, for the coin tossing example, the probability that <span class="math inline">\(Y\)</span> is less than or equal to one head (i.e. <span class="math inline">\(Pr(Y \le 1)\)</span>) is given by:</p>
+<p><span class="math display">\[Pr(Y \le 1) = Pr(Y=0) + Pr(Y=1) = 0.25 + 0.5 = 0.75\]</span>
+A similar calculation can be performed for all values in the sample space (Table <a href="discreterv.html#tab:cdfex1tab">5.3</a>).</p>
+<table style="width:50%;">
+<caption><span id="tab:cdfex1tab">Table 5.3: </span> Probability mass function (<span class="math inline">\(Pr(Y=y)\)</span>) and cumulative distribution function (<span class="math inline">\(Pr(Y \le y)\)</span>) for <span class="math inline">\(Y\)</span>, the number of heads when a coin is tossed twice.</caption>
+<colgroup>
+<col width="20%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>y</strong></td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">2</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Pr(Y=y)</strong></td>
+<td align="center">0.25</td>
+<td align="center">0.5</td>
+<td align="center">0.25</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>Pr(Y&lt;=y)</strong></td>
+<td align="center">0.25</td>
+<td align="center">0.75</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+<p>The CDF is a useful tool in calculating probabilities over intervals of a discrete random variable. However, care must be taken in considering the endpoints of the intervals - are they inclusive or exclusive; this will be clearer with a more complicated example.</p>
+<p>Consider the toss of a fair, six-sided die and denote it by <span class="math inline">\(X\)</span>; there are six possible outcomes (i.e. 1 to 6), all with equal probability (Table <a href="discreterv.html#tab:cdfex2tab">5.4</a>). We can obtain the probability that <span class="math inline">\(X\)</span> is less than 5 from the CDF as follows:</p>
+<p><span class="math display">\[Pr(X &lt; 5) = Pr(X \le 4) = 0.6667\]</span></p>
+<table style="width:96%;">
+<caption><span id="tab:cdfex2tab">Table 5.4: </span> PMF and CDF of <span class="math inline">\(X\)</span>, the toss of six-sided die.</caption>
+<colgroup>
+<col width="20%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>x</strong></td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">5</td>
+<td align="center">6</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Pr(X=x)</strong></td>
+<td align="center">0.1667</td>
+<td align="center">0.1667</td>
+<td align="center">0.1667</td>
+<td align="center">0.1667</td>
+<td align="center">0.1667</td>
+<td align="center">0.1667</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>Pr(X&lt;=x)</strong></td>
+<td align="center">0.1667</td>
+<td align="center">0.3333</td>
+<td align="center">0.5</td>
+<td align="center">0.6667</td>
+<td align="center">0.8333</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+<p>What happens if we want <span class="math inline">\(Pr(X&gt;x)\)</span> or <span class="math inline">\(Pr(X \ge x)\)</span>? These can be found using the complement rule (Chapter <a href="probability.html#probability">4</a>):</p>
+<p><span class="math display">\[Pr(X&gt;x) = 1-Pr(X \leq x)\]</span>
+<span class="math display">\[Pr(X\ge x) = 1-Pr(X &lt; x) = 1 - Pr(X \le (x-1))\]</span>
+Hence, the probability that <span class="math inline">\(X &gt; 4\)</span> can be found from
+<span class="math display">\[Pr(X &gt; 4) = 1 - Pr(X \le 4) = 1 - 0.6667 = 0.333\]</span></p>
+<p><span class="math display">\[Pr(X \ge 4) = 1 - Pr(X &lt; 4) = 1 - Pr(X \le 3) = 1 - 0.5 = 0.5\]</span></p>
+<p>With discrete random variables, it is important to be careful with <span class="math inline">\(&lt;\)</span>, <span class="math inline">\(\le\)</span>, <span class="math inline">\(&gt;\)</span> and <span class="math inline">\(\ge\)</span> signs.</p>
+<p><strong>Q5.2</strong> Using the PMF obtained for event <span class="math inline">\(Y\)</span> defined in Q5.1,</p>
+<p><strong>a.</strong> Calculate the cumulative distribution function of <span class="math inline">\(Y\)</span>.</p>
+<p><strong>b.</strong> What is the probability that <span class="math inline">\(Y\)</span> will be less than 7?</p>
+<p><strong>c.</strong> What is the probability that <span class="math inline">\(Y\)</span> will be an odd number?</p>
+<p><strong>d.</strong> Include question to calculate an interval estimate.</p>
+</div>
+<div id="expectation" class="section level3" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Expectation</h3>
+<p>Although the outcome of a process is uncertain, the PMF can be used to determine what value might be expected on average, if the process was to be repeated many times. For a discrete random variable <span class="math inline">\(X\)</span>, with a finite number of outcomes <span class="math inline">\(k\)</span>, the <strong>expected value</strong> of <span class="math inline">\(X\)</span>, denoted by <span class="math inline">\(E(X)\)</span> is given by</p>
+<p><span class="math display">\[\begin{equation}
+E(X) = \sum_{x=k}^n xPr(X=x)
+\label{discexpx}
+\end{equation}\]</span></p>
+<p>This is actually a weighted average where the probabilities are the weights (since the probabilities sum to one).</p>
+<p>Using this equation, the expected value from tossing a die is therefore given by</p>
+<p><span class="math display">\[E(X) = (1 \times 0.1667) + (2 \times 0.1667) + (3 \times 0.1667) + (4 \times 0.1667) + (5 \times 0.1667) + (6 \times 0.1667) = 3.5\]</span></p>
+<p>The same calculation can be seen in Table <a href="discreterv.html#tab:pmfex2tab">5.5</a>.</p>
+<table>
+<caption><span id="tab:pmfex2tab">Table 5.5: </span> Calculations to obtain the expected value.</caption>
+<colgroup>
+<col width="17%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>x</strong></td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">5</td>
+<td align="center">6</td>
+<td align="center">Total</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Pr(X=x)</strong></td>
+<td align="center">0.16667</td>
+<td align="center">0.16667</td>
+<td align="center">0.16667</td>
+<td align="center">0.16667</td>
+<td align="center">0.16667</td>
+<td align="center">0.16667</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>xPr(X=x)</strong></td>
+<td align="center">0.16667</td>
+<td align="center">0.33333</td>
+<td align="center">0.50000</td>
+<td align="center">0.66667</td>
+<td align="center">0.83333</td>
+<td align="center">1.00000</td>
+<td align="center">3.5</td>
+</tr>
+</tbody>
+</table>
+<p>The expected value from tossing a six-sided die is 3.5, i.e. <span class="math inline">\(E(X)=3.5\)</span>. We could verify this empirically if we were to throw the die a large number of times and compute the average value of all the observed outcomes. As the number of throws increases, the average will converge to 3.5 - the simple arithmetic mean of all outcomes. Hence, if all outcomes are equally likely, as in the case of a fair die, then the expected value is simply the arithmetic mean, in the long term. If the probabilities are not equal, the expected value takes into account that all outcomes are not equally likely and a weighted average must be used.</p>
+<p><strong>Q5.3</strong> What is the expected value for event <span class="math inline">\(Y\)</span> defined in Q5.1.</p>
+</div>
+<div id="variance" class="section level3" number="5.2.4">
+<h3><span class="header-section-number">5.2.4</span> Variance</h3>
+<p>Since we cannot say with certainty what the outcome of an event will be, but only what is likely, or expected, there will be some uncertainty associated with the expected value. Can we commonly expect values to be close to the mean value or far from the mean value?</p>
+<p>To quantify the degree to which the values differ from the expected value, or how spread out they may be, we calculate the variance of <span class="math inline">\(X\)</span>, denoted by <span class="math inline">\(Var(X)\)</span>:</p>
+<p><span class="math display">\[\begin{equation}
+Var(X) = \sum_{x=k}^n (x - E(X))^2Pr(X=x)
+\label{discvarx}
+\end{equation}\]</span></p>
+<p>Thus, the variance for the outcome of tossing a die is given by:</p>
+<p><span class="math display">\[Var(X)= (1-3.5)^2 \times 0.1667 + (2-3.5)^2 \times 0.1667 + (3-3.5)^2 \times 0.1667 + (4-3.5)^2 \times 0.1667\]</span>
+<span class="math display">\[ \; \; + (5-3.5)^2 \times 0.1667 + (6-3.5)^2 \times 0.1667\]</span>
+<span class="math display">\[= 1.04167 + 0.37500 + 0.04167 + 0.04167 + 0.3750 + 1.04167 = 2.917 \]</span></p>
+<p>Again, we can add rows in the PMF table to help with this calculation (Table <a href="discreterv.html#tab:pmfex3tab">5.6</a>).</p>
+<table>
+<caption><span id="tab:pmfex3tab">Table 5.6: </span> Intermediate calculations to obtain the variance for a fair, six sided die. (continued below)</caption>
+<colgroup>
+<col width="38%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="center"><strong><span class="math inline">\(x\)</span></strong></td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">4</td>
+</tr>
+<tr class="even">
+<td align="center"><strong><span class="math inline">\(x-E(X)\)</span></strong></td>
+<td align="center">-2.5</td>
+<td align="center">-1.5</td>
+<td align="center">-0.5</td>
+<td align="center">0.5</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong><span class="math inline">\((x-E(X))^2\)</span></strong></td>
+<td align="center">6.25</td>
+<td align="center">2.25</td>
+<td align="center">0.25</td>
+<td align="center">0.25</td>
+</tr>
+<tr class="even">
+<td align="center"><strong><span class="math inline">\((x-E(X))^2\)</span>Pr<span class="math inline">\((X=x)\)</span></strong></td>
+<td align="center">1.041667</td>
+<td align="center">0.375000</td>
+<td align="center">0.041667</td>
+<td align="center">0.041667</td>
+</tr>
+</tbody>
+</table>
+<table style="width:81%;">
+<colgroup>
+<col width="38%" />
+<col width="15%" />
+<col width="15%" />
+<col width="11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="center"><strong><span class="math inline">\(x\)</span></strong></td>
+<td align="center">5</td>
+<td align="center">6</td>
+<td align="center">Total</td>
+</tr>
+<tr class="even">
+<td align="center"><strong><span class="math inline">\(x-E(X)\)</span></strong></td>
+<td align="center">1.5</td>
+<td align="center">2.5</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><strong><span class="math inline">\((x-E(X))^2\)</span></strong></td>
+<td align="center">2.25</td>
+<td align="center">6.25</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><strong><span class="math inline">\((x-E(X))^2\)</span>Pr<span class="math inline">\((X=x)\)</span></strong></td>
+<td align="center">0.375000</td>
+<td align="center">1.041667</td>
+<td align="center">2.917</td>
+</tr>
+</tbody>
+</table>
+<p>The square root of the variance of <span class="math inline">\(X\)</span> is equal to the standard deviation of <span class="math inline">\(X\)</span>,</p>
+<p><span class="math display">\[\begin{align}
+sd(X) = \sqrt {Var(X)}
+\end{align}\]</span></p>
+<p>Therefore, for tossing a six-sided die, the standard deviation will be:</p>
+<p><span class="math display">\[sd(X) = \sqrt{Var(X)} = \sqrt{2.917} = 1.708\]</span></p>
+<p><strong>Q5.4</strong> What is the variance and standard deviation value for event <span class="math inline">\(Y\)</span> defined in Q5.1.</p>
+</div>
+</div>
+<div id="special-discrete-distributions" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Special discrete distributions</h2>
+<p>There are several discrete random variables and associated distributions which are frequently used in statistics; here we describe the Bernoulli, binomial and Poisson distributions.</p>
+<div id="bernoulli-distribution" class="section level3" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Bernoulli distribution</h3>
+<p>A Bernoulli random variable is a discrete random variable which can only have two possible outcomes (e.g. success/failure, yes/no, heads/tails) and these outcomes are represented by 0 and 1. The probability distribution takes the value of 1 with probability <span class="math inline">\(p\)</span> and the value <span class="math inline">\(0\)</span> with probability <span class="math inline">\(q=1-p\)</span>.</p>
+<p>For example, in a single coin toss (denoted by <span class="math inline">\(X\)</span>) we could represent a head with a 1 and a tail with 0 (or vice versa). The probability of obtaining a head, <span class="math inline">\(Pr(X=1) = 0.5\)</span> and so the probability of obtaining a tail is <span class="math inline">\(Pr(X=0) = 1 - 0.5=0.5\)</span>. The PMF is shown in Table <a href="discreterv.html#tab:pmffaircoin">5.7</a>.</p>
+<table>
+<caption><span id="tab:pmffaircoin">Table 5.7: </span> The PMF for tossing a fair coin; Head=1 and Tail=0.</caption>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(x\)</span></th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(Pr(X=x)\)</span></td>
+<td><span class="math inline">\(p\)</span> = 0.5</td>
+<td><span class="math inline">\(1-p\)</span> = 0.5</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- $$ -->
+<!-- \begin{tabular}{c|c} -->
+<!-- \centering -->
+<!-- \textit{x} & \textit{Pr}(\textit{X=x}) \\ -->
+<!-- \hline -->
+<!-- 1 & \textit{p} = 0.5\\ -->
+<!-- \centering -->
+<!-- \end{tabular} -->
+<!-- \caption{The PMF for tossing a fair coin; Head=1 and Tail=0.} -->
+<!-- \label{tab:pmffaircoin} -->
+<!-- $$ -->
+<p><strong>Q5.5</strong> Using the information in Table <a href="discreterv.html#tab:pmffaircoin">5.7</a>, calculate the expected value of a fair coin?</p>
+<p><strong>Q5.6</strong> When practising darts, a darts player considers hitting the bullseye (the centre of the dartboard) with a dart as a success and considers missing the bullseye as a failure. The probability they manage to hit a bullseye is 0.25. Create and complete a PMF for the throw of a single dart.</p>
+</div>
+<div id="binomial-distribution" class="section level3" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Binomial distribution</h3>
+<p>Let <span class="math inline">\(Y_1\)</span>, <span class="math inline">\(Y_2\)</span>, …, <span class="math inline">\(Y_n\)</span> be <span class="math inline">\(n\)</span> independent, Bernoulli random variables with the <strong>same</strong> probability of success, <span class="math inline">\(p\)</span>. Independence means that the outcome from one event has no effect on subsequent events. Define a new variable that is the sum:</p>
+<p><span class="math display">\[X = \sum_{i=1}^n Y_i\]</span>
+<span class="math inline">\(X\)</span> is called a <strong>binomial</strong> random variable and is described by two parameters, the number of trials <span class="math inline">\(n\)</span> and the probability of success, <span class="math inline">\(p\)</span>. This is written concisely using the notation <span class="math inline">\(X \sim \textrm{Binomial}(n, p)\)</span>. The random variable <span class="math inline">\(X\)</span> is the total number of successes out of <span class="math inline">\(n\)</span> trials and follows a binomial distribution provided that:</p>
+<ol style="list-style-type: decimal">
+<li>there are only two possible outcomes for each individual trial,</li>
+<li>the probability of success, <span class="math inline">\(p\)</span>, is constant for all trials,</li>
+<li>there are a fixed number of trials, <span class="math inline">\(n\)</span>, and</li>
+<li>each trial is independent of other trials.</li>
+</ol>
+<p>For <span class="math inline">\(x\)</span> in the set {0, 1, …, <span class="math inline">\(n\)</span>}, the probability mass function of the <span class="math inline">\(\textrm{Binomial}(n, p)\)</span> distribution will provide the probability of obtaining <span class="math inline">\(x\)</span> successes out of <span class="math inline">\(n\)</span> trials:</p>
+<p><span class="math display">\[\begin{equation}
+Pr(X=x) = \frac{n!}{x!(n-x)!}p^x (1-p)^{(n-x)}
+\label{binompdf}
+\end{equation}\]</span></p>
+<p><strong>Example</strong> Consider a game of darts; assume the probability of hitting the bullseye is 0.25 and that one throw has no effect on subsequent throws (i.e. each throw is independent). What is the probability of hitting the bullseye exactly once in 4 attempts? Let <span class="math inline">\(X\)</span> denote hitting a bullseye (a success); we have four attempts (or trials) and so <span class="math inline">\(n=4\)</span>, the probability of a success for each attempt is <span class="math inline">\(p=0.25\)</span>. We want the probability of exactly one success, so <span class="math inline">\(x=1\)</span>. Thus, using equation <a href="#binompdf"><strong>??</strong></a>:</p>
+<p><span class="math display">\[Pr(X=1) = \frac{4!}{1!(4-1)!}(0.25)^1 (1-0.25)^{(4-1)} = \frac{4!}{1!3!} \times 0.25 \times (0.75)^3\]</span></p>
+<p><span class="math display">\[ = 4 \times 0.25 \times 0.421875 = 0.4218\]</span></p>
+<p>We can think of this equation in a more intuitive way and consider each of the components. There are four ways of throwing exactly one bullseye in four attempts - we could hit the bullseye on the first, second, third or fourth attempt. The probability of throwing one bullseye is 0.25 and the probability of missing on three attempts is given by <span class="math inline">\(0.75 \times 0.75 \times 0.75\)</span>. Thus, putting all the components together, we have <span class="math inline">\(4 \times 0.25 \times (0.75)^3 = 0.4218\)</span> which is what we had previously. It does not matter that the bullseye was the first, second, third or fourth attempt - the binomial distribution does not consider the order of events.</p>
+<p>Equation <a href="#binompdf"><strong>??</strong></a> can be used to complete the PMF for this example (i.e. obtain the probability for 0, 1, 2, 3 and 4 bullseye in four attempts). However, as we have seen doing these calculations can be a bit long-winded. Fortunately, there is an R function to do this.</p>
+<div id="binomR" class="section level4" number="5.3.2.1">
+<h4><span class="header-section-number">5.3.2.1</span> Doing this in R</h4>
+<p>To calculate values from a binomial distribution, there are a special group of functions with the suffix, <code>binom</code>. To obtain a probability (i.e. <span class="math inline">\(Pr(X=x)\)</span>) we use the <code>dbinom</code> function and need to specify the parameters of the binomial distribution (i.e. <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span>).</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="discreterv.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the probability from a binomial distribution</span></span>
+<span id="cb56-2"><a href="discreterv.html#cb56-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="co"># number of trials</span></span>
+<span id="cb56-3"><a href="discreterv.html#cb56-3" aria-hidden="true" tabindex="-1"></a>xsuccess <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># required number of successes</span></span>
+<span id="cb56-4"><a href="discreterv.html#cb56-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.25</span> <span class="co"># probability of a success</span></span>
+<span id="cb56-5"><a href="discreterv.html#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x=</span>xsuccess, <span class="at">size=</span>n, <span class="at">prob=</span>p)</span></code></pre></div>
+<pre><code>[1] 0.421875</code></pre>
+<p>The <code>dbinom</code> function can be used to calculate the probabilities associated with all possible outcomes and thus create the PMF. The possible outcomes range from no bullseyes in four throws up to four bullseyes.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="discreterv.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the PMF </span></span>
+<span id="cb58-2"><a href="discreterv.html#cb58-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>) <span class="co"># Specify all possible outcomes</span></span>
+<span id="cb58-3"><a href="discreterv.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check dataframe has been created correctly</span></span>
+<span id="cb58-4"><a href="discreterv.html#cb58-4" aria-hidden="true" tabindex="-1"></a>results</span></code></pre></div>
+<pre><code>  x
+1 0
+2 1
+3 2
+4 3
+5 4</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="discreterv.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the probabilty of each outcome</span></span>
+<span id="cb60-2"><a href="discreterv.html#cb60-2" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>PMF <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x=</span>results<span class="sc">$</span>x, <span class="at">size=</span>n, <span class="at">prob=</span>p)</span>
+<span id="cb60-3"><a href="discreterv.html#cb60-3" aria-hidden="true" tabindex="-1"></a>results</span></code></pre></div>
+<pre><code>  x        PMF
+1 0 0.31640625
+2 1 0.42187500
+3 2 0.21093750
+4 3 0.04687500
+5 4 0.00390625</code></pre>
+<p>Another function, <code>pbinom</code>, calculates the CDF as follows:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="discreterv.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the CDF</span></span>
+<span id="cb62-2"><a href="discreterv.html#cb62-2" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>CDF <span class="ot">&lt;-</span> <span class="fu">pbinom</span>(<span class="at">q=</span>results<span class="sc">$</span>x, <span class="at">size=</span>n, <span class="at">prob=</span>p)</span>
+<span id="cb62-3"><a href="discreterv.html#cb62-3" aria-hidden="true" tabindex="-1"></a>results</span></code></pre></div>
+<pre><code>  x        PMF       CDF
+1 0 0.31640625 0.3164063
+2 1 0.42187500 0.7382812
+3 2 0.21093750 0.9492188
+4 3 0.04687500 0.9960938
+5 4 0.00390625 1.0000000</code></pre>
+</div>
+<div id="visualising-the-binomial-distribution-for-different-values-of-n-and-p" class="section level4" number="5.3.2.2">
+<h4><span class="header-section-number">5.3.2.2</span> Visualising the binomial distribution for different values of <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span></h4>
+<p>We can think about the change in the shape of the binomial distribution as the probability of success changes, for example, Figure <a href="discreterv.html#fig:binomfreq">5.1</a> shows the PMF for <span class="math inline">\(n\)</span>=10 and three different values of <span class="math inline">\(p\)</span>:</p>
+<ul>
+<li><p>when <span class="math inline">\(p\)</span> is low (e.g. <span class="math inline">\(p=0.1\)</span>) we only expect to see a small number of successes out of the 10 trials and the distribution is skewed to the right - we can’t have fewer than zero successes and we don’t see many high values.</p></li>
+<li><p>when <span class="math inline">\(p\)</span> is 0.5 we may expect to see about half of the 10 trials are successful and the distribution is symmetrical - about half the time we see more than 5 successes and about half the time we see fewer than 5 successes (out of the 10 trials).</p></li>
+<li><p>when <span class="math inline">\(p\)</span> is high (e.g. <span class="math inline">\(p=0.9\)</span>), we expect a large number of successes out of the 10 trials and the distribution is skewed to the left - we can’t have more than ten successes and we don’t see many low values.</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:binomfreq"></span>
+<img src="IntroStats_files/figure-html/binomfreq-1.png" alt="Probability mass functions for three different probabilities, $p$, and 10 trials." width=".8\linewidth" />
+<p class="caption">
+Figure 5.1: Probability mass functions for three different probabilities, <span class="math inline">\(p\)</span>, and 10 trials.
+</p>
+</div>
+<p>You can explore some other combinations of <span class="math inline">\(p\)</span> and <span class="math inline">\(n\)</span> in Figure <a href="discreterv.html#fig:binshiny">5.2</a>. There is also a live version <a href="https://moniquemackenzie.shinyapps.io/IntroStats_Binomial/">here</a></p>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:binshiny"></span>
+<iframe src="https://moniquemackenzie.shinyapps.io/IntroStats_Binomial/?showcase=0" width="480" height="600px" data-external="1">
+</iframe>
+<p class="caption">
+Figure 5.2: Visualising the Binomial distribution. You can see a live version by clicking <a href="https://moniquemackenzie.shinyapps.io/IntroStats_Binomial/">here</a>
+</p>
+</div>
+</div>
+<div id="expectation-and-variance" class="section level4" number="5.3.2.3">
+<h4><span class="header-section-number">5.3.2.3</span> Expectation and variance</h4>
+<p>Using equation <a href="#binompdf"><strong>??</strong></a>, we can calculate the probability the darts player throws none, one, two, three or four bullseyes but what is the number of bullseyes that the darts player might expect to hit in the long term, given they have four attempts? For a binomial random variable, there is a simple formula to calculate the expected number.</p>
+<p>The expected value of a binomial random variable is given by</p>
+<p><span class="math display">\[\begin{align}
+E(X) = np
+\end{align}\]</span></p>
+<p>and the variance is found from</p>
+<p><span class="math display">\[\begin{align}
+Var(X) = np(1-p)
+\end{align}\]</span></p>
+<p>Thus, the number of times the darts player would expect to hit the bullseye with 4 throws is</p>
+<p><span class="math display">\[E(X) = 4 \times 0.25 = 1\]</span></p>
+<p>and the variance is</p>
+<p><span class="math display">\[Var(X) = 4 \times 0.25 \times (1-0.25) = 0.75\]</span></p>
+<p><strong>Q5.7</strong> In an online quiz, there are 10 multiple-choice questions and 4 possible options for each question, with only one correct option per question. A student, who is short on time, decides to randomly select an option for each question.</p>
+<p><strong>a.</strong> What is the probability of selecting the correct option for a question?</p>
+<p><strong>b.</strong> What is the expected number of questions that the student will answer correctly?</p>
+<p><strong>c.</strong> What is the probability of answering all questions correctly?</p>
+<p><strong>d.</strong> What is the probability of answering no questions correctly?</p>
+<p><strong>e.</strong> Is the student more likely to select the correct answer for every question or the wrong answer for every question?</p>
+<p><strong>Q5.8</strong> Use the PMF values shown in section <a href="discreterv.html#binomR">5.3.2.1</a> for throwing four darts (i.e. the output from R) and equation <a href="#discexpx"><strong>??</strong></a> to confirm that the expected number of bullseye the player could be expected to throw is 1. Use equation <a href="#discvarx"><strong>??</strong></a> to confirm that the variance is 0.75 and hence calculate the standard deviation.</p>
+</div>
+</div>
+<div id="poisdist" class="section level3" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> Poisson distribution</h3>
+<p>The Poisson distribution is used to describe the number of events occurring in some time interval, if these events occur at a known constant mean rate (<span class="math inline">\(\lambda\)</span>) and independently of the time since the last event. An example of a Poisson variable might be the number of cars passing a certain point within a ten minute period. The interval could also apply to a specified area or volume, for example, the number of trees in a hectare.</p>
+<p>A Poisson random variable <span class="math inline">\(X\)</span> is a discrete random variable with an infinite, but countable, set of possible values, in particular <span class="math inline">\(X\)</span> can equal values 0, 1, 2, 3, …, and <span class="math inline">\(\lambda &gt; 0\)</span>. This can be written as <span class="math inline">\(X \sim \textrm{Poisson}(\lambda)\)</span>.</p>
+<p>The PMF for a Poisson random variable <span class="math inline">\(X\)</span> is given by</p>
+<p><span class="math display">\[ Pr(X=x) = \frac{e^{-\lambda}\lambda^x}{x!}\]</span>
+For example, the probability that <span class="math inline">\(X=3\)</span> given that events occur with a mean rate <span class="math inline">\(\lambda=4\)</span> is found from:</p>
+<p><span class="math display">\[ Pr(X=3) = \frac{e^{-4} \times 4 \times 3}{3!} = \frac{1.1722}{6} = 0.1954\]</span></p>
+<p>The underlying process that gives rise to a Poisson distribution is one where:</p>
+<ul>
+<li><span class="math inline">\(x\)</span> is the number of times that an event occurs in some interval and <span class="math inline">\(x\)</span> can take values 0, 1, 2, …</li>
+<li>events are independent, i.e. the occurrence of one event does not affect the occurrence of a second event</li>
+<li>the mean rate of occurrence, <span class="math inline">\(\lambda\)</span>, is independent of occurrences. This is usually assumed to be constant but in reality may vary over time.</li>
+<li>two events cannot occur at exactly the same instant, instead at each very small sub-interval either exactly one event occurs or does not occur.</li>
+</ul>
+<p><strong>Example</strong> The number of volcanic eruptions, <span class="math inline">\(X\)</span>, in Japan in a year has a Poisson distribution with <span class="math inline">\(\lambda = 2.4\)</span>. What is the probability that there are no eruptions in a given year?</p>
+<p><span class="math display">\[ Pr(X=0) = \frac{e^{-2.4} \times 2.4^ 0}{0!} = \frac{0.0907}{1} = 0.0.907\]</span></p>
+<div id="doing-this-in-r-5" class="section level4" number="5.3.3.1">
+<h4><span class="header-section-number">5.3.3.1</span> Doing this in R</h4>
+<p>Similar to the binomial distribution, there are a suite of functions that can be used to obtain values from a Poisson distribution - the suffix is <code>pois</code>.</p>
+<p>Using the example above, the probability of selecting 5 people with XP given <span class="math inline">\(\lambda=4\)</span> can be found using:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="discreterv.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="at">x=</span><span class="dv">0</span>, <span class="at">lambda=</span><span class="fl">2.4</span>)</span></code></pre></div>
+<pre><code>[1] 0.09071795</code></pre>
+<p>The CDF is found using the <code>ppois</code> function. For example this function can be used to calculate the probability of selecting less than 3 people with XP (i.e. <span class="math inline">\(Pr(X \le 3)\)</span>).</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="discreterv.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CDF </span></span>
+<span id="cb66-2"><a href="discreterv.html#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ppois</span>(<span class="at">q=</span><span class="dv">2</span>, <span class="at">lambda=</span><span class="fl">2.4</span>)</span></code></pre></div>
+<pre><code>[1] 0.5697087</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="discreterv.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is equivalent to</span></span>
+<span id="cb68-2"><a href="discreterv.html#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="at">x=</span><span class="dv">0</span>, <span class="at">lambda=</span><span class="fl">2.4</span>) <span class="sc">+</span> <span class="fu">dpois</span>(<span class="at">x=</span><span class="dv">1</span>, <span class="at">lambda=</span><span class="fl">2.4</span>) <span class="sc">+</span> <span class="fu">dpois</span>(<span class="at">x=</span><span class="dv">2</span>, <span class="at">lambda=</span><span class="fl">2.4</span>)</span></code></pre></div>
+<pre><code>[1] 0.5697087</code></pre>
+</div>
+<div id="expected-value-and-variance" class="section level4" number="5.3.3.2">
+<h4><span class="header-section-number">5.3.3.2</span> Expected value and variance</h4>
+<p>A Poisson random variable has the interesting property such that the expected value and the variance are equal to the mean rate of occurrence:</p>
+<p><span class="math display">\[E(X) = Var(X) = \lambda\]</span>
+Thus, returning to the example of the genetic disorder, the expected number of people out of one million people with XP is 4 and the variance is 4.</p>
+<p>The standard deviation is given by</p>
+<p><span class="math display">\[sd(X) = \sqrt{\lambda}\]</span></p>
+<p><strong>Q5.9</strong> The number of people buying an umbrella per day from a shop in April is Poisson
+distributed with mean rate 4.5. What is the probability that at least 3 people buy an umbrella on an April day? Confirm your calculation using R.</p>
+</div>
+</div>
+<div id="comparison-of-binomial-and-poisson-distributions" class="section level3" number="5.3.4">
+<h3><span class="header-section-number">5.3.4</span> Comparison of binomial and Poisson distributions</h3>
+<p>The binomial and Poisson distributions are similar, in that they both measure the number of events. However, the binomial is based on discrete events - it provides the probability of a certain number of events out of a fixed number of trials and the probability of success in each trial is the same. The Poisson distribution provides the probability of a certain number of events occurring in a continuous domain, such that there are very many trials each with only one event. It turns out, that if <span class="math inline">\(n\)</span> is large (i.e. <span class="math inline">\(n \rightarrow \infty\)</span>) and <span class="math inline">\(p\)</span> is small (<span class="math inline">\(p \rightarrow 0\)</span>), the binomial distribution is very like the Poisson distribution.</p>
+<p><strong>Example</strong>  (XP) is a genetic disorder which means that affected individuals are extremely sensitive to ultraviolet rays. The frequency in the US and Europe is approximately 1 person in 250,000 people. If 1,000,000 people are randomly sampled, what is the probability that five people with XP are selected?</p>
+<p>In this example, there are a fixed number of trials (i.e. 1,000,000) and so the probability is calculated with a binomial PMF, where the probability of success is 1 in 250,000. To make calculations easy, we do this in R.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="discreterv.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x=</span><span class="dv">5</span>, <span class="at">size=</span><span class="dv">1000000</span>, <span class="at">prob=</span><span class="dv">1</span><span class="sc">/</span><span class="dv">250000</span>)</span></code></pre></div>
+<pre><code>[1] 0.1562938</code></pre>
+<p>In this example, <span class="math inline">\(n\)</span> is very large and <span class="math inline">\(p\)</span> is small and so we could think of this in terms of the Poisson distribution. The mean rate of XP occurrence in one million people, <span class="math inline">\(\lambda\)</span>, is 4 people per million and we want the probability of selecting 5 people with XP from a million. Hence,</p>
+<p><span class="math display">\[Pr(X=5) = \frac{e^{-4}4^5}{5!} = \frac{18.755}{120} = 0.156\]</span></p>
+<p>This is the same result as before, hence, the Poisson distribution is used to model occurrences of events that could happen a large number of times but rarely does (e.g. the occurrence of rare illnesses in a population). Note that these distributions are only similar when <span class="math inline">\(n\)</span> is very large and <span class="math inline">\(p\)</span> is small and these days modern computing power makes it easy to do the calculation using the binomial distribution.</p>
+</div>
+</div>
+<div id="SUMdiscrv" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Summary</h2>
+<p>A discrete random variable is a quantity that can take a finite number of outcomes, but the outcome can not be predicted with certainty, only probabilistically. The probability mass function (PMF) describes these probabilities denoted by <span class="math inline">\(Pr(X=x)\)</span> and the cumulative distribution function (CDF) provides <span class="math inline">\(Pr(X \le x)\)</span>. Using the PMF table, the expected value and standard deviation can easily be calculated. For specific discrete distributions, these values can be found from simple formulae.</p>
+<div id="learning-outcomes-2" class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Learning outcomes</h3>
+<p>In this chapter, you have learnt definitions for</p>
+<ol style="list-style-type: decimal">
+<li><p>a discrete random variable</p></li>
+<li><p>probability mass function and cumulative distribution function</p></li>
+<li><p>and the expected value and variance of a discrete random variable</p></li>
+</ol>
+<p>and been introduced to special cases of discrete random variables such as Bernoulli, binomial and Poisson random variables.</p>
+</div>
+</div>
+<div id="ANSdiscrv" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Answers</h2>
+<p><strong>Q5.1</strong> First of all, we need to consider the possible outcomes and how many ways there are to obtain them. For two dice (let’s call them A and B), the table below shows all possible outcomes of event <span class="math inline">\(Y\)</span>:</p>
+<p>There are 36 possible combinations and the possible outcomes are 2 to 12, inclusive. There is only one way to obtain 2, (i.e. throw a 1 on both A and B) but two ways to obtain a 3 (i.e. 1 on A and 2 on B and vice versa). Using this, we can start to construct the PMF. The probability of obtaining a 2 is <span class="math inline">\(Pr(Y=2) = \frac{1}{36} = 0.02778\)</span> - a similar calculation is used to fill-in the rest of the PMF table.</p>
+<p><strong>Q5.2</strong> <strong>a.</strong> The CDF follows easily from the PMF in Q5.1 because it is simply the cumulative sum of the PMF.</p>
+<table style="width:42%;">
+<colgroup>
+<col width="6%" />
+<col width="5%" />
+<col width="13%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">y</th>
+<th align="center">n</th>
+<th align="center">Pr(Y=y)</th>
+<th align="center">Pr(Y&lt;=y)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">0.02778</td>
+<td align="center">0.02778</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">0.05556</td>
+<td align="center">0.08333</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">3</td>
+<td align="center">0.08333</td>
+<td align="center">0.1667</td>
+</tr>
+<tr class="even">
+<td align="center">5</td>
+<td align="center">4</td>
+<td align="center">0.1111</td>
+<td align="center">0.2778</td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">5</td>
+<td align="center">0.1389</td>
+<td align="center">0.4167</td>
+</tr>
+<tr class="even">
+<td align="center">7</td>
+<td align="center">6</td>
+<td align="center">0.1667</td>
+<td align="center">0.5833</td>
+</tr>
+<tr class="odd">
+<td align="center">8</td>
+<td align="center">5</td>
+<td align="center">0.1389</td>
+<td align="center">0.7222</td>
+</tr>
+<tr class="even">
+<td align="center">9</td>
+<td align="center">4</td>
+<td align="center">0.1111</td>
+<td align="center">0.8333</td>
+</tr>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">3</td>
+<td align="center">0.08333</td>
+<td align="center">0.9167</td>
+</tr>
+<tr class="even">
+<td align="center">11</td>
+<td align="center">2</td>
+<td align="center">0.05556</td>
+<td align="center">0.9722</td>
+</tr>
+<tr class="odd">
+<td align="center">12</td>
+<td align="center">1</td>
+<td align="center">0.02778</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Q5.2</strong> <strong>b.</strong> The probability that <span class="math inline">\(Y\)</span> is less than, or equal to, 7 is obtained from the CDF:</p>
+<p><span class="math display">\[Pr(Y \le 7) = 0.5833 \]</span></p>
+<p><strong>Q5.2</strong> <strong>c.</strong> The probability that <span class="math inline">\(Y\)</span> will be odd is given by:</p>
+<p><span class="math display">\[Pr(Y \textrm{ is odd}) = Pr(X=3) + Pr(X=5) + Pr(X=7) + Pr(X=9) + Pr(X=11) \]</span>
+<span class="math display">\[ = 0.0555 + 0.1111 + 0.1667 + 0.1111 + 0.0555 = 0.5 \]</span></p>
+<p><strong>Q5.3</strong> The expected value of <span class="math inline">\(Y\)</span> is given by:</p>
+<p><span class="math display">\[E(Y) = \sum_{y=2}^{12} yPr(Y=y)\]</span>
+Adding an extra column in the table showing <span class="math inline">\(yPr(Y=y)\)</span> can help with this calculation:</p>
+<table style="width:39%;">
+<colgroup>
+<col width="8%" />
+<col width="13%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">y</th>
+<th align="center">Pr(Y=y)</th>
+<th align="center">y.Pr(Y=y)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">0.02778</td>
+<td align="center">0.05556</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">0.05556</td>
+<td align="center">0.1667</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">0.08333</td>
+<td align="center">0.3333</td>
+</tr>
+<tr class="even">
+<td align="center">5</td>
+<td align="center">0.1111</td>
+<td align="center">0.5556</td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">0.1389</td>
+<td align="center">0.8333</td>
+</tr>
+<tr class="even">
+<td align="center">7</td>
+<td align="center">0.1667</td>
+<td align="center">1.167</td>
+</tr>
+<tr class="odd">
+<td align="center">8</td>
+<td align="center">0.1389</td>
+<td align="center">1.111</td>
+</tr>
+<tr class="even">
+<td align="center">9</td>
+<td align="center">0.1111</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">0.08333</td>
+<td align="center">0.8333</td>
+</tr>
+<tr class="even">
+<td align="center">11</td>
+<td align="center">0.05556</td>
+<td align="center">0.6111</td>
+</tr>
+<tr class="odd">
+<td align="center">12</td>
+<td align="center">0.02778</td>
+<td align="center">0.3333</td>
+</tr>
+<tr class="even">
+<td align="center">Sum</td>
+<td align="center">1</td>
+<td align="center">7</td>
+</tr>
+</tbody>
+</table>
+<p>Thus, <span class="math inline">\(E(Y)=7\)</span>.</p>
+<p><strong>Q5.4</strong> The variance is calculated from</p>
+<p><span class="math display">\[Var(Y) = \sum_{y=2}^{12} (y-E(Y))^2Pr(Y=y)\]</span>
+Again adding columns in the PMF table can ease this calculation:</p>
+<table style="width:82%;">
+<colgroup>
+<col width="8%" />
+<col width="13%" />
+<col width="12%" />
+<col width="18%" />
+<col width="29%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">y</th>
+<th align="center">Pr(Y=y)</th>
+<th align="center">y-E(Y)</th>
+<th align="center">(y-E(Y))^2</th>
+<th align="center">(y-E(Y))^2.Pr(Y=y)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">0.02778</td>
+<td align="center">-5</td>
+<td align="center">25</td>
+<td align="center">0.6944</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">0.05556</td>
+<td align="center">-4</td>
+<td align="center">16</td>
+<td align="center">0.8889</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">0.08333</td>
+<td align="center">-3</td>
+<td align="center">9</td>
+<td align="center">0.75</td>
+</tr>
+<tr class="even">
+<td align="center">5</td>
+<td align="center">0.1111</td>
+<td align="center">-2</td>
+<td align="center">4</td>
+<td align="center">0.4444</td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">0.1389</td>
+<td align="center">-1</td>
+<td align="center">1</td>
+<td align="center">0.1389</td>
+</tr>
+<tr class="even">
+<td align="center">7</td>
+<td align="center">0.1667</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">8</td>
+<td align="center">0.1389</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0.1389</td>
+</tr>
+<tr class="even">
+<td align="center">9</td>
+<td align="center">0.1111</td>
+<td align="center">2</td>
+<td align="center">4</td>
+<td align="center">0.4444</td>
+</tr>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">0.08333</td>
+<td align="center">3</td>
+<td align="center">9</td>
+<td align="center">0.75</td>
+</tr>
+<tr class="even">
+<td align="center">11</td>
+<td align="center">0.05556</td>
+<td align="center">4</td>
+<td align="center">16</td>
+<td align="center">0.8889</td>
+</tr>
+<tr class="odd">
+<td align="center">12</td>
+<td align="center">0.02778</td>
+<td align="center">5</td>
+<td align="center">25</td>
+<td align="center">0.6944</td>
+</tr>
+<tr class="even">
+<td align="center">Sum</td>
+<td align="center">1</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">5.833</td>
+</tr>
+</tbody>
+</table>
+<p>Thus, <span class="math inline">\(Var(Y)=5.83\)</span>.</p>
+<p><strong>Q5.5</strong> Tossing a fair coin will have two outcomes, head or tail. Thus, it is an example of a Bernoulli random variable. Here we assign head=1 and tail=0. The PMF is shown below:</p>
+<p>The expected value can be found from equation <a href="#discexpx"><strong>??</strong></a> i.e. </p>
+<p><span class="math display">\[E(X) = \sum_{x=k} ^ n xPr(X=x)\]</span>
+Thus, <span class="math inline">\(E(X)=0.5\)</span> as shown below:</p>
+<p><span class="math display">\[E(X) = \sum_{x=0} ^ 1 xPr(X=x) = 0 \times Pr(X=0) + 1 \times Pr(X=1)\]</span></p>
+<p><span class="math display">\[E(X) = 0 \times 0.5 + 1 \times 0.5 = 0.5\]</span></p>
+<p><strong>Q5.6</strong> There are two outcomes, success (bullseye) and failure (missing a bullseye). The PMF is shown below.</p>
+<p><strong>Q5.7</strong> <strong>a.</strong> The probability of selecting the correct multiple choice option is
+<span class="math display">\[Pr(success)= \frac{1}{4} = 0.25\]</span></p>
+<p><strong>Q5.7</strong> <strong>b.</strong> In this case, there are two outcomes per question: correct (success) or incorrect and there are a fixed number of questions (trials). Therefore, we consider the number of successes (<span class="math inline">\(X\)</span>) to follow a binomial distribution, <span class="math inline">\(X \sim \textrm{Binomial}(10, 0.25)\)</span>. The expected number of successes is given by</p>
+<p><span class="math display">\[E(X) = np = 10 \times 0.25 = 2.5\]</span></p>
+<p><strong>Q5.7</strong> <strong>c.</strong> Equation <a href="#binompdf"><strong>??</strong></a> can be used to calculate the probability of <span class="math inline">\(x\)</span> successes out of <span class="math inline">\(n\)</span> trials - in this example, we want the probability that all questions are answered correctly - so 10 successes:</p>
+<p><span class="math display">\[Pr(X=10) = \frac{10!}{10!(10-10)!}(0.25)^{10} (1-0.25)^{(10-10)}\]</span>
+<span class="math display">\[ = \frac{10!}{10!0!}(0.25)^10 (0.75)^{0} = 0.25^{10} = 0.0953 \times 10^{-5}\]</span></p>
+<p><strong>Q5.7</strong> <strong>d.</strong> Similarly, if the student answers no questions correctly, then <span class="math inline">\(x=0\)</span>:</p>
+<p><span class="math display">\[Pr(X=10) = \frac{10!}{0!(10-0)!}(0.25)^0 (1-0.25)^{(10-0)}\]</span>
+<span class="math display">\[= \frac{10!}{0!10!}(0.25)^0 (0.75)^{10} = 0.75^{10} = 0.0563\]</span></p>
+<p><strong>Q5.7</strong> <strong>e.</strong> The probability of <span class="math inline">\(Pr(X=0)\)</span> is much greater than the <span class="math inline">\(Pr(X=10)\)</span>, hence the student is more likely to choose the wrong option for all questions than choose all the correct options. This is commonsense perhaps, because there are more wrong options to choose from.</p>
+<p><strong>Q5.8</strong> Let <span class="math inline">\(X\)</span> be a throw of four darts, we use the PMF table to obtain the <span class="math inline">\(E(X)\)</span>.</p>
+<table style="width:47%;">
+<colgroup>
+<col width="11%" />
+<col width="18%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">x</th>
+<th align="center">Pr(X=x)</th>
+<th align="center">xPr(X=x)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0.31640625</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">0.421875</td>
+<td align="center">0.421875</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">0.2109375</td>
+<td align="center">0.421875</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">0.046875</td>
+<td align="center">0.140625</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">0.00390625</td>
+<td align="center">0.015625</td>
+</tr>
+<tr class="even">
+<td align="center">Total</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+<p>Thus, by summing the final column in the table, we see that the <span class="math inline">\(E(X)=1\)</span>.</p>
+<p>The variance and intermediate calculations are given in the table below.</p>
+<table style="width:93%;">
+<colgroup>
+<col width="11%" />
+<col width="18%" />
+<col width="31%" />
+<col width="31%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">x</th>
+<th align="center">Pr(X=x)</th>
+<th align="center">(x-E(X))^2</th>
+<th align="center">(x-E(X))^2.Pr(X=x)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0.31640625</td>
+<td align="center">1</td>
+<td align="center">0.31640625</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">0.421875</td>
+<td align="center">1.23259516440783e-32</td>
+<td align="center">5.20001084984554e-33</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">0.2109375</td>
+<td align="center">1</td>
+<td align="center">0.2109375</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">0.046875</td>
+<td align="center">4</td>
+<td align="center">0.1875</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">0.00390625</td>
+<td align="center">9</td>
+<td align="center">0.03515625</td>
+</tr>
+<tr class="even">
+<td align="center">Total</td>
+<td align="center">1</td>
+<td align="center"></td>
+<td align="center">0.75</td>
+</tr>
+</tbody>
+</table>
+<p>Thus, <span class="math inline">\(Var(X)=0.75\)</span> and so <span class="math inline">\(sd(X)=\sqrt{0.75}=0.866\)</span>.</p>
+<p><strong>Q5.9</strong> Here, we want <span class="math inline">\(Pr(X \le 3)\)</span> and <span class="math inline">\(\lambda=4.5\)</span>, thus,</p>
+<p><span class="math display">\[Pr(X\le 3) = Pr(X=0) + Pr(X=1) + Pr(X=2) + Pr(X=3) \]</span>
+<span class="math display">\[ = \frac{e^{-4.5}4.5^0}{0!} + \frac{e^{-4.5}4.5^1}{1!} + \frac{e^{-4.5}4.5^2}{2!} + \frac{e^{-4.5}4.5^3}{3!}\]</span></p>
+<p><span class="math display">\[ = 0.0111 + 0.04999 + \frac{0.2249}{2} + \frac{1.0123}{6} = 0.3423\]</span>
+We can confirm this calculation in R using the function <code>ppois</code>:</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="discreterv.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ppois</span>(<span class="at">q=</span><span class="dv">3</span>, <span class="at">lambda=</span><span class="fl">4.5</span>)</span></code></pre></div>
+<pre><code>[1] 0.342296</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="discreterv.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check this calculation</span></span>
+<span id="cb74-2"><a href="discreterv.html#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="at">x=</span><span class="dv">0</span>, <span class="at">lambda=</span><span class="fl">4.5</span>) <span class="sc">+</span> <span class="fu">dpois</span>(<span class="at">x=</span><span class="dv">1</span>, <span class="at">lambda=</span><span class="fl">4.5</span>) <span class="sc">+</span> </span>
+<span id="cb74-3"><a href="discreterv.html#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dpois</span>(<span class="at">x=</span><span class="dv">2</span>, <span class="at">lambda=</span><span class="fl">4.5</span>) <span class="sc">+</span> <span class="fu">dpois</span>(<span class="at">x=</span><span class="dv">3</span>, <span class="at">lambda=</span><span class="fl">4.5</span>)</span></code></pre></div>
+<pre><code>[1] 0.342296</code></pre>
+<!-- ## Bibliography -->
+<!-- **fix here** -->
+<!-- Borowski EJ and Borwein JM (1989) Collins Dictionary of Mathematics, Harper Collins Publishers, UK  -->
+
+<!-- LB update - 03/09/2020 -->
+<!-- LB update - 31/07/2020 -->
+<!-- Equation numbering needs sorting -->
+<!-- LB update including eqn numbers- 12/01/2022 -->
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-BorowskiBorwein" class="csl-entry">
+Borowski, E. J., and J. M. Borwein. 1989. <em>Collins Dictionary of Mathematics</em>. Collins.
+</div>
+<div id="ref-Doyle1894" class="csl-entry">
+Doyle, Sir Arthur Conan. 1894. <em>Memoirs of Sherlock Holmes</em>. George Newness.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="probability.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="contrv.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="book_assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="book_assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["IntroStats.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
