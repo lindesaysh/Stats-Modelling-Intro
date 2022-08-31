@@ -367,7 +367,7 @@ The PMF for a Poisson random variable $X$ is given by
 $$ Pr(X=x) = \frac{e^{-\lambda}\lambda^x}{x!}$$
 For example, the probability that $X=3$ given that events occur with a mean rate $\lambda=4$ is found from: 
 
-$$ Pr(X=3) = \frac{e^{-4} \times 4 \times 3}{3!} = \frac{1.1722}{6} = 0.1954$$
+$$ Pr(X=3) = \frac{e^{-4} \times 4^ 3}{3!} = \frac{1.1722}{6} = 0.1954$$
 
 The underlying process that gives rise to a Poisson distribution is one where:
 
@@ -384,7 +384,7 @@ $$ Pr(X=0) = \frac{e^{-2.4} \times 2.4^ 0}{0!} = \frac{0.0907}{1} = 0.0.907$$
 
 Similar to the binomial distribution, there are a suite of functions that can be used to obtain values from a Poisson distribution - the suffix is `pois`. 
 
-Using the example above, the probability of selecting 5 people with XP given $\lambda=4$ can be found using:
+Using the example above, the probability that there are no eruptions in a year given mean rate $\lambda=2.4$ can be found using:
 
 ```{r}
 dpois(x=0, lambda=2.4)

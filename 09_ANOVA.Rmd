@@ -33,6 +33,7 @@ plant$Group <- factor(plant$Group, levels=c("B","N","P"))
 
 plant.sum <- data.frame(GM=c("B","N","P", "Total"), n=c(13, 9, 24,46), Mean=c(5.10, 7.58, 8.85, 7.54), SD=c(1.318, 1.622, 1.447, 2.153))
 ```
+
 We start with a motivating example; a sample of plants have been grown in three different growing mediums and the amounts of various chemical elements in a leaf from each plant have been obtained. It was felt that the chemical composition of the plants was specific to growing medium and, if so, this may help identify where the plants were grown.  The growing mediums, or groups, were classified as B, N and P and here, we are interested in whether the mean titanium levels differ between the three groups (Figure \@ref(fig:plantbox)).
 
 ```{r plantbox, echo=F, fig.cap="Distributions of titanium levels in three groups."}
@@ -460,7 +461,7 @@ The choice of whether, or not, to make any adjustment is not straightforward and
 
 So far we have compared data where there has been only one division of the data into groups (e.g. growing medium) and so specifically we have considered one-way ANOVA. Frequently, we may need to account for an additional discrete variable (e.g. plant variety). This can be done using a two-way ANOVA. 
 
-Like many statistical methods, ANOVA arose out of research in agricultural science and so the terminology used frequently references its development and here we use an agricultural example to illustrate its use (after [@ClarkeCooke1998]. 
+Like many statistical methods, ANOVA arose out of research in agricultural science and so the terminology used frequently references its development and here we use an agricultural example to illustrate its use (after [@ClarkeCooke1998]). 
 
 Suppose we are interested in the crop yield of 5 different varieties of a plant (e.g. potato). A large field is divided into 20 (4 by 5) small units (or plots) and each variety (denoted by A to E) is randomly assigned to 4 plots (Table \@ref(tab:crd.example)). All plants are cultivated in the same way and each plot receives the same amount of fertilizer, for example. Thus, the only reason for systematic variation between plots would be different varieties. This design, where varieties were assigned to plots completely at random is known as a __completely randomised design__. We could analyse the data arising from this experiment with a one-way ANOVA. 
 

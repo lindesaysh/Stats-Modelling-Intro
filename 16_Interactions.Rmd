@@ -370,8 +370,8 @@ Residuals        24407454 31488
 ```
 
 + If we remove the `YPos`-`Phase` interaction from the model then all terms are now significant in the model.
-+ Note, while the `Phase` term considered alone is not significant in the model, it forms part of the interaction term and so is typically retained in the model regardless.
-+ There are not grounds to reduce this model further, if backwards selection was being undertaken. 
++ In this case, the `Phase` term considered alone is significant. If it had not been significant, it would be still be retained in the model because it forms part of a significant interaction term.
++ There are no grounds to reduce this model further, if backwards selection was being undertaken. 
 
 
 ### Medical data
@@ -417,7 +417,7 @@ In this case, the $p$-value associated with the last term is the same as we migh
 
 ## Model selection and interactions
 
-If backwards model selection is being undertaken, interaction terms should be considered first for removal (following the principle of marginality) and then other main effects not associated with the interaction as before. Main effects associated with the interaction should not be considered (for rejection) unless the interaction is rejected. 
+If backwards model selection is being undertaken, interaction terms should be considered first for removal (following the principle of marginality) and then other main effects, not associated with remaining interactions, as before. Main effects associated with the interaction should not be considered (for rejection) unless the interaction is rejected. 
 
 If forwards selection is being undertaken, main effects should be added first and then interactions added. 
 
@@ -458,37 +458,64 @@ To illustrate model selection with AIC, we start again with the full model above
 
 \small
 ```{r, eval=T, echo=T}
+# complex model
 AIC(lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +  
                      Phase + XPos:Phase + YPos:Phase, data=wfdata))
+# remove YPos:phase interaction
 AIC(lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +  
                      Phase + XPos:Phase, data=wfdata))
+# remove XPos:phase interaction
 AIC(lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +  
                      Phase + YPos:Phase, data=wfdata))
-
 ```
 \normalsize
 
-The AICs are 298998.8,  298995.7 and  299003.9, respectively; the smallest AIC is for the model without the the `YPos:Phase` term (perhaps not surprisingly given the model chosen using $p$-values). We now use this model and consider how removing the other covariates (e.g. `DistCoast`, `Depth` and `Month`) affect the AIC. 
+```{r, echo=F}
+# Save AICs for models fitted previously
+AIC.full <- AIC(lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +  
+                     Phase + XPos:Phase + YPos:Phase, data=wfdata))
+# Exclude YPos:Phase
+AIC.intXPos <- AIC(lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +  
+                     Phase + XPos:Phase, data=wfdata))
+# Exclude XPos:Phase
+AIC.intYPos <- AIC(lm(Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) +  
+                     Phase + YPos:Phase, data=wfdata))
+```
+
+The AICs are `r format(AIC.full)`, `r format(AIC.intXPos)` and  `r format(AIC.intYPos)`, respectively; the smallest AIC is for the model without the the `YPos:Phase` term (perhaps not surprisingly given the model chosen using $p$-values). We now use this model (i.e. excluding `YPos:Phase`) and consider how removing other covariates (e.g. `DistCoast`, `Depth` and `Month`) affect the AIC. 
 
 \small
 ```{r, eval=T, echo=T}
 # remove DistCoast
-AIC (lm(Density ~ XPos + YPos + Depth + as.factor(Month) + 
-          XPos:Phase + YPos:Phase, data=wfdata))
+AIC(lm(Density ~ XPos + YPos + Depth + as.factor(Month) + 
+          XPos:Phase, data=wfdata))
 # remove Depth
-AIC (lm(Density ~ XPos + YPos + DistCoast + as.factor(Month) + 
-          XPos:Phase + YPos:Phase, data=wfdata))
+AIC(lm(Density ~ XPos + YPos + DistCoast + as.factor(Month) + 
+          XPos:Phase, data=wfdata))
 # remove Month
-AIC (lm(Density ~ XPos + YPos + DistCoast + Depth + 
-          XPos:Phase + YPos:Phase, data=wfdata))
+AIC(lm(Density ~ XPos + YPos + DistCoast + Depth + XPos:Phase, 
+        data=wfdata))
 ```
 \normalsize
 
-The AICs are 299014.4, 299117.4 and  299053.6, so we have no grounds to reduce the model further. So our best model using AIC is:
+
+```{r, echo=F, eval=T}
+# remove Distcoast
+AIC.m1 <- AIC (lm(Density ~ XPos + YPos + Depth + as.factor(Month) + 
+          XPos:Phase, data=wfdata))
+# remove Depth
+AIC.m2 <- AIC (lm(Density ~ XPos + YPos + DistCoast + as.factor(Month) + 
+          XPos:Phase, data=wfdata))
+# remove Month
+AIC.m3 <- AIC (lm(Density ~ XPos + YPos + DistCoast + Depth + 
+          XPos:Phase, data=wfdata))
+```
+
+The AICs are `r format(AIC.m1)`, `r format(AIC.m2)`, and `r format(AIC.m3)`, respectively, so we have no grounds to reduce the model further. Our best model using AIC is:
 
 `Density ~ XPos + YPos + DistCoast + Depth + as.factor(Month) + Phase + XPos:Phase`. 
 
-One thing to note:
+In this example, using $p$-values and AICs for model selection have resulted in the same model being selected. This may not always be the case:
 
 + **$p$-value model selection and AIC (or similar score) selection do not necessarily produce the same answers!**
 

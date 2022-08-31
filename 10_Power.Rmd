@@ -51,7 +51,7 @@ include_graphics("figures/MCT.png")
 
 Typically, the impacts are assessed by means of surveys of animals, for example, observers counting the animals present at various times and recording their locations and estimating the animal populations. However, the distribution and number of animals might be effected by a number of other variables, such as tide-state, time of day, season etc., as well as the turbines. 
 
-If no impact was found, this might be due to the fact that not enough surveying was undertaken. So a typical question might be, 'If animal numbers decreased by half after turbine construction, what amount of survey effort would be required to detect that change?' Alternatively, a range of scenarios might be considered, as in (Table \@ref(tab:power)), where different population effects are considered as well as two different sampling regimes (i.e. longer monitoring times). 
+If no impact was found, this might be due to the fact that not enough surveying was undertaken. So a typical question might be, 'If animal numbers decreased by half after turbine construction, what amount of survey effort would be required to detect that change?' Alternatively, a range of scenarios might be considered, as in (Figure \@ref(fig:power)), where different population effects are considered as well as two different sampling regimes (i.e. longer monitoring times). 
 
 ```{r power, echo=F,fig.cap='Power (expressed as percentages) to detect an effect under different scenarios.', out.width="90%"}
 include_graphics("figures/powerTableEIA.png")

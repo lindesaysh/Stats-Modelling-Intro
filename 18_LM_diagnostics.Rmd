@@ -651,7 +651,7 @@ Simple partial residual plots don't work with interactions, so we need to do som
 * Recall that an interaction ($\beta_s(x_1 \times x_2)$, say) means that the relationship between $y$ and $x_1$ is conditional on the values of $x_2$.
 * We condition on some values for one of the interaction $x$s (we slice up the interaction). 
 * For factor variables this is relatively easy - we can look at each factor level in turn.
-* We can use the `effect` command from the `effects` library. This collects the "effect" of a particular variable by predicting for the variable assuming all other terms in the model are held constant and the only thing that varies are the interaction and the terms marginal to it (Figures \@ref(fig:interactionpres)) and \@ref(fig:interactionpres2).  
+* We can use the `effect` command from the `effects` library. This collects the "effect" of a particular variable by predicting for the variable assuming all other terms in the model are held constant and the only thing that varies are the interaction and the terms marginal to it (Figure \@ref(fig:interactionpres)).  
 
 ```{r, interactionpres, echo=T, fig.cap='Partial residual plots for interactions'}
 # Load necessary libraries

@@ -29,7 +29,7 @@ __R function__ `factorial`
 
 ## Combinations
 
-$${n \choose r} = \frac{n!}{r!(n-r)!} $$
+$${n \choose r} = \frac{n!}{r!(n-r)!}$$
 
 __Example__ How many ways are there to choose 2 objects from a set of 4 objects. 
 $${4 \choose 2} = \frac{4!}{(4-2)!2!} = 6$$
